@@ -1,0 +1,137 @@
+{
+  "case_id": "size_variant_valid64",
+  "source_mesh": "outputs/workbench/case-e3b47d1b9f6a4beda5ed00e4f28ed3e7/model_mesh.json",
+  "method": "cut the current reconstructed likou_x BRep with three straight-fly seat cutters, re-mesh after BRepTools.Clean_s using absolute 2mm linear deflection and 0.35rad angular tolerance, then inspect the new cut mesh at the two points 0.5mm inside the nominal width side walls.",
+  "target_before_volume_mm3": 18294518.68966027,
+  "target_after_volume_mm3": 17804885.118368544,
+  "removed_volume_mm3": 489633.5712917261,
+  "valid_single_solid": true,
+  "boolean_seconds": 0.3763891999842599,
+  "absolute_remesh": {
+    "linear_deflection_mm": 2.0,
+    "relative_mode": false,
+    "angular_tolerance_rad": 0.35,
+    "vertex_count": 940,
+    "triangle_count": 496
+  },
+  "checks": [
+    {
+      "candidate_id": "straight_flying_x_01",
+      "point_checks": [
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -2313.0,
+          "y_mm": 492.89,
+          "z_mm": -71.51322194199244,
+          "old_mesh_excess_mm": 47.868221941992445,
+          "uncut_target_contains_point": true,
+          "three_cutter_result_contains_point": true
+        },
+        {
+          "q_mm": -56.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -2313.0,
+          "y_mm": 493.89,
+          "z_mm": -71.87450819672131,
+          "old_mesh_excess_mm": 47.72950819672131,
+          "uncut_target_contains_point": true,
+          "three_cutter_result_contains_point": true
+        }
+      ]
+    },
+    {
+      "candidate_id": "straight_flying_x_02",
+      "point_checks": [
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -26.0,
+          "x_mm": -2109.0,
+          "y_mm": 492.89,
+          "z_mm": -71.51322194199244,
+          "old_mesh_excess_mm": 47.86822194199246,
+          "uncut_target_contains_point": true,
+          "three_cutter_result_contains_point": false
+        }
+      ]
+    },
+    {
+      "candidate_id": "straight_flying_x_03",
+      "point_checks": [
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -26.0,
+          "x_mm": -1899.0,
+          "y_mm": 492.89,
+          "z_mm": -71.51322194199244,
+          "old_mesh_excess_mm": 47.868221941992466,
+          "uncut_target_contains_point": true,
+          "three_cutter_result_contains_point": false
+        },
+        {
+          "q_mm": -56.10999999999999,
+          "v_mm": -26.0,
+          "x_mm": -1899.0,
+          "y_mm": 493.89,
+          "z_mm": -71.87450819672131,
+          "old_mesh_excess_mm": 47.729508196721326,
+          "uncut_target_contains_point": true,
+          "three_cutter_result_contains_point": false
+        }
+      ]
+    }
+  ],
+  "inward_side_boundary_checks": [
+    {
+      "candidate_id": "straight_flying_x_01",
+      "q_mm": -56.61,
+      "q0_mm": -58.10999999999999,
+      "q_inside_margin_mm": 1.499999999999993,
+      "v_mm": -31.5,
+      "v_inside_margin_mm": 0.5,
+      "x_mm": -2313.5,
+      "y_mm": 493.39,
+      "z_mm": -71.69386506935687,
+      "uncut_target_contains_point": true,
+      "three_cutter_result_contains_point": false
+    },
+    {
+      "candidate_id": "straight_flying_x_01",
+      "q_mm": -56.61,
+      "q0_mm": -58.10999999999999,
+      "q_inside_margin_mm": 1.499999999999993,
+      "v_mm": 31.5,
+      "v_inside_margin_mm": 0.5,
+      "x_mm": -2376.5,
+      "y_mm": 493.39,
+      "z_mm": -71.69386506935687,
+      "uncut_target_contains_point": true,
+      "three_cutter_result_contains_point": false
+    }
+  ],
+  "new_absolute_mesh_checks": [
+    {
+      "q_mm": -56.61,
+      "q_front_mm": -58.059999999999995,
+      "v_mm": -31.5,
+      "x_mm": -2313.5,
+      "y_mm": 493.39,
+      "seat_floor_z_mm": -86.69386506935687,
+      "new_cut_mesh_top_z_mm": -86.68836163552928,
+      "new_cut_mesh_material_above_floor_mm": 0.005503433827598769,
+      "classified_as_remaining_material": false
+    },
+    {
+      "q_mm": -56.61,
+      "q_front_mm": -58.059999999999995,
+      "v_mm": 31.5,
+      "x_mm": -2376.5,
+      "y_mm": 493.39,
+      "seat_floor_z_mm": -86.69386506935687,
+      "new_cut_mesh_top_z_mm": -86.68836163552925,
+      "new_cut_mesh_material_above_floor_mm": 0.005503433827627191,
+      "classified_as_remaining_material": false
+    }
+  ],
+  "elapsed_seconds": 36.79810559999896
+}

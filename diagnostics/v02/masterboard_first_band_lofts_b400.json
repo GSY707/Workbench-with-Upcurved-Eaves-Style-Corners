@@ -1,0 +1,613 @@
+{
+  "source_diagnostic": "masterboard_first_production_loft_diagnostic_b400.json",
+  "member": {
+    "source_rafter_id": "fan_rafter_01",
+    "family": "fan",
+    "index": 1
+  },
+  "production_order_index": 0,
+  "motherboard_spatial_order_index": null,
+  "representation": "one production strip loft per adjacent pair of the 17 shared width rails, then fuse",
+  "section_point_order": "bottom rails v-low to v-high, then top rails v-high to v-low",
+  "rail_count": 17,
+  "band_count": 16,
+  "full_width_shape": {
+    "valid": false,
+    "solids": 1,
+    "volume_mm3": 967399.5961171287,
+    "faces": 816,
+    "edges": 1666,
+    "vertices": 850,
+    "analyzer_is_valid": false,
+    "shape_statuses": [
+      "BRepCheck_NoError"
+    ]
+  },
+  "band_shapes": [
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 79511.23829603112,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.10925411412704e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 18711.918245715624,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 60799.3200503155,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 0
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 79378.31752121088,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.357841778310442e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 18768.00209620282,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 60610.31542500809,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 1
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 79235.91211576143,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.432714753589928e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 18831.660894801615,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 60404.25122095981,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 2
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 79094.82705667184,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.336366053083206e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 18895.502794172033,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 60199.32426249981,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 3
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 78956.3371785577,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.220430061381339e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 18958.965326246715,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 59997.37185231098,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 4
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 78817.16825593192,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.273222480295181e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19022.14183137999,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 59795.02642455189,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 5
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 78678.09168280564,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.133898161766717e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19084.343067493246,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 59593.748615312405,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 6
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 78539.78936071642,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 1.1791356817936803e-13,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19146.59599145987,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 59393.19336925653,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 7
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 78412.32336172138,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.585426045590191e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19202.37646935112,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 59209.94689237028,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 8
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 78277.96095591085,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.102295003948238e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19264.346671000938,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 59013.6142849099,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 9
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 78144.98104525628,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 5.928489304621036e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19326.43952429281,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 58818.54152096347,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 10
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 78014.39363351259,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.170336264571329e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19388.138022377974,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 58626.255611134606,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 11
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 77883.34466162976,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 1.1451420314247968e-13,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19449.56710205,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 58433.77755957976,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 12
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 77752.21750987787,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.068445827662805e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19509.99592384258,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 58242.22158603528,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 13
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 77621.58504052961,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 5.947681832285329e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19570.380952255407,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 58051.20408827419,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 14
+    },
+    {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 77493.22582122541,
+      "faces": 98,
+      "edges": 196,
+      "vertices": 100,
+      "max_section_plane_residual_mm": 6.057078217973325e-14,
+      "phase_shapes": {
+        "tail_R_to_I": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 19630.366237094633,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        },
+        "outer_I_to_E": {
+          "valid": true,
+          "solids": 1,
+          "volume_mm3": 57862.85958413077,
+          "faces": 50,
+          "edges": 100,
+          "vertices": 52
+        }
+      },
+      "band_index": 15
+    }
+  ],
+  "fused_band_shapes_by_step": [
+    {
+      "through_band_index": 1,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 158889.55581724708,
+      "faces": 79,
+      "edges": 194,
+      "vertices": 117
+    },
+    {
+      "through_band_index": 2,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 238125.46793298912,
+      "faces": 118,
+      "edges": 280,
+      "vertices": 164
+    },
+    {
+      "through_band_index": 3,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 317220.29498969,
+      "faces": 156,
+      "edges": 355,
+      "vertices": 203
+    },
+    {
+      "through_band_index": 4,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 396176.63216823805,
+      "faces": 194,
+      "edges": 432,
+      "vertices": 242
+    },
+    {
+      "through_band_index": 5,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 474993.8004241677,
+      "faces": 233,
+      "edges": 514,
+      "vertices": 285
+    },
+    {
+      "through_band_index": 6,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 553671.8921069698,
+      "faces": 272,
+      "edges": 595,
+      "vertices": 328
+    },
+    {
+      "through_band_index": 7,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 632211.6814676858,
+      "faces": 312,
+      "edges": 681,
+      "vertices": 374
+    },
+    {
+      "through_band_index": 8,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 710624.0048293965,
+      "faces": 350,
+      "edges": 756,
+      "vertices": 413
+    },
+    {
+      "through_band_index": 9,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 788901.9657853125,
+      "faces": 391,
+      "edges": 848,
+      "vertices": 464
+    },
+    {
+      "through_band_index": 10,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 867046.9468305634,
+      "faces": 432,
+      "edges": 936,
+      "vertices": 512
+    },
+    {
+      "through_band_index": 11,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 945061.3404640806,
+      "faces": 470,
+      "edges": 1011,
+      "vertices": 551
+    },
+    {
+      "through_band_index": 12,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1022944.6851257015,
+      "faces": 509,
+      "edges": 1093,
+      "vertices": 594
+    },
+    {
+      "through_band_index": 13,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1100696.9026355853,
+      "faces": 548,
+      "edges": 1174,
+      "vertices": 637
+    },
+    {
+      "through_band_index": 14,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1178318.487676125,
+      "faces": 587,
+      "edges": 1255,
+      "vertices": 679
+    },
+    {
+      "through_band_index": 15,
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1255811.7134973463,
+      "faces": 627,
+      "edges": 1341,
+      "vertices": 725
+    }
+  ]
+}

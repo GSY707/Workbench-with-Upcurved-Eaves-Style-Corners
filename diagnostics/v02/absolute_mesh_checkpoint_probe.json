@@ -1,0 +1,49 @@
+{
+  "schema": "v02_mesh_checkpoint_probe_v1",
+  "case_id": "mesh_contract_probe",
+  "checkpoint_schema": "v02_mesh_failure_geometry_checkpoint_v2",
+  "checkpoint_case_id": "mesh_contract_probe",
+  "current_case_id": "mesh_contract_probe_retry",
+  "case_id_change_allowed_and_applied": true,
+  "production_source_sha256": "acb6caf14ce34d475abc5a59019c01daf830e7b6ba1fd6792b1c335ce1e0dbce",
+  "geometry_source_sha256": "46d0329a658d4d8ac03f0d87e1f1851119b19962d6ffd5e66a1fd060d958cf7f",
+  "recovery_production_source_sha256": "acb6caf14ce34d475abc5a59019c01daf830e7b6ba1fd6792b1c335ce1e0dbce",
+  "recovery_geometry_source_sha256": "46d0329a658d4d8ac03f0d87e1f1851119b19962d6ffd5e66a1fd060d958cf7f",
+  "checkpoint_part_count": 2,
+  "checkpoint_seconds": 0.07379829999990761,
+  "source_brep_volumes_mm3": [
+    239356.19449019234,
+    113097.33552923256
+  ],
+  "roundtrip_volume_delta_mm3": [
+    0.0,
+    1.4551915228366852e-11
+  ],
+  "config_mismatch_rejected": "几何检查点参数或重算后的derived与本次配置不一致，拒绝恢复",
+  "derived_mismatch_rejected": "几何检查点参数或重算后的derived与本次配置不一致，拒绝恢复",
+  "mesh_part_count": 2,
+  "mesh_triangle_count": 804,
+  "serialized_mesh_passed": true,
+  "mesh_part_diagnostics": [
+    {
+      "id": "probe_box",
+      "face_count": 10,
+      "mesher_is_done": true,
+      "mesher_status_flags": 0,
+      "triangulation_guard_passed": true,
+      "max_face_deflection_mm": 0.019026509541279876,
+      "missing_degenerate_edges": 0,
+      "missing_nondegenerate_edges": 0
+    },
+    {
+      "id": "probe_sphere",
+      "face_count": 1,
+      "mesher_is_done": true,
+      "mesher_status_flags": 0,
+      "triangulation_guard_passed": true,
+      "max_face_deflection_mm": 0.9235778391429029,
+      "missing_degenerate_edges": 0,
+      "missing_nondegenerate_edges": 0
+    }
+  ]
+}

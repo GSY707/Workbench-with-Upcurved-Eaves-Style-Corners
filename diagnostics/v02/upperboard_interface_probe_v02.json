@@ -1,0 +1,585 @@
+{
+  "case_id": "default",
+  "source_config": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\default.json",
+  "piece_count_x": 40,
+  "piece_count_both_wings": 80,
+  "piece_type_counts_x": {
+    "support": 28,
+    "gap": 10,
+    "border": 2
+  },
+  "all_board_parts_valid_single_solid_positive_volume": true,
+  "invalid_board_part_ids": [],
+  "max_reflected_exact_bbox_error_mm": 5.684341886080801e-13,
+  "max_reflected_volume_error_mm3": 6.682239472866058e-08,
+  "upper_board_domain": {
+    "xy_polygon_mm": [
+      [
+        -1199.9749222622695,
+        598.4142579744918
+      ],
+      [
+        -1109.6582017246394,
+        600.5651781160936
+      ],
+      [
+        -929.0247606493796,
+        604.8670183992974
+      ],
+      [
+        -748.5523071675025,
+        613.4216272635324
+      ],
+      [
+        -568.3227600776071,
+        626.3176744514701
+      ],
+      [
+        -388.461896358825,
+        643.4579989050612
+      ],
+      [
+        -209.0602127052964,
+        664.8667713384184
+      ],
+      [
+        -30.206804345076762,
+        690.5628699859178
+      ],
+      [
+        147.99146291022544,
+        720.5025378075281
+      ],
+      [
+        325.3984860643543,
+        754.6283273365034
+      ],
+      [
+        501.9944195282162,
+        793.0268218675353
+      ],
+      [
+        677.5929037626365,
+        835.5637365489506
+      ],
+      [
+        765.3921458798467,
+        856.8321938896582
+      ],
+      [
+        1249.860649237824,
+        1336.5141916623638
+      ],
+      [
+        1128.541311810507,
+        1296.430888842092
+      ],
+      [
+        885.9026369558735,
+        1216.264283201548
+      ],
+      [
+        651.9271130103331,
+        1148.0633276642498
+      ],
+      [
+        424.10483647730933,
+        1089.9867503979253
+      ],
+      [
+        200.77834738365362,
+        1040.8318836202225
+      ],
+      [
+        -19.222495470517913,
+        999.7742918941556
+      ],
+      [
+        -236.7646455840996,
+        966.2384002812844
+      ],
+      [
+        -452.49191311452194,
+        939.8158065285352
+      ],
+      [
+        -666.922976751173,
+        920.2223655032569
+      ],
+      [
+        -880.4874597491369,
+        907.2577451061843
+      ],
+      [
+        -1093.5500685842892,
+        900.8067723257973
+      ],
+      [
+        -1200.0813730018654,
+        897.5812859356038
+      ]
+    ],
+    "domain_source": "旧rollboard_lower_point/fan_top_at_q生成的XY覆盖域Ω；含u=-0.5与u=n-0.5半档，S(q=0)至E",
+    "old_centerline_surface_used_for_new_board_z": false,
+    "new_support_source": "实际flyer upper_surface_width_bands section[3]/section[2]",
+    "underface_is_vertical_gap_mm": 0.2
+  },
+  "selected_fan_indices": [
+    1,
+    6,
+    11
+  ],
+  "actual_brep_contact_checks": [
+    {
+      "fan_index": 1,
+      "band_index": 0,
+      "sample_kind": "A",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.0,
+      "flyer_top_point_mm": [
+        -1070.6939621608917,
+        766.8466280361343,
+        -145.04053311341596
+      ],
+      "board_bottom_point_mm": [
+        -1070.6939621608917,
+        766.8466280361343,
+        -144.84053311341597
+      ],
+      "vertical_delta_mm": 0.19999999999998863,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 0.0,
+      "point_to_actual_board_bottom_brep_distance_mm": 0.0,
+      "classifier_states": {
+        "flyer_below_top": "ON",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "ON"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 1,
+      "band_index": 0,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        -1100.6900000936507,
+        767.724657828685,
+        -144.544625817515
+      ],
+      "board_bottom_point_mm": [
+        -1100.6900000936507,
+        767.724657828685,
+        -144.344625817515
+      ],
+      "vertical_delta_mm": 0.19999999999998863,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 0.0,
+      "point_to_actual_board_bottom_brep_distance_mm": 0.0,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 1,
+      "band_index": 0,
+      "sample_kind": "B",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 1.0,
+      "flyer_top_point_mm": [
+        -1130.68603802641,
+        768.6026876212358,
+        -144.04871852161403
+      ],
+      "board_bottom_point_mm": [
+        -1130.68603802641,
+        768.6026876212358,
+        -143.84871852161405
+      ],
+      "vertical_delta_mm": 0.19999999999998863,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 0.0,
+      "point_to_actual_board_bottom_brep_distance_mm": 0.0,
+      "classifier_states": {
+        "flyer_below_top": "ON",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "ON"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 6,
+      "band_index": 0,
+      "sample_kind": "A",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.0,
+      "flyer_top_point_mm": [
+        -72.86894645794267,
+        844.2958072095535,
+        -128.93039440058226
+      ],
+      "board_bottom_point_mm": [
+        -72.86894645794267,
+        844.2958072095535,
+        -128.73039440058227
+      ],
+      "vertical_delta_mm": 0.19999999999998863,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 0.0,
+      "point_to_actual_board_bottom_brep_distance_mm": 2.842170943040401e-14,
+      "classifier_states": {
+        "flyer_below_top": "ON",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "ON"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 6,
+      "band_index": 0,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        -103.05693662607084,
+        851.8754168257275,
+        -129.76543122859493
+      ],
+      "board_bottom_point_mm": [
+        -103.05693662607084,
+        851.8754168257275,
+        -129.56543122859495
+      ],
+      "vertical_delta_mm": 0.19999999999998863,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 1.4210854715202004e-14,
+      "point_to_actual_board_bottom_brep_distance_mm": 0.0,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 6,
+      "band_index": 0,
+      "sample_kind": "B",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 1.0,
+      "flyer_top_point_mm": [
+        -133.244926794199,
+        859.4550264419015,
+        -130.6004680566076
+      ],
+      "board_bottom_point_mm": [
+        -133.244926794199,
+        859.4550264419015,
+        -130.40046805660762
+      ],
+      "vertical_delta_mm": 0.19999999999998863,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 0.0,
+      "point_to_actual_board_bottom_brep_distance_mm": 0.0,
+      "classifier_states": {
+        "flyer_below_top": "ON",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "ON"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 0,
+      "sample_kind": "A",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.0,
+      "flyer_top_point_mm": [
+        966.2337272190339,
+        1087.6577653935656,
+        58.701950416547135
+      ],
+      "board_bottom_point_mm": [
+        966.2337272190339,
+        1087.6577653935656,
+        58.90195041654714
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 0.0,
+      "point_to_actual_board_bottom_brep_distance_mm": 0.0,
+      "classifier_states": {
+        "flyer_below_top": "ON",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "ON"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 0,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        961.9347235257359,
+        1088.6261457490214,
+        59.21740029492392
+      ],
+      "board_bottom_point_mm": [
+        961.9347235257359,
+        1088.6261457490214,
+        59.41740029492392
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 1.1718571004216928e-13,
+      "point_to_actual_board_bottom_brep_distance_mm": 1.1718571004216928e-13,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 1,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        953.3372283755789,
+        1090.5634299631643,
+        58.78465841528735
+      ],
+      "board_bottom_point_mm": [
+        953.3372283755789,
+        1090.5634299631643,
+        58.984658415287356
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 7.105427357601002e-15,
+      "point_to_actual_board_bottom_brep_distance_mm": 7.105427357601002e-15,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 2,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        944.7397332254218,
+        1092.5007141773071,
+        58.35191653565042
+      ],
+      "board_bottom_point_mm": [
+        944.7397332254218,
+        1092.5007141773071,
+        58.55191653565042
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 2.842170943040401e-14,
+      "point_to_actual_board_bottom_brep_distance_mm": 2.842170943040401e-14,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 3,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        936.1873148818943,
+        1094.4840666758373,
+        59.13795601113062
+      ],
+      "board_bottom_point_mm": [
+        936.1873148818943,
+        1094.4840666758373,
+        59.33795601113062
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 2.1316282072803006e-14,
+      "point_to_actual_board_bottom_brep_distance_mm": 2.842170943040401e-14,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 4,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        927.7107075313344,
+        1096.544897652654,
+        58.06387764746579
+      ],
+      "board_bottom_point_mm": [
+        927.7107075313344,
+        1096.544897652654,
+        58.26387764746579
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 4.263256414560601e-14,
+      "point_to_actual_board_bottom_brep_distance_mm": 4.263256414560601e-14,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 5,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        919.2643221306738,
+        1098.6366153201398,
+        56.82566400953368
+      ],
+      "board_bottom_point_mm": [
+        919.2643221306738,
+        1098.6366153201398,
+        57.025664009533685
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 1.4210854715202004e-14,
+      "point_to_actual_board_bottom_brep_distance_mm": 1.4210854715202004e-14,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 6,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        910.8174244935743,
+        1100.7278094843937,
+        57.03884665656818
+      ],
+      "board_bottom_point_mm": [
+        910.8174244935743,
+        1100.7278094843937,
+        57.238846656568185
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 4.263256414560601e-14,
+      "point_to_actual_board_bottom_brep_distance_mm": 4.263256414560601e-14,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 7,
+      "sample_kind": "band_interior",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 0.5,
+      "flyer_top_point_mm": [
+        902.3705268564748,
+        1102.8190036486476,
+        55.813101252838955
+      ],
+      "board_bottom_point_mm": [
+        902.3705268564748,
+        1102.8190036486476,
+        56.01310125283896
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 0.0,
+      "point_to_actual_board_bottom_brep_distance_mm": 0.0,
+      "classifier_states": {
+        "flyer_below_top": "IN",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "IN"
+      },
+      "passed": true
+    },
+    {
+      "fan_index": 11,
+      "band_index": 7,
+      "sample_kind": "B",
+      "section_pair_index": 19,
+      "width_fraction_in_band": 1.0,
+      "flyer_top_point_mm": [
+        898.1473341561446,
+        1103.8648624823904,
+        54.48062752491174
+      ],
+      "board_bottom_point_mm": [
+        898.1473341561446,
+        1103.8648624823904,
+        54.68062752491174
+      ],
+      "vertical_delta_mm": 0.20000000000000284,
+      "target_vertical_gap_mm": 0.2,
+      "point_to_actual_flyer_brep_distance_mm": 0.0,
+      "point_to_actual_board_bottom_brep_distance_mm": 0.0,
+      "classifier_states": {
+        "flyer_below_top": "ON",
+        "flyer_above_top": "OUT",
+        "board_below_bottom": "OUT",
+        "board_above_bottom": "ON"
+      },
+      "passed": true
+    }
+  ],
+  "failed_contact_checks": [],
+  "all_contact_checks_passed": true,
+  "build_elapsed_seconds": 64.426459099981
+}

@@ -1,0 +1,1271 @@
+{
+  "case_id": "probe_masterboard_first_production_entity_B400",
+  "source_case_id": "case-389425e820d34287a5c23b3f36aa5a01",
+  "scope": "single production member build_contact_flyer + actual shared-floor cutter + one actual likou_x subtraction",
+  "source_member": {
+    "source_rafter_id": "fan_rafter_01",
+    "family": "fan",
+    "index": 1
+  },
+  "production_order_index_zero_based": 0,
+  "motherboard_spatial_order_index_zero_based": 3,
+  "production_order_source_rafter_ids": [
+    "fan_rafter_01",
+    "fan_rafter_02",
+    "fan_rafter_03",
+    "fan_rafter_04",
+    "fan_rafter_05",
+    "eave_rafter_01",
+    "eave_rafter_02",
+    "eave_rafter_03"
+  ],
+  "motherboard_spatial_order_source_rafter_ids": [
+    "eave_rafter_01",
+    "eave_rafter_02",
+    "eave_rafter_03",
+    "fan_rafter_01",
+    "fan_rafter_02",
+    "fan_rafter_03",
+    "fan_rafter_04",
+    "fan_rafter_05"
+  ],
+  "stage04_preflight_seconds": 7.940819000010379,
+  "shared_field_seconds": 1.035257300012745,
+  "production_member_build_seconds": 17.420510899974033,
+  "member_shape": {
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 1255811.7134973463,
+    "face_count": 627,
+    "edge_count": 1341,
+    "bbox_mm": [
+      -984.0875662307609,
+      271.53368748338397,
+      -208.282022414016,
+      -853.7197661303321,
+      829.9764868080301,
+      33.10524562374042
+    ]
+  },
+  "A_B_longitudinal_brep_edge_checks": [
+    {
+      "side": "A",
+      "candidate_longitudinal_edges": [
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "LINE",
+          "length_mm": 241.87966023951412,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.67246318385329,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.672463183853296,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.672463183853292,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.672463183853406,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.67246318385329,
+          "max_endpoint_control_residual_mm": 0.0,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.67246318385329,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.67246318385329,
+          "max_endpoint_control_residual_mm": 0.0,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.672463183853306,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.672463183853292,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892924,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.67923462289292,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892935,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892924,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892924,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892928,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892924,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892913,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892924,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892924,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.67923462289292,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 18.679234622892924,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            24.085446534194624,
+            -91.80422682501538,
+            24.08651255910941,
+            -47.80392096094508
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.672463183853292,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.672463183853306,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.672463183853292,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.733888714294807,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.7338887142948,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.733888714294807,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.733888714294913,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.7338887142948,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.7338887142948,
+          "max_endpoint_control_residual_mm": 0.0,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.7338887142948,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.73388871429481,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.733888714294807,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.73388871429482,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.733888714294803,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.73388871429479,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            -91.80422682501538,
+            -208.28202231401602,
+            -47.80392096094508,
+            -162.00379504361769
+          ]
+        }
+      ],
+      "candidate_count": 37,
+      "all_candidates_are_lines": false,
+      "region_coverage": {
+        "tail_R_to_I": {
+          "expected_q_range_mm": [
+            -266.26464571199915,
+            -53.95507539949912
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -266.2646457119991,
+              -53.95507539949906
+            ]
+          ],
+          "covered_length_mm": 212.30957031250003,
+          "expected_length_mm": 212.30957031250003,
+          "endpoint_coverage_error_mm": 6.394884621840902e-14
+        },
+        "outer_I_to_E": {
+          "expected_q_range_mm": [
+            -53.95507539949912,
+            283.30434854694664
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -53.95507539949906,
+              283.30434854694664
+            ]
+          ],
+          "covered_length_mm": 337.2594239464457,
+          "expected_length_mm": 337.25942394644574,
+          "endpoint_coverage_error_mm": 6.394884621840902e-14
+        }
+      },
+      "max_control_residual_mm": 1.1368683772161603e-13
+    },
+    {
+      "side": "B",
+      "candidate_longitudinal_edges": [
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "LINE",
+          "length_mm": 84.85063493556515,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "LINE",
+          "length_mm": 84.85063493556514,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "LINE",
+          "length_mm": 42.42531746778257,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 21.212658733891292,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.720302907256613,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.720302907256382,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.720302907256517,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.7203029072565,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.720302907256517,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.720302907256496,
+          "max_endpoint_control_residual_mm": 7.105427357601002e-15,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.720302907256514,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.7203029072565,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.7203029072565,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.720302907256514,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.720302907256496,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 19.720302907256517,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.708589863111147,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.70858986311115,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.708589863111147,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.708589863111165,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.708589863111147,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.70858986311115,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.70858986311115,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.708589863111147,
+          "max_endpoint_control_residual_mm": 1.4210854715202004e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.708589863111165,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.708589863111037,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.708589863111253,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.708589863111154,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519814,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519597,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519725,
+          "max_endpoint_control_residual_mm": 1.1368683772161603e-13,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519704,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519714,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.64880748151971,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519704,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519714,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.64880748151973,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519725,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519725,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "outer_I_to_E",
+          "geom_type": "BSPLINE",
+          "length_mm": 29.648807481519714,
+          "max_endpoint_control_residual_mm": 2.842170943040401e-14,
+          "endpoint_z_controls_mm": [
+            -88.85707358596639,
+            -204.11078584113764,
+            -44.85676772189609,
+            -162.3063569756585
+          ]
+        },
+        {
+          "region": "tail_R_to_I",
+          "geom_type": "BSPLINE",
+          "length_mm": 21.212658733891285,
+          "max_endpoint_control_residual_mm": 5.684341886080802e-14,
+          "endpoint_z_controls_mm": [
+            33.10414081214061,
+            -88.85707358596639,
+            33.10524552374042,
+            -44.85676772189609
+          ]
+        }
+      ],
+      "candidate_count": 41,
+      "all_candidates_are_lines": false,
+      "region_coverage": {
+        "tail_R_to_I": {
+          "expected_q_range_mm": [
+            -286.5711844820194,
+            -63.1385672945194
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -286.57118448201936,
+              -63.13856729451943
+            ]
+          ],
+          "covered_length_mm": 223.43261718749994,
+          "expected_length_mm": 223.43261718750003,
+          "endpoint_coverage_error_mm": 5.684341886080802e-14
+        },
+        "outer_I_to_E": {
+          "expected_q_range_mm": [
+            -63.1385672945194,
+            273.4621440273341
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -63.13856729451943,
+              273.4621440273341
+            ]
+          ],
+          "covered_length_mm": 336.6007113218535,
+          "expected_length_mm": 336.6007113218535,
+          "endpoint_coverage_error_mm": 3.552713678800501e-14
+        }
+      },
+      "max_control_residual_mm": 1.1368683772161603e-13
+    }
+  ],
+  "q_I_A_B_mm": [
+    -53.95507539949912,
+    -63.1385672945194
+  ],
+  "q_E_A_B_mm": [
+    283.30434854694664,
+    273.4621440273341
+  ],
+  "q_E_side_span_mm": 9.842204519612551,
+  "likou_path_start_q_range_mm": [
+    -63.0885672945194,
+    -53.905075399499125
+  ],
+  "likou_real_outer_q_range_mm": [
+    -4.540752044296168,
+    4.728359063623283
+  ],
+  "likou_intersection_entirely_outboard_of_I": true,
+  "minimum_outboard_overlap_from_I_mm": 58.54781525022323,
+  "production_cutter_build_seconds": 2.4138096999377012,
+  "cutter_shape": {
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 349563.6430623073,
+    "face_count": 141,
+    "edge_count": 304,
+    "bbox_mm": [
+      -957.8876718616908,
+      493.4752241997549,
+      -112.07146511810777,
+      -886.3785097501938,
+      553.3214879705163,
+      -7.1813227230216965
+    ]
+  },
+  "floor_membership_samples": [
+    {
+      "fiber_index": 0,
+      "side": "A",
+      "v_mm": -32.0,
+      "q_mm": -48.04173195318689,
+      "lambda_I_to_likou_outer": 0.1,
+      "motherboard_bottom_z_mm": -93.84649209528148,
+      "cutter_contains_0_05mm_above_floor": true,
+      "cutter_contains_0_05mm_below_floor": false
+    },
+    {
+      "fiber_index": 0,
+      "side": "A",
+      "v_mm": -32.0,
+      "q_mm": -24.588358167937923,
+      "lambda_I_to_likou_outer": 0.5,
+      "motherboard_bottom_z_mm": -101.94648006098205,
+      "cutter_contains_0_05mm_above_floor": true,
+      "cutter_contains_0_05mm_below_floor": false
+    },
+    {
+      "fiber_index": 0,
+      "side": "A",
+      "v_mm": -32.0,
+      "q_mm": -1.1349843826889563,
+      "lambda_I_to_likou_outer": 0.9,
+      "motherboard_bottom_z_mm": -110.04646802668262,
+      "cutter_contains_0_05mm_above_floor": true,
+      "cutter_contains_0_05mm_below_floor": false
+    },
+    {
+      "fiber_index": 8,
+      "side": "center",
+      "v_mm": 0.0,
+      "q_mm": -52.7307657011951,
+      "lambda_I_to_likou_outer": 0.1,
+      "motherboard_bottom_z_mm": -92.31211547900853,
+      "cutter_contains_0_05mm_above_floor": true,
+      "cutter_contains_0_05mm_below_floor": false
+    },
+    {
+      "fiber_index": 8,
+      "side": "center",
+      "v_mm": 0.0,
+      "q_mm": -29.294869833997318,
+      "lambda_I_to_likou_outer": 0.5,
+      "motherboard_bottom_z_mm": -100.37207229475571,
+      "cutter_contains_0_05mm_above_floor": true,
+      "cutter_contains_0_05mm_below_floor": false
+    },
+    {
+      "fiber_index": 8,
+      "side": "center",
+      "v_mm": 0.0,
+      "q_mm": -5.858973966799539,
+      "lambda_I_to_likou_outer": 0.9,
+      "motherboard_bottom_z_mm": -108.43202911050287,
+      "cutter_contains_0_05mm_above_floor": true,
+      "cutter_contains_0_05mm_below_floor": false
+    },
+    {
+      "fiber_index": 16,
+      "side": "B",
+      "v_mm": 32.0,
+      "q_mm": -57.233785769497075,
+      "lambda_I_to_likou_outer": 0.1,
+      "motherboard_bottom_z_mm": -90.87889935140228,
+      "cutter_contains_0_05mm_above_floor": true,
+      "cutter_contains_0_05mm_below_floor": false
+    },
+    {
+      "fiber_index": 16,
+      "side": "B",
+      "v_mm": 32.0,
+      "q_mm": -33.81465966940778,
+      "lambda_I_to_likou_outer": 0.5,
+      "motherboard_bottom_z_mm": -98.89772144541259,
+      "cutter_contains_0_05mm_above_floor": true,
+      "cutter_contains_0_05mm_below_floor": false
+    },
+    {
+      "fiber_index": 16,
+      "side": "B",
+      "v_mm": 32.0,
+      "q_mm": -10.39553356931849,
+      "lambda_I_to_likou_outer": 0.9,
+      "motherboard_bottom_z_mm": -106.91654353942289,
+      "cutter_contains_0_05mm_above_floor": true,
+      "cutter_contains_0_05mm_below_floor": false
+    }
+  ],
+  "all_floor_samples_match_shared_surface": true,
+  "near_actual_outer_boundary_A_B_checks": [
+    {
+      "v_mm": -31.9,
+      "q_mm": 4.613537208889164,
+      "outer_boundary_inward_offset_mm": 0.09999999999999165,
+      "width_interpolation_fraction": 0.025000000000000355,
+      "cutter_field_longitudinal_fraction": 0.998294488455289,
+      "inside_modeled_shared_cutter_domain": true,
+      "motherboard_floor_z_mm": -112.03180157444062,
+      "raw_stock_contains_below_floor": true,
+      "raw_stock_contains_above_floor": true,
+      "raw_stock_covers_both_samples": true,
+      "cut_likou_contains_below_floor": true,
+      "cut_likou_contains_above_floor": false,
+      "cut_result_has_empty_above_solid_below": true,
+      "exact_shared_field_floor_rule": "linear interpolation of the adjacent shared motherboard rails at the cutter lambda",
+      "not_in_raw_stock_is_reported_without_treating_as_cut_failure": true,
+      "side_near": "A-near",
+      "q_I_actual_shared_path_mm": -53.9198976160509,
+      "q_S_actual_likou_outer_path_mm": 4.713537208889163,
+      "q_sample_is_0_1mm_inboard_of_actual_outer_path": true
+    },
+    {
+      "v_mm": 31.9,
+      "q_mm": -4.626973253677462,
+      "outer_boundary_inward_offset_mm": 0.10000000000000586,
+      "width_interpolation_fraction": 0.9749999999999996,
+      "cutter_field_longitudinal_fraction": 0.9982919943475868,
+      "inside_modeled_shared_cutter_domain": true,
+      "motherboard_floor_z_mm": -108.89158346189735,
+      "raw_stock_contains_below_floor": true,
+      "raw_stock_contains_above_floor": true,
+      "raw_stock_covers_both_samples": true,
+      "cut_likou_contains_below_floor": true,
+      "cut_likou_contains_above_floor": false,
+      "cut_result_has_empty_above_solid_below": true,
+      "exact_shared_field_floor_rule": "linear interpolation of the adjacent shared motherboard rails at the cutter lambda",
+      "not_in_raw_stock_is_reported_without_treating_as_cut_failure": true,
+      "side_near": "B-near",
+      "q_I_actual_shared_path_mm": -63.074788864661805,
+      "q_S_actual_likou_outer_path_mm": -4.526973253677462,
+      "q_sample_is_0_1mm_inboard_of_actual_outer_path": true
+    }
+  ],
+  "all_covered_near_outer_boundary_checks_pass": true,
+  "actual_likou_before_mm3": 19406675.709917936,
+  "actual_likou_after_mm3": 19171879.509371832,
+  "actual_likou_subtraction_seconds": 5.060358899994753,
+  "actual_likou_cut_shape": {
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 19171879.509371832,
+    "face_count": 343,
+    "edge_count": 722,
+    "bbox_mm": [
+      -2545.0000001,
+      491.335372774262,
+      -219.559445670887,
+      710.133387368156,
+      788.7038466983998,
+      -12.181322823021697
+    ]
+  },
+  "actual_likou_volume_reduced": true,
+  "all_side_regions_have_contiguous_brep_edge_coverage": true,
+  "all_side_regions_straight_by_sampled_control_residual": true,
+  "masterboard_guard_results": {
+    "unique_intersections_per_fiber": true,
+    "strictly_monotonic_member_width_stations": true,
+    "inner_tip_member_order_matches": true,
+    "member_and_gap_rails_non_crossing": true,
+    "minimum_boundary_gap_mm": 238.0776176151635,
+    "minimum_ruled_xy_rail_separation_mm": 4.0,
+    "maximum_shared_seam_endpoint_error_mm": 0.0
+  }
+}

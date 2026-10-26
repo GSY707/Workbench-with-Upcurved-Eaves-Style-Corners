@@ -1,0 +1,322 @@
+{
+  "source_case_id": "case-389425e820d34287a5c23b3f36aa5a01",
+  "source_member_id": "fan_rafter_01",
+  "source_brep_status": "reuses diagnostics/v02/fan01_shared_motherboard_B400.brep; this exporter builds no member solids and performs no cut",
+  "source_contour_status": "controls-derived contours; independently measured BRep contour checks remain in diagnostics/v02/masterboard_first_production_entity_b400.json",
+  "source_member_domain_W_i": {
+    "v_domain_mm": [
+      -32.0,
+      32.0
+    ],
+    "longitudinal_boundaries": "q_I(v) from the shared front path; q_E(v) from the shared tip path",
+    "side_A_rail_id": "fan_01_v00",
+    "side_B_rail_id": "fan_01_v16",
+    "inner_station_span_mm": [
+      1424.1225191640447,
+      1488.7785040452802
+    ],
+    "tip_station_span_mm": [
+      1463.594583153194,
+      1528.347266437475
+    ],
+    "inner_station_order_sign": -1,
+    "tip_station_order_sign": -1,
+    "intersection_counts": {
+      "inner_each_fiber": 1,
+      "tip_each_fiber": 1,
+      "likou_outer_each_fiber": 1
+    },
+    "q_E_range_mm": [
+      273.4621440273341,
+      283.30434854694664
+    ],
+    "q_E_span_mm": 9.842204519612551
+  },
+  "layout_consumer": {
+    "consumer": "generate.make_profiles",
+    "profile_basis": "centerline_approximation",
+    "profile_id": "F01",
+    "positive_finite_area_mm2": 19618.745644078794,
+    "model_ids": [
+      "flying_fan_x_01",
+      "flying_fan_y_01"
+    ],
+    "source_center_fiber_v_mm": 0.0
+  },
+  "stage05_report_consumer": {
+    "consumer": "generate.py validation.stage05.fan_side_contours fields",
+    "source_rafter_id": "fan_rafter_01",
+    "profile_basis": "shared_virtual_motherboard",
+    "side_labels": [
+      "A",
+      "B"
+    ],
+    "dI_A_minus_B_mm": 0.0,
+    "E_depth_A_minus_B_mm": 4.473798404919194
+  },
+  "upper_board_consumer": {
+    "consumer": "stage05_core._support_band_offsets on shared-field top section schema",
+    "source_field": "saved B400 controls plus I/E global motherline interpolation",
+    "band_count": 16,
+    "all_bands_readable_with_finite_positive_offsets": true,
+    "bands": [
+      {
+        "band_index": 0,
+        "v_range_mm": [
+          -32.0,
+          -28.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.837631213498224,
+          15.860322177486259
+        ],
+        "normal_cosine_range": [
+          0.9457563239977882,
+          0.9471113323573086
+        ]
+      },
+      {
+        "band_index": 1,
+        "v_range_mm": [
+          -28.0,
+          -24.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.840621058069836,
+          15.862965748535965
+        ],
+        "normal_cosine_range": [
+          0.9455987132408951,
+          0.9469325694372577
+        ]
+      },
+      {
+        "band_index": 2,
+        "v_range_mm": [
+          -24.0,
+          -20.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.844132272796399,
+          15.878652190034606
+        ],
+        "normal_cosine_range": [
+          0.9446645609766523,
+          0.9467227199153259
+        ]
+      },
+      {
+        "band_index": 3,
+        "v_range_mm": [
+          -20.0,
+          -16.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.84737434478558,
+          15.86955022819306
+        ],
+        "normal_cosine_range": [
+          0.9452063722229342,
+          0.9465290384167394
+        ]
+      },
+      {
+        "band_index": 4,
+        "v_range_mm": [
+          -16.0,
+          -12.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.850829624094793,
+          15.883978918526894
+        ],
+        "normal_cosine_range": [
+          0.9443477655654761,
+          0.9463227071218121
+        ]
+      },
+      {
+        "band_index": 5,
+        "v_range_mm": [
+          -12.0,
+          -8.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.854163005442897,
+          15.8760058554504
+        ],
+        "normal_cosine_range": [
+          0.9448220249207292,
+          0.9461237401716095
+        ]
+      },
+      {
+        "band_index": 6,
+        "v_range_mm": [
+          -8.0,
+          -4.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.857574413848441,
+          15.889167719802707
+        ],
+        "normal_cosine_range": [
+          0.9440393772988792,
+          0.9459202024554575
+        ]
+      },
+      {
+        "band_index": 7,
+        "v_range_mm": [
+          -4.0,
+          0.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.860666262103292,
+          15.882297133474173
+        ],
+        "normal_cosine_range": [
+          0.9444477630622709,
+          0.9457358065619396
+        ]
+      },
+      {
+        "band_index": 8,
+        "v_range_mm": [
+          0.0,
+          4.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.863541307327521,
+          15.88485994553091
+        ],
+        "normal_cosine_range": [
+          0.9442953889071047,
+          0.9455644051603633
+        ]
+      },
+      {
+        "band_index": 9,
+        "v_range_mm": [
+          4.0,
+          8.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.866849726576575,
+          15.89725445007685
+        ],
+        "normal_cosine_range": [
+          0.9435591565263954,
+          0.9453672441905955
+        ]
+      },
+      {
+        "band_index": 10,
+        "v_range_mm": [
+          8.0,
+          12.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.869896990558606,
+          15.890993602214335
+        ],
+        "normal_cosine_range": [
+          0.9439309067439194,
+          0.9451857191589756
+        ]
+      },
+      {
+        "band_index": 11,
+        "v_range_mm": [
+          12.0,
+          16.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.87314832747401,
+          15.902354880265067
+        ],
+        "normal_cosine_range": [
+          0.9432565247688632,
+          0.9449921143896374
+        ]
+      },
+      {
+        "band_index": 12,
+        "v_range_mm": [
+          16.0,
+          20.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.876280394606443,
+          15.897044362278459
+        ],
+        "normal_cosine_range": [
+          0.943571626156682,
+          0.9448056866705291
+        ]
+      },
+      {
+        "band_index": 13,
+        "v_range_mm": [
+          20.0,
+          24.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.879505629831181,
+          15.90732190130389
+        ],
+        "normal_cosine_range": [
+          0.9429619953042179,
+          0.9446137902316717
+        ]
+      },
+      {
+        "band_index": 14,
+        "v_range_mm": [
+          24.0,
+          28.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.882414361270422,
+          15.9029283560962
+        ],
+        "normal_cosine_range": [
+          0.9432225099756503,
+          0.9444407921114181
+        ]
+      },
+      {
+        "band_index": 15,
+        "v_range_mm": [
+          28.0,
+          32.0
+        ],
+        "row_count": 4,
+        "offset_range_mm": [
+          15.885515172321213,
+          15.912241965465366
+        ],
+        "normal_cosine_range": [
+          0.9426704315177445,
+          0.9442564397367403
+        ]
+      }
+    ]
+  },
+  "no_stage04_or_member_brep_rebuilt": true
+}

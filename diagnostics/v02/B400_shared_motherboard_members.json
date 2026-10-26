@@ -1,0 +1,1084 @@
+{
+  "case_id": "probe_persist_b400_shared_motherboard_members",
+  "source_case_id": "case-389425e820d34287a5c23b3f36aa5a01",
+  "source_case_config": {
+    "D": null,
+    "e": null,
+    "p": null,
+    "B": null
+  },
+  "stage04_preflight_seconds": 7.49561989994254,
+  "shared_field_seconds": 1.053080499987118,
+  "source_order_production_ids": [
+    "fan_rafter_01",
+    "fan_rafter_02",
+    "fan_rafter_03",
+    "fan_rafter_04",
+    "fan_rafter_05",
+    "eave_rafter_01",
+    "eave_rafter_02",
+    "eave_rafter_03"
+  ],
+  "source_order_motherboard_spatial_ids": [
+    "eave_rafter_01",
+    "eave_rafter_02",
+    "eave_rafter_03",
+    "fan_rafter_01",
+    "fan_rafter_02",
+    "fan_rafter_03",
+    "fan_rafter_04",
+    "fan_rafter_05"
+  ],
+  "masterboard_guard_results": {
+    "unique_intersections_per_fiber": true,
+    "strictly_monotonic_member_width_stations": true,
+    "inner_tip_member_order_matches": true,
+    "member_and_gap_rails_non_crossing": true,
+    "minimum_boundary_gap_mm": 238.0776176151635,
+    "minimum_ruled_xy_rail_separation_mm": 4.0,
+    "maximum_shared_seam_endpoint_error_mm": 0.0
+  },
+  "motherboard_q_E_side_spans": [
+    {
+      "source_rafter_id": "eave_rafter_01",
+      "family": "straight",
+      "index": 1,
+      "q_E_range_mm": [
+        275.0,
+        275.0
+      ],
+      "q_E_span_mm": 0.0
+    },
+    {
+      "source_rafter_id": "eave_rafter_02",
+      "family": "straight",
+      "index": 2,
+      "q_E_range_mm": [
+        275.0,
+        275.0
+      ],
+      "q_E_span_mm": 0.0
+    },
+    {
+      "source_rafter_id": "eave_rafter_03",
+      "family": "straight",
+      "index": 3,
+      "q_E_range_mm": [
+        275.0,
+        275.0
+      ],
+      "q_E_span_mm": 0.0
+    },
+    {
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "q_E_range_mm": [
+        273.4621440273341,
+        283.30434854694664
+      ],
+      "q_E_span_mm": 9.842204519612551
+    },
+    {
+      "source_rafter_id": "fan_rafter_02",
+      "family": "fan",
+      "index": 2,
+      "q_E_range_mm": [
+        289.7570715330069,
+        320.0436987781551
+      ],
+      "q_E_span_mm": 30.286627245148168
+    },
+    {
+      "source_rafter_id": "fan_rafter_03",
+      "family": "fan",
+      "index": 3,
+      "q_E_range_mm": [
+        332.74909787476975,
+        386.0591213055892
+      ],
+      "q_E_span_mm": 53.310023430819456
+    },
+    {
+      "source_rafter_id": "fan_rafter_04",
+      "family": "fan",
+      "index": 4,
+      "q_E_range_mm": [
+        406.53184255050854,
+        488.4287522836677
+      ],
+      "q_E_span_mm": 81.89690973315913
+    },
+    {
+      "source_rafter_id": "fan_rafter_05",
+      "family": "fan",
+      "index": 5,
+      "q_E_range_mm": [
+        524.6291617971816,
+        647.4170468948118
+      ],
+      "q_E_span_mm": 122.78788509763024
+    }
+  ],
+  "members": [
+    {
+      "member_id": "fan_rafter_01",
+      "production_order": 0,
+      "motherboard_source_order": 3,
+      "family": "fan",
+      "index": 1,
+      "brep": {
+        "path": "diagnostics\\v02\\B400_shared_motherboard_members\\fan_rafter_01.brep",
+        "sha256": "32052d9d4443d88663201ad81e9966923bb6e04fad64dab3545c06753180ee6d",
+        "bytes": 1212735,
+        "reused_from": "diagnostics\\v02\\fan01_shared_motherboard_B400.brep"
+      },
+      "shape": {
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 1255811.7134973458,
+        "face_count": 627,
+        "edge_count": 1341,
+        "bbox_mm": [
+          -984.0875662307609,
+          271.53368748338397,
+          -208.282022414016,
+          -853.7197661303321,
+          829.9764868080301,
+          33.10524562374042
+        ]
+      },
+      "source": "same current shared-motherboard geometry; BRep created before the side checker, no geometry build or cutter repeated"
+    },
+    {
+      "member_id": "fan_rafter_02",
+      "production_order": 1,
+      "motherboard_source_order": 4,
+      "family": "fan",
+      "index": 2,
+      "profile_basis": "shared_virtual_motherboard",
+      "build_seconds": 28.877442700089887,
+      "shape": {
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 1268868.8286539833,
+        "face_count": 624,
+        "edge_count": 1288,
+        "bbox_mm": [
+          -667.704176752085,
+          350.53884294298956,
+          -202.8830103888364,
+          -420.8219430115335,
+          862.9363086461852,
+          -15.98953066074804
+        ]
+      },
+      "brep": {
+        "path": "diagnostics\\v02\\B400_shared_motherboard_members\\fan_rafter_02.brep",
+        "sha256": "cdbe3335356093d2ef688139947488c07170d9e3f2a1c7c446da305154e16cb6",
+        "bytes": 1114529
+      },
+      "q_I_A_B_mm": [
+        -49.33145048186832,
+        -77.23315463767726
+      ],
+      "q_E_A_B_mm": [
+        320.0436987781551,
+        289.7570715330069
+      ],
+      "q_E_A_B_span_mm": 30.286627245148168,
+      "cross_width_cell_count": 16,
+      "band_brep_validity": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "side_brep_generator_validation_failures": []
+    },
+    {
+      "member_id": "fan_rafter_03",
+      "production_order": 2,
+      "motherboard_source_order": 5,
+      "family": "fan",
+      "index": 3,
+      "profile_basis": "shared_virtual_motherboard",
+      "build_seconds": 38.85939070000313,
+      "shape": {
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 1382215.635078089,
+        "face_count": 631,
+        "edge_count": 1292,
+        "bbox_mm": [
+          -331.60859828875147,
+          435.2113466749212,
+          -169.00368072569287,
+          22.359918889787476,
+          929.1659465943479,
+          -59.7585038648304
+        ]
+      },
+      "brep": {
+        "path": "diagnostics\\v02\\B400_shared_motherboard_members\\fan_rafter_03.brep",
+        "sha256": "641df20b83b085fe036d2596a36d4c3b4cf3d0c8a1de5a05f3955a8462c622c4",
+        "bytes": 1087805
+      },
+      "q_I_A_B_mm": [
+        -48.552032821833464,
+        -96.26825564795455
+      ],
+      "q_E_A_B_mm": [
+        386.0591213055892,
+        332.74909787476975
+      ],
+      "q_E_A_B_span_mm": 53.310023430819456,
+      "cross_width_cell_count": 16,
+      "band_brep_validity": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "side_brep_generator_validation_failures": [],
+      "side_contours": [
+        {
+          "side": "A",
+          "v_mm": -32.0,
+          "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+          "I": {
+            "q_mm": -48.552032821833464,
+            "lower_board_top_z_mm": -122.11082428063858,
+            "thickness_world_Z_mm": 44.383840202011434,
+            "upper_z_mm": -77.72698407862714
+          },
+          "R": {
+            "q_mm": -159.86550938433345,
+            "lower_board_top_z_mm": -68.8255761909931,
+            "upper_z_mm": -68.82459996321751,
+            "root_gap_mm": 0.0009762277755953619
+          },
+          "E": {
+            "q_mm": 386.0591213055892,
+            "xy_mm": [
+              22.359918789787486,
+              929.165946494348
+            ],
+            "lower_z_mm": -169.00368062569288,
+            "upper_control_z_mm": -112.4853579464257,
+            "thickness_world_Z_mm": 56.518322679267186,
+            "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve",
+            "projected_end_curve_fraction": 0.4726562500000001
+          },
+          "q_S_likou_outer_intersection_mm": 24.335138802406934,
+          "straight_edge_slopes_z_per_q": {
+            "tail_lower_R_to_I": -0.47869539012849915,
+            "tail_upper_R_to_I": -0.07997579799253818,
+            "outer_lower_I_to_E": -0.10789611794295065,
+            "outer_upper_I_to_E": -0.079975797992538
+          },
+          "straightness_max_abs_residual_mm": {
+            "tail_bottom": 1.1368683772161603e-13,
+            "tail_top": 1.1368683772161603e-13,
+            "outer_bottom": 5.684341886080802e-14,
+            "outer_top": 5.684341886080802e-14
+          },
+          "tail_bottom_minus_lower_board_mm": {
+            "min": -2.842170943040401e-14,
+            "max": 5.684341886080802e-14,
+            "max_abs": 5.684341886080802e-14,
+            "negative_samples": 0,
+            "sample_count": 13,
+            "sign_rule": "negative means the straight lower edge is below the sampled board top"
+          }
+        },
+        {
+          "side": "B",
+          "v_mm": 32.0,
+          "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+          "I": {
+            "q_mm": -96.26825564795455,
+            "lower_board_top_z_mm": -118.15143060242883,
+            "thickness_world_Z_mm": 44.42867187892499,
+            "upper_z_mm": -73.72275872350384
+          },
+          "R": {
+            "q_mm": -218.24945681982956,
+            "lower_board_top_z_mm": -59.759591919115266,
+            "upper_z_mm": -59.7585039648304,
+            "root_gap_mm": 0.0010879542848627466
+          },
+          "E": {
+            "q_mm": 332.74909787476975,
+            "xy_mm": [
+              -59.61465684655178,
+              914.3968047644905
+            ],
+            "lower_z_mm": -153.67256767679103,
+            "upper_control_z_mm": -122.83612670913163,
+            "thickness_world_Z_mm": 30.8364409676594,
+            "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve",
+            "projected_end_curve_fraction": 0.4375000000000001
+          },
+          "q_S_likou_outer_intersection_mm": -24.026822510878375,
+          "straight_edge_slopes_z_per_q": {
+            "tail_lower_R_to_I": -0.4786953901284985,
+            "tail_upper_R_to_I": -0.11447874446651336,
+            "outer_lower_I_to_E": -0.0827965041103651,
+            "outer_upper_I_to_E": -0.11447874446651338
+          },
+          "straightness_max_abs_residual_mm": {
+            "tail_bottom": 8.038873388460929e-14,
+            "tail_top": 8.038873388460929e-14,
+            "outer_bottom": 1.214175959108492e-13,
+            "outer_top": 1.214175959108492e-13
+          },
+          "tail_bottom_minus_lower_board_mm": {
+            "min": 0.0,
+            "max": 5.684341886080802e-14,
+            "max_abs": 5.684341886080802e-14,
+            "negative_samples": 0,
+            "sample_count": 13,
+            "sign_rule": "negative means the straight lower edge is below the sampled board top"
+          }
+        }
+      ],
+      "side_brep_generator_checks": [
+        {
+          "side": "A",
+          "v_mm": -32.0,
+          "regions": {
+            "tail_R_to_I": {
+              "expected_q_range_mm": [
+                -159.86550938433345,
+                -48.552032821833464
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -159.86550938433345,
+                  -48.552032821833436
+                ]
+              ],
+              "covered_length_mm": 111.31347656250001,
+              "expected_length_mm": 111.31347656249999,
+              "endpoint_coverage_error_mm": 2.842170943040401e-14,
+              "candidate_edge_count": 13,
+              "brep_geom_types": [
+                "BSPLINE",
+                "LINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 1.1368683772161603e-13,
+              "coverage_pass": true,
+              "straightness_pass": true
+            },
+            "outer_I_to_E": {
+              "expected_q_range_mm": [
+                -48.552032821833464,
+                386.0591213055892
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -48.552032821833436,
+                  386.0591213055892
+                ]
+              ],
+              "covered_length_mm": 434.61115412742265,
+              "expected_length_mm": 434.61115412742265,
+              "endpoint_coverage_error_mm": 2.842170943040401e-14,
+              "candidate_edge_count": 24,
+              "brep_geom_types": [
+                "BSPLINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 5.684341886080802e-14,
+              "coverage_pass": true,
+              "straightness_pass": true
+            }
+          },
+          "valid": true
+        },
+        {
+          "side": "B",
+          "v_mm": 32.0,
+          "regions": {
+            "tail_R_to_I": {
+              "expected_q_range_mm": [
+                -218.24945681982956,
+                -96.26825564795455
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -218.24945681982956,
+                  -96.26825564795459
+                ]
+              ],
+              "covered_length_mm": 121.98120117187497,
+              "expected_length_mm": 121.98120117187501,
+              "endpoint_coverage_error_mm": 4.263256414560601e-14,
+              "candidate_edge_count": 13,
+              "brep_geom_types": [
+                "BSPLINE",
+                "LINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 8.038873388460929e-14,
+              "coverage_pass": true,
+              "straightness_pass": true
+            },
+            "outer_I_to_E": {
+              "expected_q_range_mm": [
+                -96.26825564795455,
+                332.74909787476975
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -96.26825564795459,
+                  332.74909787476963
+                ]
+              ],
+              "covered_length_mm": 429.0173535227242,
+              "expected_length_mm": 429.0173535227243,
+              "endpoint_coverage_error_mm": 1.1368683772161603e-13,
+              "candidate_edge_count": 24,
+              "brep_geom_types": [
+                "BSPLINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 1.214175959108492e-13,
+              "coverage_pass": true,
+              "straightness_pass": true
+            }
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "member_id": "fan_rafter_04",
+      "production_order": 3,
+      "motherboard_source_order": 6,
+      "family": "fan",
+      "index": 4,
+      "profile_basis": "shared_virtual_motherboard",
+      "build_seconds": 38.50497419992462,
+      "shape": {
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 1643059.789953118,
+        "face_count": 647,
+        "edge_count": 1330,
+        "bbox_mm": [
+          10.401217106854494,
+          520.3710540721283,
+          -135.52538998777194,
+          484.33877635810313,
+          1034.38823568059,
+          -18.843131562852044
+        ]
+      },
+      "brep": {
+        "path": "diagnostics\\v02\\B400_shared_motherboard_members\\fan_rafter_04.brep",
+        "sha256": "90fc848541934278c4865f1cc1827ae32d93fa5be2e315cb32dd161a764081d2",
+        "bytes": 1089568
+      },
+      "q_I_A_B_mm": [
+        -51.15000574499009,
+        -120.72114053575204
+      ],
+      "q_E_A_B_mm": [
+        488.4287522836677,
+        406.53184255050854
+      ],
+      "q_E_A_B_span_mm": 81.89690973315913,
+      "cross_width_cell_count": 16,
+      "band_brep_validity": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "side_brep_generator_validation_failures": []
+    },
+    {
+      "member_id": "fan_rafter_05",
+      "production_order": 4,
+      "motherboard_source_order": 7,
+      "family": "fan",
+      "index": 5,
+      "profile_basis": "shared_virtual_motherboard",
+      "build_seconds": 49.038323599961586,
+      "shape": {
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 2089483.8993184774,
+        "face_count": 647,
+        "edge_count": 1330,
+        "bbox_mm": [
+          346.1320240489567,
+          606.0683652730368,
+          -156.6232532215433,
+          982.8660295324131,
+          1191.70300936565,
+          172.11514616212568
+        ]
+      },
+      "brep": {
+        "path": "diagnostics\\v02\\B400_shared_motherboard_members\\fan_rafter_05.brep",
+        "sha256": "11cbb62679d60975463dac6d74f3c4bc299575bc398cd03d1cfe615b4f55cdf0",
+        "bytes": 1087495
+      },
+      "q_I_A_B_mm": [
+        -56.762528650331156,
+        -151.4037266017781
+      ],
+      "q_E_A_B_mm": [
+        647.4170468948118,
+        524.6291617971816
+      ],
+      "q_E_A_B_span_mm": 122.78788509763024,
+      "cross_width_cell_count": 16,
+      "band_brep_validity": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "side_brep_generator_validation_failures": [],
+      "side_contours": [
+        {
+          "side": "A",
+          "v_mm": -32.0,
+          "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+          "I": {
+            "q_mm": -56.762528650331156,
+            "lower_board_top_z_mm": -156.6232531215433,
+            "thickness_world_Z_mm": 44.441130323311896,
+            "upper_z_mm": -112.18212279823142
+          },
+          "R": {
+            "q_mm": -113.05647396283115,
+            "lower_board_top_z_mm": -134.9104368726713,
+            "upper_z_mm": -134.90958531136712,
+            "root_gap_mm": 0.0008515613041879533
+          },
+          "E": {
+            "q_mm": 647.4170468948118,
+            "xy_mm": [
+              982.8660294324131,
+              1191.7030092656498
+            ],
+            "lower_z_mm": 107.78060893225478,
+            "upper_control_z_mm": 172.1151460621257,
+            "thickness_world_Z_mm": 64.33453712987091,
+            "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve",
+            "projected_end_curve_fraction": 0.8906250000000001
+          },
+          "q_S_likou_outer_intersection_mm": 49.09482754989901,
+          "straight_edge_slopes_z_per_q": {
+            "tail_lower_R_to_I": -0.38570429072504003,
+            "tail_upper_R_to_I": 0.4037283652259687,
+            "outer_lower_I_to_E": 0.3754778912028355,
+            "outer_upper_I_to_E": 0.40372836522596867
+          },
+          "straightness_max_abs_residual_mm": {
+            "tail_bottom": 5.684341886080802e-14,
+            "tail_top": 5.684341886080802e-14,
+            "outer_bottom": 2.2737367544323206e-13,
+            "outer_top": 2.2737367544323206e-13
+          },
+          "tail_bottom_minus_lower_board_mm": {
+            "min": -1.5631940186722204e-12,
+            "max": 1.0231815394945443e-12,
+            "max_abs": 1.5631940186722204e-12,
+            "negative_samples": 0,
+            "sample_count": 13,
+            "sign_rule": "negative means the straight lower edge is below the sampled board top"
+          }
+        },
+        {
+          "side": "B",
+          "v_mm": 32.0,
+          "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+          "I": {
+            "q_mm": -151.4037266017781,
+            "lower_board_top_z_mm": -144.7867840241136,
+            "thickness_world_Z_mm": 44.505351051563224,
+            "upper_z_mm": -100.28143297255036
+          },
+          "R": {
+            "q_mm": -215.3124180080281,
+            "lower_board_top_z_mm": -120.19183962093535,
+            "upper_z_mm": -120.19083257277427,
+            "root_gap_mm": 0.0010070481610853221
+          },
+          "E": {
+            "q_mm": 524.6291617971816,
+            "xy_mm": [
+              852.1969444871929,
+              1145.894113117329
+            ],
+            "lower_z_mm": 80.82223989106063,
+            "upper_control_z_mm": 110.32229903739938,
+            "thickness_world_Z_mm": 29.500059146338742,
+            "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve",
+            "projected_end_curve_fraction": 0.83203125
+          },
+          "q_S_likou_outer_intersection_mm": -48.134690409519415,
+          "straight_edge_slopes_z_per_q": {
+            "tail_lower_R_to_I": -0.38484506351154846,
+            "tail_upper_R_to_I": 0.31152882592549613,
+            "outer_lower_I_to_E": 0.3337249234271446,
+            "outer_upper_I_to_E": 0.3115288259254959
+          },
+          "straightness_max_abs_residual_mm": {
+            "tail_bottom": 1.2710574864626038e-13,
+            "tail_top": 1.2710574864626038e-13,
+            "outer_bottom": 2.5421149729252077e-13,
+            "outer_top": 2.5421149729252077e-13
+          },
+          "tail_bottom_minus_lower_board_mm": {
+            "min": -1.0516032489249483e-12,
+            "max": 5.968558980384842e-13,
+            "max_abs": 1.0516032489249483e-12,
+            "negative_samples": 0,
+            "sample_count": 13,
+            "sign_rule": "negative means the straight lower edge is below the sampled board top"
+          }
+        }
+      ],
+      "side_brep_generator_checks": [
+        {
+          "side": "A",
+          "v_mm": -32.0,
+          "regions": {
+            "tail_R_to_I": {
+              "expected_q_range_mm": [
+                -113.05647396283115,
+                -56.762528650331156
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -113.05647396283115,
+                  -56.76252865033111
+                ]
+              ],
+              "covered_length_mm": 56.293945312500036,
+              "expected_length_mm": 56.29394531249999,
+              "endpoint_coverage_error_mm": 4.263256414560601e-14,
+              "candidate_edge_count": 13,
+              "brep_geom_types": [
+                "BSPLINE",
+                "LINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 5.684341886080802e-14,
+              "coverage_pass": true,
+              "straightness_pass": true
+            },
+            "outer_I_to_E": {
+              "expected_q_range_mm": [
+                -56.762528650331156,
+                647.4170468948118
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -56.76252865033111,
+                  647.4170468948118
+                ]
+              ],
+              "covered_length_mm": 704.1795755451429,
+              "expected_length_mm": 704.179575545143,
+              "endpoint_coverage_error_mm": 4.263256414560601e-14,
+              "candidate_edge_count": 24,
+              "brep_geom_types": [
+                "BSPLINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 2.2737367544323206e-13,
+              "coverage_pass": true,
+              "straightness_pass": true
+            }
+          },
+          "valid": true
+        },
+        {
+          "side": "B",
+          "v_mm": 32.0,
+          "regions": {
+            "tail_R_to_I": {
+              "expected_q_range_mm": [
+                -215.3124180080281,
+                -151.4037266017781
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -215.3124180080281,
+                  -151.4037266017781
+                ]
+              ],
+              "covered_length_mm": 63.90869140625,
+              "expected_length_mm": 63.90869140625,
+              "endpoint_coverage_error_mm": 0.0,
+              "candidate_edge_count": 13,
+              "brep_geom_types": [
+                "BSPLINE",
+                "LINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 1.2710574864626038e-13,
+              "coverage_pass": true,
+              "straightness_pass": true
+            },
+            "outer_I_to_E": {
+              "expected_q_range_mm": [
+                -151.4037266017781,
+                524.6291617971816
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -151.4037266017781,
+                  524.6291617971815
+                ]
+              ],
+              "covered_length_mm": 676.0328883989596,
+              "expected_length_mm": 676.0328883989597,
+              "endpoint_coverage_error_mm": 1.1368683772161603e-13,
+              "candidate_edge_count": 24,
+              "brep_geom_types": [
+                "BSPLINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 2.5421149729252077e-13,
+              "coverage_pass": true,
+              "straightness_pass": true
+            }
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "member_id": "eave_rafter_01",
+      "production_order": 5,
+      "motherboard_source_order": 0,
+      "family": "straight",
+      "index": 1,
+      "profile_basis": "shared_virtual_motherboard",
+      "build_seconds": 4.863512399955653,
+      "shape": {
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 1384472.9902805793,
+        "face_count": 7,
+        "edge_count": 15,
+        "bbox_mm": [
+          -2377.0,
+          174.766162109375,
+          -206.5,
+          -2313.0,
+          825.0,
+          72.41783979639533
+        ]
+      },
+      "brep": {
+        "path": "diagnostics\\v02\\B400_shared_motherboard_members\\eave_rafter_01.brep",
+        "sha256": "3af56c399736c15ff4cdac6fc314ce0d1b4444e9b29e61f7686c77a3e6f33ecb",
+        "bytes": 26132
+      },
+      "q_I_A_B_mm": [
+        -58.05,
+        -58.05
+      ],
+      "q_E_A_B_mm": [
+        275.0,
+        275.0
+      ],
+      "q_E_A_B_span_mm": 0.0,
+      "cross_width_cell_count": 16,
+      "band_brep_validity": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "side_brep_generator_validation_failures": [],
+      "side_contours": [],
+      "side_brep_generator_checks": [
+        {
+          "side": "A",
+          "v_mm": -32.0,
+          "regions": {
+            "tail_R_to_I": {
+              "expected_q_range_mm": [
+                -375.233837890625,
+                -58.05
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -375.233837890625,
+                  -58.05000000000001
+                ]
+              ],
+              "covered_length_mm": 317.183837890625,
+              "expected_length_mm": 317.183837890625,
+              "endpoint_coverage_error_mm": 1.4210854715202004e-14,
+              "candidate_edge_count": 1,
+              "brep_geom_types": [
+                "LINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 2.842170943040401e-14,
+              "coverage_pass": true,
+              "straightness_pass": true
+            },
+            "outer_I_to_E": {
+              "expected_q_range_mm": [
+                -58.05,
+                275.0
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -58.05000000000001,
+                  275.0
+                ]
+              ],
+              "covered_length_mm": 333.05,
+              "expected_length_mm": 333.05,
+              "endpoint_coverage_error_mm": 1.4210854715202004e-14,
+              "candidate_edge_count": 1,
+              "brep_geom_types": [
+                "LINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 2.842170943040401e-14,
+              "coverage_pass": true,
+              "straightness_pass": true
+            }
+          },
+          "valid": true
+        },
+        {
+          "side": "B",
+          "v_mm": 32.0,
+          "regions": {
+            "tail_R_to_I": {
+              "expected_q_range_mm": [
+                -375.233837890625,
+                -58.05
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -375.233837890625,
+                  -58.05000000000001
+                ]
+              ],
+              "covered_length_mm": 317.183837890625,
+              "expected_length_mm": 317.183837890625,
+              "endpoint_coverage_error_mm": 1.4210854715202004e-14,
+              "candidate_edge_count": 1,
+              "brep_geom_types": [
+                "LINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 1.4210854715202004e-14,
+              "coverage_pass": true,
+              "straightness_pass": true
+            },
+            "outer_I_to_E": {
+              "expected_q_range_mm": [
+                -58.05,
+                275.0
+              ],
+              "merged_brep_edge_q_ranges_mm": [
+                [
+                  -58.05000000000001,
+                  275.0
+                ]
+              ],
+              "covered_length_mm": 333.05,
+              "expected_length_mm": 333.05,
+              "endpoint_coverage_error_mm": 1.4210854715202004e-14,
+              "candidate_edge_count": 1,
+              "brep_geom_types": [
+                "LINE"
+              ],
+              "max_residual_to_straight_shared_rail_mm": 2.842170943040401e-14,
+              "coverage_pass": true,
+              "straightness_pass": true
+            }
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "member_id": "eave_rafter_02",
+      "production_order": 6,
+      "motherboard_source_order": 1,
+      "family": "straight",
+      "index": 2,
+      "profile_basis": "shared_virtual_motherboard",
+      "build_seconds": 4.662991899996996,
+      "shape": {
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 1384472.9902805798,
+        "face_count": 7,
+        "edge_count": 15,
+        "bbox_mm": [
+          -1977.0,
+          174.766162109375,
+          -206.5,
+          -1913.0,
+          825.0,
+          72.41783979639533
+        ]
+      },
+      "brep": {
+        "path": "diagnostics\\v02\\B400_shared_motherboard_members\\eave_rafter_02.brep",
+        "sha256": "6191e77289efe77726822c19418d1a962323ddca139bab99bc5bc3aed0568fa6",
+        "bytes": 26218
+      },
+      "q_I_A_B_mm": [
+        -58.05,
+        -58.05
+      ],
+      "q_E_A_B_mm": [
+        275.0,
+        275.0
+      ],
+      "q_E_A_B_span_mm": 0.0,
+      "cross_width_cell_count": 16,
+      "band_brep_validity": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "side_brep_generator_validation_failures": []
+    },
+    {
+      "member_id": "eave_rafter_03",
+      "production_order": 7,
+      "motherboard_source_order": 2,
+      "family": "straight",
+      "index": 3,
+      "profile_basis": "shared_virtual_motherboard",
+      "build_seconds": 31.067049500066787,
+      "shape": {
+        "valid": true,
+        "solid_count": 1,
+        "volume_mm3": 1332304.3118040664,
+        "face_count": 782,
+        "edge_count": 1630,
+        "bbox_mm": [
+          -1577.0000001,
+          205.59013661875,
+          -206.92181761783016,
+          -1512.9999999,
+          825.0000001,
+          62.93694385621874
+        ]
+      },
+      "brep": {
+        "path": "diagnostics\\v02\\B400_shared_motherboard_members\\eave_rafter_03.brep",
+        "sha256": "f01de193dbb63dcab1da22e55503f7b3429f7f57ba2a72853188912e3271a8f7",
+        "bytes": 1195131
+      },
+      "q_I_A_B_mm": [
+        -58.05,
+        -58.05
+      ],
+      "q_E_A_B_mm": [
+        275.0,
+        275.0
+      ],
+      "q_E_A_B_span_mm": 0.0,
+      "cross_width_cell_count": 16,
+      "band_brep_validity": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "side_brep_generator_validation_failures": []
+    }
+  ],
+  "all_selected_members_valid_one_solid": true,
+  "persisted_member_count": 8,
+  "total_seconds_including_reused_fan01": 206.88623289996758
+}

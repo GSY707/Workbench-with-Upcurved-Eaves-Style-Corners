@@ -1,0 +1,23 @@
+# 可再生成的 CAD 交付结果；文件保留在本地供预览和对照。
+/outputs/
+
+# 工作台运行状态、锁、日志、任务配置和历史记录；文件保留在本地。
+/ui_state/
+/ui/review-preview/
+
+# 局部排错保存的可再生 BRep 快照；保留探针源码与 JSON 结论。
+/diagnostics/**/*_geometry_snapshot/
+/diagnostics/**/*.brep
+
+# Python 与 pytest 的缓存。
+__pycache__/
+*.py[cod]
+**/.pytest_cache/
+.coverage
+
+# 临时测试结果，不匹配测试源码或固定配置。
+/tests/.tmp/
+/tests/test-output/
+/tests/test-results/
+*.tmp
+*.temp

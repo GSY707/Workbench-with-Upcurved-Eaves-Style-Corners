@@ -1,0 +1,3771 @@
+{
+  "case_id": "export_fan01_shared_motherboard_controls_B400",
+  "source_case_id": "case-389425e820d34287a5c23b3f36aa5a01",
+  "member_id": "fan_rafter_01",
+  "production_order_index_zero_based": 0,
+  "motherboard_spatial_order_index_zero_based": 3,
+  "production_order_source_rafter_ids": [
+    "fan_rafter_01",
+    "fan_rafter_02",
+    "fan_rafter_03",
+    "fan_rafter_04",
+    "fan_rafter_05",
+    "eave_rafter_01",
+    "eave_rafter_02",
+    "eave_rafter_03"
+  ],
+  "motherboard_spatial_order_source_rafter_ids": [
+    "eave_rafter_01",
+    "eave_rafter_02",
+    "eave_rafter_03",
+    "fan_rafter_01",
+    "fan_rafter_02",
+    "fan_rafter_03",
+    "fan_rafter_04",
+    "fan_rafter_05"
+  ],
+  "stage04_preflight_seconds": 7.812861999962479,
+  "shared_field_seconds": 1.0415999999968335,
+  "record": {
+    "family": "fan",
+    "side": "x",
+    "index": 1,
+    "source_rafter_id": "fan_rafter_01",
+    "origin": [
+      -1100.0,
+      -983.3273811042196
+    ],
+    "unit": [
+      0.11723459613455578,
+      0.9931042490439599
+    ],
+    "width_axis": [
+      -0.9931042490439599,
+      0.11723459613455578
+    ],
+    "S": [
+      -918.7121730848035,
+      552.3772414697322
+    ],
+    "I": [
+      -925.5809175524096,
+      494.1915220550676
+    ],
+    "E": [
+      -886.0863860938606,
+      828.7530618966692
+    ],
+    "q_I_mm": -58.58973966799431,
+    "l_SE_mm": 278.29487256045695,
+    "ordinary_tail_mm": 417.4423088406854,
+    "ordinary_R": [
+      -967.6508535712177,
+      137.81351082932656
+    ],
+    "outer_curve_fraction": 0.08984374999999996,
+    "outer_curve_top_z_A_mm": -162.5,
+    "outer_curve_top_z_B_mm": 311.15371719940737,
+    "g": -0.0037286674039080925,
+    "g_source": {
+      "method": "local slope of stage03 likou top along the nearest path station, projected from fly width edges",
+      "seat_station_mm": 781.3084105646082,
+      "samples": [
+        {
+          "offset_xy": [
+            -886.9328371153968,
+            548.6257343934265
+          ],
+          "projected_path_station_mm": 812.9626352299181,
+          "path_xy": [
+            -887.071462191299,
+            553.300941063141
+          ],
+          "top_z_from_template_mm": -53.43804713236844,
+          "actual_mesh_range": {
+            "min_z_mm": -146.54043040202336,
+            "max_z_mm": -53.43235325870392,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          }
+        },
+        {
+          "offset_xy": [
+            -950.4915090542102,
+            556.128748546038
+          ],
+          "projected_path_station_mm": 749.6075876126467,
+          "path_xy": [
+            -950.4041544416731,
+            551.6313448061496
+          ],
+          "top_z_from_template_mm": -53.67668184621856,
+          "actual_mesh_range": {
+            "min_z_mm": -143.7617114077818,
+            "max_z_mm": -53.67265340306208,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          }
+        }
+      ]
+    },
+    "root_thickness_normal_mm": 44.0,
+    "tip_thickness_normal_mm": 44.0,
+    "board_top_at_ordinary_R": {
+      "min_z_mm": 83.57328740088533,
+      "max_z_mm": 105.57328740088539,
+      "hits": 2,
+      "part_ids": [
+        "lower_board_fan_x_01"
+      ]
+    },
+    "path_hit_segments": {
+      "S": {
+        "segment_index": 12,
+        "segment_fraction": 0.9000146167281826
+      },
+      "I": {
+        "segment_index": 12,
+        "segment_fraction": 0.6059171373415181
+      },
+      "E": {
+        "segment_index": 22,
+        "segment_fraction": 0.9481888586606523
+      }
+    },
+    "type": "tail_trimmed_at_actual_board_contact",
+    "R": [
+      -966.4385096309206,
+      148.08337960620037
+    ],
+    "bR_mm": 100.93984708850144,
+    "bE_mm": -206.15680758776716,
+    "m0": -0.44805725972681315,
+    "m_seat": -0.5304674969914297,
+    "m": -0.44805725972681315,
+    "slope_angle_deg": -24.13511188379641,
+    "q_R0_mm": -417.4423088406854,
+    "q_R_mm": -407.10112986903124,
+    "q_hit_mm": -408.10112986903124,
+    "tail_trim_gap_mm": 1.0,
+    "tail_length_mm": 407.10112986903124,
+    "tail_ratio_actual": 1.46284092884461,
+    "bR0_mm": 105.57328740088539,
+    "root_thickness_R0_normal_mm": 44.0,
+    "root_thickness_trim_normal_mm": 44.0,
+    "tip_depth_vertical_mm": 44.0003058640703,
+    "root_depth_vertical_mm": 44.0003058640703,
+    "slope_scale": 1.0000069514561432,
+    "seat_delta_mm": 3.0,
+    "seat_candidate_q_mm": -52.730765701194876,
+    "seat_candidate_m_required": -0.5304674969914297,
+    "seat_candidate_width_offset_mm": 32.0,
+    "seat_candidate_count": 25,
+    "seat_missing_candidate_count": 6,
+    "tail_first_full_board_q_mm": -63.57380312872613,
+    "tail_first_full_board_q_offset_from_I_mm": -4.984063460731818,
+    "tail_leading_uncovered_count": 1,
+    "tail_leading_missing_width_offsets_mm": [
+      12.0,
+      16.0,
+      20.0,
+      24.0,
+      28.0,
+      32.0
+    ],
+    "tail_full_width_coverage_count": 72,
+    "tail_missing_coverage_count": 0,
+    "tail_contact_min_clearance_mm": -0.4261044118908046,
+    "tail_R0_clearance_range_mm": [
+      -0.9135212417724858,
+      0.9135212417724858
+    ],
+    "tail_trim_clearance_range_mm": [
+      0.09779506896771295,
+      1.924837552512713
+    ],
+    "tail_board_parts_at_qR": [
+      "lower_board_fan_x_01"
+    ],
+    "tail_board_parts_at_R0": [
+      "lower_board_fan_x_01"
+    ],
+    "tail_trim_reason": "trimmed 1mm outboard of first full-width actual-board contact after common plane rotation",
+    "short_slot_floor_min_sampled_mm": 57.51984811707617,
+    "short_slot_floor_samples_count": 425,
+    "seat_floor_missing_width_samples": 30,
+    "seat_floor_width_sample_count": 527,
+    "ordinary_R0_supported": false
+  },
+  "controls": [
+    {
+      "fiber_index": 0,
+      "v_mm": -32.0,
+      "q_front_mm": -53.95507539949912,
+      "q_front_path_hit_mm": -53.905075399499125,
+      "q_E_mm": 283.30434854694664,
+      "q_S_mm": 4.728359063623283,
+      "H_front_mm": -91.80422682501538,
+      "E_bottom_z_mm": -208.28202231401602,
+      "E_top_z_mm": -162.00379504361769,
+      "E_depth_world_Z_mm": 46.27822727039833,
+      "E_xy_mm": [
+        -853.7197662303321,
+        829.9764867080302
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.10156249999999997,
+      "S_xy_mm": [
+        -886.3785098501937,
+        553.3214878705163
+      ],
+      "inner_path_point_xy_mm": [
+        -893.2523768594598,
+        495.09237496914886
+      ],
+      "outer_path_point_xy_mm": [
+        -853.7197662303321,
+        829.9764867080302
+      ],
+      "inner_path_station_mm": 1488.7785040452802,
+      "outer_path_station_mm": 1528.347266437475,
+      "likou_outer_path_station_mm": 1495.6558921219407,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 14,
+      "tip_segment_index": 27,
+      "likou_outer_segment_index": 14,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -47.80392096094508,
+      "R_xy_mm": [
+        -918.1482653203535,
+        284.1971833666555
+      ],
+      "R_bottom_z_mm": 24.085446534194624,
+      "R_top_z_mm": 24.08651255910941,
+      "root_gap_mm": 0.0010660249147846912,
+      "masterboard_rail_id": "fan_01_v00"
+    },
+    {
+      "fiber_index": 1,
+      "v_mm": -28.0,
+      "q_front_mm": -54.54796406157067,
+      "q_front_path_hit_mm": -54.49796406157067,
+      "q_E_mm": 282.66714198105996,
+      "q_S_mm": 4.135484874258202,
+      "H_front_mm": -91.60970199300422,
+      "E_bottom_z_mm": -208.01143195584055,
+      "E_top_z_mm": -162.00379504361769,
+      "E_depth_world_Z_mm": 46.007636912222864,
+      "E_xy_mm": [
+        -857.766885880914,
+        829.8126125444676
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.10156249999999997,
+      "S_xy_mm": [
+        -890.4204322125184,
+        553.2016403784476
+      ],
+      "inner_path_point_xy_mm": [
+        -897.2943009184864,
+        494.9725131041738
+      ],
+      "outer_path_point_xy_mm": [
+        -857.766885880914,
+        829.8126125444676
+      ],
+      "inner_path_station_mm": 1484.734803145657,
+      "outer_path_station_mm": 1524.2968302562135,
+      "likou_outer_path_station_mm": 1491.6121933442848,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 14,
+      "tip_segment_index": 26,
+      "likou_outer_segment_index": 14,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -47.60939612893392,
+      "R_xy_mm": [
+        -922.2650351969806,
+        283.44329620596517
+      ],
+      "R_bottom_z_mm": 24.62845863171752,
+      "R_top_z_mm": 24.629533267004604,
+      "root_gap_mm": 0.0010746352870825149,
+      "masterboard_rail_id": "fan_01_v01"
+    },
+    {
+      "fiber_index": 2,
+      "v_mm": -24.0,
+      "q_front_mm": -55.14085272364219,
+      "q_front_path_hit_mm": -55.09085272364219,
+      "q_E_mm": 282.03602743047225,
+      "q_S_mm": 3.542610684893124,
+      "H_front_mm": -91.4151771609931,
+      "E_bottom_z_mm": -207.74357116934607,
+      "E_top_z_mm": -162.00379504361769,
+      "E_depth_world_Z_mm": 45.73977612572838,
+      "E_xy_mm": [
+        -861.8132913365424,
+        829.6547883871837
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.10156249999999997,
+      "S_xy_mm": [
+        -894.462354574843,
+        553.0817928863787
+      ],
+      "inner_path_point_xy_mm": [
+        -901.3362249775129,
+        494.8526512391988
+      ],
+      "outer_path_point_xy_mm": [
+        -861.8132913365424,
+        829.6547883871837
+      ],
+      "inner_path_station_mm": 1480.6911022460338,
+      "outer_path_station_mm": 1520.2473481194506,
+      "likou_outer_path_station_mm": 1487.5684945666292,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 14,
+      "tip_segment_index": 26,
+      "likou_outer_segment_index": 14,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -47.4148712969228,
+      "R_xy_mm": [
+        -926.381518856332,
+        282.69183361619537
+      ],
+      "R_bottom_z_mm": 25.170138081953567,
+      "R_top_z_mm": 25.171241036388963,
+      "root_gap_mm": 0.0011029544353959864,
+      "masterboard_rail_id": "fan_01_v02"
+    },
+    {
+      "fiber_index": 3,
+      "v_mm": -20.0,
+      "q_front_mm": -55.733741385713735,
+      "q_front_path_hit_mm": -55.68374138571374,
+      "q_E_mm": 281.4049128798844,
+      "q_S_mm": 2.9497364955280423,
+      "H_front_mm": -91.22065232898196,
+      "E_bottom_z_mm": -207.47571038285162,
+      "E_top_z_mm": -162.05887560062166,
+      "E_depth_world_Z_mm": 45.416834782229955,
+      "E_xy_mm": [
+        -865.8596967921711,
+        829.4969642298996
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.09765624999999996,
+      "S_xy_mm": [
+        -898.5042769371677,
+        552.96194539431
+      ],
+      "inner_path_point_xy_mm": [
+        -905.3781490365394,
+        494.7327893742238
+      ],
+      "outer_path_point_xy_mm": [
+        -865.8596967921711,
+        829.4969642298996
+      ],
+      "inner_path_station_mm": 1476.6474013464108,
+      "outer_path_station_mm": 1516.1978659826873,
+      "likou_outer_path_station_mm": 1483.5247957889733,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 14,
+      "tip_segment_index": 26,
+      "likou_outer_segment_index": 14,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -47.22034646491166,
+      "R_xy_mm": [
+        -930.5184670508974,
+        281.7670142056085
+      ],
+      "R_bottom_z_mm": 25.807101813199523,
+      "R_top_z_mm": 25.808220007604916,
+      "root_gap_mm": 0.0011181944053930692,
+      "masterboard_rail_id": "fan_01_v03"
+    },
+    {
+      "fiber_index": 4,
+      "v_mm": -16.0,
+      "q_front_mm": -56.32663004778527,
+      "q_front_path_hit_mm": -56.276630047785275,
+      "q_E_mm": 280.7783461592817,
+      "q_S_mm": 2.3568623061629603,
+      "H_front_mm": -91.02612749697083,
+      "E_bottom_z_mm": -207.20988728459798,
+      "E_top_z_mm": -162.05887560062166,
+      "E_depth_world_Z_mm": 45.15101168397632,
+      "E_xy_mm": [
+        -869.9055690847882,
+        829.3436565418978
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.09765624999999996,
+      "S_xy_mm": [
+        -902.5461992994923,
+        552.8420979022412
+      ],
+      "inner_path_point_xy_mm": [
+        -909.4200730955661,
+        494.6129275092487
+      ],
+      "outer_path_point_xy_mm": [
+        -869.9055690847882,
+        829.3436565418978
+      ],
+      "inner_path_station_mm": 1472.6037004467876,
+      "outer_path_station_mm": 1512.1490891944977,
+      "likou_outer_path_station_mm": 1479.4810970113174,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 14,
+      "tip_segment_index": 25,
+      "likou_outer_segment_index": 14,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -47.02582163290053,
+      "R_xy_mm": [
+        -934.6355231448001,
+        281.0107024739977
+      ],
+      "R_bottom_z_mm": 26.35144655800925,
+      "R_top_z_mm": 26.35244497242857,
+      "root_gap_mm": 0.0009984144193211364,
+      "masterboard_rail_id": "fan_01_v04"
+    },
+    {
+      "fiber_index": 5,
+      "v_mm": -12.0,
+      "q_front_mm": -56.91951870985692,
+      "q_front_path_hit_mm": -56.869518709856926,
+      "q_E_mm": 280.1534974356684,
+      "q_S_mm": 1.7639881167977642,
+      "H_front_mm": -90.83160266495965,
+      "E_bottom_z_mm": -206.94483394736758,
+      "E_top_z_mm": -162.1097213633916,
+      "E_depth_world_Z_mm": 44.835112583975985,
+      "E_xy_mm": [
+        -873.9512399687221,
+        829.192055004006
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.09375,
+      "S_xy_mm": [
+        -906.588121661817,
+        552.7222504101725
+      ],
+      "inner_path_point_xy_mm": [
+        -913.4619971545926,
+        494.4930656442737
+      ],
+      "outer_path_point_xy_mm": [
+        -873.9512399687221,
+        829.192055004006
+      ],
+      "inner_path_station_mm": 1468.5599995471644,
+      "outer_path_station_mm": 1508.10057886014,
+      "likou_outer_path_station_mm": 1475.4373982336615,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 14,
+      "tip_segment_index": 25,
+      "likou_outer_segment_index": 14,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -46.83129680088935,
+      "R_xy_mm": [
+        -938.7714695789005,
+        280.0943690616326
+      ],
+      "R_bottom_z_mm": 26.98374602375125,
+      "R_top_z_mm": 26.98474456715752,
+      "root_gap_mm": 0.0009985434062684817,
+      "masterboard_rail_id": "fan_01_v05"
+    },
+    {
+      "fiber_index": 6,
+      "v_mm": -8.0,
+      "q_front_mm": -57.495744346504935,
+      "q_front_path_hit_mm": -57.44574434650494,
+      "q_E_mm": 279.5312970670593,
+      "q_S_mm": 1.171113927432686,
+      "H_front_mm": -90.64617338417902,
+      "E_bottom_z_mm": -206.68096722482326,
+      "E_top_z_mm": -162.1097213633916,
+      "E_depth_world_Z_mm": 44.57124586143166,
+      "E_xy_mm": [
+        -877.9966003738265,
+        829.0430835587218
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.09375,
+      "S_xy_mm": [
+        -910.6300440241416,
+        552.6024029181037
+      ],
+      "inner_path_point_xy_mm": [
+        -917.5019677305631,
+        494.3897519006487
+      ],
+      "outer_path_point_xy_mm": [
+        -877.9966003738265,
+        829.0430835587218
+      ],
+      "inner_path_station_mm": 1464.5186996359369,
+      "outer_path_station_mm": 1504.0524752738513,
+      "likou_outer_path_station_mm": 1471.3936994560056,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 13,
+      "tip_segment_index": 24,
+      "likou_outer_segment_index": 14,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -46.64586752010872,
+      "R_xy_mm": [
+        -942.8857135379202,
+        279.3618791641333
+      ],
+      "R_bottom_z_mm": 27.514997275469895,
+      "R_top_z_mm": 27.51604456730864,
+      "root_gap_mm": 0.0010472918387449681,
+      "masterboard_rail_id": "fan_01_v06"
+    },
+    {
+      "fiber_index": 7,
+      "v_mm": -4.0,
+      "q_front_mm": -58.067742007249734,
+      "q_front_path_hit_mm": -58.01774200724974,
+      "q_E_mm": 278.91271117840546,
+      "q_S_mm": 0.5782397380676045,
+      "H_front_mm": -90.46305195389087,
+      "E_bottom_z_mm": -206.41871999626306,
+      "E_top_z_mm": -162.15650172369686,
+      "E_depth_world_Z_mm": 44.2622182725662,
+      "E_xy_mm": [
+        -882.0415370368332,
+        828.8977016688393
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.08984374999999996,
+      "S_xy_mm": [
+        -914.6719663864662,
+        552.482555426035
+      ],
+      "inner_path_point_xy_mm": [
+        -921.5414426414864,
+        494.29063697785807
+      ],
+      "outer_path_point_xy_mm": [
+        -882.0415370368332,
+        828.8977016688393
+      ],
+      "inner_path_station_mm": 1460.4780089370713,
+      "outer_path_station_mm": 1500.0049268181017,
+      "likou_outer_path_station_mm": 1467.35000067835,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 13,
+      "tip_segment_index": 24,
+      "likou_outer_segment_index": 14,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -46.46274608982057,
+      "R_xy_mm": [
+        -947.0166348684356,
+        278.48811383223733
+      ],
+      "R_bottom_z_mm": 28.12389951390727,
+      "R_top_z_mm": 28.124907751915117,
+      "root_gap_mm": 0.0010082380078486608,
+      "masterboard_rail_id": "fan_01_v07"
+    },
+    {
+      "fiber_index": 8,
+      "v_mm": 0.0,
+      "q_front_mm": -58.63973966799454,
+      "q_front_path_hit_mm": -58.58973966799454,
+      "q_E_mm": 278.29487256045707,
+      "q_S_mm": -9.589908280984276e-14,
+      "H_front_mm": -90.27993052360267,
+      "E_bottom_z_mm": -206.15680758776722,
+      "E_top_z_mm": -162.15650172369686,
+      "E_depth_world_Z_mm": 44.000305864070356,
+      "E_xy_mm": [
+        -886.0863860938606,
+        828.7530618966695
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.08984374999999996,
+      "S_xy_mm": [
+        -918.7121730848035,
+        552.3772414697321
+      ],
+      "inner_path_point_xy_mm": [
+        -925.5809175524096,
+        494.19152205506737
+      ],
+      "outer_path_point_xy_mm": [
+        -886.0863860938606,
+        828.7530618966695
+      ],
+      "inner_path_station_mm": 1456.437318238206,
+      "outer_path_station_mm": 1495.9574920030652,
+      "likou_outer_path_station_mm": 1463.3084105646083,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 13,
+      "tip_segment_index": 23,
+      "likou_outer_segment_index": 13,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -46.279624659532374,
+      "R_xy_mm": [
+        -951.1305262710458,
+        277.75861047011216
+      ],
+      "R_bottom_z_mm": 28.653509238776913,
+      "R_top_z_mm": 28.65455676667368,
+      "root_gap_mm": 0.0010475278967660984,
+      "masterboard_rail_id": "fan_01_v08"
+    },
+    {
+      "fiber_index": 9,
+      "v_mm": 4.0,
+      "q_front_mm": -59.21173732873934,
+      "q_front_path_hit_mm": -59.16173732873934,
+      "q_E_mm": 277.682546546144,
+      "q_S_mm": -0.5719976607449009,
+      "H_front_mm": -90.0968090933145,
+      "E_bottom_z_mm": -205.89736514135035,
+      "E_top_z_mm": -162.15650172369686,
+      "E_depth_world_Z_mm": 43.740863417653486,
+      "E_xy_mm": [
+        -890.1305888830271,
+        828.6138967145932
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.08984374999999996,
+      "S_xy_mm": [
+        -922.7516479957267,
+        552.2781265469415
+      ],
+      "inner_path_point_xy_mm": [
+        -929.6203924633328,
+        494.0924071322767
+      ],
+      "outer_path_point_xy_mm": [
+        -890.1305888830271,
+        828.6138967145932
+      ],
+      "inner_path_station_mm": 1452.3966275393404,
+      "outer_path_station_mm": 1491.9108955136924,
+      "likou_outer_path_station_mm": 1459.2677198657427,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 13,
+      "tip_segment_index": 23,
+      "likou_outer_segment_index": 13,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -46.096503229244206,
+      "R_xy_mm": [
+        -955.2442745650181,
+        277.0303193934472
+      ],
+      "R_bottom_z_mm": 29.18245264000317,
+      "R_top_z_mm": 29.183337797508543,
+      "root_gap_mm": 0.0008851575053725469,
+      "masterboard_rail_id": "fan_01_v09"
+    },
+    {
+      "fiber_index": 10,
+      "v_mm": 8.0,
+      "q_front_mm": -59.78373498948414,
+      "q_front_path_hit_mm": -59.73373498948414,
+      "q_E_mm": 277.07022053183096,
+      "q_S_mm": -1.1439953214897058,
+      "H_front_mm": -89.91368766302637,
+      "E_bottom_z_mm": -205.63792269493345,
+      "E_top_z_mm": -162.19938607330684,
+      "E_depth_world_Z_mm": 43.43853662162661,
+      "E_xy_mm": [
+        -894.1747916721937,
+        828.4747315325169
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.08593749999999996,
+      "S_xy_mm": [
+        -926.7911229066499,
+        552.1790116241508
+      ],
+      "inner_path_point_xy_mm": [
+        -933.6598673742559,
+        493.99329220948607
+      ],
+      "outer_path_point_xy_mm": [
+        -894.1747916721937,
+        828.4747315325169
+      ],
+      "inner_path_station_mm": 1448.3559368404751,
+      "outer_path_station_mm": 1487.8642990243195,
+      "likou_outer_path_station_mm": 1455.2270291668774,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 13,
+      "tip_segment_index": 23,
+      "likou_outer_segment_index": 13,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -45.91338179895607,
+      "R_xy_mm": [
+        -959.3746234609821,
+        276.1614032033923
+      ],
+      "R_bottom_z_mm": 29.78868958386677,
+      "R_top_z_mm": 29.789672964818337,
+      "root_gap_mm": 0.0009833809515669145,
+      "masterboard_rail_id": "fan_01_v10"
+    },
+    {
+      "fiber_index": 11,
+      "v_mm": 12.0,
+      "q_front_mm": -60.35573265022894,
+      "q_front_path_hit_mm": -60.30573265022894,
+      "q_E_mm": 276.4629960496385,
+      "q_S_mm": -1.715992982234508,
+      "H_front_mm": -89.73056623273817,
+      "E_bottom_z_mm": -205.38076602701884,
+      "E_top_z_mm": -162.19938607330684,
+      "E_depth_world_Z_mm": 43.181379953711996,
+      "E_xy_mm": [
+        -898.2183963853023,
+        828.3406327036663
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.08593749999999996,
+      "S_xy_mm": [
+        -930.8305978175729,
+        552.0798967013601
+      ],
+      "inner_path_point_xy_mm": [
+        -937.699342285179,
+        493.8941772866954
+      ],
+      "outer_path_point_xy_mm": [
+        -898.2183963853023,
+        828.3406327036663
+      ],
+      "inner_path_station_mm": 1444.3152461416098,
+      "outer_path_station_mm": 1483.818470637879,
+      "likou_outer_path_station_mm": 1451.186338468012,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 13,
+      "tip_segment_index": 22,
+      "likou_outer_segment_index": 13,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -45.73026036866787,
+      "R_xy_mm": [
+        -963.48865797223,
+        275.4306875558068
+      ],
+      "R_bottom_z_mm": 30.31896563237988,
+      "R_top_z_mm": 30.31985662758744,
+      "root_gap_mm": 0.0008909952075626393,
+      "masterboard_rail_id": "fan_01_v11"
+    },
+    {
+      "fiber_index": 12,
+      "v_mm": 16.0,
+      "q_front_mm": -60.92773031097385,
+      "q_front_path_hit_mm": -60.87773031097385,
+      "q_E_mm": 275.85692698038605,
+      "q_S_mm": -2.2879906429794277,
+      "H_front_mm": -89.54744480244992,
+      "E_bottom_z_mm": -205.12412705026003,
+      "E_top_z_mm": -162.23854380399086,
+      "E_depth_world_Z_mm": 42.885583246269164,
+      "E_xy_mm": [
+        -902.2618656440416,
+        828.2076813203159
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.08203124999999999,
+      "S_xy_mm": [
+        -934.8700727284961,
+        551.9807817785695
+      ],
+      "inner_path_point_xy_mm": [
+        -941.7388171961022,
+        493.7950623639048
+      ],
+      "outer_path_point_xy_mm": [
+        -902.2618656440416,
+        828.2076813203159
+      ],
+      "inner_path_station_mm": 1440.2745554427443,
+      "outer_path_station_mm": 1479.7728162140925,
+      "likou_outer_path_station_mm": 1447.1456477691465,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 13,
+      "tip_segment_index": 22,
+      "likou_outer_segment_index": 13,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -45.54713893837962,
+      "R_xy_mm": [
+        -967.618005107729,
+        274.57025736397355
+      ],
+      "R_bottom_z_mm": 30.92053831073958,
+      "R_top_z_mm": 30.92144396499127,
+      "root_gap_mm": 0.0009056542516887589,
+      "masterboard_rail_id": "fan_01_v12"
+    },
+    {
+      "fiber_index": 13,
+      "v_mm": 20.0,
+      "q_front_mm": -61.4851557116076,
+      "q_front_path_hit_mm": -61.4351557116076,
+      "q_E_mm": 275.25405227214674,
+      "q_S_mm": -2.859988303724233,
+      "H_front_mm": -89.37227767427774,
+      "E_bottom_z_mm": -204.8689193301434,
+      "E_top_z_mm": -162.23854380399086,
+      "E_depth_world_Z_mm": 42.630375526152534,
+      "E_xy_mm": [
+        -906.3049604131577,
+        828.0779022704605
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.08203124999999999,
+      "S_xy_mm": [
+        -938.9095476394193,
+        551.8816668557788
+      ],
+      "inner_path_point_xy_mm": [
+        -945.7765837339965,
+        493.71041921454855
+      ],
+      "outer_path_point_xy_mm": [
+        -906.3049604131577,
+        828.0779022704605
+      ],
+      "inner_path_station_mm": 1436.2358906956417,
+      "outer_path_station_mm": 1475.7276379151247,
+      "likou_outer_path_station_mm": 1443.1049570702812,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 12,
+      "tip_segment_index": 21,
+      "likou_outer_segment_index": 13,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -45.37197181020744,
+      "R_xy_mm": [
+        -971.729472594121,
+        273.86128720258415
+      ],
+      "R_bottom_z_mm": 31.438862115276116,
+      "R_top_z_mm": 31.43991502249598,
+      "root_gap_mm": 0.0010529072198650624,
+      "masterboard_rail_id": "fan_01_v13"
+    },
+    {
+      "fiber_index": 14,
+      "v_mm": 24.0,
+      "q_front_mm": -62.03629290591152,
+      "q_front_path_hit_mm": -61.986292905911526,
+      "q_E_mm": 274.654237249958,
+      "q_S_mm": -3.4319859644690385,
+      "H_front_mm": -89.20054297817398,
+      "E_bottom_z_mm": -204.61508252457418,
+      "E_top_z_mm": -162.2741443075183,
+      "E_depth_world_Z_mm": 42.34093821705588,
+      "E_xy_mm": [
+        -910.3476964812153,
+        827.9511618078227
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.07812499999999997,
+      "S_xy_mm": [
+        -942.9490225503425,
+        551.7825519329881
+      ],
+      "inner_path_point_xy_mm": [
+        -949.8136130765614,
+        493.6320209096174
+      ],
+      "outer_path_point_xy_mm": [
+        -910.3476964812153,
+        827.9511618078227
+      ],
+      "inner_path_station_mm": 1432.1981001851093,
+      "outer_path_station_mm": 1471.6829156674487,
+      "likou_outer_path_station_mm": 1439.0642663714157,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 12,
+      "tip_segment_index": 21,
+      "likou_outer_segment_index": 13,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -45.200237114103686,
+      "R_xy_mm": [
+        -975.8537982057802,
+        273.0433947668952
+      ],
+      "R_bottom_z_mm": 32.017054233869686,
+      "R_top_z_mm": 32.01797019336533,
+      "root_gap_mm": 0.0009159594956429373,
+      "masterboard_rail_id": "fan_01_v14"
+    },
+    {
+      "fiber_index": 15,
+      "v_mm": 28.0,
+      "q_front_mm": -62.587430100215464,
+      "q_front_path_hit_mm": -62.53743010021547,
+      "q_E_mm": 274.0557078692317,
+      "q_S_mm": -3.989600419547691,
+      "H_front_mm": -89.02880828207017,
+      "E_bottom_z_mm": -204.3618217599956,
+      "E_top_z_mm": -162.2741443075183,
+      "E_depth_world_Z_mm": 42.087677452477294,
+      "E_xy_mm": [
+        -914.3902818276151,
+        827.8256981211839
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.07812499999999997,
+      "S_xy_mm": [
+        -946.9868112519582,
+        551.6977210328594
+      ],
+      "inner_path_point_xy_mm": [
+        -953.8506424191261,
+        493.55362260468615
+      ],
+      "outer_path_point_xy_mm": [
+        -914.3902818276151,
+        827.8256981211839
+      ],
+      "inner_path_station_mm": 1428.160309674577,
+      "outer_path_station_mm": 1467.6383831030441,
+      "likou_outer_path_station_mm": 1435.0255753656622,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 12,
+      "tip_segment_index": 20,
+      "likou_outer_segment_index": 12,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -45.028502417999874,
+      "R_xy_mm": [
+        -979.9643853882047,
+        272.341881735391
+      ],
+      "R_bottom_z_mm": 32.53127928269439,
+      "R_top_z_mm": 32.53238672289804,
+      "root_gap_mm": 0.0011074402036470588,
+      "masterboard_rail_id": "fan_01_v15"
+    },
+    {
+      "fiber_index": 16,
+      "v_mm": 32.0,
+      "q_front_mm": -63.1385672945194,
+      "q_front_path_hit_mm": -63.0885672945194,
+      "q_E_mm": 273.4621440273341,
+      "q_S_mm": -4.540752044296168,
+      "H_front_mm": -88.85707358596639,
+      "E_bottom_z_mm": -204.11078584113764,
+      "E_top_z_mm": -162.3063569756585,
+      "E_depth_world_Z_mm": 41.80442886547914,
+      "E_xy_mm": [
+        -918.4322850410759,
+        827.7051657322547
+      ],
+      "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+      "E_curve_fraction": 0.07421874999999999,
+      "S_xy_mm": [
+        -951.0238422862703,
+        551.6193083969924
+      ],
+      "inner_path_point_xy_mm": [
+        -957.8876717616909,
+        493.4752242997549
+      ],
+      "outer_path_point_xy_mm": [
+        -918.4322850410759,
+        827.7051657322547
+      ],
+      "inner_path_station_mm": 1424.1225191640447,
+      "outer_path_station_mm": 1463.594583153194,
+      "likou_outer_path_station_mm": 1430.9877828854246,
+      "inner_intersection_count": 1,
+      "tip_intersection_count": 1,
+      "likou_outer_intersection_count": 1,
+      "inner_segment_index": 12,
+      "tip_segment_index": 20,
+      "likou_outer_segment_index": 12,
+      "dI_world_Z_mm": 44.0003058640703,
+      "I_upper_z_mm": -44.85676772189609,
+      "R_xy_mm": [
+        -984.0875661307609,
+        271.533687583384
+      ],
+      "R_bottom_z_mm": 33.10414081214061,
+      "R_top_z_mm": 33.10524552374042,
+      "root_gap_mm": 0.0011047115998081836,
+      "masterboard_rail_id": "fan_01_v16"
+    }
+  ],
+  "roots": [
+    {
+      "q_root_mm": -266.26464571199915,
+      "root_gap_mm": 0.0010660249147846912,
+      "tail_length_from_I_mm": 212.30957031250003,
+      "tail_length_from_S_mm": 266.26464571199915,
+      "v_mm": -32.0,
+      "H_R_board_mm": 24.085446534194624,
+      "R_top_z_mm": 24.08651255910941
+    },
+    {
+      "q_root_mm": -267.49596210844567,
+      "root_gap_mm": 0.0010746352870825149,
+      "tail_length_from_I_mm": 212.947998046875,
+      "tail_length_from_S_mm": 267.49596210844567,
+      "v_mm": -28.0,
+      "H_R_board_mm": 24.62845863171752,
+      "R_top_z_mm": 24.629533267004604
+    },
+    {
+      "q_root_mm": -268.7248370986422,
+      "root_gap_mm": 0.0011029544353959864,
+      "tail_length_from_I_mm": 213.583984375,
+      "tail_length_from_S_mm": 268.7248370986422,
+      "v_mm": -24.0,
+      "H_R_board_mm": 25.170138081953567,
+      "R_top_z_mm": 25.171241036388963
+    },
+    {
+      "q_root_mm": -270.12827263571376,
+      "root_gap_mm": 0.0011181944053930692,
+      "tail_length_from_I_mm": 214.39453125000003,
+      "tail_length_from_S_mm": 270.12827263571376,
+      "v_mm": -20.0,
+      "H_R_board_mm": 25.807101813199523,
+      "R_top_z_mm": 25.808220007604916
+    },
+    {
+      "q_root_mm": -271.3620304384103,
+      "root_gap_mm": 0.0009984144193211364,
+      "tail_length_from_I_mm": 215.035400390625,
+      "tail_length_from_S_mm": 271.3620304384103,
+      "v_mm": -16.0,
+      "H_R_board_mm": 26.35144655800925,
+      "R_top_z_mm": 26.35244497242857
+    },
+    {
+      "q_root_mm": -272.7569210536069,
+      "root_gap_mm": 0.0009985434062684817,
+      "tail_length_from_I_mm": 215.83740234374997,
+      "tail_length_from_S_mm": 272.7569210536069,
+      "v_mm": -12.0,
+      "H_R_board_mm": 26.98374602375125,
+      "R_top_z_mm": 26.98474456715752
+    },
+    {
+      "q_root_mm": -273.9666916121299,
+      "root_gap_mm": 0.0010472918387449681,
+      "tail_length_from_I_mm": 216.470947265625,
+      "tail_length_from_S_mm": 273.9666916121299,
+      "v_mm": -8.0,
+      "H_R_board_mm": 27.514997275469895,
+      "R_top_z_mm": 27.51604456730864
+    },
+    {
+      "q_root_mm": -275.31871856974976,
+      "root_gap_mm": 0.0010082380078486608,
+      "tail_length_from_I_mm": 217.25097656250003,
+      "tail_length_from_S_mm": 275.31871856974976,
+      "v_mm": -4.0,
+      "H_R_board_mm": 28.12389951390727,
+      "R_top_z_mm": 28.124907751915117
+    },
+    {
+      "q_root_mm": -276.52548185549455,
+      "root_gap_mm": 0.0010475278967660984,
+      "tail_length_from_I_mm": 217.8857421875,
+      "tail_length_from_S_mm": 276.52548185549455,
+      "v_mm": 0.0,
+      "H_R_board_mm": 28.653509238776913,
+      "R_top_z_mm": 28.65455676667368
+    },
+    {
+      "q_root_mm": -277.73102443811433,
+      "root_gap_mm": 0.0008851575053725469,
+      "tail_length_from_I_mm": 218.519287109375,
+      "tail_length_from_S_mm": 277.73102443811433,
+      "v_mm": 4.0,
+      "H_R_board_mm": 29.18245264000317,
+      "R_top_z_mm": 29.183337797508543
+    },
+    {
+      "q_root_mm": -279.0781685832341,
+      "root_gap_mm": 0.0009833809515669145,
+      "tail_length_from_I_mm": 219.29443359374997,
+      "tail_length_from_S_mm": 279.0781685832341,
+      "v_mm": 8.0,
+      "H_R_board_mm": 29.78868958386677,
+      "R_top_z_mm": 29.789672964818337
+    },
+    {
+      "q_root_mm": -280.28615257210396,
+      "root_gap_mm": 0.0008909952075626393,
+      "tail_length_from_I_mm": 219.93041992187503,
+      "tail_length_from_S_mm": 280.28615257210396,
+      "v_mm": 12.0,
+      "H_R_board_mm": 30.31896563237988,
+      "R_top_z_mm": 30.31985662758744
+    },
+    {
+      "q_root_mm": -281.62475179534886,
+      "root_gap_mm": 0.0009056542516887589,
+      "tail_length_from_I_mm": 220.697021484375,
+      "tail_length_from_S_mm": 281.62475179534886,
+      "v_mm": 16.0,
+      "H_R_board_mm": 30.92053831073958,
+      "R_top_z_mm": 30.92144396499127
+    },
+    {
+      "q_root_mm": -282.8108393053576,
+      "root_gap_mm": 0.0010529072198650624,
+      "tail_length_from_I_mm": 221.32568359375,
+      "tail_length_from_S_mm": 282.8108393053576,
+      "v_mm": 20.0,
+      "H_R_board_mm": 31.438862115276116,
+      "R_top_z_mm": 31.43991502249598
+    },
+    {
+      "q_root_mm": -284.1066054059115,
+      "root_gap_mm": 0.0009159594956429373,
+      "tail_length_from_I_mm": 222.0703125,
+      "tail_length_from_S_mm": 284.1066054059115,
+      "v_mm": 24.0,
+      "H_R_board_mm": 32.017054233869686,
+      "R_top_z_mm": 32.01797019336533
+    },
+    {
+      "q_root_mm": -285.28518400646544,
+      "root_gap_mm": 0.0011074402036470588,
+      "tail_length_from_I_mm": 222.69775390624997,
+      "tail_length_from_S_mm": 285.28518400646544,
+      "v_mm": 28.0,
+      "H_R_board_mm": 32.53127928269439,
+      "R_top_z_mm": 32.53238672289804
+    },
+    {
+      "q_root_mm": -286.5711844820194,
+      "root_gap_mm": 0.0011047115998081836,
+      "tail_length_from_I_mm": 223.43261718750003,
+      "tail_length_from_S_mm": 286.5711844820194,
+      "v_mm": 32.0,
+      "H_R_board_mm": 33.10414081214061,
+      "R_top_z_mm": 33.10524552374042
+    }
+  ],
+  "E_bottom_center_mm": -206.15680758776722,
+  "E_depth_center_mm": 44.000305864070356,
+  "side_contours": [
+    {
+      "side": "A",
+      "v_mm": -32.0,
+      "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+      "I": {
+        "q_mm": -53.95507539949912,
+        "lower_board_top_z_mm": -91.80422682501538,
+        "thickness_world_Z_mm": 44.0003058640703,
+        "upper_z_mm": -47.80392096094508
+      },
+      "R": {
+        "q_mm": -266.26464571199915,
+        "lower_board_top_z_mm": 24.085446534194624,
+        "upper_z_mm": 24.08651255910941,
+        "root_gap_mm": 0.0010660249147846912
+      },
+      "E": {
+        "q_mm": 283.30434854694664,
+        "xy_mm": [
+          -853.7197662303321,
+          829.9764867080302
+        ],
+        "lower_z_mm": -208.28202231401602,
+        "upper_control_z_mm": -162.00379504361769,
+        "thickness_world_Z_mm": 46.27822727039833,
+        "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve",
+        "projected_end_curve_fraction": 0.10156249999999997
+      },
+      "q_S_likou_outer_intersection_mm": 4.728359063623283,
+      "straight_edge_slopes_z_per_q": {
+        "tail_lower_R_to_I": -0.5458523286945149,
+        "tail_upper_R_to_I": -0.3386113655368358,
+        "outer_lower_I_to_E": -0.345365576819275,
+        "outer_upper_I_to_E": -0.3386113655368358
+      },
+      "control_record": {
+        "fiber_index": 0,
+        "v_mm": -32.0,
+        "q_front_mm": -53.95507539949912,
+        "q_front_path_hit_mm": -53.905075399499125,
+        "q_E_mm": 283.30434854694664,
+        "q_S_mm": 4.728359063623283,
+        "H_front_mm": -91.80422682501538,
+        "E_bottom_z_mm": -208.28202231401602,
+        "E_top_z_mm": -162.00379504361769,
+        "E_depth_world_Z_mm": 46.27822727039833,
+        "E_xy_mm": [
+          -853.7197662303321,
+          829.9764867080302
+        ],
+        "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+        "E_curve_fraction": 0.10156249999999997,
+        "S_xy_mm": [
+          -886.3785098501937,
+          553.3214878705163
+        ],
+        "inner_path_point_xy_mm": [
+          -893.2523768594598,
+          495.09237496914886
+        ],
+        "outer_path_point_xy_mm": [
+          -853.7197662303321,
+          829.9764867080302
+        ],
+        "inner_path_station_mm": 1488.7785040452802,
+        "outer_path_station_mm": 1528.347266437475,
+        "likou_outer_path_station_mm": 1495.6558921219407,
+        "inner_intersection_count": 1,
+        "tip_intersection_count": 1,
+        "likou_outer_intersection_count": 1,
+        "inner_segment_index": 14,
+        "tip_segment_index": 27,
+        "likou_outer_segment_index": 14,
+        "dI_world_Z_mm": 44.0003058640703,
+        "I_upper_z_mm": -47.80392096094508,
+        "R_xy_mm": [
+          -918.1482653203535,
+          284.1971833666555
+        ],
+        "R_bottom_z_mm": 24.085446534194624,
+        "R_top_z_mm": 24.08651255910941,
+        "root_gap_mm": 0.0010660249147846912,
+        "masterboard_rail_id": "fan_01_v00"
+      },
+      "root_record": {
+        "q_root_mm": -266.26464571199915,
+        "root_gap_mm": 0.0010660249147846912,
+        "tail_length_from_I_mm": 212.30957031250003,
+        "tail_length_from_S_mm": 266.26464571199915,
+        "v_mm": -32.0,
+        "H_R_board_mm": 24.085446534194624,
+        "R_top_z_mm": 24.08651255910941
+      }
+    },
+    {
+      "side": "B",
+      "v_mm": 32.0,
+      "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+      "I": {
+        "q_mm": -63.1385672945194,
+        "lower_board_top_z_mm": -88.85707358596639,
+        "thickness_world_Z_mm": 44.0003058640703,
+        "upper_z_mm": -44.85676772189609
+      },
+      "R": {
+        "q_mm": -286.5711844820194,
+        "lower_board_top_z_mm": 33.10414081214061,
+        "upper_z_mm": 33.10524552374042,
+        "root_gap_mm": 0.0011047115998081836
+      },
+      "E": {
+        "q_mm": 273.4621440273341,
+        "xy_mm": [
+          -918.4322850410759,
+          827.7051657322547
+        ],
+        "lower_z_mm": -204.11078584113764,
+        "upper_control_z_mm": -162.3063569756585,
+        "thickness_world_Z_mm": 41.80442886547914,
+        "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve",
+        "projected_end_curve_fraction": 0.07421874999999999
+      },
+      "q_S_likou_outer_intersection_mm": -4.540752044296168,
+      "straight_edge_slopes_z_per_q": {
+        "tail_lower_R_to_I": -0.5458523286945149,
+        "tail_upper_R_to_I": -0.34892852362827764,
+        "outer_lower_I_to_E": -0.3424048386664491,
+        "outer_upper_I_to_E": -0.3489285236282776
+      },
+      "control_record": {
+        "fiber_index": 16,
+        "v_mm": 32.0,
+        "q_front_mm": -63.1385672945194,
+        "q_front_path_hit_mm": -63.0885672945194,
+        "q_E_mm": 273.4621440273341,
+        "q_S_mm": -4.540752044296168,
+        "H_front_mm": -88.85707358596639,
+        "E_bottom_z_mm": -204.11078584113764,
+        "E_top_z_mm": -162.3063569756585,
+        "E_depth_world_Z_mm": 41.80442886547914,
+        "E_xy_mm": [
+          -918.4322850410759,
+          827.7051657322547
+        ],
+        "E_top_source": "shared outer end-curve intersection and fly_top_at control curve",
+        "E_curve_fraction": 0.07421874999999999,
+        "S_xy_mm": [
+          -951.0238422862703,
+          551.6193083969924
+        ],
+        "inner_path_point_xy_mm": [
+          -957.8876717616909,
+          493.4752242997549
+        ],
+        "outer_path_point_xy_mm": [
+          -918.4322850410759,
+          827.7051657322547
+        ],
+        "inner_path_station_mm": 1424.1225191640447,
+        "outer_path_station_mm": 1463.594583153194,
+        "likou_outer_path_station_mm": 1430.9877828854246,
+        "inner_intersection_count": 1,
+        "tip_intersection_count": 1,
+        "likou_outer_intersection_count": 1,
+        "inner_segment_index": 12,
+        "tip_segment_index": 20,
+        "likou_outer_segment_index": 12,
+        "dI_world_Z_mm": 44.0003058640703,
+        "I_upper_z_mm": -44.85676772189609,
+        "R_xy_mm": [
+          -984.0875661307609,
+          271.533687583384
+        ],
+        "R_bottom_z_mm": 33.10414081214061,
+        "R_top_z_mm": 33.10524552374042,
+        "root_gap_mm": 0.0011047115998081836,
+        "masterboard_rail_id": "fan_01_v16"
+      },
+      "root_record": {
+        "q_root_mm": -286.5711844820194,
+        "root_gap_mm": 0.0011047115998081836,
+        "tail_length_from_I_mm": 223.43261718750003,
+        "tail_length_from_S_mm": 286.5711844820194,
+        "v_mm": 32.0,
+        "H_R_board_mm": 33.10414081214061,
+        "R_top_z_mm": 33.10524552374042
+      }
+    }
+  ],
+  "motherboard_member_domain": {
+    "member_order": 3,
+    "source_rafter_id": "fan_rafter_01",
+    "family": "fan",
+    "index": 1,
+    "source_centerline_controls": {
+      "S_xy_mm": [
+        -918.7121730848035,
+        552.3772414697322
+      ],
+      "E_xy_mm": [
+        -886.0863860938606,
+        828.7530618966692
+      ],
+      "unit_xy": [
+        0.11723459613455578,
+        0.9931042490439599
+      ],
+      "width_axis_xy": [
+        -0.9931042490439599,
+        0.11723459613455578
+      ],
+      "I_center_input_xy_mm": [
+        -925.5809175524096,
+        494.1915220550676
+      ],
+      "q_I_input_mm": -58.58973966799431,
+      "l_SE_input_mm": 278.29487256045695,
+      "root_thickness_normal_mm": 44.0,
+      "tip_thickness_normal_mm": 44.0
+    },
+    "W_i": {
+      "v_domain_mm": [
+        -32.0,
+        32.0
+      ],
+      "longitudinal_boundaries": "q_I(v) from the shared front path; q_E(v) from the shared tip path",
+      "side_A_rail_id": "fan_01_v00",
+      "side_B_rail_id": "fan_01_v16",
+      "inner_station_span_mm": [
+        1424.1225191640447,
+        1488.7785040452802
+      ],
+      "tip_station_span_mm": [
+        1463.594583153194,
+        1528.347266437475
+      ],
+      "inner_station_order_sign": -1,
+      "tip_station_order_sign": -1,
+      "intersection_counts": {
+        "inner_each_fiber": 1,
+        "tip_each_fiber": 1,
+        "likou_outer_each_fiber": 1
+      },
+      "q_E_range_mm": [
+        273.4621440273341,
+        283.30434854694664
+      ],
+      "q_E_span_mm": 9.842204519612551
+    },
+    "member_rail_ids": [
+      "fan_01_v00",
+      "fan_01_v01",
+      "fan_01_v02",
+      "fan_01_v03",
+      "fan_01_v04",
+      "fan_01_v05",
+      "fan_01_v06",
+      "fan_01_v07",
+      "fan_01_v08",
+      "fan_01_v09",
+      "fan_01_v10",
+      "fan_01_v11",
+      "fan_01_v12",
+      "fan_01_v13",
+      "fan_01_v14",
+      "fan_01_v15",
+      "fan_01_v16"
+    ],
+    "member_band_patch_ids": [
+      "member_fan_01_band_00_tail_R_to_I",
+      "member_fan_01_band_00_outer_I_to_E",
+      "member_fan_01_band_01_tail_R_to_I",
+      "member_fan_01_band_01_outer_I_to_E",
+      "member_fan_01_band_02_tail_R_to_I",
+      "member_fan_01_band_02_outer_I_to_E",
+      "member_fan_01_band_03_tail_R_to_I",
+      "member_fan_01_band_03_outer_I_to_E",
+      "member_fan_01_band_04_tail_R_to_I",
+      "member_fan_01_band_04_outer_I_to_E",
+      "member_fan_01_band_05_tail_R_to_I",
+      "member_fan_01_band_05_outer_I_to_E",
+      "member_fan_01_band_06_tail_R_to_I",
+      "member_fan_01_band_06_outer_I_to_E",
+      "member_fan_01_band_07_tail_R_to_I",
+      "member_fan_01_band_07_outer_I_to_E",
+      "member_fan_01_band_08_tail_R_to_I",
+      "member_fan_01_band_08_outer_I_to_E",
+      "member_fan_01_band_09_tail_R_to_I",
+      "member_fan_01_band_09_outer_I_to_E",
+      "member_fan_01_band_10_tail_R_to_I",
+      "member_fan_01_band_10_outer_I_to_E",
+      "member_fan_01_band_11_tail_R_to_I",
+      "member_fan_01_band_11_outer_I_to_E",
+      "member_fan_01_band_12_tail_R_to_I",
+      "member_fan_01_band_12_outer_I_to_E",
+      "member_fan_01_band_13_tail_R_to_I",
+      "member_fan_01_band_13_outer_I_to_E",
+      "member_fan_01_band_14_tail_R_to_I",
+      "member_fan_01_band_14_outer_I_to_E",
+      "member_fan_01_band_15_tail_R_to_I",
+      "member_fan_01_band_15_outer_I_to_E"
+    ]
+  },
+  "motherboard_shared_rails": [
+    {
+      "rail_id": "fan_01_v00",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 0,
+      "v_mm": -32.0,
+      "q_I_mm": -53.95507539949912,
+      "q_S_mm": 4.728359063623283,
+      "q_E_mm": 283.30434854694664,
+      "R_bottom": [
+        -918.1482653203535,
+        284.1971833666555,
+        24.085446534194624
+      ],
+      "R_top": [
+        -918.1482653203535,
+        284.1971833666555,
+        24.08651255910941
+      ],
+      "I_bottom": [
+        -893.2582385892665,
+        495.04271975669667,
+        -91.80422682501538
+      ],
+      "I_top": [
+        -893.2582385892665,
+        495.04271975669667,
+        -47.80392096094508
+      ],
+      "E_bottom": [
+        -853.7197662303321,
+        829.9764867080302,
+        -208.28202231401602
+      ],
+      "E_top": [
+        -853.7197662303321,
+        829.9764867080302,
+        -162.00379504361769
+      ]
+    },
+    {
+      "rail_id": "fan_01_v01",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 1,
+      "v_mm": -28.0,
+      "q_I_mm": -54.54796406157067,
+      "q_S_mm": 4.135484874258202,
+      "q_E_mm": 282.66714198105996,
+      "R_bottom": [
+        -922.2650351969806,
+        283.44329620596517,
+        24.62845863171752
+      ],
+      "R_top": [
+        -922.2650351969806,
+        283.44329620596517,
+        24.629533267004604
+      ],
+      "I_bottom": [
+        -897.3001626482932,
+        494.9228578917216,
+        -91.60970199300422
+      ],
+      "I_top": [
+        -897.3001626482932,
+        494.9228578917216,
+        -47.60939612893392
+      ],
+      "E_bottom": [
+        -857.766885880914,
+        829.8126125444676,
+        -208.01143195584055
+      ],
+      "E_top": [
+        -857.766885880914,
+        829.8126125444676,
+        -162.00379504361769
+      ]
+    },
+    {
+      "rail_id": "fan_01_v02",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 2,
+      "v_mm": -24.0,
+      "q_I_mm": -55.14085272364219,
+      "q_S_mm": 3.542610684893124,
+      "q_E_mm": 282.03602743047225,
+      "R_bottom": [
+        -926.381518856332,
+        282.69183361619537,
+        25.170138081953567
+      ],
+      "R_top": [
+        -926.381518856332,
+        282.69183361619537,
+        25.171241036388963
+      ],
+      "I_bottom": [
+        -901.3420867073196,
+        494.8029960267466,
+        -91.4151771609931
+      ],
+      "I_top": [
+        -901.3420867073196,
+        494.8029960267466,
+        -47.4148712969228
+      ],
+      "E_bottom": [
+        -861.8132913365424,
+        829.6547883871837,
+        -207.74357116934607
+      ],
+      "E_top": [
+        -861.8132913365424,
+        829.6547883871837,
+        -162.00379504361769
+      ]
+    },
+    {
+      "rail_id": "fan_01_v03",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 3,
+      "v_mm": -20.0,
+      "q_I_mm": -55.733741385713735,
+      "q_S_mm": 2.9497364955280423,
+      "q_E_mm": 281.4049128798844,
+      "R_bottom": [
+        -930.5184670508974,
+        281.7670142056085,
+        25.807101813199523
+      ],
+      "R_top": [
+        -930.5184670508974,
+        281.7670142056085,
+        25.808220007604916
+      ],
+      "I_bottom": [
+        -905.3840107663461,
+        494.6831341617716,
+        -91.22065232898196
+      ],
+      "I_top": [
+        -905.3840107663461,
+        494.6831341617716,
+        -47.22034646491166
+      ],
+      "E_bottom": [
+        -865.8596967921711,
+        829.4969642298996,
+        -207.47571038285162
+      ],
+      "E_top": [
+        -865.8596967921711,
+        829.4969642298996,
+        -162.05887560062166
+      ]
+    },
+    {
+      "rail_id": "fan_01_v04",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 4,
+      "v_mm": -16.0,
+      "q_I_mm": -56.32663004778527,
+      "q_S_mm": 2.3568623061629603,
+      "q_E_mm": 280.7783461592817,
+      "R_bottom": [
+        -934.6355231448001,
+        281.0107024739977,
+        26.35144655800925
+      ],
+      "R_top": [
+        -934.6355231448001,
+        281.0107024739977,
+        26.35244497242857
+      ],
+      "I_bottom": [
+        -909.4259348253728,
+        494.5632722967966,
+        -91.02612749697083
+      ],
+      "I_top": [
+        -909.4259348253728,
+        494.5632722967966,
+        -47.02582163290053
+      ],
+      "E_bottom": [
+        -869.9055690847882,
+        829.3436565418978,
+        -207.20988728459798
+      ],
+      "E_top": [
+        -869.9055690847882,
+        829.3436565418978,
+        -162.05887560062166
+      ]
+    },
+    {
+      "rail_id": "fan_01_v05",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 5,
+      "v_mm": -12.0,
+      "q_I_mm": -56.91951870985692,
+      "q_S_mm": 1.7639881167977642,
+      "q_E_mm": 280.1534974356684,
+      "R_bottom": [
+        -938.7714695789005,
+        280.0943690616326,
+        26.98374602375125
+      ],
+      "R_top": [
+        -938.7714695789005,
+        280.0943690616326,
+        26.98474456715752
+      ],
+      "I_bottom": [
+        -913.4678588843993,
+        494.44341043182146,
+        -90.83160266495965
+      ],
+      "I_top": [
+        -913.4678588843993,
+        494.44341043182146,
+        -46.83129680088935
+      ],
+      "E_bottom": [
+        -873.9512399687221,
+        829.192055004006,
+        -206.94483394736758
+      ],
+      "E_top": [
+        -873.9512399687221,
+        829.192055004006,
+        -162.1097213633916
+      ]
+    },
+    {
+      "rail_id": "fan_01_v06",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 6,
+      "v_mm": -8.0,
+      "q_I_mm": -57.495744346504935,
+      "q_S_mm": 1.171113927432686,
+      "q_E_mm": 279.5312970670593,
+      "R_bottom": [
+        -942.8857135379202,
+        279.3618791641333,
+        27.514997275469895
+      ],
+      "R_top": [
+        -942.8857135379202,
+        279.3618791641333,
+        27.51604456730864
+      ],
+      "I_bottom": [
+        -917.5078294603699,
+        494.34009668819647,
+        -90.64617338417902
+      ],
+      "I_top": [
+        -917.5078294603699,
+        494.34009668819647,
+        -46.64586752010872
+      ],
+      "E_bottom": [
+        -877.9966003738265,
+        829.0430835587218,
+        -206.68096722482326
+      ],
+      "E_top": [
+        -877.9966003738265,
+        829.0430835587218,
+        -162.1097213633916
+      ]
+    },
+    {
+      "rail_id": "fan_01_v07",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 7,
+      "v_mm": -4.0,
+      "q_I_mm": -58.067742007249734,
+      "q_S_mm": 0.5782397380676045,
+      "q_E_mm": 278.91271117840546,
+      "R_bottom": [
+        -947.0166348684356,
+        278.48811383223733,
+        28.12389951390727
+      ],
+      "R_top": [
+        -947.0166348684356,
+        278.48811383223733,
+        28.124907751915117
+      ],
+      "I_bottom": [
+        -921.5473043712931,
+        494.2409817654059,
+        -90.46305195389087
+      ],
+      "I_top": [
+        -921.5473043712931,
+        494.2409817654059,
+        -46.46274608982057
+      ],
+      "E_bottom": [
+        -882.0415370368332,
+        828.8977016688393,
+        -206.41871999626306
+      ],
+      "E_top": [
+        -882.0415370368332,
+        828.8977016688393,
+        -162.15650172369686
+      ]
+    },
+    {
+      "rail_id": "fan_01_v08",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 8,
+      "v_mm": 0.0,
+      "q_I_mm": -58.63973966799454,
+      "q_S_mm": -9.589908280984276e-14,
+      "q_E_mm": 278.29487256045707,
+      "R_bottom": [
+        -951.1305262710458,
+        277.75861047011216,
+        28.653509238776913
+      ],
+      "R_top": [
+        -951.1305262710458,
+        277.75861047011216,
+        28.65455676667368
+      ],
+      "I_bottom": [
+        -925.5867792822163,
+        494.1418668426152,
+        -90.27993052360267
+      ],
+      "I_top": [
+        -925.5867792822163,
+        494.1418668426152,
+        -46.279624659532374
+      ],
+      "E_bottom": [
+        -886.0863860938606,
+        828.7530618966695,
+        -206.15680758776722
+      ],
+      "E_top": [
+        -886.0863860938606,
+        828.7530618966695,
+        -162.15650172369686
+      ]
+    },
+    {
+      "rail_id": "fan_01_v09",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 9,
+      "v_mm": 4.0,
+      "q_I_mm": -59.21173732873934,
+      "q_S_mm": -0.5719976607449009,
+      "q_E_mm": 277.682546546144,
+      "R_bottom": [
+        -955.2442745650181,
+        277.0303193934472,
+        29.18245264000317
+      ],
+      "R_top": [
+        -955.2442745650181,
+        277.0303193934472,
+        29.183337797508543
+      ],
+      "I_bottom": [
+        -929.6262541931395,
+        494.0427519198245,
+        -90.0968090933145
+      ],
+      "I_top": [
+        -929.6262541931395,
+        494.0427519198245,
+        -46.096503229244206
+      ],
+      "E_bottom": [
+        -890.1305888830271,
+        828.6138967145932,
+        -205.89736514135035
+      ],
+      "E_top": [
+        -890.1305888830271,
+        828.6138967145932,
+        -162.15650172369686
+      ]
+    },
+    {
+      "rail_id": "fan_01_v10",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 10,
+      "v_mm": 8.0,
+      "q_I_mm": -59.78373498948414,
+      "q_S_mm": -1.1439953214897058,
+      "q_E_mm": 277.07022053183096,
+      "R_bottom": [
+        -959.3746234609821,
+        276.1614032033923,
+        29.78868958386677
+      ],
+      "R_top": [
+        -959.3746234609821,
+        276.1614032033923,
+        29.789672964818337
+      ],
+      "I_bottom": [
+        -933.6657291040626,
+        493.94363699703393,
+        -89.91368766302637
+      ],
+      "I_top": [
+        -933.6657291040626,
+        493.94363699703393,
+        -45.91338179895607
+      ],
+      "E_bottom": [
+        -894.1747916721937,
+        828.4747315325169,
+        -205.63792269493345
+      ],
+      "E_top": [
+        -894.1747916721937,
+        828.4747315325169,
+        -162.19938607330684
+      ]
+    },
+    {
+      "rail_id": "fan_01_v11",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 11,
+      "v_mm": 12.0,
+      "q_I_mm": -60.35573265022894,
+      "q_S_mm": -1.715992982234508,
+      "q_E_mm": 276.4629960496385,
+      "R_bottom": [
+        -963.48865797223,
+        275.4306875558068,
+        30.31896563237988
+      ],
+      "R_top": [
+        -963.48865797223,
+        275.4306875558068,
+        30.31985662758744
+      ],
+      "I_bottom": [
+        -937.7052040149857,
+        493.8445220742433,
+        -89.73056623273817
+      ],
+      "I_top": [
+        -937.7052040149857,
+        493.8445220742433,
+        -45.73026036866787
+      ],
+      "E_bottom": [
+        -898.2183963853023,
+        828.3406327036663,
+        -205.38076602701884
+      ],
+      "E_top": [
+        -898.2183963853023,
+        828.3406327036663,
+        -162.19938607330684
+      ]
+    },
+    {
+      "rail_id": "fan_01_v12",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 12,
+      "v_mm": 16.0,
+      "q_I_mm": -60.92773031097385,
+      "q_S_mm": -2.2879906429794277,
+      "q_E_mm": 275.85692698038605,
+      "R_bottom": [
+        -967.618005107729,
+        274.57025736397355,
+        30.92053831073958
+      ],
+      "R_top": [
+        -967.618005107729,
+        274.57025736397355,
+        30.92144396499127
+      ],
+      "I_bottom": [
+        -941.7446789259089,
+        493.74540715145247,
+        -89.54744480244992
+      ],
+      "I_top": [
+        -941.7446789259089,
+        493.74540715145247,
+        -45.54713893837962
+      ],
+      "E_bottom": [
+        -902.2618656440416,
+        828.2076813203159,
+        -205.12412705026003
+      ],
+      "E_top": [
+        -902.2618656440416,
+        828.2076813203159,
+        -162.23854380399086
+      ]
+    },
+    {
+      "rail_id": "fan_01_v13",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 13,
+      "v_mm": 20.0,
+      "q_I_mm": -61.4851557116076,
+      "q_S_mm": -2.859988303724233,
+      "q_E_mm": 275.25405227214674,
+      "R_bottom": [
+        -971.729472594121,
+        273.86128720258415,
+        31.438862115276116
+      ],
+      "R_top": [
+        -971.729472594121,
+        273.86128720258415,
+        31.43991502249598
+      ],
+      "I_bottom": [
+        -945.7824454638032,
+        493.66076400209636,
+        -89.37227767427774
+      ],
+      "I_top": [
+        -945.7824454638032,
+        493.66076400209636,
+        -45.37197181020744
+      ],
+      "E_bottom": [
+        -906.3049604131577,
+        828.0779022704605,
+        -204.8689193301434
+      ],
+      "E_top": [
+        -906.3049604131577,
+        828.0779022704605,
+        -162.23854380399086
+      ]
+    },
+    {
+      "rail_id": "fan_01_v14",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 14,
+      "v_mm": 24.0,
+      "q_I_mm": -62.03629290591152,
+      "q_S_mm": -3.4319859644690385,
+      "q_E_mm": 274.654237249958,
+      "R_bottom": [
+        -975.8537982057802,
+        273.0433947668952,
+        32.017054233869686
+      ],
+      "R_top": [
+        -975.8537982057802,
+        273.0433947668952,
+        32.01797019336533
+      ],
+      "I_bottom": [
+        -949.8194748063681,
+        493.5823656971652,
+        -89.20054297817398
+      ],
+      "I_top": [
+        -949.8194748063681,
+        493.5823656971652,
+        -45.200237114103686
+      ],
+      "E_bottom": [
+        -910.3476964812153,
+        827.9511618078227,
+        -204.61508252457418
+      ],
+      "E_top": [
+        -910.3476964812153,
+        827.9511618078227,
+        -162.2741443075183
+      ]
+    },
+    {
+      "rail_id": "fan_01_v15",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 15,
+      "v_mm": 28.0,
+      "q_I_mm": -62.587430100215464,
+      "q_S_mm": -3.989600419547691,
+      "q_E_mm": 274.0557078692317,
+      "R_bottom": [
+        -979.9643853882047,
+        272.341881735391,
+        32.53127928269439
+      ],
+      "R_top": [
+        -979.9643853882047,
+        272.341881735391,
+        32.53238672289804
+      ],
+      "I_bottom": [
+        -953.8565041489328,
+        493.50396739223396,
+        -89.02880828207017
+      ],
+      "I_top": [
+        -953.8565041489328,
+        493.50396739223396,
+        -45.028502417999874
+      ],
+      "E_bottom": [
+        -914.3902818276151,
+        827.8256981211839,
+        -204.3618217599956
+      ],
+      "E_top": [
+        -914.3902818276151,
+        827.8256981211839,
+        -162.2741443075183
+      ]
+    },
+    {
+      "rail_id": "fan_01_v16",
+      "member_order": 3,
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "fiber_index": 16,
+      "v_mm": 32.0,
+      "q_I_mm": -63.1385672945194,
+      "q_S_mm": -4.540752044296168,
+      "q_E_mm": 273.4621440273341,
+      "R_bottom": [
+        -984.0875661307609,
+        271.533687583384,
+        33.10414081214061
+      ],
+      "R_top": [
+        -984.0875661307609,
+        271.533687583384,
+        33.10524552374042
+      ],
+      "I_bottom": [
+        -957.8935334914976,
+        493.42556908730273,
+        -88.85707358596639
+      ],
+      "I_top": [
+        -957.8935334914976,
+        493.42556908730273,
+        -44.85676772189609
+      ],
+      "E_bottom": [
+        -918.4322850410759,
+        827.7051657322547,
+        -204.11078584113764
+      ],
+      "E_top": [
+        -918.4322850410759,
+        827.7051657322547,
+        -162.3063569756585
+      ]
+    }
+  ],
+  "shared_boundary_paths": {
+    "front_inner_xy_mm": [
+      [
+        -2382.0,
+        492.0
+      ],
+      [
+        -1700.0,
+        492.0
+      ],
+      [
+        -1625.0,
+        492.0
+      ],
+      [
+        -1550.0,
+        492.0
+      ],
+      [
+        -1475.0,
+        492.0
+      ],
+      [
+        -1400.0,
+        492.0
+      ],
+      [
+        -1325.0,
+        492.0
+      ],
+      [
+        -1250.0,
+        492.0
+      ],
+      [
+        -1175.0,
+        492.0
+      ],
+      [
+        -1099.9356754062362,
+        492.0000356694365
+      ],
+      [
+        -1057.2097261199997,
+        492.1310634905978
+      ],
+      [
+        -1028.5255848000147,
+        492.365625286846
+      ],
+      [
+        -985.7388899276065,
+        492.9343591959384
+      ],
+      [
+        -942.9564818047047,
+        493.7651850317445
+      ],
+      [
+        -914.2800123974669,
+        494.46880768416435
+      ],
+      [
+        -871.5083403400913,
+        495.7371868783375
+      ],
+      [
+        -828.7452406351866,
+        497.26755284515997
+      ],
+      [
+        -800.0841130015056,
+        498.4400481615534
+      ],
+      [
+        -757.3389035485743,
+        500.4077333977947
+      ],
+      [
+        -714.6065497583023,
+        502.63723018116116
+      ],
+      [
+        -685.9684296556428,
+        504.2782845637913
+      ],
+      [
+        -643.2611155188299,
+        506.94474956141926
+      ],
+      [
+        -600.5709369164672,
+        509.872780856055
+      ],
+      [
+        -571.9634839486581,
+        511.98195538552386
+      ],
+      [
+        -529.3054877040901,
+        515.3464869669482
+      ],
+      [
+        -486.66890228266044,
+        518.972269636261
+      ],
+      [
+        -458.09976785124707,
+        521.5490001889034
+      ],
+      [
+        -415.50249888439515,
+        525.6106984703702
+      ],
+      [
+        -372.93091030279095,
+        529.9332627559163
+      ],
+      [
+        -344.40773556056877,
+        532.97686015468
+      ],
+      [
+        -301.8825870146778,
+        537.7346387869601
+      ],
+      [
+        -259.3873815476213,
+        542.7528285678112
+      ],
+      [
+        -230.917795354924,
+        546.2624787665843
+      ],
+      [
+        -188.47614108377604,
+        551.7150652255285
+      ],
+      [
+        -146.06868457642034,
+        557.4275383274954
+      ],
+      [
+        -117.660301460692,
+        561.4023026288353
+      ],
+      [
+        -75.31349298653959,
+        567.5482385557239
+      ],
+      [
+        -33.00512781454094,
+        573.9534671103333
+      ],
+      [
+        -4.66554593374085,
+        578.3922824165302
+      ],
+      [
+        37.57509058879241,
+        585.2299240081329
+      ],
+      [
+        79.77304855292677,
+        592.3261948612728
+      ],
+      [
+        108.03624944254733,
+        597.2278739586914
+      ],
+      [
+        150.15941625578145,
+        604.7553924069174
+      ],
+      [
+        192.2356806692575,
+        612.5408075770445
+      ],
+      [
+        220.41494124044632,
+        617.9040394536538
+      ],
+      [
+        262.4093720053654,
+        626.1194214346915
+      ],
+      [
+        304.35268907376667,
+        634.5918986204667
+      ],
+      [
+        332.4404724500962,
+        640.4152488164856
+      ],
+      [
+        374.2949352596635,
+        649.3162970292883
+      ],
+      [
+        416.09408674691554,
+        658.4735701665116
+      ],
+      [
+        444.0828805186218,
+        664.7554811580791
+      ],
+      [
+        485.7861809018804,
+        674.3398149120576
+      ],
+      [
+        527.4299871306962,
+        684.1794347797538
+      ],
+      [
+        555.3123053639564,
+        690.9182263954998
+      ],
+      [
+        596.8532892801334,
+        701.18328224727
+      ],
+      [
+        638.330612122152,
+        711.7026171227676
+      ],
+      [
+        666.0989973612772,
+        718.8964869931947
+      ],
+      [
+        707.2946836897854,
+        729.7937728088683
+      ]
+    ],
+    "tip_outer_xy_mm": [
+      [
+        -2382.0,
+        825.0
+      ],
+      [
+        -1100.0,
+        825.0
+      ],
+      [
+        -1090.676500406444,
+        825.0071267719817
+      ],
+      [
+        -1081.3530226033533,
+        825.0285070712699
+      ],
+      [
+        -1072.0295883811427,
+        825.064140847896
+      ],
+      [
+        -1062.7062195301255,
+        825.1140280185782
+      ],
+      [
+        -1053.382937840461,
+        825.1781684667225
+      ],
+      [
+        -1044.0597651021058,
+        825.2565620424227
+      ],
+      [
+        -1034.7367231047615,
+        825.3492085624608
+      ],
+      [
+        -1025.4138336378242,
+        825.4561078103071
+      ],
+      [
+        -1016.0911184903334,
+        825.5772595361221
+      ],
+      [
+        -1006.7685994509214,
+        825.7126634567554
+      ],
+      [
+        -997.4462983077622,
+        825.8623192557466
+      ],
+      [
+        -988.1242368485201,
+        826.0262265833265
+      ],
+      [
+        -978.8024368602997,
+        826.2043850564196
+      ],
+      [
+        -969.4809201295943,
+        826.3967942586405
+      ],
+      [
+        -960.1597084422351,
+        826.6034537403001
+      ],
+      [
+        -950.8388235833406,
+        826.8243630184028
+      ],
+      [
+        -941.5182873372653,
+        827.0595215766486
+      ],
+      [
+        -932.1981214875489,
+        827.3089288654361
+      ],
+      [
+        -922.8783478168654,
+        827.5725843018616
+      ],
+      [
+        -913.5589881069725,
+        827.8504872697223
+      ],
+      [
+        -904.24006413866,
+        828.1426371195141
+      ],
+      [
+        -894.9215976916998,
+        828.4490331684392
+      ],
+      [
+        -885.603610544794,
+        828.7696747004012
+      ],
+      [
+        -876.2861244755247,
+        829.1045609660118
+      ],
+      [
+        -866.9691612603032,
+        829.4536911825891
+      ],
+      [
+        -857.6527426743181,
+        829.8170645341627
+      ],
+      [
+        -848.3368904914859,
+        830.1946801714712
+      ],
+      [
+        -839.0216264843988,
+        830.5865372119702
+      ],
+      [
+        -829.7069724242746,
+        830.9926347398274
+      ],
+      [
+        -820.3929500809053,
+        831.4129718059304
+      ],
+      [
+        -811.079581222607,
+        831.847547427886
+      ],
+      [
+        -801.7668876161678,
+        832.2963605900239
+      ],
+      [
+        -792.4548910267981,
+        832.7594102433977
+      ],
+      [
+        -783.1436132180794,
+        833.2366953057888
+      ],
+      [
+        -773.8330759519126,
+        833.7282146617079
+      ],
+      [
+        -764.5233009884689,
+        834.2339671623976
+      ],
+      [
+        -755.2143100861367,
+        834.7539516258364
+      ],
+      [
+        -745.9061250014727,
+        835.2881668367396
+      ],
+      [
+        -736.5987674891501,
+        835.8366115465632
+      ],
+      [
+        -727.292259301908,
+        836.3992844735072
+      ],
+      [
+        -717.9866221905003,
+        836.9761843025173
+      ],
+      [
+        -708.681877903645,
+        837.567309685289
+      ],
+      [
+        -699.3780481879741,
+        838.1726592402706
+      ],
+      [
+        -690.0751547879811,
+        838.7922315526669
+      ],
+      [
+        -680.7732194459719,
+        839.4260251744405
+      ],
+      [
+        -671.472263902013,
+        840.0740386243173
+      ],
+      [
+        -662.172309893881,
+        840.7362703877899
+      ],
+      [
+        -652.873379157012,
+        841.412718917119
+      ],
+      [
+        -643.5754934244501,
+        842.10338263134
+      ],
+      [
+        -634.2786744267971,
+        842.8082599162652
+      ],
+      [
+        -624.9829438921624,
+        843.527349124486
+      ],
+      [
+        -615.6883235461107,
+        844.2606485753795
+      ],
+      [
+        -606.3948351116121,
+        845.0081565551111
+      ],
+      [
+        -597.1025003089916,
+        845.7698713166384
+      ],
+      [
+        -587.8113408558779,
+        846.5457910797167
+      ],
+      [
+        -578.5213784671524,
+        847.3359140309005
+      ],
+      [
+        -569.2326348548992,
+        848.14023832355
+      ],
+      [
+        -559.9451317283537,
+        848.9587620778339
+      ],
+      [
+        -550.6588907938519,
+        849.7914833807359
+      ],
+      [
+        -541.3739337547805,
+        850.6384002860567
+      ],
+      [
+        -532.0902823115248,
+        851.4995108144198
+      ],
+      [
+        -522.8079581614193,
+        852.374812953277
+      ],
+      [
+        -513.526982998696,
+        853.264304656911
+      ],
+      [
+        -504.2473785144342,
+        854.1679838464413
+      ],
+      [
+        -494.9691663965101,
+        855.0858484098295
+      ],
+      [
+        -485.6923683295448,
+        856.017896201884
+      ],
+      [
+        -476.4170059948559,
+        856.9641250442643
+      ],
+      [
+        -467.1431010704042,
+        857.9245327254872
+      ],
+      [
+        -457.87067523074495,
+        858.89911700093
+      ],
+      [
+        -448.59975014697636,
+        859.887875592838
+      ],
+      [
+        -439.33034748668945,
+        860.89080619033
+      ],
+      [
+        -430.0624889139166,
+        861.9079064494009
+      ],
+      [
+        -420.7961960890816,
+        862.9391739929284
+      ],
+      [
+        -411.53149066894923,
+        863.9846064106823
+      ],
+      [
+        -402.2683943065739,
+        865.0442012593238
+      ],
+      [
+        -393.00692865124915,
+        866.1179560624151
+      ],
+      [
+        -383.7471153484578,
+        867.2058683104244
+      ],
+      [
+        -374.4889760398206,
+        868.3079354607324
+      ],
+      [
+        -365.23253236304606,
+        869.4241549376371
+      ],
+      [
+        -355.97780595187965,
+        870.5545241323607
+      ],
+      [
+        -346.7248184360533,
+        871.6990404030536
+      ],
+      [
+        -337.47359144123493,
+        872.8577010748052
+      ],
+      [
+        -328.22414658897753,
+        874.0305034396454
+      ],
+      [
+        -318.9765054966698,
+        875.2174447565515
+      ],
+      [
+        -309.7306897774838,
+        876.4185222514595
+      ],
+      [
+        -300.48672104032585,
+        877.6337331172641
+      ],
+      [
+        -291.2446208897859,
+        878.8630745138282
+      ],
+      [
+        -282.0044109260858,
+        880.1065435679911
+      ],
+      [
+        -272.7661127450308,
+        881.3641373735726
+      ],
+      [
+        -263.5297479379574,
+        882.6358529913801
+      ],
+      [
+        -254.29533809168367,
+        883.9216874492174
+      ],
+      [
+        -245.06290478845824,
+        885.22163774189
+      ],
+      [
+        -235.83246960591134,
+        886.5357008312111
+      ],
+      [
+        -226.60405411700185,
+        887.8638736460128
+      ],
+      [
+        -217.3776798899694,
+        889.2061530821485
+      ],
+      [
+        -208.15336848828247,
+        890.5625360025031
+      ],
+      [
+        -198.93114147058827,
+        891.9330192369983
+      ],
+      [
+        -189.71102039066272,
+        893.3175995826027
+      ],
+      [
+        -180.4930267973599,
+        894.7162738033376
+      ],
+      [
+        -171.27718223456122,
+        896.1290386302833
+      ],
+      [
+        -162.063508241126,
+        897.5558907615898
+      ],
+      [
+        -152.8520263508401,
+        898.9968268624825
+      ],
+      [
+        -143.6427580923663,
+        900.4518435652693
+      ],
+      [
+        -134.435724989194,
+        901.9209374693504
+      ],
+      [
+        -125.23094855958834,
+        903.4041051412262
+      ],
+      [
+        -116.02845031654033,
+        904.9013431145032
+      ],
+      [
+        -106.82825176771712,
+        906.4126478899034
+      ],
+      [
+        -97.63037441540996,
+        907.938015935274
+      ],
+      [
+        -88.43483975648599,
+        909.4774436855917
+      ],
+      [
+        -79.24166928233683,
+        911.0309275429763
+      ],
+      [
+        -70.05088447882872,
+        912.598463876694
+      ],
+      [
+        -60.86250682625223,
+        914.1800490231702
+      ],
+      [
+        -51.676557799271905,
+        915.7756792859938
+      ],
+      [
+        -42.49305886687603,
+        917.3853509359299
+      ],
+      [
+        -33.31203149232738,
+        919.0090602109253
+      ],
+      [
+        -24.133497133111405,
+        920.64680331612
+      ],
+      [
+        -14.957477240887556,
+        922.2985764238542
+      ],
+      [
+        -5.783993261438582,
+        923.9643756736782
+      ],
+      [
+        3.386933365379946,
+        925.6441971723598
+      ],
+      [
+        12.55528120568897,
+        927.3380369938958
+      ],
+      [
+        21.72102883163666,
+        929.045891179519
+      ],
+      [
+        30.88415482144842,
+        930.7677557377104
+      ],
+      [
+        40.04463775947693,
+        932.5036266442046
+      ],
+      [
+        49.20245623625124,
+        934.2534998420019
+      ],
+      [
+        58.35758884852885,
+        936.0173712413773
+      ],
+      [
+        67.51001419934369,
+        937.7952367198887
+      ],
+      [
+        76.65971089805703,
+        939.5870921223894
+      ],
+      [
+        85.80665756040821,
+        941.3929332610358
+      ],
+      [
+        94.95083280856306,
+        943.2127559152952
+      ],
+      [
+        104.09221527116438,
+        945.0465558319611
+      ],
+      [
+        113.23078358338307,
+        946.8943287251575
+      ],
+      [
+        122.36651638696662,
+        948.7560702763527
+      ],
+      [
+        131.49939233028954,
+        950.6317761343687
+      ],
+      [
+        140.62939006840338,
+        952.521441915388
+      ],
+      [
+        149.75648826308657,
+        954.42506320297
+      ],
+      [
+        158.8806655828937,
+        956.3426355480553
+      ],
+      [
+        168.00190070320673,
+        958.2741544689803
+      ],
+      [
+        177.12017230628294,
+        960.2196154514855
+      ],
+      [
+        186.23545908130723,
+        962.1790139487262
+      ],
+      [
+        195.3477397244394,
+        964.1523453812842
+      ],
+      [
+        204.45699293886514,
+        966.1396051371778
+      ],
+      [
+        213.5631974348462,
+        968.1407885718719
+      ],
+      [
+        222.66633192976929,
+        970.1558910082913
+      ],
+      [
+        231.76637514819618,
+        972.1849077368281
+      ],
+      [
+        240.86330582191385,
+        974.2278340153559
+      ],
+      [
+        249.95710268998278,
+        976.2846650692389
+      ],
+      [
+        259.04774449878914,
+        978.3553960913423
+      ],
+      [
+        268.13521000209175,
+        980.4400222420481
+      ],
+      [
+        277.2194779610734,
+        982.5385386492608
+      ],
+      [
+        286.3005271443899,
+        984.6509404084215
+      ],
+      [
+        295.37833632822026,
+        986.7772225825202
+      ],
+      [
+        304.452884296315,
+        988.9173802021052
+      ],
+      [
+        313.5241498400476,
+        991.0714082652951
+      ],
+      [
+        322.5921117584626,
+        993.239301737793
+      ],
+      [
+        331.6567488583253,
+        995.4210555528949
+      ],
+      [
+        340.7180399541721,
+        997.6166646115039
+      ],
+      [
+        349.77596386835967,
+        999.8261237821412
+      ],
+      [
+        358.8304994311136,
+        1002.0494279009566
+      ],
+      [
+        367.8816254805795,
+        1004.2865717717447
+      ],
+      [
+        376.9293208628708,
+        1006.5375501659514
+      ],
+      [
+        385.9735644321188,
+        1008.802357822693
+      ],
+      [
+        395.0143350505232,
+        1011.080989448761
+      ],
+      [
+        404.05161158839974,
+        1013.3734397186392
+      ],
+      [
+        413.08537292423034,
+        1015.6797032745171
+      ],
+      [
+        422.1155979447133,
+        1017.9997747262983
+      ],
+      [
+        431.14226554481047,
+        1020.3336486516151
+      ],
+      [
+        440.1653546277994,
+        1022.6813195958422
+      ],
+      [
+        449.18484410532005,
+        1025.0427820721088
+      ],
+      [
+        458.2007128974258,
+        1027.4180305613097
+      ],
+      [
+        467.21293993263225,
+        1029.807059512121
+      ],
+      [
+        476.2215041479658,
+        1032.2098633410117
+      ],
+      [
+        485.22638448901444,
+        1034.6264364322558
+      ],
+      [
+        494.22755990997393,
+        1037.0567731379465
+      ],
+      [
+        503.22500937370137,
+        1039.5008677780106
+      ],
+      [
+        512.2187118517606,
+        1041.9587146402193
+      ],
+      [
+        521.2086463244734,
+        1044.4303079802032
+      ],
+      [
+        530.1947917809675,
+        1046.915642021465
+      ],
+      [
+        539.1771272192263,
+        1049.4147109553924
+      ],
+      [
+        548.1556316461376,
+        1051.9275089412747
+      ],
+      [
+        557.1302840775434,
+        1054.454030106313
+      ],
+      [
+        566.1010635382877,
+        1056.994268545634
+      ],
+      [
+        575.0679490622674,
+        1059.5482183223075
+      ],
+      [
+        584.0309196924786,
+        1062.1158734673554
+      ],
+      [
+        592.989954481068,
+        1064.6972279797703
+      ],
+      [
+        601.945032489381,
+        1067.2922758265252
+      ],
+      [
+        610.8961327880106,
+        1069.901010942591
+      ],
+      [
+        619.8432344568462,
+        1072.5234272309485
+      ],
+      [
+        628.7863165851222,
+        1075.1595185626043
+      ],
+      [
+        637.7253582714682,
+        1077.8092787766032
+      ],
+      [
+        646.6603386239558,
+        1080.4727016800448
+      ],
+      [
+        655.5912367601497,
+        1083.149781048096
+      ],
+      [
+        664.518031807155,
+        1085.8405106240077
+      ],
+      [
+        673.4407029016656,
+        1088.5448841191264
+      ],
+      [
+        682.3592291900152,
+        1091.2628952129119
+      ],
+      [
+        691.2735898282233,
+        1093.9945375529503
+      ],
+      [
+        700.1837639820455,
+        1096.7398047549696
+      ],
+      [
+        709.0897308270214,
+        1099.498690402854
+      ],
+      [
+        717.9914695485252,
+        1102.2711880486597
+      ],
+      [
+        726.8889593418119,
+        1105.05729121263
+      ],
+      [
+        735.7821794120662,
+        1107.856993383209
+      ],
+      [
+        744.6711089744535,
+        1110.6702880170578
+      ],
+      [
+        753.5557272541648,
+        1113.4971685390706
+      ],
+      [
+        762.4360134864692,
+        1116.3376283423886
+      ],
+      [
+        771.3119469167593,
+        1119.1916607884173
+      ],
+      [
+        780.183506800601,
+        1122.0592592068385
+      ],
+      [
+        789.0506724037818,
+        1124.9404168956305
+      ],
+      [
+        797.9134230023601,
+        1127.835127121081
+      ],
+      [
+        806.7717378827112,
+        1130.743383117802
+      ],
+      [
+        815.6255963415792,
+        1133.665178088749
+      ],
+      [
+        824.4749776861231,
+        1136.6005052052324
+      ],
+      [
+        833.3198612339645,
+        1139.5493576069377
+      ],
+      [
+        842.1602263132381,
+        1142.5117284019398
+      ],
+      [
+        850.9960522626388,
+        1145.4876106667173
+      ],
+      [
+        859.8273184314696,
+        1148.4769974461728
+      ],
+      [
+        868.6540041796918,
+        1151.4798817536437
+      ],
+      [
+        877.4760888779699,
+        1154.496256570925
+      ],
+      [
+        886.2935519077232,
+        1157.5261148482796
+      ],
+      [
+        895.1063726611721,
+        1160.5694495044593
+      ],
+      [
+        903.9145305413867,
+        1163.6262534267178
+      ],
+      [
+        912.7180049623346,
+        1166.69651947083
+      ],
+      [
+        921.5167753489309,
+        1169.7802404611082
+      ],
+      [
+        930.3108211370825,
+        1172.877409190418
+      ],
+      [
+        939.10012177374,
+        1175.9880184201943
+      ],
+      [
+        947.8846567169437,
+        1179.1120608804617
+      ],
+      [
+        956.6644054358721,
+        1182.249529269848
+      ],
+      [
+        965.4393474108897,
+        1185.4004162556014
+      ],
+      [
+        974.2094621335955,
+        1188.5647144736115
+      ],
+      [
+        982.9747291068702,
+        1191.7424165284215
+      ],
+      [
+        991.7351278449241,
+        1194.9335149932485
+      ],
+      [
+        1000.4906378733463,
+        1198.1380024100004
+      ],
+      [
+        1009.2412387291506,
+        1201.3558712892927
+      ],
+      [
+        1017.9869099608245,
+        1204.587114110467
+      ],
+      [
+        1026.7276311283777,
+        1207.8317233216062
+      ],
+      [
+        1035.463381803388,
+        1211.0896913395554
+      ],
+      [
+        1044.1941415690503,
+        1214.3610105499379
+      ],
+      [
+        1052.9198900202236,
+        1217.6456733071734
+      ],
+      [
+        1061.6406067634794,
+        1220.9436719344942
+      ],
+      [
+        1070.3562714171503,
+        1224.2549987239665
+      ],
+      [
+        1079.0668636113742,
+        1227.5796459365051
+      ],
+      [
+        1087.7723629881461,
+        1230.9176058018943
+      ],
+      [
+        1096.4727492013621,
+        1234.2688705188032
+      ],
+      [
+        1105.1680019168698,
+        1237.633432254806
+      ],
+      [
+        1113.8581008125143,
+        1241.0112831464
+      ],
+      [
+        1122.5430255781853,
+        1244.4024152990232
+      ],
+      [
+        1131.222755915866,
+        1247.8068207870742
+      ],
+      [
+        1139.897271539679,
+        1251.224491653928
+      ],
+      [
+        1148.5665521759356,
+        1254.6554199119573
+      ],
+      [
+        1157.2305775631812,
+        1258.0995975425512
+      ],
+      [
+        1165.8893274522443,
+        1261.5570164961314
+      ],
+      [
+        1174.5427816062816,
+        1265.027668692174
+      ],
+      [
+        1183.1909198008284,
+        1268.511546019225
+      ],
+      [
+        1191.8337218238435,
+        1272.008640334923
+      ],
+      [
+        1200.4711674757568,
+        1275.518943466016
+      ],
+      [
+        1209.1032365695178,
+        1279.042447208381
+      ],
+      [
+        1217.7299089306412,
+        1282.5791433270415
+      ],
+      [
+        1226.3511643972547,
+        1286.1290235561917
+      ]
+    ],
+    "likou_outer_xy_mm": [
+      [
+        -2382.0,
+        550.0
+      ],
+      [
+        -1700.0,
+        550.0
+      ],
+      [
+        -1625.0,
+        550.0
+      ],
+      [
+        -1550.0,
+        550.0
+      ],
+      [
+        -1475.0,
+        550.0
+      ],
+      [
+        -1400.0,
+        550.0
+      ],
+      [
+        -1325.0,
+        550.0
+      ],
+      [
+        -1250.0,
+        550.0
+      ],
+      [
+        -1175.0,
+        550.0
+      ],
+      [
+        -1100.0,
+        550.0
+      ],
+      [
+        -1057.5061490975365,
+        550.1303060151204
+      ],
+      [
+        -1029.177704449137,
+        550.3619591361785
+      ],
+      [
+        -986.6874053008868,
+        550.9266028030506
+      ],
+      [
+        -944.20136812707,
+        551.7518236482774
+      ],
+      [
+        -915.8805002561378,
+        552.4467210530865
+      ],
+      [
+        -873.4051173950007,
+        553.7061633813255
+      ],
+      [
+        -830.9382573428152,
+        555.2260783415877
+      ],
+      [
+        -802.6325410003233,
+        556.3840341716204
+      ],
+      [
+        -760.1834349696624,
+        558.3379383084839
+      ],
+      [
+        -717.7471103029452,
+        560.5521408645545
+      ],
+      [
+        -689.4641161874065,
+        562.1728454108315
+      ],
+      [
+        -647.052640502536,
+        564.8206887615561
+      ],
+      [
+        -604.6582013180742,
+        567.7285866987822
+      ],
+      [
+        -576.4054940506734,
+        569.81160648471
+      ],
+      [
+        -534.0429921622265,
+        573.1526808522849
+      ],
+      [
+        -491.7017773540399,
+        576.753496418979
+      ],
+      [
+        -463.4869134553909,
+        579.2982743162875
+      ],
+      [
+        -421.18471571537964,
+        583.3316860908681
+      ],
+      [
+        -378.90804994199925,
+        587.624456206333
+      ],
+      [
+        -350.7385758110545,
+        590.6303115840856
+      ],
+      [
+        -308.50799644243375,
+        595.3549819820037
+      ],
+      [
+        -266.30718709798793,
+        600.3385584941143
+      ],
+      [
+        -238.1906369936719,
+        603.8046874007487
+      ],
+      [
+        -196.0429710642161,
+        609.2193527530435
+      ],
+      [
+        -153.9293052541343,
+        614.8924027453386
+      ],
+      [
+        -125.8731992802127,
+        618.8178781236966
+      ],
+      [
+        -83.81971968151686,
+        624.9210902140967
+      ],
+      [
+        -41.80446120366014,
+        631.2820963622798
+      ],
+      [
+        -13.816303297406193,
+        635.6658682975567
+      ],
+      [
+        28.13174227018294,
+        642.4559947498274
+      ],
+      [
+        70.03735593815827,
+        649.5032557275917
+      ],
+      [
+        97.9500800129897,
+        654.3441517281526
+      ],
+      [
+        139.7814720487031,
+        661.8193764426887
+      ],
+      [
+        181.56623275494144,
+        669.5510073767618
+      ],
+      [
+        209.3960574102664,
+        674.8477326877337
+      ],
+      [
+        251.0996076137012,
+        683.0060563273009
+      ],
+      [
+        292.75233952990084,
+        691.4199893015739
+      ],
+      [
+        320.4918213500598,
+        697.1711272511429
+      ],
+      [
+        362.0563756136239,
+        706.0103677756224
+      ],
+      [
+        403.56593822414357,
+        715.1043523842363
+      ],
+      [
+        431.20765795674174,
+        721.3083647625608
+      ],
+      [
+        472.6220993489494,
+        730.8261580125609
+      ],
+      [
+        513.9773904304714,
+        740.5977619618061
+      ],
+      [
+        541.5139549707401,
+        747.2529894324207
+      ],
+      [
+        582.7672067095684,
+        757.4467897616014
+      ],
+      [
+        623.95716530052,
+        767.8933995204679
+      ],
+      [
+        651.3812096686856,
+        774.9980620640945
+      ],
+      [
+        692.4622380841905,
+        785.8651430200292
+      ]
+    ],
+    "path_extension": {
+      "method": "extend the existing common inner path and end curve with straight-bank control lines",
+      "front_extension_xy_mm": [
+        [
+          -2382.0,
+          492.0
+        ],
+        [
+          -1700.0,
+          492.0
+        ]
+      ],
+      "front_extension_length_mm": 682.0,
+      "outer_extension_xy_mm": [
+        [
+          -2382.0,
+          825.0
+        ],
+        [
+          -1100.0,
+          825.0
+        ]
+      ],
+      "outer_extension_length_mm": 1282.0,
+      "likou_outer_extension_xy_mm": [
+        [
+          -2382.0,
+          550.0
+        ],
+        [
+          -1700.0,
+          550.0
+        ]
+      ],
+      "likou_outer_extension_length_mm": 682.0,
+      "likou_extension_actual_outer_edge_x_mm": -2545.0,
+      "front_extension_x_min_mm": -2382.0,
+      "front_extension_y_mm": 492.0,
+      "outer_extension_y_mm": 825.0
+    },
+    "i_edge_inboard_bias_mm": 0.05
+  },
+  "masterboard_guard_results": {
+    "unique_intersections_per_fiber": true,
+    "strictly_monotonic_member_width_stations": true,
+    "inner_tip_member_order_matches": true,
+    "member_and_gap_rails_non_crossing": true,
+    "minimum_boundary_gap_mm": 238.0776176151635,
+    "minimum_ruled_xy_rail_separation_mm": 4.0,
+    "maximum_shared_seam_endpoint_error_mm": 0.0
+  },
+  "BRep_status": "reuses diagnostics/v02/fan01_shared_motherboard_B400.brep; this exporter builds no member solids and performs no cut",
+  "contour_status": "controls-derived contours; independently measured BRep contour checks remain in diagnostics/v02/masterboard_first_production_entity_b400.json"
+}

@@ -1,0 +1,2895 @@
+{
+  "case_id": "size_variant_valid64",
+  "source_mesh": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\outputs\\workbench\\case-e3b47d1b9f6a4beda5ed00e4f28ed3e7\\model_mesh.json",
+  "source_config": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\size_variant_valid64.json",
+  "method": "1mm q sections x 33 width positions; vertical intersections against actual exported likou_x triangles, compared with the corresponding reconstructed old notch-floor surface; positive excess means remaining likou above the seat floor.",
+  "candidate_interpretation": "The three blue-circled tabs align visually with the three straight-eave flyer/likou crossings; these part pairs are tested directly.",
+  "checks": [
+    {
+      "flyer_id": "straight_flying_x_01",
+      "candidate_likou_target_id": "likou_x",
+      "q_interval_mm": [
+        -58.10999999999999,
+        0.0
+      ],
+      "q_spacing_mm": 1.0,
+      "width_section_count": 33,
+      "actual_mesh_triangle_count": 2386,
+      "above_floor_section_hits_over_0_75mm": 118,
+      "maximum_material_above_floor_mm": 47.868221941992445,
+      "largest_residual_sections": [
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -2313.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": 32.0,
+          "x_mm": -2377.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -56.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -2313.0,
+          "y_mm": 493.89,
+          "likou_top_z_mm": -39.144999999999996,
+          "seat_floor_z_mm": -86.87450819672131,
+          "material_above_floor_mm": 47.72950819672131
+        },
+        {
+          "q_mm": -56.10999999999999,
+          "v_mm": 32.0,
+          "x_mm": -2377.0,
+          "y_mm": 493.89,
+          "likou_top_z_mm": -39.145,
+          "seat_floor_z_mm": -86.87450819672131,
+          "material_above_floor_mm": 47.729508196721305
+        },
+        {
+          "q_mm": -55.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -2313.0,
+          "y_mm": 494.89,
+          "likou_top_z_mm": -39.644999999999996,
+          "seat_floor_z_mm": -87.23579445145019,
+          "material_above_floor_mm": 47.59079445145019
+        },
+        {
+          "q_mm": -55.10999999999999,
+          "v_mm": 32.0,
+          "x_mm": -2377.0,
+          "y_mm": 494.89,
+          "likou_top_z_mm": -39.644999999999996,
+          "seat_floor_z_mm": -87.23579445145019,
+          "material_above_floor_mm": 47.59079445145019
+        },
+        {
+          "q_mm": -54.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -2313.0,
+          "y_mm": 495.89,
+          "likou_top_z_mm": -40.144999999999996,
+          "seat_floor_z_mm": -87.59708070617907,
+          "material_above_floor_mm": 47.452080706179075
+        },
+        {
+          "q_mm": -54.10999999999999,
+          "v_mm": 32.0,
+          "x_mm": -2377.0,
+          "y_mm": 495.89,
+          "likou_top_z_mm": -40.144999999999996,
+          "seat_floor_z_mm": -87.59708070617907,
+          "material_above_floor_mm": 47.452080706179075
+        },
+        {
+          "q_mm": -53.10999999999999,
+          "v_mm": 32.0,
+          "x_mm": -2377.0,
+          "y_mm": 496.89,
+          "likou_top_z_mm": -40.644999999999996,
+          "seat_floor_z_mm": -87.95836696090794,
+          "material_above_floor_mm": 47.31336696090794
+        },
+        {
+          "q_mm": -53.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -2313.0,
+          "y_mm": 496.89,
+          "likou_top_z_mm": -40.645,
+          "seat_floor_z_mm": -87.95836696090794,
+          "material_above_floor_mm": 47.313366960907935
+        },
+        {
+          "q_mm": -52.10999999999999,
+          "v_mm": 32.0,
+          "x_mm": -2377.0,
+          "y_mm": 497.89,
+          "likou_top_z_mm": -41.14499999999999,
+          "seat_floor_z_mm": -88.31965321563683,
+          "material_above_floor_mm": 47.174653215636845
+        },
+        {
+          "q_mm": -52.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -2313.0,
+          "y_mm": 497.89,
+          "likou_top_z_mm": -41.145,
+          "seat_floor_z_mm": -88.31965321563683,
+          "material_above_floor_mm": 47.17465321563683
+        }
+      ],
+      "missing_board_queries": 0,
+      "edge_bias_inboard_mm": 0.05,
+      "piecewise_I_edge_fit_mm": 0.01
+    },
+    {
+      "flyer_id": "straight_flying_x_02",
+      "candidate_likou_target_id": "likou_x",
+      "q_interval_mm": [
+        -58.10999999999999,
+        0.0
+      ],
+      "q_spacing_mm": 1.0,
+      "width_section_count": 33,
+      "actual_mesh_triangle_count": 2386,
+      "above_floor_section_hits_over_0_75mm": 1947,
+      "maximum_material_above_floor_mm": 47.86822194199246,
+      "largest_residual_sections": [
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -26.0,
+          "x_mm": -2109.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199246,
+          "material_above_floor_mm": 47.86822194199246
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -24.0,
+          "x_mm": -2111.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199246,
+          "material_above_floor_mm": 47.86822194199246
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -22.0,
+          "x_mm": -2113.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199246,
+          "material_above_floor_mm": 47.86822194199246
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -2103.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -30.0,
+          "x_mm": -2105.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -28.0,
+          "x_mm": -2107.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -20.0,
+          "x_mm": -2115.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -12.0,
+          "x_mm": -2123.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -10.0,
+          "x_mm": -2125.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -8.0,
+          "x_mm": -2127.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": 0.0,
+          "x_mm": -2135.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": 2.0,
+          "x_mm": -2137.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        }
+      ],
+      "missing_board_queries": 0,
+      "edge_bias_inboard_mm": 0.05,
+      "piecewise_I_edge_fit_mm": 0.01
+    },
+    {
+      "flyer_id": "straight_flying_x_03",
+      "candidate_likou_target_id": "likou_x",
+      "q_interval_mm": [
+        -58.10999999999999,
+        0.0
+      ],
+      "q_spacing_mm": 1.0,
+      "width_section_count": 33,
+      "actual_mesh_triangle_count": 2386,
+      "above_floor_section_hits_over_0_75mm": 649,
+      "maximum_material_above_floor_mm": 47.868221941992466,
+      "largest_residual_sections": [
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -26.0,
+          "x_mm": -1899.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.64499999999999,
+          "seat_floor_z_mm": -86.51322194199246,
+          "material_above_floor_mm": 47.868221941992466
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -22.0,
+          "x_mm": -1903.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.64499999999999,
+          "seat_floor_z_mm": -86.51322194199246,
+          "material_above_floor_mm": 47.868221941992466
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -24.0,
+          "x_mm": -1901.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199246,
+          "material_above_floor_mm": 47.86822194199246
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -28.0,
+          "x_mm": -1897.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.64499999999999,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.86822194199245
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -32.0,
+          "x_mm": -1893.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -30.0,
+          "x_mm": -1895.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -20.0,
+          "x_mm": -1905.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -12.0,
+          "x_mm": -1913.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199244,
+          "material_above_floor_mm": 47.868221941992445
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -18.0,
+          "x_mm": -1907.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199243,
+          "material_above_floor_mm": 47.86822194199243
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -16.0,
+          "x_mm": -1909.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199243,
+          "material_above_floor_mm": 47.86822194199243
+        },
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -14.0,
+          "x_mm": -1911.0,
+          "y_mm": 492.89,
+          "likou_top_z_mm": -38.644999999999996,
+          "seat_floor_z_mm": -86.51322194199243,
+          "material_above_floor_mm": 47.86822194199243
+        },
+        {
+          "q_mm": -56.10999999999999,
+          "v_mm": -26.0,
+          "x_mm": -1899.0,
+          "y_mm": 493.89,
+          "likou_top_z_mm": -39.144999999999996,
+          "seat_floor_z_mm": -86.87450819672132,
+          "material_above_floor_mm": 47.729508196721326
+        }
+      ],
+      "missing_board_queries": 0,
+      "edge_bias_inboard_mm": 0.05,
+      "piecewise_I_edge_fit_mm": 0.01
+    }
+  ],
+  "targeted_exact_cutter_checks": [
+    {
+      "flyer_id": "straight_flying_x_01",
+      "sampled_points": 59,
+      "sections_with_any_exact_cutter_coverage": 59,
+      "sections_with_no_exact_cutter_coverage": 0,
+      "sections_with_exact_target_and_cutter_overlap": 59,
+      "checks": [
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 47.868221941992445,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -56.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 47.72950819672131,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -55.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 47.59079445145019,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -54.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 47.452080706179075,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -53.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 47.31336696090794,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -52.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 47.174653215636845,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -51.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 47.035939470365705,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -50.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 46.897225725094586,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -49.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 46.75851197982347,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -48.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 46.61979823455235,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -47.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 46.481084489281216,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -46.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 46.3423707440101,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -45.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 46.203656998738964,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -44.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 46.06494325346783,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -43.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 45.92622950819673,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -42.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 45.787515762925594,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -41.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 45.648802017654475,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -40.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 45.510088272383356,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -39.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 45.37137452711224,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -38.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 45.232660781841105,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -37.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 45.09394703657001,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -36.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 44.95523329129887,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -35.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 44.816519546027756,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -34.10999999999999,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 44.677805800756644,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -33.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 44.53909205548551,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -32.10999999999999,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 44.40037831021438,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -31.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 44.26166456494328,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -30.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 44.12295081967214,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -29.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 43.98423707440102,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -28.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 43.845523329129904,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -27.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 43.70680958385877,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -26.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 43.56809583858766,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -25.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 43.42938209331653,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -24.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 43.29066834804543,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -23.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 43.15195460277428,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -22.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 43.01324085750317,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -21.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 42.87452711223204,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -20.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 42.735813366960926,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -19.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 42.5970996216898,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -18.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 42.45838587641867,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -17.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 42.31967213114755,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -16.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 42.18095838587645,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -15.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 42.04224464060531,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -14.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 41.9035308953342,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -13.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 41.764817150063074,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -12.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 41.62610340479194,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -11.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 41.48738965952083,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -10.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 41.3486759142497,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -9.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 41.20996216897859,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -8.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 41.07124842370746,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -7.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 40.932534678436326,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -6.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 40.79382093316522,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -5.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 40.6551071878941,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -4.109999999999992,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 40.516393442622984,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -3.1099999999999923,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 40.37767969735185,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -2.1099999999999923,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 40.23896595208073,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -1.1099999999999923,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 40.10025220680963,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -0.10999999999999233,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 39.96153846153848,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": 0.0,
+          "v_mm": 32.0,
+          "material_above_floor_mm": 39.94627994955866,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        }
+      ]
+    },
+    {
+      "flyer_id": "straight_flying_x_02",
+      "sampled_points": 59,
+      "sections_with_any_exact_cutter_coverage": 59,
+      "sections_with_no_exact_cutter_coverage": 0,
+      "sections_with_exact_target_and_cutter_overlap": 59,
+      "checks": [
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.86822194199246,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -56.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.729508196721326,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -55.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.59079445145021,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -54.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.45208070617909,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -53.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.313366960907956,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -52.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.17465321563685,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -51.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.03593947036572,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -50.10999999999999,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 46.8972257250946,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -49.10999999999999,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 46.75851197982348,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -48.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.61979823455236,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -47.10999999999999,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 46.48108448928123,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -46.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.34237074401011,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -45.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.20365699873898,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -44.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.06494325346786,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -43.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 45.926229508196734,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -42.10999999999999,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 45.78751576292562,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -41.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 45.64880201765448,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -40.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 45.51008827238336,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -39.10999999999999,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 45.37137452711225,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -38.10999999999999,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 45.23266078184111,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -37.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 45.09394703657001,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -36.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.955233291298875,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -35.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.81651954602776,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -34.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.677805800756644,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -33.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.53909205548552,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -32.10999999999999,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 44.40037831021439,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -31.109999999999992,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 44.261664564943274,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -30.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.122950819672155,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -29.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 43.98423707440104,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -28.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 43.845523329129904,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -27.109999999999992,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 43.7068095838588,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -26.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 43.568095838587666,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -25.109999999999992,
+          "v_mm": -28.0,
+          "material_above_floor_mm": 43.42938209331653,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -24.109999999999992,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 43.29066834804543,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -23.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 43.151954602774275,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -22.109999999999992,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 43.01324085750318,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -21.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 42.874527112232045,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -20.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 42.735813366960926,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -19.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 42.59709962168981,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -18.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 42.45838587641868,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -17.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 42.319672131147556,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -16.109999999999992,
+          "v_mm": -30.0,
+          "material_above_floor_mm": 42.18095838587644,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -15.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 42.04224464060532,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -14.109999999999992,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 41.903530895334185,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -13.109999999999992,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 41.76481715006307,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -12.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 41.62610340479194,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -11.109999999999992,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 41.487389659520815,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -10.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 41.34867591424971,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -9.109999999999992,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 41.20996216897859,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -8.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 41.07124842370746,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -7.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 40.93253467843634,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -6.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 40.79382093316522,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -5.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 40.6551071878941,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -4.109999999999992,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 40.516393442622956,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -3.1099999999999923,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 40.37767969735184,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -2.1099999999999923,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 40.23896595208072,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -1.1099999999999923,
+          "v_mm": -28.0,
+          "material_above_floor_mm": 40.100252206809614,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -0.10999999999999233,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 39.96153846153848,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": 0.0,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 39.946279949558644,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        }
+      ]
+    },
+    {
+      "flyer_id": "straight_flying_x_03",
+      "sampled_points": 59,
+      "sections_with_any_exact_cutter_coverage": 59,
+      "sections_with_no_exact_cutter_coverage": 0,
+      "sections_with_exact_target_and_cutter_overlap": 59,
+      "checks": [
+        {
+          "q_mm": -57.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.868221941992466,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -56.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.729508196721326,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -55.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.59079445145021,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -54.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.45208070617909,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -53.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.313366960907956,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -52.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.17465321563685,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -51.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 47.03593947036572,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -50.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.8972257250946,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -49.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.75851197982348,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -48.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.61979823455236,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -47.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.48108448928123,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -46.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.34237074401011,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -45.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.20365699873898,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -44.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 46.06494325346786,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -43.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 45.92622950819674,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -42.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 45.78751576292562,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -41.10999999999999,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 45.64880201765449,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -40.10999999999999,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 45.51008827238337,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -39.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 45.37137452711225,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -38.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 45.23266078184112,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -37.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 45.093947036570015,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -36.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.95523329129888,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -35.10999999999999,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 44.81651954602776,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -34.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.677805800756644,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -33.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.539092055485526,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -32.10999999999999,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.40037831021439,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -31.109999999999992,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 44.261664564943274,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -30.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 44.122950819672155,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -29.109999999999992,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 43.98423707440104,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -28.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 43.845523329129904,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -27.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 43.7068095838588,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -26.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 43.568095838587666,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -25.109999999999992,
+          "v_mm": -30.0,
+          "material_above_floor_mm": 43.42938209331653,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -24.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 43.29066834804543,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -23.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 43.15195460277428,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -22.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 43.01324085750317,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -21.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 42.87452711223204,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -20.109999999999992,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 42.735813366960926,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -19.109999999999992,
+          "v_mm": -30.0,
+          "material_above_floor_mm": 42.59709962168979,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -18.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 42.45838587641868,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -17.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 42.31967213114755,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -16.109999999999992,
+          "v_mm": -30.0,
+          "material_above_floor_mm": 42.18095838587643,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -15.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 42.04224464060531,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -14.109999999999992,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 41.90353089533417,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -13.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 41.76481715006307,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -12.109999999999992,
+          "v_mm": -22.0,
+          "material_above_floor_mm": 41.62610340479194,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -11.109999999999992,
+          "v_mm": -30.0,
+          "material_above_floor_mm": 41.48738965952081,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -10.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 41.3486759142497,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -9.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 41.209962168978585,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -8.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 41.071248423707445,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -7.109999999999992,
+          "v_mm": -24.0,
+          "material_above_floor_mm": 40.932534678436326,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -6.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 40.79382093316521,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -5.109999999999992,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 40.65510718789409,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -4.109999999999992,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 40.51639344262294,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -3.1099999999999923,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 40.37767969735182,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -2.1099999999999923,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 40.238965952080704,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -1.1099999999999923,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 40.100252206809586,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": -0.10999999999999233,
+          "v_mm": -26.0,
+          "material_above_floor_mm": 39.96153846153847,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        },
+        {
+          "q_mm": 0.0,
+          "v_mm": -32.0,
+          "material_above_floor_mm": 39.94627994955863,
+          "exact_cutter_points_covering_expected_removed_region": 5,
+          "exact_uncut_target_points_inside": 5,
+          "tested_heights_above_floor_mm": [
+            1.0,
+            5.0,
+            15.0,
+            30.0,
+            39.0
+          ]
+        }
+      ]
+    }
+  ],
+  "elapsed_seconds": 378.75060919998214
+}

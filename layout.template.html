@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>立脚飞椽 · 单列排料</title>
+<style>
+:root{font-family:"Microsoft YaHei",system-ui,sans-serif;color:#243b35;background:#f3f3ec;font-size:14px;line-height:1.6}*{box-sizing:border-box}body{margin:0;padding:24px 30px}header{display:flex;justify-content:space-between;align-items:start;gap:20px}h1{font-size:25px;font-weight:500;margin:0}h2{font-size:16px;font-weight:500;margin:0 0 10px}p{margin:6px 0}a{color:#37685a}nav{display:flex;gap:16px}.sub,.note{color:#66766d;font-size:12px}.tools{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin:20px 0;padding:12px 16px;background:white;border:1px solid #d7ddd5;border-radius:6px}.tools label{display:inline-flex;align-items:center;gap:5px}select,button{font:inherit;color:inherit;border:1px solid #b9c7be;border-radius:4px;background:#fff;padding:5px 8px}input{accent-color:#406b56}.cards{display:grid;grid-template-columns:1fr 1.15fr;gap:18px}.card{min-width:0;background:#fff;border:1px solid #d7ddd5;border-radius:6px;padding:16px}.card svg{width:100%;height:auto;display:block}.stat{font-size:12px;min-height:42px;color:#596d60}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:18px 0}.step{background:#e7ede5;padding:14px;border-radius:6px}.step b{display:block;margin-bottom:4px}.data{overflow:auto;background:white;border:1px solid #d7ddd5;border-radius:6px;padding:16px;margin-top:18px}#bezier-data summary{cursor:pointer;font-weight:500}#bezier-data .note{margin:8px 0 12px}#bezier-data table{min-width:700px}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:12px}th,td{text-align:right;padding:7px 12px;border-bottom:1px solid #e4e9e1;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{font-weight:500;color:#55705e}#translation{margin:16px 0;background:#edf2eb;padding:12px 16px;border-radius:6px}#error{background:#fff1e7;padding:14px;color:#7b3f25}button:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #547c63;outline-offset:3px}@media(max-width:950px){body{padding:16px}.cards,.steps{grid-template-columns:1fr}header{display:block}nav{margin:12px 0}.tools{gap:10px}}
+</style></head>
+<body>
+<header><div><h1>立脚飞椽 · 尖角触底排料</h1><p class="sub" id="summary"></p></div><nav><a href="model.html">三维模型</a><a href="index.html">生成结果</a><a href="../../参数说明.md">参数说明</a></nav></header>
+<div id="error" hidden></div>
+<div class="tools">
+<label>放样步骤 <select id="step"><option value="1">① 基准线与竖线</option><option value="2">② 画 b、c、d 并取交点</option><option value="3" selected>③ 连接四角得到轮廓</option></select></label>
+<label>查看 <select id="piece"></select></label>
+<label>定位曲线 <select id="method"></select></label>
+<label><input type="checkbox" id="translated"> 叠加 d 平移得到的 c</label>
+<label><input type="checkbox" id="bezier-points"> 显示 Bezier 内控制点</label>
+<label><input type="checkbox" id="bezier-handles"> 显示控制柄线</label>
+<button id="save-svg">保存当前排料 SVG</button>
+</div>
+<div class="cards">
+<section class="card"><h2>木板与直线切割轮廓</h2><p class="stat" id="layout-stat"></p><svg id="layout" viewBox="0 0 760 700" role="img" aria-label="尖角触底单列排料"></svg></section>
+<section class="card"><h2>b、c、d 定位曲线</h2><p class="stat" id="curve-stat"></p><svg id="curves" viewBox="0 0 860 700" role="img" aria-label="定位曲线及原角点"></svg></section>
+</div>
+<details class="data" id="bezier-data">
+<summary>Bezier 分段控制点坐标（单位：mm）</summary>
+<p class="note">P0、P3 是曲线端点，也是 B/C/D 插值节点；P1、P2 是 Bezier 内控制点，曲线一般不会经过它们。表格显示到 0.001 mm。此表示仅用于查看曲线，不改变三步放样、角点或直线切割边。</p>
+<table><thead><tr><th>曲线</th><th>分段</th><th>点</th><th>x</th><th>y</th><th>说明</th></tr></thead><tbody id="bezier-rows"></tbody></table>
+</details>
+<div id="translation"></div>
+<div class="steps">
+<div class="step"><b>① 画底线、竖线</b>A 全部落在 y=0，所以 a 就是底线。按下表累计横坐标画竖线，档宽随单根梯形计算。</div>
+<div class="step"><b>② 画 b、c、d</b>每根的右竖线与 b、c 相交得到 B、C；左竖线与 d 相交得到 D。曲线用来确定角点。</div>
+<div class="step"><b>③ 连接 A—B—C—D</b>四条切割边均为直线。相邻竖线上的 C、D 属于不同根，定位曲线相交不表示单根轮廓交叉。</div>
+</div>
+<p class="note">本页轮廓始终采用原角点。勾选的平移曲线只作误差对照，不改变模型和切割轮廓。单位均为 mm，零锯缝。两侧对称立脚飞椽按一侧模板制作两套；正身飞椽不计入此排料。</p>
+<section class="data"><h2>累计放样尺寸 · <a href="marking_points.csv" download>下载尺寸表 CSV</a></h2><table><thead><tr><th>模板编号</th><th>三维构件编号</th><th>左竖线 x</th><th>右竖线 x</th><th>A 高</th><th>B 高</th><th>C 高</th><th>D 高</th></tr></thead><tbody id="point-rows"></tbody></table></section>
+<script id="layout-data" type="application/json">__LAYOUT_DATA__</script>
+<script src="layout.js"></script>
+</body></html>

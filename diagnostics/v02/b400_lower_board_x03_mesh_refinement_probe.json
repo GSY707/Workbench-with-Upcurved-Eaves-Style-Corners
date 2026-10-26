@@ -1,0 +1,525 @@
+{
+  "schema": "v02_b400_lower_board_mesh_refinement_probe_v1",
+  "checkpoint_case_id": "v02_valid64_B400",
+  "part_id": "lower_board_straight_x_03",
+  "brep_file": "part-0028.brep",
+  "brep_sha256": "836844ac1fe778890d19dd4e66696587c1b866d07011a541a1ac6e6d6e8f053e",
+  "production_source_sha256": "984d8e9deb8d40c6bfb6c82c14eb6299c0d3eb2b087331e543ecc9671f2b616e",
+  "geometry_source_sha256": "46d0329a658d4d8ac03f0d87e1f1851119b19962d6ffd5e66a1fd060d958cf7f",
+  "recovery_production_source_sha256": "96b40b18318d0dacb5ab748f9c133e5a3d03220dda752109a26047ebe22d9697",
+  "recovery_geometry_source_sha256": "46d0329a658d4d8ac03f0d87e1f1851119b19962d6ffd5e66a1fd060d958cf7f",
+  "brep_checks": {
+    "is_valid": true,
+    "solid_count": 1,
+    "volume_mm3": 27042090.240000002,
+    "checkpoint_volume_mm3": 27042090.240000002,
+    "volume_delta_mm3": 0.0
+  },
+  "failure_attempts": [
+    {
+      "mesher_target_mm": 2.0,
+      "mesh_ready": false,
+      "triangulation_guard_at_2mm": false,
+      "mesher_is_done": true,
+      "mesher_status_flags": 0,
+      "face_count": 42,
+      "max_face_recorded_deflection_mm": 10.275000000000091,
+      "faces_over_2mm": 6,
+      "missing_nondegenerate_edges": 0,
+      "missing_degenerate_edges": 0,
+      "missing_unclassified_edges": 0,
+      "worst_faces": [
+        {
+          "face_index": 5,
+          "deflection_mm": 10.275000000000091,
+          "triangle_count": 42
+        },
+        {
+          "face_index": 7,
+          "deflection_mm": 10.275000000000091,
+          "triangle_count": 44
+        },
+        {
+          "face_index": 9,
+          "deflection_mm": 7.5750000000000455,
+          "triangle_count": 20
+        },
+        {
+          "face_index": 11,
+          "deflection_mm": 7.5750000000000455,
+          "triangle_count": 20
+        },
+        {
+          "face_index": 1,
+          "deflection_mm": 4.28125,
+          "triangle_count": 54
+        },
+        {
+          "face_index": 3,
+          "deflection_mm": 4.28125,
+          "triangle_count": 58
+        },
+        {
+          "face_index": 13,
+          "deflection_mm": 1.7497499107009844,
+          "triangle_count": 28
+        },
+        {
+          "face_index": 15,
+          "deflection_mm": 1.7497499107009844,
+          "triangle_count": 28
+        },
+        {
+          "face_index": 17,
+          "deflection_mm": 0.6284420739569896,
+          "triangle_count": 4
+        },
+        {
+          "face_index": 19,
+          "deflection_mm": 0.6284420739569896,
+          "triangle_count": 4
+        },
+        {
+          "face_index": 21,
+          "deflection_mm": 0.6284420739569896,
+          "triangle_count": 4
+        },
+        {
+          "face_index": 23,
+          "deflection_mm": 0.6284420739569896,
+          "triangle_count": 4
+        }
+      ]
+    },
+    {
+      "mesher_target_mm": 1.0,
+      "mesh_ready": false,
+      "triangulation_guard_at_2mm": false,
+      "mesher_is_done": true,
+      "mesher_status_flags": 0,
+      "face_count": 42,
+      "max_face_recorded_deflection_mm": 7.5750000000000455,
+      "faces_over_2mm": 6,
+      "missing_nondegenerate_edges": 0,
+      "missing_degenerate_edges": 0,
+      "missing_unclassified_edges": 0,
+      "worst_faces": [
+        {
+          "face_index": 11,
+          "deflection_mm": 7.5750000000000455,
+          "triangle_count": 48
+        },
+        {
+          "face_index": 1,
+          "deflection_mm": 4.28125,
+          "triangle_count": 82
+        },
+        {
+          "face_index": 3,
+          "deflection_mm": 4.28125,
+          "triangle_count": 78
+        },
+        {
+          "face_index": 5,
+          "deflection_mm": 4.28125,
+          "triangle_count": 66
+        },
+        {
+          "face_index": 7,
+          "deflection_mm": 4.28125,
+          "triangle_count": 66
+        },
+        {
+          "face_index": 9,
+          "deflection_mm": 3.1562500000002274,
+          "triangle_count": 52
+        },
+        {
+          "face_index": 15,
+          "deflection_mm": 0.9842343247693179,
+          "triangle_count": 44
+        },
+        {
+          "face_index": 13,
+          "deflection_mm": 0.9842343247692042,
+          "triangle_count": 44
+        },
+        {
+          "face_index": 17,
+          "deflection_mm": 0.6284420739569896,
+          "triangle_count": 4
+        },
+        {
+          "face_index": 19,
+          "deflection_mm": 0.6284420739569896,
+          "triangle_count": 4
+        },
+        {
+          "face_index": 21,
+          "deflection_mm": 0.6284420739569896,
+          "triangle_count": 4
+        },
+        {
+          "face_index": 23,
+          "deflection_mm": 0.6284420739569896,
+          "triangle_count": 4
+        }
+      ]
+    },
+    {
+      "mesher_target_mm": 0.5,
+      "mesh_ready": false,
+      "triangulation_guard_at_2mm": false,
+      "mesher_is_done": true,
+      "mesher_status_flags": 0,
+      "face_count": 42,
+      "max_face_recorded_deflection_mm": 4.28125,
+      "faces_over_2mm": 6,
+      "missing_nondegenerate_edges": 0,
+      "missing_degenerate_edges": 0,
+      "missing_unclassified_edges": 0,
+      "worst_faces": [
+        {
+          "face_index": 5,
+          "deflection_mm": 4.28125,
+          "triangle_count": 154
+        },
+        {
+          "face_index": 7,
+          "deflection_mm": 4.28125,
+          "triangle_count": 148
+        },
+        {
+          "face_index": 9,
+          "deflection_mm": 3.1562500000002274,
+          "triangle_count": 88
+        },
+        {
+          "face_index": 11,
+          "deflection_mm": 3.15625,
+          "triangle_count": 88
+        },
+        {
+          "face_index": 1,
+          "deflection_mm": 2.3546874999999545,
+          "triangle_count": 196
+        },
+        {
+          "face_index": 3,
+          "deflection_mm": 2.3546874999999545,
+          "triangle_count": 206
+        },
+        {
+          "face_index": 13,
+          "deflection_mm": 0.4860416418614477,
+          "triangle_count": 96
+        },
+        {
+          "face_index": 15,
+          "deflection_mm": 0.4860416418614477,
+          "triangle_count": 96
+        },
+        {
+          "face_index": 19,
+          "deflection_mm": 0.27930758842546766,
+          "triangle_count": 20
+        },
+        {
+          "face_index": 17,
+          "deflection_mm": 0.27930758842535397,
+          "triangle_count": 20
+        },
+        {
+          "face_index": 23,
+          "deflection_mm": 0.27930758842535397,
+          "triangle_count": 20
+        },
+        {
+          "face_index": 25,
+          "deflection_mm": 0.27930758842535397,
+          "triangle_count": 20
+        }
+      ]
+    },
+    {
+      "mesher_target_mm": 0.25,
+      "mesh_ready": false,
+      "triangulation_guard_at_2mm": false,
+      "mesher_is_done": true,
+      "mesher_status_flags": 0,
+      "face_count": 42,
+      "max_face_recorded_deflection_mm": 3.1562500000002274,
+      "faces_over_2mm": 6,
+      "missing_nondegenerate_edges": 0,
+      "missing_degenerate_edges": 0,
+      "missing_unclassified_edges": 0,
+      "worst_faces": [
+        {
+          "face_index": 9,
+          "deflection_mm": 3.1562500000002274,
+          "triangle_count": 220
+        },
+        {
+          "face_index": 11,
+          "deflection_mm": 3.1562499999997726,
+          "triangle_count": 226
+        },
+        {
+          "face_index": 7,
+          "deflection_mm": 2.354687500000182,
+          "triangle_count": 308
+        },
+        {
+          "face_index": 1,
+          "deflection_mm": 2.3546874999999545,
+          "triangle_count": 320
+        },
+        {
+          "face_index": 3,
+          "deflection_mm": 2.3546874999999545,
+          "triangle_count": 308
+        },
+        {
+          "face_index": 5,
+          "deflection_mm": 2.3546874999999545,
+          "triangle_count": 294
+        },
+        {
+          "face_index": 15,
+          "deflection_mm": 0.27947394407021875,
+          "triangle_count": 184
+        },
+        {
+          "face_index": 13,
+          "deflection_mm": 0.24605858119241475,
+          "triangle_count": 188
+        },
+        {
+          "face_index": 17,
+          "deflection_mm": 0.17456724276587465,
+          "triangle_count": 40
+        },
+        {
+          "face_index": 19,
+          "deflection_mm": 0.17456724276587465,
+          "triangle_count": 40
+        },
+        {
+          "face_index": 21,
+          "deflection_mm": 0.17456724276587465,
+          "triangle_count": 40
+        },
+        {
+          "face_index": 29,
+          "deflection_mm": 0.17456724276584623,
+          "triangle_count": 40
+        }
+      ]
+    },
+    {
+      "mesher_target_mm": 0.125,
+      "mesh_ready": false,
+      "triangulation_guard_at_2mm": false,
+      "mesher_is_done": true,
+      "mesher_status_flags": 0,
+      "face_count": 42,
+      "max_face_recorded_deflection_mm": 2.3546874999999545,
+      "faces_over_2mm": 2,
+      "missing_nondegenerate_edges": 0,
+      "missing_degenerate_edges": 0,
+      "missing_unclassified_edges": 0,
+      "worst_faces": [
+        {
+          "face_index": 5,
+          "deflection_mm": 2.3546874999999545,
+          "triangle_count": 662
+        },
+        {
+          "face_index": 7,
+          "deflection_mm": 2.3546874999999545,
+          "triangle_count": 634
+        },
+        {
+          "face_index": 9,
+          "deflection_mm": 1.735937500000091,
+          "triangle_count": 374
+        },
+        {
+          "face_index": 11,
+          "deflection_mm": 1.735937500000091,
+          "triangle_count": 372
+        },
+        {
+          "face_index": 1,
+          "deflection_mm": 1.1238281250002728,
+          "triangle_count": 770
+        },
+        {
+          "face_index": 3,
+          "deflection_mm": 1.123828124999818,
+          "triangle_count": 786
+        },
+        {
+          "face_index": 19,
+          "deflection_mm": 0.13965379421273383,
+          "triangle_count": 68
+        },
+        {
+          "face_index": 21,
+          "deflection_mm": 0.13965379421267698,
+          "triangle_count": 70
+        },
+        {
+          "face_index": 33,
+          "deflection_mm": 0.13965379421266277,
+          "triangle_count": 70
+        },
+        {
+          "face_index": 39,
+          "deflection_mm": 0.13965379421265567,
+          "triangle_count": 70
+        },
+        {
+          "face_index": 37,
+          "deflection_mm": 0.13965379421265212,
+          "triangle_count": 70
+        },
+        {
+          "face_index": 35,
+          "deflection_mm": 0.13965379421264856,
+          "triangle_count": 70
+        }
+      ]
+    }
+  ],
+  "refinement_attempts": [
+    {
+      "mesher_target_mm": 0.0625,
+      "accepted": true,
+      "mesher_is_done": true,
+      "mesher_status_flags": 0,
+      "triangulation_guard_at_2mm": true,
+      "face_count": 42,
+      "faces_with_positive_triangles": 42,
+      "all_face_indices_valid": true,
+      "max_face_recorded_deflection_mm": 1.735937500000091,
+      "faces_over_2mm": 0,
+      "missing_nondegenerate_edges": 0,
+      "missing_degenerate_edges": 0,
+      "missing_unclassified_edges": 0,
+      "rejection_reasons": [],
+      "worst_faces": [
+        {
+          "face_index": 9,
+          "deflection_mm": 1.735937500000091,
+          "triangle_count": 924,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 11,
+          "deflection_mm": 1.735937500000091,
+          "triangle_count": 922,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 1,
+          "deflection_mm": 1.1238281250002728,
+          "triangle_count": 1216,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 5,
+          "deflection_mm": 1.1238281250000455,
+          "triangle_count": 1298,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 7,
+          "deflection_mm": 1.1238281250000455,
+          "triangle_count": 1270,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 3,
+          "deflection_mm": 1.123828124999818,
+          "triangle_count": 1220,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 13,
+          "deflection_mm": 0.06379296549425817,
+          "triangle_count": 726,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 15,
+          "deflection_mm": 0.06379296549425817,
+          "triangle_count": 720,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 17,
+          "deflection_mm": 0.062068352983487785,
+          "triangle_count": 124,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 19,
+          "deflection_mm": 0.062068352983487785,
+          "triangle_count": 136,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 23,
+          "deflection_mm": 0.062068352983487785,
+          "triangle_count": 124,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        },
+        {
+          "face_index": 25,
+          "deflection_mm": 0.062068352983487785,
+          "triangle_count": 136,
+          "boundary_edge_count": 4,
+          "missing_edges": []
+        }
+      ],
+      "vertex_count": 5059,
+      "triangle_count": 9866,
+      "all_vertices_finite": true
+    }
+  ],
+  "integrated_export_probe": {
+    "retry_targets_mm": [
+      2.0,
+      1.0,
+      0.5,
+      0.25,
+      0.125,
+      0.0625
+    ],
+    "accepted_target_mm": 0.0625,
+    "attempt_count": 6,
+    "requested_upper_limit_mm": 2.0,
+    "max_face_recorded_deflection_mm": 1.735937500000091,
+    "triangulation_guard_at_2mm": true,
+    "all_faces_complete": true,
+    "all_faces_within_2mm": true,
+    "missing_nondegenerate_edges": 0,
+    "missing_unclassified_edges": 0,
+    "serialized_mesh_passed": true,
+    "mesh_triangle_count": 9866,
+    "effective_mesh_max_face_deflection_mm": 1.735937500000091
+  },
+  "passed": true
+}

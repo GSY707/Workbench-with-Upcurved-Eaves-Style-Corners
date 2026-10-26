@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "default",
+      "title": "默认参数",
+      "config_file": "default.json",
+      "output_rel": "default",
+      "source_fingerprint": "0b38f475b6054b71c36816fc3cf3176018a02c69836ab10f6a3d8af80fb4dd44",
+      "calculation_key": "1c7d48afac99f058753ee571b320021d10ecd539dbeb3ce848b05222b8cba268",
+      "artifact_hashes": {
+        "delivery.json": "7396c943f1c41bccbc005c9848d53523716b78aee7cab60512f6ce49fe02843e",
+        "delivery_check.json": "3d25f350187efa6890f7bb457f01943a2925c15ffab789a00951bbc7a85bb839",
+        "index.html": "519ea369d181b1e34a7f0772d33d28ac7d37d1de75f3666f0047fb63932daa3a",
+        "layout.html": "239a53fcb34e8fdc9f3d546e1af8a647b2d390ad4ce2d441d47d26b55936ceb4",
+        "layout.js": "f771b2b8f9d61dbd3ff271911a79c085b708e80f252c4b57c56869bdd0ad3bba",
+        "layout.json": "2dca23ebb018b6c7683ade8e410511d6ab3520dde42e38e44546e0e24a754e9f",
+        "layout.png": "ca557ab88c2b1d3aedc07541c7e3be7e6ab7e54102228976d9694fd2e861c134",
+        "layout.svg": "4cb45c6e34362c2d8deb4b3f347b499196652d569295674972a2e91b23f47396",
+        "marking_points.csv": "c0166e7f48ab9cf588e02bc78a406dcbb150ceb21a9c71ed5e118664b106f14a",
+        "model.html": "4ce1f52a4c06b9a83bbed450daaa78c769fcd74bd0b51048b37bea85554d5eb0",
+        "model.obj": "ba18c0c499d9b895e5e1b09cd42b8b8ed1bd61ee92073b9b185b49e905be0502",
+        "model_mesh.json": "dd4104ec71446cd70453100583e633836647ba86c21bd7a1f67456b30d0b08c4",
+        "model_preview.png": "740993bde800bc735259aaffee3570eb1f163ed78c3beed736b0b5bfcb18e3c0",
+        "parameters_resolved.json": "36930f09c4fc42984cbbc0b62616999a6547221dea6c6de0e9f4299856fb8680",
+        "profiles.json": "50e005b09873bbba85a40ed62503134af0d9a160b33a16c860d0b5287d26ba7a",
+        "validation.json": "7299393ae5adefee00ee8ef0ed3b77b772ef6ad4ebaddeb462083a2dff3be526",
+        "vendor/LICENSE-three.txt": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+        "vendor/viewer-runtime.js": "f8d2b3d6eb947961748d541460fb504b13e3c3fdad369438938eaaf257fff3c2",
+        "viewer.css": "1fe8a2b308f4ff1dd7f689585ba6247985054f33c166f161905723ee04e33645"
+      }
+    },
+    {
+      "id": "size_variant_valid64",
+      "title": "尺寸与间距变化示例",
+      "config_file": "size_variant_valid64.json",
+      "output_rel": "size_variant_valid64",
+      "source_fingerprint": "0b38f475b6054b71c36816fc3cf3176018a02c69836ab10f6a3d8af80fb4dd44",
+      "calculation_key": "62ca6d52eda1500ed7d33d0e3a71e207c37f70941c93f16e8bc430e9bbffeb0e",
+      "artifact_hashes": {
+        "delivery.json": "1c085787907fef7f1f2a3a77ff3f853cfce4ef5d4a27af38c71c9dc56100ca59",
+        "delivery_check.json": "71f991084c6ec70dbe4c06bf4695389d5dffab313ddacf8cf053d1fa39314f31",
+        "index.html": "9ea9cb1235cb393d00bc4e0ae15375ba007e35ee229c79d7536f1f2ffceb8a05",
+        "layout.html": "e4bf7cc2903c9e3f1054314ee755150b552bc97c4d8c63a32507a479da1c461b",
+        "layout.js": "f771b2b8f9d61dbd3ff271911a79c085b708e80f252c4b57c56869bdd0ad3bba",
+        "layout.json": "1860abe0fcb8df4713f2b7c5ab16d404ad7454b1f8dd5883826b60ad8f14b407",
+        "layout.png": "a0e4a9d68eda5a728fa4580dc28115a4a7d766c138465fbd496eaea8776c772f",
+        "layout.svg": "5b874fe9b0b1a20ae88904154bfa1e1eceb035745b383f0d1ed923ff9c55b427",
+        "marking_points.csv": "22b67ef10c10e6e4b680398e104706d9cec73207b55e16467d4012888c304738",
+        "model.html": "2dfc58628ec0aa346770ab760fd7ae59b575a3e2d98093eeeb020f6b778f2db2",
+        "model.obj": "52cc0f15c078149a5df50caf2adb8218ab5d85706b1bff1b78c243a26f284248",
+        "model_mesh.json": "ff0c68f249988dadf2f7c88486d59be4ea9dc8a57451a213182948de8f067a34",
+        "model_preview.png": "6653691a9780b026c251121e8b8cc3f742d6d51b1b6242c1c8b468edc9263a61",
+        "parameters_resolved.json": "271049f6f8d3d4e1e5e60cbf9e3ed00628402aa14ec42c178fd97aa647859207",
+        "profiles.json": "6a05bd16f0ab27d7675224fcc18abcc8a107086d5a9f7f7c658dc8472f59759d",
+        "validation.json": "302495a6bd0dd64df974abdcfe6970477eef59fc780233b8c37eec6a2dfff69e",
+        "vendor/LICENSE-three.txt": "4c40a1ef62450b857c3b2aaf294936304cd552d965fbcd9d32d4c5bcf4ba4454",
+        "vendor/viewer-runtime.js": "f8d2b3d6eb947961748d541460fb504b13e3c3fdad369438938eaaf257fff3c2",
+        "viewer.css": "1fe8a2b308f4ff1dd7f689585ba6247985054f33c166f161905723ee04e33645"
+      }
+    }
+  ]
+}

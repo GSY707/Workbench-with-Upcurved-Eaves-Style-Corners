@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>直角戗角 · 参数模型</title>
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+  <header class="masthead">
+    <div><p class="eyebrow">木构造研究 / 参数生成器</p><h1 id="model-title">直角戗角 · 参数模型</h1></div>
+    <div class="heading-note"><span id="stage-label">几何试建</span><br><span id="model-summary">单位 mm · 正在载入</span></div>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar" aria-label="模型显示设置">
+      <section><h2>构件</h2><div id="group-list"></div></section>
+      <section class="control-section">
+        <label class="setting"><input id="show-skeleton" type="checkbox" checked> 轴线与定位参照</label>
+        <label class="setting"><input id="show-edges" type="checkbox" checked> 构件轮廓</label>
+        <label class="setting"><input id="show-shadows" type="checkbox" checked> 阴影</label>
+        <label class="setting"><input id="show-triangles" type="checkbox"> 三角面网格</label>
+        <div id="board-controls"><label class="range-label" for="board-opacity"><span>木望板透明度</span><output id="board-opacity-value">65%</output></label>
+        <input id="board-opacity" type="range" min="0" max="100" value="65"></div>
+        <label class="range-label" for="explode"><span>分解查看</span><output id="explode-value">0%</output></label>
+        <input id="explode" type="range" min="0" max="100" value="0">
+        <p class="note">分解只改变显示位置，原始实体和尺寸不变。</p>
+      </section>
+      <section class="selected-section"><h2>选中构件</h2><label for="part-picker">按编号单件查看</label><select id="part-picker"><option value="">选择构件…</option></select><p id="selection" aria-live="polite">点击木构件，查看编号。</p><button id="isolate" disabled>单独查看</button><button id="restore">显示全部</button></section>
+      <p id="scope-note" class="scope-note">一种做法的几何试建，尚不代表具体建筑。</p>
+    </aside>
+    <section class="stage" aria-label="可旋转的三维木构造模型">
+      <nav class="view-tools" aria-label="视图"><button data-view="iso" class="active">轴测</button><button data-view="top">俯视</button><button data-view="side">侧面</button><button data-view="corner">戗轴侧视</button><button id="fit">适应窗口</button><button id="flying-view" hidden>飞椽构造</button><button id="visual-inspection" title="打开阴影与三角面网格，板面改为不透明">视觉检查</button></nav>
+      <nav class="orbit-tools" aria-label="旋转视角"><button data-orbit="left" aria-label="向左旋转15度">←</button><button data-orbit="right" aria-label="向右旋转15度">→</button><button data-orbit="up" aria-label="向上旋转15度">↑</button><button data-orbit="down" aria-label="向下旋转15度">↓</button><button data-view="bottom">仰视</button></nav>
+      <div id="viewport"></div>
+      <div class="stage-caption"><span>拖动旋转 · 滚轮缩放 · 右键平移</span><span id="visible-count"></span></div>
+      <div id="load-error" role="alert" hidden></div>
+    </section>
+  </main>
+  <footer><span>X / Y 沿两侧外檐方向，Z 铅垂向上；图中坐标及构件保持同一比例。</span><span><a href="layout.html">立脚飞椽排料</a> · <a href="index.html">本次生成结果</a> · <a href="../../README.md">使用说明</a></span></footer>
+  <script id="model-data" type="application/json">__MODEL_DATA__</script>
+  <script src="vendor/viewer-runtime.js"></script>
+</body>
+</html>

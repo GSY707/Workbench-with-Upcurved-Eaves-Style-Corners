@@ -1,0 +1,454 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "90°对称角部参数生成器输入配置",
+  "description": "根数随间距规则计算；未知字段会报错。所有长度单位为mm，mesh_angular_tolerance_rad单位为rad。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "corner_angle_deg"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "minLength": 1,
+      "default": "custom",
+      "description": "案例标识。"
+    },
+    "corner_angle_deg": {
+      "const": 90,
+      "default": 90,
+      "description": "本期只支持90°对称角部；其他角度明确拒绝。",
+      "x-unit": "deg"
+    },
+    "parameters": {
+      "type": "object",
+      "default": {},
+      "additionalProperties": false,
+      "properties": {
+        "D": {
+          "type": "number",
+          "default": 1200.0,
+          "description": "角部基准进深；决定步桁位置及檐部构件范围。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "e": {
+          "type": "number",
+          "default": 600.0,
+          "description": "檐端与老戗外端控制的水平偏距。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "p": {
+          "type": "number",
+          "default": 300.0,
+          "description": "正身飞椽水平外挑，不含后尾。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "t": {
+          "type": "number",
+          "default": 0.5,
+          "description": "屋面坡度比；用于步桁相对檐桁的升高。",
+          "x-unit": "1 (slope ratio)",
+          "exclusiveMinimum": 0
+        },
+        "B": {
+          "type": "number",
+          "default": 200.0,
+          "description": "正身椽档控制值；n为满足弧长/n < B的最小奇数等分区间数，内部i/n分点生成n−1根真摔网椽；不代表椽间净距。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "L_n": {
+          "type": "number",
+          "default": 900.0,
+          "description": "嫩戗控制线弦长。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "U_n": {
+          "type": "number",
+          "default": 480.0,
+          "description": "嫩戗端点高差；必须小于L_n，升角由asin(U_n/L_n)派生。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "a": {
+          "type": "number",
+          "default": 110.0,
+          "description": "老戗根部高度与截面控制尺寸。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "w_fly": {
+          "type": "number",
+          "default": 60.0,
+          "description": "立脚飞椽板列宽度；直接作为排料板厚。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "k_c": {
+          "type": "number",
+          "default": 0.9,
+          "description": "老戗外端长度系数，外端距离按k_c×p派生。",
+          "x-unit": "1 (coefficient)",
+          "exclusiveMinimum": 0
+        },
+        "old_tail_scale": {
+          "type": "number",
+          "default": 0.8,
+          "description": "老戗梢端宽度相对根部宽度的比例。",
+          "x-unit": "1 (ratio)",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "old_ridge_h": {
+          "type": "number",
+          "default": 41.25,
+          "description": "老戗脊部高度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "young_root_scale": {
+          "type": "number",
+          "default": 0.8,
+          "description": "嫩戗根部宽度相对基准截面的比例。",
+          "x-unit": "1 (ratio)",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "young_tip_scale": {
+          "type": "number",
+          "default": 0.8,
+          "description": "嫩戗梢部宽度相对基准截面的比例。",
+          "x-unit": "1 (ratio)",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "setback": {
+          "type": "number",
+          "default": 82.5,
+          "description": "嫩戗根点相对老戗端点的回退距离。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "likou_width": {
+          "type": "number",
+          "default": 55.0,
+          "description": "里口构件宽度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "likou_h_regular": {
+          "type": "number",
+          "default": 70.0,
+          "description": "常规里口构件高度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "likou_h_corner_ratio": {
+          "type": "number",
+          "default": 2.25,
+          "description": "角部里口高度相对常规里口高度的倍率。",
+          "x-unit": "1 (ratio)",
+          "exclusiveMinimum": 0
+        },
+        "likou_extension_pitches": {
+          "type": "number",
+          "default": 1.5,
+          "description": "里口延伸长度的档距数。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "board_lower_t": {
+          "type": "number",
+          "default": 20.0,
+          "description": "下层望板厚度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "board_upper_t": {
+          "type": "number",
+          "default": 13.75,
+          "description": "上层卷戗板厚度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "fly_tip_t": {
+          "type": "number",
+          "default": 40.0,
+          "description": "飞椽梢端截面高度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "fly_corner_root_ratio": {
+          "type": "number",
+          "default": 0.65,
+          "description": "扇椽根端宽度相对基础飞椽宽度的倍率。",
+          "x-unit": "1 (ratio)",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "back_join_fraction": {
+          "type": "number",
+          "default": 0.7,
+          "description": "老/嫩戗接背点在弦向的分位；不是面积比。",
+          "x-unit": "1 (fraction)",
+          "minimum": 0.05,
+          "maximum": 0.95
+        }
+      }
+    },
+    "advanced": {
+      "type": "object",
+      "default": {},
+      "additionalProperties": false,
+      "properties": {
+        "purlin_radius_mm": {
+          "type": "number",
+          "default": 90.0,
+          "description": "檐桁与步桁圆木半径。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "qiangshan_width_mm": {
+          "type": "number",
+          "default": 90.0,
+          "description": "戗山木截面宽度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "qiangshan_clearance_mm": {
+          "type": "number",
+          "default": 20.0,
+          "description": "戗山木与老戗控制外缘的净距。",
+          "x-unit": "mm",
+          "minimum": 0
+        },
+        "fan_rafter_width_mm": {
+          "type": "number",
+          "default": 70.0,
+          "description": "扇椽截面宽度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "fan_rafter_height_mm": {
+          "type": "number",
+          "default": 60.0,
+          "description": "扇椽截面高度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "rafter_seat_relief_mm": {
+          "type": "number",
+          "default": 12.0,
+          "description": "扇椽承口的让位深度。",
+          "x-unit": "mm",
+          "minimum": 0
+        },
+        "straight_rafter_width_mm": {
+          "type": "number",
+          "default": 70.0,
+          "description": "正身椽截面宽度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "straight_rafter_height_mm": {
+          "type": "number",
+          "default": 60.0,
+          "description": "正身椽截面高度。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "old_seat_relief_mm": {
+          "type": "number",
+          "default": 25.0,
+          "description": "老戗承口让位深度。",
+          "x-unit": "mm",
+          "minimum": 0
+        },
+        "board_surface_overlap_mm": {
+          "type": "number",
+          "default": 0.2,
+          "description": "下层望板与相接构件的实体重叠量，须小于望板厚度。",
+          "x-unit": "mm",
+          "minimum": 0,
+          "x-cross-constraint": "小于parameters.board_lower_t"
+        },
+        "likou_surface_overlap_mm": {
+          "type": "number",
+          "default": 0.2,
+          "description": "里口与承托面之间的实体重叠量。",
+          "x-unit": "mm",
+          "minimum": 0
+        },
+        "fan_station_count": {
+          "type": "integer",
+          "default": 129,
+          "description": "扇椽轮廓离散站点数；必须为奇数且≥33，中心截面包含在内。",
+          "x-unit": "count",
+          "minimum": 33,
+          "x-constraints": "必须为奇数。"
+        },
+        "flyer_width_fiber_stations": {
+          "type": "integer",
+          "default": 17,
+          "description": "立脚飞椽宽向采样数；必须为奇数且≥5，含中心截面。",
+          "x-unit": "count",
+          "minimum": 5,
+          "x-constraints": "必须为奇数。"
+        },
+        "flyer_edge_inboard_bias_mm": {
+          "type": "number",
+          "default": 0.05,
+          "description": "飞椽宽向边缘搜索的内移偏置。",
+          "x-unit": "mm",
+          "minimum": 0
+        },
+        "flyer_tail_search_step_mm": {
+          "type": "number",
+          "default": 5.0,
+          "description": "飞椽尖端触底搜索步长。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "flyer_front_edge_search_span_mm": {
+          "type": "number",
+          "default": 160.0,
+          "description": "飞椽前缘搜索范围。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "flyer_front_edge_coarse_step_mm": {
+          "type": "number",
+          "default": 4.0,
+          "description": "飞椽前缘搜索粗步长。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "flyer_tail_root_max_search_mm": {
+          "type": "number",
+          "default": 2200.0,
+          "description": "飞椽尾端最大搜索距离。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "flyer_edge_fit_clearance_mm": {
+          "type": "number",
+          "default": 0.01,
+          "description": "飞椽侧边拟合时的净空阈值。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "flyer_root_fit_clearance_mm": {
+          "type": "number",
+          "default": 0.01,
+          "description": "飞椽根部拟合时的净空阈值。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "flyer_outer_tip_offset_mm": {
+          "type": "number",
+          "default": -3.5,
+          "description": "正身飞椽外梢高程相对本次屋面和有效截面推导值的偏移；不钉死绝对Z坐标。",
+          "x-unit": "mm"
+        },
+        "flyer_tip_transition_power": {
+          "type": "number",
+          "default": 3.0,
+          "description": "正身飞椽梢部过渡曲线的幂指数。",
+          "x-unit": "1 (exponent)",
+          "exclusiveMinimum": 0
+        },
+        "flyer_contact_tail_gap_mm": {
+          "type": "number",
+          "default": 1.0,
+          "description": "飞椽尾端触底搜索使用的间隙。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "flyer_seat_delta_mm": {
+          "type": "number",
+          "default": 3.0,
+          "description": "立脚飞椽承口相对测得接触面的高度偏移。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "upper_board_surface_overlap_mm": {
+          "type": "number",
+          "default": 0.2,
+          "description": "上层卷戗板底面相对椽顶的竖向间隙；正值向上，须小于上层板厚。沿用历史字段名，不代表体积重叠。",
+          "x-unit": "mm",
+          "minimum": 0,
+          "x-cross-constraint": "小于parameters.board_upper_t"
+        },
+        "combination_back_u_ratio_D": {
+          "type": "number",
+          "default": -0.559,
+          "description": "组合木后端沿嫩戗弦向u的位置，以D为单位。",
+          "x-unit": "1 (ratio)",
+          "exclusiveMaximum": 0,
+          "x-cross-constraint": "小于combination_front_u_ratio_D，且两者必须分居u=0两侧"
+        },
+        "combination_front_u_ratio_D": {
+          "type": "number",
+          "default": 0.41478875,
+          "description": "组合木前端沿嫩戗弦向u的位置，以D为单位。",
+          "x-unit": "1 (ratio)",
+          "exclusiveMinimum": 0,
+          "x-cross-constraint": "大于combination_back_u_ratio_D，且两者必须分居u=0两侧"
+        },
+        "combination_sagitta_ratio_chord": {
+          "type": "number",
+          "default": 0.11794,
+          "description": "组合木车背圆弧控制矢高与弦长之比。",
+          "x-unit": "1 (ratio)",
+          "exclusiveMinimum": 0
+        },
+        "combination_width_ratio_young_tip": {
+          "type": "number",
+          "default": 0.75,
+          "description": "组合木宽度相对嫩戗梢端宽度的比例。",
+          "x-unit": "1 (ratio)",
+          "exclusiveMinimum": 0
+        },
+        "combination_cross_width_stations": {
+          "type": "integer",
+          "default": 7,
+          "description": "组合木宽向采样站点数，整数且≥3。",
+          "x-unit": "count",
+          "minimum": 3
+        },
+        "combination_u_stations": {
+          "type": "integer",
+          "default": 33,
+          "description": "组合木弦向采样站点数，整数且≥9。",
+          "x-unit": "count",
+          "minimum": 9
+        },
+        "combination_end_trim_mm": {
+          "type": "number",
+          "default": 10.0,
+          "description": "组合木两端修短量。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "mesh_tessellation_mm": {
+          "type": "number",
+          "default": 2.0,
+          "description": "网格精度控制值；最终导出采用绝对毫米容差，同时参与板面及构件的内部采样。改变此值会重新求解几何，不是纯显示选项。",
+          "x-unit": "mm",
+          "exclusiveMinimum": 0
+        },
+        "mesh_angular_tolerance_rad": {
+          "type": "number",
+          "default": 0.35,
+          "description": "网格角度容差（弧度）；同时参与构件求解采样和最终导出。改变此值会重新求解几何。",
+          "x-unit": "rad",
+          "exclusiveMinimum": 0
+        }
+      }
+    }
+  }
+}

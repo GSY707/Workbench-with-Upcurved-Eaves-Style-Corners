@@ -1,0 +1,163 @@
+"""Small formula tests for v0.2's independently controlled straight edges."""
+from __future__ import annotations
+
+import importlib.util
+import sys
+import unittest
+from pathlib import Path
+
+GENERATOR = Path(__file__).resolve().parents[1]
+PROJECT = GENERATOR.parent
+sys.path[:0] = [str(PROJECT / "资料整理" / "tmp" / "model_deps"), str(GENERATOR / "engine")]
+
+SPEC = importlib.util.spec_from_file_location("v02_stage05_geometry_tests",
+                                               GENERATOR / "engine" / "stage05_core.py")
+stage05 = importlib.util.module_from_spec(SPEC)
+assert SPEC.loader is not None
+SPEC.loader.exec_module(stage05)
+
+
+class V02StraightContourTests(unittest.TestCase):
+    def setUp(self):
+        self.record = {"l_SE_mm": 1000.0, "g": 2.0}
+        self.edge_a = {"q_front_mm": 100.0, "H_front_mm": 10.0,
+                       "dI_world_Z_mm": 20.0, "E_bottom_z_mm": 100.0,
+                       "E_top_z_mm": 150.0}
+        self.edge_b = {"q_front_mm": 120.0, "H_front_mm": 12.0,
+                       "dI_world_Z_mm": 30.0, "E_bottom_z_mm": 120.0,
+                       "E_top_z_mm": 145.0}
+
+    def test_each_side_uses_its_own_i_and_e_controls(self):
+        for edge in (self.edge_a, self.edge_b):
+            self.assertAlmostEqual(
+                stage05.top_motherline(self.record, edge, -1.0,
+                                       edge["q_front_mm"], 0.0, 0.0, -1.0),
+                edge["H_front_mm"] + edge["dI_world_Z_mm"])
+            self.assertAlmostEqual(
+                stage05.top_motherline(self.record, edge, -1.0,
+                                       1000.0, 0.0, 0.0, -1.0),
+                edge["E_top_z_mm"])
+            self.assertAlmostEqual(
+                stage05.bottom_outer_line(self.record, edge,
+                                          edge["q_front_mm"], 0.0, 0.0),
+                edge["H_front_mm"])
+            self.assertAlmostEqual(
+                stage05.bottom_outer_line(self.record, edge, 1000.0, 0.0, 0.0),
+                edge["E_bottom_z_mm"])
+
+        q_a = self.edge_a["q_front_mm"] + 0.5 * (1000.0 - self.edge_a["q_front_mm"])
+        q_b = self.edge_b["q_front_mm"] + 0.5 * (1000.0 - self.edge_b["q_front_mm"])
+        self.assertNotAlmostEqual(
+            stage05.top_motherline(self.record, self.edge_a, 20.0, q_a, 0.0, 0.0, 0.0),
+            stage05.top_motherline(self.record, self.edge_b, 30.0, q_b, 0.0, 0.0, 0.0))
+        self.assertNotAlmostEqual(
+            stage05.bottom_outer_line(self.record, self.edge_a, q_a, 0.0, 0.0),
+            stage05.bottom_outer_line(self.record, self.edge_b, q_b, 0.0, 0.0))
+
+    def test_tail_bottom_is_one_line_through_measured_r_and_i(self):
+        root = {"q_root_mm": -200.0, "H_R_board_mm": -15.0}
+        self.assertAlmostEqual(stage05.tail_bottom_line(-200.0, self.edge_a, root), -15.0)
+        self.assertAlmostEqual(stage05.tail_bottom_line(100.0, self.edge_a, root), 10.0)
+        self.assertAlmostEqual(stage05.tail_bottom_line(-50.0, self.edge_a, root), -2.5)
+
+    def test_upper_surface_sampler_uses_width_knot_i_and_e_controls(self):
+        detail = {
+            "l_SE_mm": 100.0,
+            "S": [0.0, 0.0],
+            "unit": [1.0, 0.0],
+            "width_axis": [0.0, 1.0],
+            "width_knot_indices": [0, 1, 2],
+            "E_bottom_center_mm": 0.0,
+            "E_depth_world_Z_mm": 50.0,
+            "I_front_edge_fiber_records": [
+                {"v_mm": -20.0, "q_front_mm": 10.0, "H_front_mm": 0.0,
+                 "dI_world_Z_mm": 20.0, "E_bottom_z_mm": 0.0, "E_top_z_mm": 40.0},
+                {"v_mm": 0.0, "q_front_mm": 10.0, "H_front_mm": 0.0,
+                 "dI_world_Z_mm": 25.0, "E_bottom_z_mm": 0.0, "E_top_z_mm": 50.0},
+                {"v_mm": 20.0, "q_front_mm": 10.0, "H_front_mm": 0.0,
+                 "dI_world_Z_mm": 30.0, "E_bottom_z_mm": 0.0, "E_top_z_mm": 65.0},
+            ],
+        }
+        self.assertAlmostEqual(stage05.fan_upper_z_at_q(detail, 10.0, -20.0), 20.0)
+        self.assertAlmostEqual(stage05.fan_upper_z_at_q(detail, 10.0, 20.0), 30.0)
+        self.assertAlmostEqual(stage05.fan_upper_z_at_q(detail, 100.0, -20.0), 40.0)
+        self.assertAlmostEqual(stage05.fan_upper_z_at_q(detail, 100.0, 20.0), 65.0)
+        self.assertAlmostEqual(stage05.fan_upper_z_at_q(detail, 100.0, 10.0), 57.5)
+        point = stage05.fan_upper_surface_at_q(detail, 100.0, 20.0)
+        self.assertEqual(point.tolist(), [100.0, 20.0, 65.0])
+
+    def test_upper_surface_sampler_uses_the_straight_r_to_i_tail(self):
+        detail = {
+            "l_SE_mm": 100.0,
+            "S": [0.0, 0.0], "unit": [1.0, 0.0], "width_axis": [0.0, 1.0],
+            "width_knot_indices": [0, 1],
+            "E_bottom_center_mm": 0.0, "E_depth_world_Z_mm": 20.0,
+            "I_front_edge_fiber_records": [
+                {"v_mm": -10.0, "q_front_mm": 10.0, "H_front_mm": 0.0,
+                 "dI_world_Z_mm": 20.0, "E_bottom_z_mm": 0.0, "E_top_z_mm": 40.0},
+                {"v_mm": 10.0, "q_front_mm": 10.0, "H_front_mm": 0.0,
+                 "dI_world_Z_mm": 20.0, "E_bottom_z_mm": 0.0, "E_top_z_mm": 40.0},
+            ],
+            "root_fiber_records": [
+                {"q_root_mm": -20.0, "H_R_board_mm": 0.0},
+                {"q_root_mm": -20.0, "H_R_board_mm": 0.0},
+            ],
+        }
+        # R->I and I->E share the same straight motherline: z=20 at I and
+        # z=40 at E, so its extrapolated value at q=-5 is 50/3 mm.
+        self.assertAlmostEqual(stage05.fan_upper_z_at_q(detail, -5.0, -10.0), 50.0 / 3.0)
+        self.assertAlmostEqual(stage05.fan_upper_z_at_q(detail, -5.0, 10.0), 50.0 / 3.0)
+
+    def test_exact_reflected_bbox_uses_the_x_y_swap_plane(self):
+        box = (-100.0, 20.0, -30.0, 40.0, 200.0, 50.0)
+        reflected = (20.0, -100.0, -30.0, 200.0, 40.0, 50.0)
+        self.assertEqual(stage05.reflected_bbox_error_mm(box, reflected), 0.0)
+        self.assertEqual(stage05.reflected_bbox_error_mm(box, (20.0, -100.0, -30.0, 201.0, 40.0, 50.0)), 1.0)
+
+
+class V02UpperboardEndpointTests(unittest.TestCase):
+    def test_omega_band_bounds_include_polygon_edge_intersections(self):
+        detail = {
+            "index": 1, "S": [0.0, 0.0], "unit": [1.0, 0.0],
+            "width_axis": [0.0, 1.0],
+        }
+        band = {"band_index": 0, "v_low_mm": -5.0, "v_high_mm": 5.0}
+        omega = [(-10.0, -20.0), (110.0, -20.0),
+                 (110.0, 20.0), (-10.0, 20.0)]
+        self.assertEqual(
+            stage05._omega_band_q_bounds(detail, band, omega, margin_mm=0.5),
+            (-10.5, 110.5, 4))
+
+    def test_bridge_and_border_share_lambda_bounds_from_local_omega(self):
+        left = {"S": [0.0, 0.0], "unit": [1.0, 0.0], "l_SE_mm": 100.0}
+        right = {"S": [0.0, 10.0], "unit": [1.0, 0.0], "l_SE_mm": 200.0}
+        lower, upper, info = stage05._shared_omega_fraction_bounds(
+            [left, right], [(-20.0, 0.0), (120.0, 10.0)])
+        self.assertAlmostEqual(lower, -0.205)
+        self.assertAlmostEqual(upper, 1.205)
+        self.assertEqual(info["endpoint_margin_mm"], 0.5)
+
+    def test_support_terminal_rows_extend_by_shared_lambda_and_keep_original_rows(self):
+        def row(q, region):
+            return {
+                "region": region, "q_low_mm": float(q), "q_high_mm": float(q),
+                "points_low_to_high": [[float(q), -5.0, 0.0],
+                                       [float(q), 5.0, 0.0]],
+            }
+
+        rows = [row(0.0, "tail_R_to_I"),
+                row(10.0, "outer_I_to_E"),
+                row(20.0, "outer_I_to_E")]
+        offsets = [(10.0, 11.0), (11.0, 12.0), (12.0, 13.0)]
+        extended, extended_offsets, info = stage05._extend_support_band_rows(
+            rows, offsets, -5.5, 25.5, "unit band")
+        self.assertAlmostEqual(info["endpoint_extension_lambda_start"], 0.55)
+        self.assertAlmostEqual(info["endpoint_extension_lambda_end"], 0.55)
+        self.assertEqual(extended[1:4], rows)
+        self.assertAlmostEqual(extended[0]["q_low_mm"], -5.5)
+        self.assertAlmostEqual(extended[-1]["q_high_mm"], 25.5)
+        self.assertGreater(min(value for pair in extended_offsets for value in pair), 0.0)
+
+
+if __name__ == "__main__":
+    unittest.main()

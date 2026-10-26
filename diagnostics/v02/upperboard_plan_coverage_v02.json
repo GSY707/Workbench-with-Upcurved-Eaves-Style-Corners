@@ -1,0 +1,3425 @@
+{
+  "case_id": "default",
+  "source_config": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\default.json",
+  "projection_method": "actual ruled-loft section rails captured from add_upper_rollboards; every exact XY prism clipped only by old Ω; support endpoint rows extend each width-band terminal ruled surface to Ω-band q limits",
+  "projection_is_exact_for_ruled_linear_section_interpolation": true,
+  "height_used_for_area_recovery_mm": 628.7389846613861,
+  "domain_omega_area_mm2": 681579.67797906,
+  "domain_omega_polygon_xy_mm": [
+    [
+      -1199.9749222622695,
+      598.4142579744918
+    ],
+    [
+      -1109.6582017246394,
+      600.5651781160936
+    ],
+    [
+      -929.0247606493796,
+      604.8670183992974
+    ],
+    [
+      -748.5523071675025,
+      613.4216272635324
+    ],
+    [
+      -568.3227600776071,
+      626.3176744514701
+    ],
+    [
+      -388.461896358825,
+      643.4579989050612
+    ],
+    [
+      -209.0602127052964,
+      664.8667713384184
+    ],
+    [
+      -30.206804345076762,
+      690.5628699859178
+    ],
+    [
+      147.99146291022544,
+      720.5025378075281
+    ],
+    [
+      325.3984860643543,
+      754.6283273365034
+    ],
+    [
+      501.9944195282162,
+      793.0268218675353
+    ],
+    [
+      677.5929037626365,
+      835.5637365489506
+    ],
+    [
+      765.3921458798467,
+      856.8321938896582
+    ],
+    [
+      1249.860649237824,
+      1336.5141916623638
+    ],
+    [
+      1128.541311810507,
+      1296.430888842092
+    ],
+    [
+      885.9026369558735,
+      1216.264283201548
+    ],
+    [
+      651.9271130103331,
+      1148.0633276642498
+    ],
+    [
+      424.10483647730933,
+      1089.9867503979253
+    ],
+    [
+      200.77834738365362,
+      1040.8318836202225
+    ],
+    [
+      -19.222495470517913,
+      999.7742918941556
+    ],
+    [
+      -236.7646455840996,
+      966.2384002812844
+    ],
+    [
+      -452.49191311452194,
+      939.8158065285352
+    ],
+    [
+      -666.922976751173,
+      920.2223655032569
+    ],
+    [
+      -880.4874597491369,
+      907.2577451061843
+    ],
+    [
+      -1093.5500685842892,
+      900.8067723257973
+    ],
+    [
+      -1200.0813730018654,
+      897.5812859356038
+    ]
+  ],
+  "piece_count_x": 40,
+  "piece_area_sum_mm2": 681579.6779790723,
+  "union_area_mm2": 681579.67797906,
+  "uncovered_omega_area_mm2": 0.0,
+  "uncovered_component_count": 0,
+  "largest_uncovered_components": [],
+  "uncovered_xy_loops_mm": [],
+  "unexpected_overlap_excess_area_mm2": 1.234002411365509e-08,
+  "coverage_passed": true,
+  "overlap_passed": true,
+  "area_tolerance_mm2": 0.05,
+  "piece_type_counts_x": {
+    "support": 28,
+    "gap": 10,
+    "border": 2
+  },
+  "support_endpoint_extensions": [
+    {
+      "part_id": "upper_board_support_x_fan_01_band_01",
+      "omega_band_q_bounds_mm": [
+        -2.826949416667216,
+        303.6953234870684
+      ],
+      "omega_band_q_vertex_count": 6,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.10259822249595381,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.374077589907598,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_02_band_01",
+      "omega_band_q_bounds_mm": [
+        -6.0510348057666095,
+        313.4631962383096
+      ],
+      "omega_band_q_vertex_count": 6,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.242632205994156,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.268551290662659,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_03_band_01",
+      "omega_band_q_bounds_mm": [
+        -10.024141112952826,
+        328.96487691552903
+      ],
+      "omega_band_q_vertex_count": 6,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.37753317382124707,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.135156581644186,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_04_band_01",
+      "omega_band_q_bounds_mm": [
+        -14.090253252490683,
+        350.1706624427526
+      ],
+      "omega_band_q_vertex_count": 6,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.5030252369720367,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 13.999402541948607,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_05_band_01",
+      "omega_band_q_bounds_mm": [
+        -18.253156512319034,
+        377.3363834679201
+      ],
+      "omega_band_q_vertex_count": 6,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.6163380654036826,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 13.859116597324988,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_06_band_01",
+      "omega_band_q_bounds_mm": [
+        -22.578576810325906,
+        410.74722052581717
+      ],
+      "omega_band_q_vertex_count": 6,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.7173169875272538,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 13.766687723436084,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_07_band_01",
+      "omega_band_q_bounds_mm": [
+        -27.115303772077024,
+        450.941068778763
+      ],
+      "omega_band_q_vertex_count": 6,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.806512881088494,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 13.751570321650737,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_08_band_01",
+      "omega_band_q_bounds_mm": [
+        -31.901894603048234,
+        498.89810384692987
+      ],
+      "omega_band_q_vertex_count": 6,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.8857234397072529,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 13.819618004711824,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_01",
+      "omega_band_q_bounds_mm": [
+        18.670152738830375,
+        556.1636978486829
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.9592155739994769,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.12427289597398,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_02",
+      "omega_band_q_bounds_mm": [
+        -0.5,
+        533.9741985546991
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.46915278807140104,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.083830993304082,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_03",
+      "omega_band_q_bounds_mm": [
+        -18.7477150134643,
+        511.78469926071523
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.010025963135116415,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.047490257233616,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_04",
+      "omega_band_q_bounds_mm": [
+        -36.9954300269286,
+        491.14501887828715
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.0,
+      "endpoint_extension_added_rows": 0,
+      "endpoint_extension_min_vertical_thickness_mm": 14.013450082908658,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_01",
+      "omega_band_q_bounds_mm": [
+        32.64182382040693,
+        624.9265187799076
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 1.0286530212717286,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.648829717515346,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_02",
+      "omega_band_q_bounds_mm": [
+        21.594549213604566,
+        611.6737191186714
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.7606836534374949,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.535761694775548,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_03",
+      "omega_band_q_bounds_mm": [
+        10.547274606802363,
+        598.4209194574348
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.5017083171036462,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.539453361460538,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_04",
+      "omega_band_q_bounds_mm": [
+        -0.5,
+        585.1681197961984
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.2514252353451418,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.637968221987336,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_05",
+      "omega_band_q_bounds_mm": [
+        -11.005948399005813,
+        571.9153201349623
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.008998852135047801,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 14.609392224076922,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_06",
+      "omega_band_q_bounds_mm": [
+        -21.511896798011627,
+        559.6950441751221
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.0,
+      "endpoint_extension_added_rows": 0,
+      "endpoint_extension_min_vertical_thickness_mm": 14.559119481314696,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_07",
+      "omega_band_q_bounds_mm": [
+        -32.01784519701748,
+        547.4747682152821
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.0,
+      "endpoint_extension_added_rows": 0,
+      "endpoint_extension_min_vertical_thickness_mm": 14.376001985476407,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_08",
+      "omega_band_q_bounds_mm": [
+        -42.52379359602333,
+        535.2544922554422
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.0,
+      "endpoint_extension_added_rows": 0,
+      "endpoint_extension_min_vertical_thickness_mm": 14.355222905037568,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_01",
+      "omega_band_q_bounds_mm": [
+        35.49880936131351,
+        703.3137606315919
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 1.0023802249416254,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 15.291027383006098,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_02",
+      "omega_band_q_bounds_mm": [
+        23.499206240875623,
+        688.8075984407277
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.740873310376286,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 15.518717511454813,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_03",
+      "omega_band_q_bounds_mm": [
+        11.499603120437811,
+        674.3014362498635
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.4882699116975072,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 15.078427824769602,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_04",
+      "omega_band_q_bounds_mm": [
+        -0.5,
+        659.7952740589994
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.24411659922877296,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 15.089470649593835,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_05",
+      "omega_band_q_bounds_mm": [
+        -12.499603120437811,
+        645.2891118681349
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.00800371831296858,
+      "endpoint_extension_added_rows": 1,
+      "endpoint_extension_min_vertical_thickness_mm": 15.251326789946493,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_06",
+      "omega_band_q_bounds_mm": [
+        -24.499206240875623,
+        630.7829496772708
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.0,
+      "endpoint_extension_added_rows": 0,
+      "endpoint_extension_min_vertical_thickness_mm": 14.933647038559215,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_07",
+      "omega_band_q_bounds_mm": [
+        -36.49880936131351,
+        616.2767874864069
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.0,
+      "endpoint_extension_added_rows": 0,
+      "endpoint_extension_min_vertical_thickness_mm": 14.933647038559215,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_08",
+      "omega_band_q_bounds_mm": [
+        -48.498412481751245,
+        601.7706252955427
+      ],
+      "omega_band_q_vertex_count": 4,
+      "omega_endpoint_margin_mm": 0.5,
+      "endpoint_extension_lambda_start": 0.0,
+      "endpoint_extension_lambda_end": 0.0,
+      "endpoint_extension_added_rows": 0,
+      "endpoint_extension_min_vertical_thickness_mm": 14.844484815240286,
+      "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+    }
+  ],
+  "gap_border_endpoint_extensions": [
+    {
+      "part_id": "upper_board_gap_x_fan_01_02",
+      "shared_longitudinal_lambda_bounds": [
+        -0.10900540082042184,
+        1.061050376028113
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 117.98258063854774
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_02_03",
+      "shared_longitudinal_lambda_bounds": [
+        -0.17383617286386313,
+        1.153944219120189
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 117.86132970276311
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_03_04",
+      "shared_longitudinal_lambda_bounds": [
+        -0.22466807512838224,
+        1.2348831632462882
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 119.12462644515328
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_04_05",
+      "shared_longitudinal_lambda_bounds": [
+        -0.25949255310018154,
+        1.299364830036382
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 121.32993706129362
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_05_06",
+      "shared_longitudinal_lambda_bounds": [
+        -0.2795852935460082,
+        1.3459423066664098
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 124.1546778818625
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_06_07",
+      "shared_longitudinal_lambda_bounds": [
+        -0.2870992360506926,
+        1.3758900819203554
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 127.27250207612434
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_07_08",
+      "shared_longitudinal_lambda_bounds": [
+        -0.2844496207511655,
+        1.3920207226231736
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 130.37347754645205
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_08_09",
+      "shared_longitudinal_lambda_bounds": [
+        -0.2740429263751398,
+        1.397607189764641
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 133.22865236029804
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_09_10",
+      "shared_longitudinal_lambda_bounds": [
+        -0.2583878207040683,
+        1.395880734577829
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 135.88857598912065
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_10_11",
+      "shared_longitudinal_lambda_bounds": [
+        -0.2384914029675363,
+        1.3900770772196736
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 137.9262937007196
+    },
+    {
+      "part_id": "upper_board_border_x_fan_01",
+      "shared_longitudinal_lambda_bounds": [
+        -0.024898832176997687,
+        1.0016629339951875
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 60.072077933725666
+    },
+    {
+      "part_id": "upper_board_border_x_fan_11",
+      "shared_longitudinal_lambda_bounds": [
+        -0.0007754473374268987,
+        1.1767978450534977
+      ],
+      "endpoint_margin_mm": 0.5,
+      "bound_source": "对应Ω局部起终边端点投影到各所选飞椽q轴后取共同λ范围",
+      "extended_range_minimum_planar_separation_mm": 78.63551394113648
+    }
+  ],
+  "per_piece_projected_area": [
+    {
+      "part_id": "upper_board_support_x_fan_01_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        1
+      ],
+      "projected_area_mm2": 18040.403339411947,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -1079.5766216164627,
+            601.2815800864123
+          ],
+          [
+            -1063.4580424381616,
+            901.7178793597187
+          ],
+          [
+            -1123.6420947304168,
+            899.8956652918757
+          ],
+          [
+            -1139.739781832816,
+            599.8487761457749
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -2.826949416667216,
+          303.6953234870684
+        ],
+        "omega_band_q_vertex_count": 6,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.10259822249595381,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.374077589907598,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_02_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        2
+      ],
+      "projected_area_mm2": 18378.922083162124,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -898.4078097407947,
+            606.3182982737892
+          ],
+          [
+            -849.8044810918855,
+            909.1203824012936
+          ],
+          [
+            -880.4874597491369,
+            907.2577451061843
+          ],
+          [
+            -911.0198466032734,
+            906.3333051136717
+          ],
+          [
+            -959.5253566781982,
+            604.140637437514
+          ],
+          [
+            -929.0247606493796,
+            604.8670183992974
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -6.0510348057666095,
+          313.4631962383096
+        ],
+        "omega_band_q_vertex_count": 6,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.242632205994156,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.268551290662659,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_03_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        3
+      ],
+      "projected_area_mm2": 19051.84754977783,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -716.9061148232115,
+            615.6860217336964
+          ],
+          [
+            -635.1057366353871,
+            923.1296365265081
+          ],
+          [
+            -666.922976751173,
+            920.2223655032569
+          ],
+          [
+            -698.4763332173621,
+            918.3068911552045
+          ],
+          [
+            -779.9925402558467,
+            611.9313228348947
+          ],
+          [
+            -748.5523071675025,
+            613.4216272635324
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -10.024141112952826,
+          328.96487691552903
+        ],
+        "omega_band_q_vertex_count": 6,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.37753317382124707,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.135156581644186,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_04_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        4
+      ],
+      "projected_area_mm2": 20057.055307052586,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -535.1733241650815,
+            629.4767390486611
+          ],
+          [
+            -418.9937485383729,
+            943.9187111088914
+          ],
+          [
+            -452.49191311452194,
+            939.8158065285352
+          ],
+          [
+            -485.59161353499474,
+            936.7913518756318
+          ],
+          [
+            -601.173479175764,
+            623.9670919277498
+          ],
+          [
+            -568.3227600776071,
+            626.3176744514701
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -14.090253252490683,
+          350.1706624427526
+        ],
+        "omega_band_q_vertex_count": 6,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.5030252369720367,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 13.999402541948607,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_05_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        5
+      ],
+      "projected_area_mm2": 21404.263863838023,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -353.3444583061484,
+            647.6487134201169
+          ],
+          [
+            -201.02757724488788,
+            971.7475599993429
+          ],
+          [
+            -236.7646455840996,
+            966.2384002812844
+          ],
+          [
+            -271.93719779093317,
+            961.9304142355359
+          ],
+          [
+            -423.1640302708903,
+            640.1509657785286
+          ],
+          [
+            -388.461896358825,
+            643.4579989050612
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -18.253156512319034,
+          377.3363834679201
+        ],
+        "omega_band_q_vertex_count": 6,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.6163380654036826,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 13.859116597324988,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_06_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        6
+      ],
+      "projected_area_mm2": 23104.920053843314,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -171.51849983096253,
+            670.2604373929792
+          ],
+          [
+            19.341398361811947,
+            1006.9712670865857
+          ],
+          [
+            -19.222495470517913,
+            999.7742918941556
+          ],
+          [
+            -57.00873594836517,
+            993.9492356259271
+          ],
+          [
+            -246.04646098959452,
+            660.4530436823758
+          ],
+          [
+            -209.0602127052964,
+            664.8667713384184
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -22.578576810325906,
+          410.74722052581717
+        ],
+        "omega_band_q_vertex_count": 6,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.7173169875272538,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 13.766687723436084,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_07_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        7
+      ],
+      "projected_area_mm2": 25183.763141808857,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            10.206758417078738,
+            697.3528835097486
+          ],
+          [
+            242.8158572490549,
+            1050.084472533818
+          ],
+          [
+            200.77834738365362,
+            1040.8318836202225
+          ],
+          [
+            159.7991643103053,
+            1033.184155793068
+          ],
+          [
+            -69.90373942272305,
+            684.8595603922637
+          ],
+          [
+            -30.206804345076762,
+            690.5628699859178
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -27.115303772077024,
+          450.941068778763
+        ],
+        "omega_band_q_vertex_count": 6,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.806512881088494,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 13.751570321650737,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_08_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        8
+      ],
+      "projected_area_mm2": 27688.664146792766,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            191.7301916700817,
+            728.9160640895573
+          ],
+          [
+            470.3696649199617,
+            1101.780605347722
+          ],
+          [
+            424.10483647730933,
+            1089.9867503979253
+          ],
+          [
+            379.28073807082035,
+            1080.1208245306289
+          ],
+          [
+            105.16273942912045,
+            713.3067453119098
+          ],
+          [
+            147.99146291022544,
+            720.5025378075281
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -31.901894603048234,
+          498.89810384692987
+        ],
+        "omega_band_q_vertex_count": 6,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.8857234397072529,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 13.819618004711824,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        9
+      ],
+      "projected_area_mm2": 7737.205786402405,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            372.9693547981746,
+            764.9719955460878
+          ],
+          [
+            703.3545535772397,
+            1163.0537870437404
+          ],
+          [
+            677.6408332937862,
+            1155.5585573539947
+          ],
+          [
+            349.1839204312646,
+            759.8001614412956
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          18.670152738830375,
+          556.1636978486829
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.9592155739994769,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.12427289597398,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_02",
+      "piece_type": "support",
+      "fan_indices": [
+        9
+      ],
+      "projected_area_mm2": 7691.915588073309,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            349.18392043126465,
+            759.8001614412956
+          ],
+          [
+            677.6408332937864,
+            1155.558557353995
+          ],
+          [
+            651.9271130103331,
+            1148.0633276642498
+          ],
+          [
+            325.3984860643543,
+            754.6283273365034
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -0.5,
+          533.9741985546991
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.46915278807140104,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.083830993304082,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_03",
+      "piece_type": "support",
+      "fan_indices": [
+        9
+      ],
+      "projected_area_mm2": 7651.330748641504,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            325.3984860643543,
+            754.6283273365034
+          ],
+          [
+            651.9271130103331,
+            1148.0633276642498
+          ],
+          [
+            627.2031744315487,
+            1141.7606879441587
+          ],
+          [
+            302.2021605136133,
+            750.1663116309445
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -18.7477150134643,
+          511.78469926071523
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.010025963135116415,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.047490257233616,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_04",
+      "piece_type": "support",
+      "fan_indices": [
+        9
+      ],
+      "projected_area_mm2": 7615.451268108712,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            302.2021605136132,
+            750.1663116309444
+          ],
+          [
+            627.2031744315484,
+            1141.7606879441585
+          ],
+          [
+            602.4792358527638,
+            1135.4580482240676
+          ],
+          [
+            279.0058349628725,
+            745.7042959253856
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -36.9954300269286,
+          491.14501887828715
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.0,
+        "endpoint_extension_added_rows": 0,
+        "endpoint_extension_min_vertical_thickness_mm": 14.013450082908658,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        10
+      ],
+      "projected_area_mm2": 4343.509933691923,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            553.9035665212295,
+            805.6012752658867
+          ],
+          [
+            943.7389557435802,
+            1235.3731139051968
+          ],
+          [
+            929.2798760466535,
+            1230.5959062292845
+          ],
+          [
+            540.9262797729764,
+            802.457661916299
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          32.64182382040693,
+          624.9265187799076
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 1.0286530212717286,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.648829717515346,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_02",
+      "piece_type": "support",
+      "fan_indices": [
+        10
+      ],
+      "projected_area_mm2": 4326.9684957815325,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            540.9262797729759,
+            802.4576619162987
+          ],
+          [
+            929.2798760466534,
+            1230.5959062292845
+          ],
+          [
+            914.8207963497266,
+            1225.8186985533725
+          ],
+          [
+            527.9489930247229,
+            799.314048566711
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          21.594549213604566,
+          611.6737191186714
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.7606836534374949,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.535761694775548,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_03",
+      "piece_type": "support",
+      "fan_indices": [
+        10
+      ],
+      "projected_area_mm2": 4310.4270578760315,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            527.9489930247228,
+            799.314048566711
+          ],
+          [
+            914.8207963497264,
+            1225.8186985533723
+          ],
+          [
+            900.3617166528004,
+            1221.0414908774605
+          ],
+          [
+            514.9717062764696,
+            796.1704352171232
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          10.547274606802363,
+          598.4209194574348
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.5017083171036462,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.539453361460538,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_04",
+      "piece_type": "support",
+      "fan_indices": [
+        10
+      ],
+      "projected_area_mm2": 4293.885619968177,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            514.9717062764695,
+            796.1704352171232
+          ],
+          [
+            900.3617166528,
+            1221.0414908774603
+          ],
+          [
+            885.9026369558735,
+            1216.264283201548
+          ],
+          [
+            501.9944195282162,
+            793.0268218675353
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -0.5,
+          585.1681197961984
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.2514252353451418,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.637968221987336,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_05",
+      "piece_type": "support",
+      "fan_indices": [
+        10
+      ],
+      "projected_area_mm2": 4279.186172649468,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            501.9944195282162,
+            793.0268218675353
+          ],
+          [
+            885.9026369558735,
+            1216.264283201548
+          ],
+          [
+            872.1372634297252,
+            1212.251848003285
+          ],
+          [
+            489.3808254780042,
+            790.2841594933033
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -11.005948399005813,
+          571.9153201349623
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.008998852135047801,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 14.609392224076922,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_06",
+      "piece_type": "support",
+      "fan_indices": [
+        10
+      ],
+      "projected_area_mm2": 4266.328715953311,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            489.380825478004,
+            790.2841594933032
+          ],
+          [
+            872.1372634297253,
+            1212.251848003285
+          ],
+          [
+            858.3718899035773,
+            1208.2394128050219
+          ],
+          [
+            476.7672314277921,
+            787.5414971190712
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -21.511896798011627,
+          559.6950441751221
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.0,
+        "endpoint_extension_added_rows": 0,
+        "endpoint_extension_min_vertical_thickness_mm": 14.559119481314696,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_07",
+      "piece_type": "support",
+      "fan_indices": [
+        10
+      ],
+      "projected_area_mm2": 4253.4712592487995,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            476.7672314277923,
+            787.5414971190712
+          ],
+          [
+            858.3718899035773,
+            1208.2394128050219
+          ],
+          [
+            844.6065163774289,
+            1204.2269776067587
+          ],
+          [
+            464.15363737758014,
+            784.7988347448392
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -32.01784519701748,
+          547.4747682152821
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.0,
+        "endpoint_extension_added_rows": 0,
+        "endpoint_extension_min_vertical_thickness_mm": 14.376001985476407,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_08",
+      "piece_type": "support",
+      "fan_indices": [
+        10
+      ],
+      "projected_area_mm2": 4240.613802540852,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            464.1536373775799,
+            784.798834744839
+          ],
+          [
+            844.6065163774289,
+            1204.2269776067587
+          ],
+          [
+            830.8411428512806,
+            1200.2145424084956
+          ],
+          [
+            451.5400433273679,
+            782.056172370607
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -42.52379359602333,
+          535.2544922554422
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.0,
+        "endpoint_extension_added_rows": 0,
+        "endpoint_extension_min_vertical_thickness_mm": 14.355222905037568,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_01",
+      "piece_type": "support",
+      "fan_indices": [
+        11
+      ],
+      "projected_area_mm2": 4901.715514606026,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            732.6044131280723,
+            848.8897051105557
+          ],
+          [
+            1190.5649049824565,
+            1316.923174077346
+          ],
+          [
+            1175.0590066894688,
+            1311.8001027685323
+          ],
+          [
+            718.8515357867133,
+            845.5582129701545
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          35.49880936131351,
+          703.3137606315919
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 1.0023802249416254,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 15.291027383006098,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_02",
+      "piece_type": "support",
+      "fan_indices": [
+        11
+      ],
+      "projected_area_mm2": 4882.916321583038,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            718.8515357867132,
+            845.5582129701545
+          ],
+          [
+            1175.0590066894695,
+            1311.8001027685325
+          ],
+          [
+            1159.553108396482,
+            1306.6770314597193
+          ],
+          [
+            705.0986584453544,
+            842.2267208297533
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          23.499206240875623,
+          688.8075984407277
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.740873310376286,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 15.518717511454813,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_03",
+      "piece_type": "support",
+      "fan_indices": [
+        11
+      ],
+      "projected_area_mm2": 4864.117128555362,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            705.0986584453542,
+            842.226720829753
+          ],
+          [
+            1159.5531083964815,
+            1306.6770314597188
+          ],
+          [
+            1144.0472101034945,
+            1301.5539601509056
+          ],
+          [
+            691.3457811039955,
+            838.895228689352
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          11.499603120437811,
+          674.3014362498635
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.4882699116975072,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 15.078427824769602,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_04",
+      "piece_type": "support",
+      "fan_indices": [
+        11
+      ],
+      "projected_area_mm2": 4845.317935527358,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            691.3457811039953,
+            838.8952286893518
+          ],
+          [
+            1144.0472101034943,
+            1301.5539601509054
+          ],
+          [
+            1128.541311810507,
+            1296.430888842092
+          ],
+          [
+            677.5929037626364,
+            835.5637365489506
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -0.5,
+          659.7952740589994
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.24411659922877296,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 15.089470649593835,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_05",
+      "piece_type": "support",
+      "fan_indices": [
+        11
+      ],
+      "projected_area_mm2": 4826.518742510109,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            677.5929037626368,
+            835.5637365489507
+          ],
+          [
+            1128.5413118105073,
+            1296.430888842092
+          ],
+          [
+            1113.0354135175198,
+            1291.3078175332785
+          ],
+          [
+            663.8400264212776,
+            832.2322444085494
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -12.499603120437811,
+          645.2891118681349
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.00800371831296858,
+        "endpoint_extension_added_rows": 1,
+        "endpoint_extension_min_vertical_thickness_mm": 15.251326789946493,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_06",
+      "piece_type": "support",
+      "fan_indices": [
+        11
+      ],
+      "projected_area_mm2": 4807.719549470563,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            663.8400264212776,
+            832.2322444085494
+          ],
+          [
+            1113.0354135175198,
+            1291.3078175332785
+          ],
+          [
+            1097.5295152245326,
+            1286.1847462244652
+          ],
+          [
+            650.0871490799186,
+            828.9007522681479
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -24.499206240875623,
+          630.7829496772708
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.0,
+        "endpoint_extension_added_rows": 0,
+        "endpoint_extension_min_vertical_thickness_mm": 14.933647038559215,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_07",
+      "piece_type": "support",
+      "fan_indices": [
+        11
+      ],
+      "projected_area_mm2": 4788.92035643968,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            650.0871490799182,
+            828.9007522681477
+          ],
+          [
+            1097.529515224532,
+            1286.1847462244648
+          ],
+          [
+            1082.0236169315453,
+            1281.0616749156518
+          ],
+          [
+            636.3342717385599,
+            825.5692601277467
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -36.49880936131351,
+          616.2767874864069
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.0,
+        "endpoint_extension_added_rows": 0,
+        "endpoint_extension_min_vertical_thickness_mm": 14.933647038559215,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_08",
+      "piece_type": "support",
+      "fan_indices": [
+        11
+      ],
+      "projected_area_mm2": 4770.12116341356,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            636.334271738559,
+            825.5692601277462
+          ],
+          [
+            1082.0236169315444,
+            1281.061674915651
+          ],
+          [
+            1066.5177186385572,
+            1275.9386036068377
+          ],
+          [
+            622.5813943972005,
+            822.2377679873453
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": {
+        "omega_band_q_bounds_mm": [
+          -48.498412481751245,
+          601.7706252955427
+        ],
+        "omega_band_q_vertex_count": 4,
+        "omega_endpoint_margin_mm": 0.5,
+        "endpoint_extension_lambda_start": 0.0,
+        "endpoint_extension_lambda_end": 0.0,
+        "endpoint_extension_added_rows": 0,
+        "endpoint_extension_min_vertical_thickness_mm": 14.844484815240286,
+        "extension_rule": "Ω与该宽带无限平面条带交集顶点投影到q轴；首末真实断面共同λ外推，仅新增端行"
+      },
+      "shared_longitudinal_lambda_bounds": null,
+      "extended_range_minimum_planar_separation_mm": null
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_01_02",
+      "piece_type": "gap",
+      "fan_indices": [
+        1,
+        2
+      ],
+      "projected_area_mm2": 40931.752646759385,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -959.5253566781982,
+            604.140637437514
+          ],
+          [
+            -911.0198466032735,
+            906.3333051136717
+          ],
+          [
+            -1063.4580424381616,
+            901.7178793597186
+          ],
+          [
+            -1079.576621616463,
+            601.2815800864124
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.10900540082042184,
+        1.061050376028113
+      ],
+      "extended_range_minimum_planar_separation_mm": 117.98258063854774
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_02_03",
+      "piece_type": "gap",
+      "fan_indices": [
+        2,
+        3
+      ],
+      "projected_area_mm2": 40598.98833673838,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -779.9925402558467,
+            611.9313228348947
+          ],
+          [
+            -698.4763332173623,
+            918.3068911552045
+          ],
+          [
+            -849.8044810918857,
+            909.1203824012937
+          ],
+          [
+            -898.4078097407947,
+            606.3182982737893
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.17383617286386313,
+        1.153944219120189
+      ],
+      "extended_range_minimum_planar_separation_mm": 117.86132970276311
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_03_04",
+      "piece_type": "gap",
+      "fan_indices": [
+        3,
+        4
+      ],
+      "projected_area_mm2": 40048.23177100451,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -601.173479175764,
+            623.96709192775
+          ],
+          [
+            -485.59161353499485,
+            936.7913518756317
+          ],
+          [
+            -635.1057366353873,
+            923.1296365265081
+          ],
+          [
+            -716.9061148232115,
+            615.6860217336964
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.22466807512838224,
+        1.2348831632462882
+      ],
+      "extended_range_minimum_planar_separation_mm": 119.12462644515328
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_04_05",
+      "piece_type": "gap",
+      "fan_indices": [
+        4,
+        5
+      ],
+      "projected_area_mm2": 39288.10955481668,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -423.1640302708902,
+            640.1509657785289
+          ],
+          [
+            -271.9371977909331,
+            961.9304142355359
+          ],
+          [
+            -418.993748538373,
+            943.9187111088916
+          ],
+          [
+            -535.1733241650813,
+            629.4767390486612
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.25949255310018154,
+        1.299364830036382
+      ],
+      "extended_range_minimum_planar_separation_mm": 121.32993706129362
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_05_06",
+      "piece_type": "gap",
+      "fan_indices": [
+        5,
+        6
+      ],
+      "projected_area_mm2": 38328.81120444534,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -246.04646098959455,
+            660.4530436823757
+          ],
+          [
+            -57.00873594836506,
+            993.9492356259274
+          ],
+          [
+            -201.02757724488782,
+            971.7475599993429
+          ],
+          [
+            -353.34445830614834,
+            647.6487134201169
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.2795852935460082,
+        1.3459423066664098
+      ],
+      "extended_range_minimum_planar_separation_mm": 124.1546778818625
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_06_07",
+      "piece_type": "gap",
+      "fan_indices": [
+        6,
+        7
+      ],
+      "projected_area_mm2": 37166.06050031412,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -69.90373942272305,
+            684.8595603922638
+          ],
+          [
+            159.79916431030506,
+            1033.184155793068
+          ],
+          [
+            19.341398361811926,
+            1006.9712670865855
+          ],
+          [
+            -171.51849983096258,
+            670.260437392979
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.2870992360506926,
+        1.3758900819203554
+      ],
+      "extended_range_minimum_planar_separation_mm": 127.27250207612434
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_07_08",
+      "piece_type": "gap",
+      "fan_indices": [
+        7,
+        8
+      ],
+      "projected_area_mm2": 35803.34778074548,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            105.16273942912048,
+            713.3067453119098
+          ],
+          [
+            379.28073807082046,
+            1080.1208245306289
+          ],
+          [
+            242.81585724905534,
+            1050.0844725338181
+          ],
+          [
+            10.206758417078866,
+            697.3528835097487
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.2844496207511655,
+        1.3920207226231736
+      ],
+      "extended_range_minimum_planar_separation_mm": 130.37347754645205
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_08_09",
+      "piece_type": "gap",
+      "fan_indices": [
+        8,
+        9
+      ],
+      "projected_area_mm2": 34230.28631449384,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            279.0058349628723,
+            745.7042959253855
+          ],
+          [
+            602.4792358527636,
+            1135.4580482240672
+          ],
+          [
+            470.3696649199617,
+            1101.780605347722
+          ],
+          [
+            191.73019167008147,
+            728.9160640895572
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.2740429263751398,
+        1.397607189764641
+      ],
+      "extended_range_minimum_planar_separation_mm": 133.22865236029804
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_09_10",
+      "piece_type": "gap",
+      "fan_indices": [
+        9,
+        10
+      ],
+      "projected_area_mm2": 32423.83514814591,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            451.54004332736827,
+            782.0561723706072
+          ],
+          [
+            830.8411428512807,
+            1200.2145424084956
+          ],
+          [
+            703.3545535772394,
+            1163.0537870437402
+          ],
+          [
+            372.9693547981747,
+            764.9719955460878
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.2583878207040683,
+        1.395880734577829
+      ],
+      "extended_range_minimum_planar_separation_mm": 135.88857598912065
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_10_11",
+      "piece_type": "gap",
+      "fan_indices": [
+        10,
+        11
+      ],
+      "projected_area_mm2": 30363.317838613613,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            622.5813943972008,
+            822.2377679873455
+          ],
+          [
+            1066.5177186385574,
+            1275.938603606838
+          ],
+          [
+            943.7389557435795,
+            1235.3731139051965
+          ],
+          [
+            553.9035665212295,
+            805.6012752658867
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.2384914029675363,
+        1.3900770772196736
+      ],
+      "extended_range_minimum_planar_separation_mm": 137.9262937007196
+    },
+    {
+      "part_id": "upper_board_border_x_fan_01",
+      "piece_type": "border",
+      "fan_indices": [
+        1
+      ],
+      "projected_area_mm2": 20459.316072913898,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            -1139.739781832816,
+            599.8487761457748
+          ],
+          [
+            -1123.6420947304168,
+            899.8956652918758
+          ],
+          [
+            -1200.0813730018654,
+            897.5812859356038
+          ],
+          [
+            -1199.9749222622695,
+            598.4142579744918
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.024898832176997687,
+        1.0016629339951875
+      ],
+      "extended_range_minimum_planar_separation_mm": 60.072077933725666
+    },
+    {
+      "part_id": "upper_board_border_x_fan_11",
+      "piece_type": "border",
+      "fan_indices": [
+        11
+      ],
+      "projected_area_mm2": 15330.140163352018,
+      "clipped_xy_loops_mm": [
+        [
+          [
+            765.3921458798467,
+            856.8321938896582
+          ],
+          [
+            1249.860649237824,
+            1336.5141916623638
+          ],
+          [
+            1190.5649049824574,
+            1316.9231740773462
+          ],
+          [
+            732.6044131280725,
+            848.8897051105558
+          ]
+        ]
+      ],
+      "clipped_to_domain_omega": true,
+      "support_q_nonnegative_clip_applied": false,
+      "omega_endpoint_extension": null,
+      "shared_longitudinal_lambda_bounds": [
+        -0.0007754473374268987,
+        1.1767978450534977
+      ],
+      "extended_range_minimum_planar_separation_mm": 78.63551394113648
+    }
+  ],
+  "piece_projected_polygons_xy_mm": [
+    {
+      "part_id": "upper_board_support_x_fan_01_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            -1079.5766216164627,
+            601.2815800864123
+          ],
+          [
+            -1063.4580424381616,
+            901.7178793597187
+          ],
+          [
+            -1123.6420947304168,
+            899.8956652918757
+          ],
+          [
+            -1139.739781832816,
+            599.8487761457749
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_02_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            -898.4078097407947,
+            606.3182982737892
+          ],
+          [
+            -849.8044810918855,
+            909.1203824012936
+          ],
+          [
+            -880.4874597491369,
+            907.2577451061843
+          ],
+          [
+            -911.0198466032734,
+            906.3333051136717
+          ],
+          [
+            -959.5253566781982,
+            604.140637437514
+          ],
+          [
+            -929.0247606493796,
+            604.8670183992974
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_03_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            -716.9061148232115,
+            615.6860217336964
+          ],
+          [
+            -635.1057366353871,
+            923.1296365265081
+          ],
+          [
+            -666.922976751173,
+            920.2223655032569
+          ],
+          [
+            -698.4763332173621,
+            918.3068911552045
+          ],
+          [
+            -779.9925402558467,
+            611.9313228348947
+          ],
+          [
+            -748.5523071675025,
+            613.4216272635324
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_04_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            -535.1733241650815,
+            629.4767390486611
+          ],
+          [
+            -418.9937485383729,
+            943.9187111088914
+          ],
+          [
+            -452.49191311452194,
+            939.8158065285352
+          ],
+          [
+            -485.59161353499474,
+            936.7913518756318
+          ],
+          [
+            -601.173479175764,
+            623.9670919277498
+          ],
+          [
+            -568.3227600776071,
+            626.3176744514701
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_05_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            -353.3444583061484,
+            647.6487134201169
+          ],
+          [
+            -201.02757724488788,
+            971.7475599993429
+          ],
+          [
+            -236.7646455840996,
+            966.2384002812844
+          ],
+          [
+            -271.93719779093317,
+            961.9304142355359
+          ],
+          [
+            -423.1640302708903,
+            640.1509657785286
+          ],
+          [
+            -388.461896358825,
+            643.4579989050612
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_06_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            -171.51849983096253,
+            670.2604373929792
+          ],
+          [
+            19.341398361811947,
+            1006.9712670865857
+          ],
+          [
+            -19.222495470517913,
+            999.7742918941556
+          ],
+          [
+            -57.00873594836517,
+            993.9492356259271
+          ],
+          [
+            -246.04646098959452,
+            660.4530436823758
+          ],
+          [
+            -209.0602127052964,
+            664.8667713384184
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_07_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            10.206758417078738,
+            697.3528835097486
+          ],
+          [
+            242.8158572490549,
+            1050.084472533818
+          ],
+          [
+            200.77834738365362,
+            1040.8318836202225
+          ],
+          [
+            159.7991643103053,
+            1033.184155793068
+          ],
+          [
+            -69.90373942272305,
+            684.8595603922637
+          ],
+          [
+            -30.206804345076762,
+            690.5628699859178
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_08_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            191.7301916700817,
+            728.9160640895573
+          ],
+          [
+            470.3696649199617,
+            1101.780605347722
+          ],
+          [
+            424.10483647730933,
+            1089.9867503979253
+          ],
+          [
+            379.28073807082035,
+            1080.1208245306289
+          ],
+          [
+            105.16273942912045,
+            713.3067453119098
+          ],
+          [
+            147.99146291022544,
+            720.5025378075281
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            372.9693547981746,
+            764.9719955460878
+          ],
+          [
+            703.3545535772397,
+            1163.0537870437404
+          ],
+          [
+            677.6408332937862,
+            1155.5585573539947
+          ],
+          [
+            349.1839204312646,
+            759.8001614412956
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_02",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            349.18392043126465,
+            759.8001614412956
+          ],
+          [
+            677.6408332937864,
+            1155.558557353995
+          ],
+          [
+            651.9271130103331,
+            1148.0633276642498
+          ],
+          [
+            325.3984860643543,
+            754.6283273365034
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_03",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            325.3984860643543,
+            754.6283273365034
+          ],
+          [
+            651.9271130103331,
+            1148.0633276642498
+          ],
+          [
+            627.2031744315487,
+            1141.7606879441587
+          ],
+          [
+            302.2021605136133,
+            750.1663116309445
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_09_band_04",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            302.2021605136132,
+            750.1663116309444
+          ],
+          [
+            627.2031744315484,
+            1141.7606879441585
+          ],
+          [
+            602.4792358527638,
+            1135.4580482240676
+          ],
+          [
+            279.0058349628725,
+            745.7042959253856
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            553.9035665212295,
+            805.6012752658867
+          ],
+          [
+            943.7389557435802,
+            1235.3731139051968
+          ],
+          [
+            929.2798760466535,
+            1230.5959062292845
+          ],
+          [
+            540.9262797729764,
+            802.457661916299
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_02",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            540.9262797729759,
+            802.4576619162987
+          ],
+          [
+            929.2798760466534,
+            1230.5959062292845
+          ],
+          [
+            914.8207963497266,
+            1225.8186985533725
+          ],
+          [
+            527.9489930247229,
+            799.314048566711
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_03",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            527.9489930247228,
+            799.314048566711
+          ],
+          [
+            914.8207963497264,
+            1225.8186985533723
+          ],
+          [
+            900.3617166528004,
+            1221.0414908774605
+          ],
+          [
+            514.9717062764696,
+            796.1704352171232
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_04",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            514.9717062764695,
+            796.1704352171232
+          ],
+          [
+            900.3617166528,
+            1221.0414908774603
+          ],
+          [
+            885.9026369558735,
+            1216.264283201548
+          ],
+          [
+            501.9944195282162,
+            793.0268218675353
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_05",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            501.9944195282162,
+            793.0268218675353
+          ],
+          [
+            885.9026369558735,
+            1216.264283201548
+          ],
+          [
+            872.1372634297252,
+            1212.251848003285
+          ],
+          [
+            489.3808254780042,
+            790.2841594933033
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_06",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            489.380825478004,
+            790.2841594933032
+          ],
+          [
+            872.1372634297253,
+            1212.251848003285
+          ],
+          [
+            858.3718899035773,
+            1208.2394128050219
+          ],
+          [
+            476.7672314277921,
+            787.5414971190712
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_07",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            476.7672314277923,
+            787.5414971190712
+          ],
+          [
+            858.3718899035773,
+            1208.2394128050219
+          ],
+          [
+            844.6065163774289,
+            1204.2269776067587
+          ],
+          [
+            464.15363737758014,
+            784.7988347448392
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_10_band_08",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            464.1536373775799,
+            784.798834744839
+          ],
+          [
+            844.6065163774289,
+            1204.2269776067587
+          ],
+          [
+            830.8411428512806,
+            1200.2145424084956
+          ],
+          [
+            451.5400433273679,
+            782.056172370607
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_01",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            732.6044131280723,
+            848.8897051105557
+          ],
+          [
+            1190.5649049824565,
+            1316.923174077346
+          ],
+          [
+            1175.0590066894688,
+            1311.8001027685323
+          ],
+          [
+            718.8515357867133,
+            845.5582129701545
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_02",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            718.8515357867132,
+            845.5582129701545
+          ],
+          [
+            1175.0590066894695,
+            1311.8001027685325
+          ],
+          [
+            1159.553108396482,
+            1306.6770314597193
+          ],
+          [
+            705.0986584453544,
+            842.2267208297533
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_03",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            705.0986584453542,
+            842.226720829753
+          ],
+          [
+            1159.5531083964815,
+            1306.6770314597188
+          ],
+          [
+            1144.0472101034945,
+            1301.5539601509056
+          ],
+          [
+            691.3457811039955,
+            838.895228689352
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_04",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            691.3457811039953,
+            838.8952286893518
+          ],
+          [
+            1144.0472101034943,
+            1301.5539601509054
+          ],
+          [
+            1128.541311810507,
+            1296.430888842092
+          ],
+          [
+            677.5929037626364,
+            835.5637365489506
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_05",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            677.5929037626368,
+            835.5637365489507
+          ],
+          [
+            1128.5413118105073,
+            1296.430888842092
+          ],
+          [
+            1113.0354135175198,
+            1291.3078175332785
+          ],
+          [
+            663.8400264212776,
+            832.2322444085494
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_06",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            663.8400264212776,
+            832.2322444085494
+          ],
+          [
+            1113.0354135175198,
+            1291.3078175332785
+          ],
+          [
+            1097.5295152245326,
+            1286.1847462244652
+          ],
+          [
+            650.0871490799186,
+            828.9007522681479
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_07",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            650.0871490799182,
+            828.9007522681477
+          ],
+          [
+            1097.529515224532,
+            1286.1847462244648
+          ],
+          [
+            1082.0236169315453,
+            1281.0616749156518
+          ],
+          [
+            636.3342717385599,
+            825.5692601277467
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_support_x_fan_11_band_08",
+      "piece_type": "support",
+      "loops_xy_mm": [
+        [
+          [
+            636.334271738559,
+            825.5692601277462
+          ],
+          [
+            1082.0236169315444,
+            1281.061674915651
+          ],
+          [
+            1066.5177186385572,
+            1275.9386036068377
+          ],
+          [
+            622.5813943972005,
+            822.2377679873453
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_01_02",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            -959.5253566781982,
+            604.140637437514
+          ],
+          [
+            -911.0198466032735,
+            906.3333051136717
+          ],
+          [
+            -1063.4580424381616,
+            901.7178793597186
+          ],
+          [
+            -1079.576621616463,
+            601.2815800864124
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_02_03",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            -779.9925402558467,
+            611.9313228348947
+          ],
+          [
+            -698.4763332173623,
+            918.3068911552045
+          ],
+          [
+            -849.8044810918857,
+            909.1203824012937
+          ],
+          [
+            -898.4078097407947,
+            606.3182982737893
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_03_04",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            -601.173479175764,
+            623.96709192775
+          ],
+          [
+            -485.59161353499485,
+            936.7913518756317
+          ],
+          [
+            -635.1057366353873,
+            923.1296365265081
+          ],
+          [
+            -716.9061148232115,
+            615.6860217336964
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_04_05",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            -423.1640302708902,
+            640.1509657785289
+          ],
+          [
+            -271.9371977909331,
+            961.9304142355359
+          ],
+          [
+            -418.993748538373,
+            943.9187111088916
+          ],
+          [
+            -535.1733241650813,
+            629.4767390486612
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_05_06",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            -246.04646098959455,
+            660.4530436823757
+          ],
+          [
+            -57.00873594836506,
+            993.9492356259274
+          ],
+          [
+            -201.02757724488782,
+            971.7475599993429
+          ],
+          [
+            -353.34445830614834,
+            647.6487134201169
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_06_07",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            -69.90373942272305,
+            684.8595603922638
+          ],
+          [
+            159.79916431030506,
+            1033.184155793068
+          ],
+          [
+            19.341398361811926,
+            1006.9712670865855
+          ],
+          [
+            -171.51849983096258,
+            670.260437392979
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_07_08",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            105.16273942912048,
+            713.3067453119098
+          ],
+          [
+            379.28073807082046,
+            1080.1208245306289
+          ],
+          [
+            242.81585724905534,
+            1050.0844725338181
+          ],
+          [
+            10.206758417078866,
+            697.3528835097487
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_08_09",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            279.0058349628723,
+            745.7042959253855
+          ],
+          [
+            602.4792358527636,
+            1135.4580482240672
+          ],
+          [
+            470.3696649199617,
+            1101.780605347722
+          ],
+          [
+            191.73019167008147,
+            728.9160640895572
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_09_10",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            451.54004332736827,
+            782.0561723706072
+          ],
+          [
+            830.8411428512807,
+            1200.2145424084956
+          ],
+          [
+            703.3545535772394,
+            1163.0537870437402
+          ],
+          [
+            372.9693547981747,
+            764.9719955460878
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_gap_x_fan_10_11",
+      "piece_type": "gap",
+      "loops_xy_mm": [
+        [
+          [
+            622.5813943972008,
+            822.2377679873455
+          ],
+          [
+            1066.5177186385574,
+            1275.938603606838
+          ],
+          [
+            943.7389557435795,
+            1235.3731139051965
+          ],
+          [
+            553.9035665212295,
+            805.6012752658867
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_border_x_fan_01",
+      "piece_type": "border",
+      "loops_xy_mm": [
+        [
+          [
+            -1139.739781832816,
+            599.8487761457748
+          ],
+          [
+            -1123.6420947304168,
+            899.8956652918758
+          ],
+          [
+            -1200.0813730018654,
+            897.5812859356038
+          ],
+          [
+            -1199.9749222622695,
+            598.4142579744918
+          ]
+        ]
+      ]
+    },
+    {
+      "part_id": "upper_board_border_x_fan_11",
+      "piece_type": "border",
+      "loops_xy_mm": [
+        [
+          [
+            765.3921458798467,
+            856.8321938896582
+          ],
+          [
+            1249.860649237824,
+            1336.5141916623638
+          ],
+          [
+            1190.5649049824574,
+            1316.9231740773462
+          ],
+          [
+            732.6044131280725,
+            848.8897051105558
+          ]
+        ]
+      ]
+    }
+  ],
+  "elapsed_seconds": 56.44376429996919
+}

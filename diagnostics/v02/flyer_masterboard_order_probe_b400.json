@@ -1,0 +1,4030 @@
+{
+  "case_id": "probe_masterboard_b400_controls",
+  "source_case_id": "case-389425e820d34287a5c23b3f36aa5a01",
+  "fan_rafter_count": 5,
+  "straight_rafter_count": 3,
+  "record_order_by_inner_path_A_B_extent": [
+    "straight_1",
+    "straight_2",
+    "straight_3",
+    "fan_1",
+    "fan_2",
+    "fan_3",
+    "fan_4",
+    "fan_5"
+  ],
+  "strictly_monotonic_within_each_width": true,
+  "nonoverlap_in_inner_path_station": true,
+  "minimum_gap_or_overlap_mm": 238.0776176151635,
+  "gaps": [
+    {
+      "left": "straight_1",
+      "right": "straight_2",
+      "inner_path_gap_mm": 336.0
+    },
+    {
+      "left": "straight_2",
+      "right": "straight_3",
+      "inner_path_gap_mm": 335.99999999999994
+    },
+    {
+      "left": "straight_3",
+      "right": "fan_1",
+      "inner_path_gap_mm": 555.1225191640447
+    },
+    {
+      "left": "fan_1",
+      "right": "fan_2",
+      "inner_path_gap_mm": 281.32241757361044
+    },
+    {
+      "left": "fan_2",
+      "right": "fan_3",
+      "inner_path_gap_mm": 272.66855745994553
+    },
+    {
+      "left": "fan_3",
+      "right": "fan_4",
+      "inner_path_gap_mm": 258.3802458529876
+    },
+    {
+      "left": "fan_4",
+      "right": "fan_5",
+      "inner_path_gap_mm": 238.0776176151635
+    }
+  ],
+  "records": [
+    {
+      "family": "straight",
+      "index": 1,
+      "source_rafter_id": "eave_rafter_01",
+      "center_I_path_station_mm": 37.0,
+      "center_E_path_station_mm": 37.0,
+      "v_station_order_sign": -1,
+      "v_station_differences_mm": [
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -3.999999999999993,
+        -4.000000000000007,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0000000000000036,
+        -3.9999999999999964,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0
+      ],
+      "v_station_span_mm": [
+        5.0,
+        69.0
+      ],
+      "controls": [
+        {
+          "fiber_index": 0,
+          "v_mm": -32.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2313.0,
+            492.0
+          ],
+          "inner_path_station_mm": 69.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2313.0,
+            825.0
+          ],
+          "outer_path_station_mm": 69.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 1,
+          "v_mm": -28.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2317.0,
+            492.0
+          ],
+          "inner_path_station_mm": 65.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2317.0,
+            825.0
+          ],
+          "outer_path_station_mm": 65.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 2,
+          "v_mm": -24.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2321.0,
+            492.0
+          ],
+          "inner_path_station_mm": 61.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2321.0,
+            825.0
+          ],
+          "outer_path_station_mm": 61.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 3,
+          "v_mm": -20.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2325.0,
+            492.0
+          ],
+          "inner_path_station_mm": 57.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2325.0,
+            825.0
+          ],
+          "outer_path_station_mm": 57.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 4,
+          "v_mm": -16.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2329.0,
+            492.0
+          ],
+          "inner_path_station_mm": 53.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2329.0,
+            825.0
+          ],
+          "outer_path_station_mm": 53.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 5,
+          "v_mm": -12.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2333.0,
+            492.0
+          ],
+          "inner_path_station_mm": 49.00000000000001,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2333.0,
+            825.0
+          ],
+          "outer_path_station_mm": 49.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 6,
+          "v_mm": -8.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2337.0,
+            492.0
+          ],
+          "inner_path_station_mm": 45.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2337.0,
+            825.0
+          ],
+          "outer_path_station_mm": 45.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 7,
+          "v_mm": -4.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2341.0,
+            492.0
+          ],
+          "inner_path_station_mm": 41.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2341.0,
+            825.0
+          ],
+          "outer_path_station_mm": 41.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 8,
+          "v_mm": 0.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2345.0,
+            492.0
+          ],
+          "inner_path_station_mm": 37.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2345.0,
+            825.0
+          ],
+          "outer_path_station_mm": 37.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 9,
+          "v_mm": 4.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2349.0,
+            492.0
+          ],
+          "inner_path_station_mm": 33.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2349.0,
+            825.0
+          ],
+          "outer_path_station_mm": 33.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 10,
+          "v_mm": 8.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2353.0,
+            492.0
+          ],
+          "inner_path_station_mm": 28.999999999999996,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2353.0,
+            825.0
+          ],
+          "outer_path_station_mm": 29.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 11,
+          "v_mm": 12.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2357.0,
+            492.0
+          ],
+          "inner_path_station_mm": 25.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2357.0,
+            825.0
+          ],
+          "outer_path_station_mm": 25.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 12,
+          "v_mm": 16.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2361.0,
+            492.0
+          ],
+          "inner_path_station_mm": 21.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2361.0,
+            825.0
+          ],
+          "outer_path_station_mm": 21.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 13,
+          "v_mm": 20.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2365.0,
+            492.0
+          ],
+          "inner_path_station_mm": 17.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2365.0,
+            825.0
+          ],
+          "outer_path_station_mm": 17.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 14,
+          "v_mm": 24.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2369.0,
+            492.0
+          ],
+          "inner_path_station_mm": 13.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2369.0,
+            825.0
+          ],
+          "outer_path_station_mm": 13.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 15,
+          "v_mm": 28.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2373.0,
+            492.0
+          ],
+          "inner_path_station_mm": 9.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2373.0,
+            825.0
+          ],
+          "outer_path_station_mm": 9.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 16,
+          "v_mm": 32.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -2377.0,
+            492.0
+          ],
+          "inner_path_station_mm": 5.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -2377.0,
+            825.0
+          ],
+          "outer_path_station_mm": 5.0,
+          "outer_intersection_count": 1
+        }
+      ]
+    },
+    {
+      "family": "straight",
+      "index": 2,
+      "source_rafter_id": "eave_rafter_02",
+      "center_I_path_station_mm": 437.0,
+      "center_E_path_station_mm": 437.0,
+      "v_station_order_sign": -1,
+      "v_station_differences_mm": [
+        -4.000000000000114,
+        -4.0,
+        -3.999999999999943,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0
+      ],
+      "v_station_span_mm": [
+        405.0,
+        469.00000000000006
+      ],
+      "controls": [
+        {
+          "fiber_index": 0,
+          "v_mm": -32.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1913.0,
+            492.0
+          ],
+          "inner_path_station_mm": 469.00000000000006,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1913.0,
+            825.0
+          ],
+          "outer_path_station_mm": 469.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 1,
+          "v_mm": -28.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1917.0,
+            492.0
+          ],
+          "inner_path_station_mm": 464.99999999999994,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1917.0,
+            825.0
+          ],
+          "outer_path_station_mm": 465.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 2,
+          "v_mm": -24.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1921.0,
+            492.0
+          ],
+          "inner_path_station_mm": 460.99999999999994,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1921.0,
+            825.0
+          ],
+          "outer_path_station_mm": 461.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 3,
+          "v_mm": -20.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1925.0,
+            492.0
+          ],
+          "inner_path_station_mm": 457.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1925.0,
+            825.0
+          ],
+          "outer_path_station_mm": 457.00000000000006,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 4,
+          "v_mm": -16.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1929.0,
+            492.0
+          ],
+          "inner_path_station_mm": 453.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1929.0,
+            825.0
+          ],
+          "outer_path_station_mm": 453.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 5,
+          "v_mm": -12.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1933.0,
+            492.0
+          ],
+          "inner_path_station_mm": 449.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1933.0,
+            825.0
+          ],
+          "outer_path_station_mm": 449.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 6,
+          "v_mm": -8.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1937.0,
+            492.0
+          ],
+          "inner_path_station_mm": 445.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1937.0,
+            825.0
+          ],
+          "outer_path_station_mm": 445.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 7,
+          "v_mm": -4.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1941.0,
+            492.0
+          ],
+          "inner_path_station_mm": 441.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1941.0,
+            825.0
+          ],
+          "outer_path_station_mm": 441.00000000000006,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 8,
+          "v_mm": 0.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1945.0,
+            492.0
+          ],
+          "inner_path_station_mm": 437.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1945.0,
+            825.0
+          ],
+          "outer_path_station_mm": 437.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 9,
+          "v_mm": 4.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1949.0,
+            492.0
+          ],
+          "inner_path_station_mm": 433.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1949.0,
+            825.0
+          ],
+          "outer_path_station_mm": 433.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 10,
+          "v_mm": 8.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1953.0,
+            492.0
+          ],
+          "inner_path_station_mm": 429.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1953.0,
+            825.0
+          ],
+          "outer_path_station_mm": 429.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 11,
+          "v_mm": 12.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1957.0,
+            492.0
+          ],
+          "inner_path_station_mm": 425.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1957.0,
+            825.0
+          ],
+          "outer_path_station_mm": 425.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 12,
+          "v_mm": 16.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1961.0,
+            492.0
+          ],
+          "inner_path_station_mm": 421.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1961.0,
+            825.0
+          ],
+          "outer_path_station_mm": 421.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 13,
+          "v_mm": 20.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1965.0,
+            492.0
+          ],
+          "inner_path_station_mm": 417.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1965.0,
+            825.0
+          ],
+          "outer_path_station_mm": 417.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 14,
+          "v_mm": 24.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1969.0,
+            492.0
+          ],
+          "inner_path_station_mm": 413.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1969.0,
+            825.0
+          ],
+          "outer_path_station_mm": 413.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 15,
+          "v_mm": 28.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1973.0,
+            492.0
+          ],
+          "inner_path_station_mm": 409.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1973.0,
+            825.0
+          ],
+          "outer_path_station_mm": 409.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 16,
+          "v_mm": 32.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1977.0,
+            492.0
+          ],
+          "inner_path_station_mm": 405.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1977.0,
+            825.0
+          ],
+          "outer_path_station_mm": 405.0,
+          "outer_intersection_count": 1
+        }
+      ]
+    },
+    {
+      "family": "straight",
+      "index": 3,
+      "source_rafter_id": "eave_rafter_03",
+      "center_I_path_station_mm": 837.0,
+      "center_E_path_station_mm": 837.0000000000001,
+      "v_station_order_sign": -1,
+      "v_station_differences_mm": [
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0,
+        -4.0
+      ],
+      "v_station_span_mm": [
+        805.0,
+        869.0
+      ],
+      "controls": [
+        {
+          "fiber_index": 0,
+          "v_mm": -32.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1513.0,
+            492.0
+          ],
+          "inner_path_station_mm": 869.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1513.0,
+            825.0
+          ],
+          "outer_path_station_mm": 869.0000000000001,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 1,
+          "v_mm": -28.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1517.0,
+            492.0
+          ],
+          "inner_path_station_mm": 865.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1517.0,
+            825.0
+          ],
+          "outer_path_station_mm": 865.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 2,
+          "v_mm": -24.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1521.0,
+            492.0
+          ],
+          "inner_path_station_mm": 861.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1521.0,
+            825.0
+          ],
+          "outer_path_station_mm": 861.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 3,
+          "v_mm": -20.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1525.0,
+            492.0
+          ],
+          "inner_path_station_mm": 857.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1525.0,
+            825.0
+          ],
+          "outer_path_station_mm": 857.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 4,
+          "v_mm": -16.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1529.0,
+            492.0
+          ],
+          "inner_path_station_mm": 853.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1529.0,
+            825.0
+          ],
+          "outer_path_station_mm": 853.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 5,
+          "v_mm": -12.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1533.0,
+            492.0
+          ],
+          "inner_path_station_mm": 849.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1533.0,
+            825.0
+          ],
+          "outer_path_station_mm": 848.9999999999999,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 6,
+          "v_mm": -8.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1537.0,
+            492.0
+          ],
+          "inner_path_station_mm": 845.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1537.0,
+            825.0
+          ],
+          "outer_path_station_mm": 845.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 7,
+          "v_mm": -4.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1541.0,
+            492.0
+          ],
+          "inner_path_station_mm": 841.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1541.0,
+            825.0
+          ],
+          "outer_path_station_mm": 841.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 8,
+          "v_mm": 0.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1545.0,
+            492.0
+          ],
+          "inner_path_station_mm": 837.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1545.0,
+            825.0
+          ],
+          "outer_path_station_mm": 837.0000000000001,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 9,
+          "v_mm": 4.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1549.0,
+            492.0
+          ],
+          "inner_path_station_mm": 833.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1549.0,
+            825.0
+          ],
+          "outer_path_station_mm": 833.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 10,
+          "v_mm": 8.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1553.0,
+            492.0
+          ],
+          "inner_path_station_mm": 829.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1553.0,
+            825.0
+          ],
+          "outer_path_station_mm": 829.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 11,
+          "v_mm": 12.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1557.0,
+            492.0
+          ],
+          "inner_path_station_mm": 825.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1557.0,
+            825.0
+          ],
+          "outer_path_station_mm": 825.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 12,
+          "v_mm": 16.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1561.0,
+            492.0
+          ],
+          "inner_path_station_mm": 821.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1561.0,
+            825.0
+          ],
+          "outer_path_station_mm": 821.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 13,
+          "v_mm": 20.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1565.0,
+            492.0
+          ],
+          "inner_path_station_mm": 817.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1565.0,
+            825.0
+          ],
+          "outer_path_station_mm": 816.9999999999999,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 14,
+          "v_mm": 24.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1569.0,
+            492.0
+          ],
+          "inner_path_station_mm": 813.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1569.0,
+            825.0
+          ],
+          "outer_path_station_mm": 813.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 15,
+          "v_mm": 28.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1573.0,
+            492.0
+          ],
+          "inner_path_station_mm": 809.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1573.0,
+            825.0
+          ],
+          "outer_path_station_mm": 809.0,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 16,
+          "v_mm": 32.0,
+          "q_I_mm": -58.0,
+          "I_xy_mm": [
+            -1577.0,
+            492.0
+          ],
+          "inner_path_station_mm": 805.0,
+          "intersection_count": 1,
+          "q_E_mm": 275.0,
+          "E_xy_mm": [
+            -1577.0,
+            825.0
+          ],
+          "outer_path_station_mm": 805.0000000000001,
+          "outer_intersection_count": 1
+        }
+      ]
+    },
+    {
+      "family": "fan",
+      "index": 1,
+      "source_rafter_id": "fan_rafter_01",
+      "center_I_path_station_mm": 1456.437318238206,
+      "center_E_path_station_mm": 1495.9574920030652,
+      "v_station_order_sign": -1,
+      "v_station_differences_mm": [
+        -4.043700899623218,
+        -4.043700899623218,
+        -4.043700899622991,
+        -4.043700899623218,
+        -4.043700899623218,
+        -4.041299911227497,
+        -4.040690698865546,
+        -4.040690698865319,
+        -4.040690698865546,
+        -4.040690698865319,
+        -4.040690698865319,
+        -4.040690698865546,
+        -4.03866474710253,
+        -4.037790510532432,
+        -4.037790510532204,
+        -4.037790510532432
+      ],
+      "v_station_span_mm": [
+        1424.1225191640447,
+        1488.7785040452802
+      ],
+      "controls": [
+        {
+          "fiber_index": 0,
+          "v_mm": -32.0,
+          "q_I_mm": -53.905075399499125,
+          "I_xy_mm": [
+            -893.2523768594598,
+            495.09237496914886
+          ],
+          "inner_path_station_mm": 1488.7785040452802,
+          "intersection_count": 1,
+          "q_E_mm": 283.30434854694664,
+          "E_xy_mm": [
+            -853.7197662303321,
+            829.9764867080302
+          ],
+          "outer_path_station_mm": 1528.347266437475,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 1,
+          "v_mm": -28.0,
+          "q_I_mm": -54.49796406157067,
+          "I_xy_mm": [
+            -897.2943009184864,
+            494.9725131041738
+          ],
+          "inner_path_station_mm": 1484.734803145657,
+          "intersection_count": 1,
+          "q_E_mm": 282.66714198105996,
+          "E_xy_mm": [
+            -857.766885880914,
+            829.8126125444676
+          ],
+          "outer_path_station_mm": 1524.2968302562135,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 2,
+          "v_mm": -24.0,
+          "q_I_mm": -55.09085272364219,
+          "I_xy_mm": [
+            -901.3362249775129,
+            494.8526512391988
+          ],
+          "inner_path_station_mm": 1480.6911022460338,
+          "intersection_count": 1,
+          "q_E_mm": 282.03602743047225,
+          "E_xy_mm": [
+            -861.8132913365424,
+            829.6547883871837
+          ],
+          "outer_path_station_mm": 1520.2473481194506,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 3,
+          "v_mm": -20.0,
+          "q_I_mm": -55.68374138571374,
+          "I_xy_mm": [
+            -905.3781490365394,
+            494.7327893742238
+          ],
+          "inner_path_station_mm": 1476.6474013464108,
+          "intersection_count": 1,
+          "q_E_mm": 281.4049128798844,
+          "E_xy_mm": [
+            -865.8596967921711,
+            829.4969642298996
+          ],
+          "outer_path_station_mm": 1516.1978659826873,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 4,
+          "v_mm": -16.0,
+          "q_I_mm": -56.276630047785275,
+          "I_xy_mm": [
+            -909.4200730955661,
+            494.6129275092487
+          ],
+          "inner_path_station_mm": 1472.6037004467876,
+          "intersection_count": 1,
+          "q_E_mm": 280.7783461592817,
+          "E_xy_mm": [
+            -869.9055690847882,
+            829.3436565418978
+          ],
+          "outer_path_station_mm": 1512.1490891944977,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 5,
+          "v_mm": -12.0,
+          "q_I_mm": -56.869518709856926,
+          "I_xy_mm": [
+            -913.4619971545926,
+            494.4930656442737
+          ],
+          "inner_path_station_mm": 1468.5599995471644,
+          "intersection_count": 1,
+          "q_E_mm": 280.1534974356684,
+          "E_xy_mm": [
+            -873.9512399687221,
+            829.192055004006
+          ],
+          "outer_path_station_mm": 1508.10057886014,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 6,
+          "v_mm": -8.0,
+          "q_I_mm": -57.44574434650494,
+          "I_xy_mm": [
+            -917.5019677305631,
+            494.3897519006487
+          ],
+          "inner_path_station_mm": 1464.5186996359369,
+          "intersection_count": 1,
+          "q_E_mm": 279.5312970670593,
+          "E_xy_mm": [
+            -877.9966003738265,
+            829.0430835587218
+          ],
+          "outer_path_station_mm": 1504.0524752738513,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 7,
+          "v_mm": -4.0,
+          "q_I_mm": -58.01774200724974,
+          "I_xy_mm": [
+            -921.5414426414864,
+            494.29063697785807
+          ],
+          "inner_path_station_mm": 1460.4780089370713,
+          "intersection_count": 1,
+          "q_E_mm": 278.91271117840546,
+          "E_xy_mm": [
+            -882.0415370368332,
+            828.8977016688393
+          ],
+          "outer_path_station_mm": 1500.0049268181017,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 8,
+          "v_mm": 0.0,
+          "q_I_mm": -58.58973966799454,
+          "I_xy_mm": [
+            -925.5809175524096,
+            494.19152205506737
+          ],
+          "inner_path_station_mm": 1456.437318238206,
+          "intersection_count": 1,
+          "q_E_mm": 278.29487256045707,
+          "E_xy_mm": [
+            -886.0863860938606,
+            828.7530618966695
+          ],
+          "outer_path_station_mm": 1495.9574920030652,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 9,
+          "v_mm": 4.0,
+          "q_I_mm": -59.16173732873934,
+          "I_xy_mm": [
+            -929.6203924633328,
+            494.0924071322767
+          ],
+          "inner_path_station_mm": 1452.3966275393404,
+          "intersection_count": 1,
+          "q_E_mm": 277.682546546144,
+          "E_xy_mm": [
+            -890.1305888830271,
+            828.6138967145932
+          ],
+          "outer_path_station_mm": 1491.9108955136924,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 10,
+          "v_mm": 8.0,
+          "q_I_mm": -59.73373498948414,
+          "I_xy_mm": [
+            -933.6598673742559,
+            493.99329220948607
+          ],
+          "inner_path_station_mm": 1448.3559368404751,
+          "intersection_count": 1,
+          "q_E_mm": 277.07022053183096,
+          "E_xy_mm": [
+            -894.1747916721937,
+            828.4747315325169
+          ],
+          "outer_path_station_mm": 1487.8642990243195,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 11,
+          "v_mm": 12.0,
+          "q_I_mm": -60.30573265022894,
+          "I_xy_mm": [
+            -937.699342285179,
+            493.8941772866954
+          ],
+          "inner_path_station_mm": 1444.3152461416098,
+          "intersection_count": 1,
+          "q_E_mm": 276.4629960496385,
+          "E_xy_mm": [
+            -898.2183963853023,
+            828.3406327036663
+          ],
+          "outer_path_station_mm": 1483.818470637879,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 12,
+          "v_mm": 16.0,
+          "q_I_mm": -60.87773031097385,
+          "I_xy_mm": [
+            -941.7388171961022,
+            493.7950623639048
+          ],
+          "inner_path_station_mm": 1440.2745554427443,
+          "intersection_count": 1,
+          "q_E_mm": 275.85692698038605,
+          "E_xy_mm": [
+            -902.2618656440416,
+            828.2076813203159
+          ],
+          "outer_path_station_mm": 1479.7728162140925,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 13,
+          "v_mm": 20.0,
+          "q_I_mm": -61.4351557116076,
+          "I_xy_mm": [
+            -945.7765837339965,
+            493.71041921454855
+          ],
+          "inner_path_station_mm": 1436.2358906956417,
+          "intersection_count": 1,
+          "q_E_mm": 275.25405227214674,
+          "E_xy_mm": [
+            -906.3049604131577,
+            828.0779022704605
+          ],
+          "outer_path_station_mm": 1475.7276379151247,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 14,
+          "v_mm": 24.0,
+          "q_I_mm": -61.986292905911526,
+          "I_xy_mm": [
+            -949.8136130765614,
+            493.6320209096174
+          ],
+          "inner_path_station_mm": 1432.1981001851093,
+          "intersection_count": 1,
+          "q_E_mm": 274.654237249958,
+          "E_xy_mm": [
+            -910.3476964812153,
+            827.9511618078227
+          ],
+          "outer_path_station_mm": 1471.6829156674487,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 15,
+          "v_mm": 28.0,
+          "q_I_mm": -62.53743010021547,
+          "I_xy_mm": [
+            -953.8506424191261,
+            493.55362260468615
+          ],
+          "inner_path_station_mm": 1428.160309674577,
+          "intersection_count": 1,
+          "q_E_mm": 274.0557078692317,
+          "E_xy_mm": [
+            -914.3902818276151,
+            827.8256981211839
+          ],
+          "outer_path_station_mm": 1467.6383831030441,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 16,
+          "v_mm": 32.0,
+          "q_I_mm": -63.0885672945194,
+          "I_xy_mm": [
+            -957.8876717616909,
+            493.4752242997549
+          ],
+          "inner_path_station_mm": 1424.1225191640447,
+          "intersection_count": 1,
+          "q_E_mm": 273.4621440273341,
+          "E_xy_mm": [
+            -918.4322850410759,
+            827.7051657322547
+          ],
+          "outer_path_station_mm": 1463.594583153194,
+          "outer_intersection_count": 1
+        }
+      ]
+    },
+    {
+      "family": "fan",
+      "index": 2,
+      "source_rafter_id": "fan_rafter_02",
+      "center_I_path_station_mm": 1804.9641797848494,
+      "center_E_path_station_mm": 1927.1387985895112,
+      "v_station_order_sign": -1,
+      "v_station_differences_mm": [
+        -4.370920780518645,
+        -4.370920780518645,
+        -4.370920780518645,
+        -4.370920780518873,
+        -4.370920780518418,
+        -4.370920780518645,
+        -4.368200585946852,
+        -4.361152351489864,
+        -4.361152351489636,
+        -4.361152351489409,
+        -4.361152351489636,
+        -4.361152351489636,
+        -4.361152351489636,
+        -4.354414303134945,
+        -4.351541052687708,
+        -4.351541052687935
+      ],
+      "v_station_span_mm": [
+        1770.1009216188907,
+        1839.9190574053978
+      ],
+      "controls": [
+        {
+          "fiber_index": 0,
+          "v_mm": -32.0,
+          "q_I_mm": -49.281450481868326,
+          "I_xy_mm": [
+            -542.6751575157272,
+            514.2919912035613
+          ],
+          "inner_path_station_mm": 1839.9190574053978,
+          "intersection_count": 1,
+          "q_E_mm": 320.0436987781551,
+          "E_xy_mm": [
+            -420.8219431115335,
+            862.9363085461853
+          ],
+          "outer_path_station_mm": 1962.589763184783,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 1,
+          "v_mm": -28.0,
+          "q_I_mm": -51.04353687860653,
+          "I_xy_mm": [
+            -547.0325460231043,
+            513.9483142253565
+          ],
+          "inner_path_station_mm": 1835.5481366248791,
+          "intersection_count": 1,
+          "q_E_mm": 318.12590924099806,
+          "E_xy_mm": [
+            -425.2307035013586,
+            862.4456472231336
+          ],
+          "outer_path_station_mm": 1958.153783393482,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 2,
+          "v_mm": -24.0,
+          "q_I_mm": -52.805623275344594,
+          "I_xy_mm": [
+            -551.3899345304812,
+            513.6046372471517
+          ],
+          "inner_path_station_mm": 1831.1772158443605,
+          "intersection_count": 1,
+          "q_E_mm": 316.2081197038413,
+          "E_xy_mm": [
+            -429.6394638911835,
+            861.9549859000822
+          ],
+          "outer_path_station_mm": 1953.7178036021814,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 3,
+          "v_mm": -20.0,
+          "q_I_mm": -54.5677096720828,
+          "I_xy_mm": [
+            -555.7473230378583,
+            513.2609602689469
+          ],
+          "inner_path_station_mm": 1826.8062950638418,
+          "intersection_count": 1,
+          "q_E_mm": 314.2971243465584,
+          "E_xy_mm": [
+            -434.0459826447199,
+            861.4707383081529
+          ],
+          "outer_path_station_mm": 1949.28475642873,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 4,
+          "v_mm": -16.0,
+          "q_I_mm": -56.329796068821,
+          "I_xy_mm": [
+            -560.1047115452355,
+            512.917283290742
+          ],
+          "inner_path_station_mm": 1822.435374283323,
+          "intersection_count": 1,
+          "q_E_mm": 312.3868500878511,
+          "E_xy_mm": [
+            -438.4522634827515,
+            860.9871714359667
+          ],
+          "outer_path_station_mm": 1944.8520205079378,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 5,
+          "v_mm": -12.0,
+          "q_I_mm": -58.09188246555919,
+          "I_xy_mm": [
+            -564.4621000526125,
+            512.5736063125373
+          ],
+          "inner_path_station_mm": 1818.0644535028046,
+          "intersection_count": 1,
+          "q_E_mm": 310.48258468180535,
+          "E_xy_mm": [
+            -442.85656179126073,
+            860.5092769430873
+          ],
+          "outer_path_station_mm": 1940.4218699394853,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 6,
+          "v_mm": -8.0,
+          "q_I_mm": -59.853968862297265,
+          "I_xy_mm": [
+            -568.8194885599896,
+            512.2299293343325
+          ],
+          "inner_path_station_mm": 1813.693532722286,
+          "intersection_count": 1,
+          "q_E_mm": 308.5798147358069,
+          "E_xy_mm": [
+            -447.2603666954781,
+            860.0327941700659
+          ],
+          "outer_path_station_mm": 1935.9923628035394,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 7,
+          "v_mm": -4.0,
+          "q_I_mm": -61.60926831822144,
+          "I_xy_mm": [
+            -573.1746378194956,
+            511.8926592535504
+          ],
+          "inner_path_station_mm": 1809.325332136339,
+          "intersection_count": 1,
+          "q_E_mm": 306.6822591338704,
+          "E_xy_mm": [
+            -451.66245120619874,
+            859.5612337572726
+          ],
+          "outer_path_station_mm": 1931.5650919782565,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 8,
+          "v_mm": 0.0,
+          "q_I_mm": -63.34698228573836,
+          "I_xy_mm": [
+            -577.5239850146323,
+            511.57198993936424
+          ],
+          "inner_path_station_mm": 1804.9641797848492,
+          "intersection_count": 1,
+          "q_E_mm": 304.78698259382367,
+          "E_xy_mm": [
+            -456.06378377512056,
+            859.091824787397
+          ],
+          "outer_path_station_mm": 1927.138798589511,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 9,
+          "v_mm": 4.0,
+          "q_I_mm": -65.0846962532553,
+          "I_xy_mm": [
+            -581.873332209769,
+            511.25132062517815
+          ],
+          "inner_path_station_mm": 1800.6030274333596,
+          "intersection_count": 1,
+          "q_E_mm": 302.8961167761107,
+          "E_xy_mm": [
+            -460.4636610933093,
+            858.6265795558429
+          ],
+          "outer_path_station_mm": 1922.7143907632028,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 10,
+          "v_mm": 8.0,
+          "q_I_mm": -66.82241022077223,
+          "I_xy_mm": [
+            -586.2226794049055,
+            510.93065131099206
+          ],
+          "inner_path_station_mm": 1796.2418750818701,
+          "intersection_count": 1,
+          "q_E_mm": 301.0083227939687,
+          "E_xy_mm": [
+            -464.8625249060836,
+            858.1642341485161
+          ],
+          "outer_path_station_mm": 1918.2912961317245,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 11,
+          "v_mm": 12.0,
+          "q_I_mm": -68.56012418828904,
+          "I_xy_mm": [
+            -590.5720266000421,
+            510.6099819968059
+          ],
+          "inner_path_station_mm": 1791.8807227303805,
+          "intersection_count": 1,
+          "q_E_mm": 299.1241268669546,
+          "E_xy_mm": [
+            -469.26020159530617,
+            857.7052853186397
+          ],
+          "outer_path_station_mm": 1913.8697346769338,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 12,
+          "v_mm": 16.0,
+          "q_I_mm": -70.29783815580596,
+          "I_xy_mm": [
+            -594.9213737951787,
+            510.28931268261977
+          ],
+          "inner_path_station_mm": 1787.5195703788909,
+          "intersection_count": 1,
+          "q_E_mm": 297.2438046531106,
+          "E_xy_mm": [
+            -473.65660021179957,
+            857.2499932884328
+          ],
+          "outer_path_station_mm": 1909.4498238602007,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 13,
+          "v_mm": 20.0,
+          "q_I_mm": -72.0355521233229,
+          "I_xy_mm": [
+            -599.2707209903155,
+            509.9686433684337
+          ],
+          "inner_path_station_mm": 1783.1584180274012,
+          "intersection_count": 1,
+          "q_E_mm": 295.3662588487559,
+          "E_xy_mm": [
+            -478.0520827942199,
+            856.7973221991313
+          ],
+          "outer_path_station_mm": 1905.0310922653196,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 14,
+          "v_mm": 24.0,
+          "q_I_mm": -73.7562554368094,
+          "I_xy_mm": [
+            -603.6144557789402,
+            509.66403217504944
+          ],
+          "inner_path_station_mm": 1778.8040037242663,
+          "intersection_count": 1,
+          "q_E_mm": 293.49339767177446,
+          "E_xy_mm": [
+            -482.44601975510636,
+            856.3490734155293
+          ],
+          "outer_path_station_mm": 1900.61435036792,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 15,
+          "v_mm": 28.0,
+          "q_I_mm": -75.46970503724327,
+          "I_xy_mm": [
+            -607.9557973152948,
+            509.36626851382067
+          ],
+          "inner_path_station_mm": 1774.4524626715786,
+          "intersection_count": 1,
+          "q_E_mm": 291.6224823466586,
+          "E_xy_mm": [
+            -486.8393147117722,
+            855.9026615233404
+          ],
+          "outer_path_station_mm": 1896.198432236309,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 16,
+          "v_mm": 32.0,
+          "q_I_mm": -77.18315463767726,
+          "I_xy_mm": [
+            -612.2971388516496,
+            509.06850485259196
+          ],
+          "inner_path_station_mm": 1770.1009216188907,
+          "intersection_count": 1,
+          "q_E_mm": 289.7570715330069,
+          "E_xy_mm": [
+            -491.23079353862136,
+            855.4614459104887
+          ],
+          "outer_path_station_mm": 1891.7848444096437,
+          "outer_intersection_count": 1
+        }
+      ]
+    },
+    {
+      "family": "fan",
+      "index": 3,
+      "source_rafter_id": "fan_rafter_03",
+      "center_I_path_station_mm": 2152.4055830664684,
+      "center_E_path_station_mm": 2369.0287679457615,
+      "v_station_order_sign": -1,
+      "v_station_differences_mm": [
+        -5.002025704215157,
+        -5.002025704215157,
+        -5.002025704215157,
+        -5.002025704215157,
+        -5.002025704215157,
+        -5.002025704215157,
+        -5.002025704215157,
+        -4.998457691393014,
+        -4.9829561894580365,
+        -4.982956189457582,
+        -4.982956189457582,
+        -4.9829561894580365,
+        -4.982956189457582,
+        -4.974865510185282,
+        -4.9641608718256975,
+        -4.9641608718256975
+      ],
+      "v_station_span_mm": [
+        2112.5876148653433,
+        2192.418220687368
+      ],
+      "controls": [
+        {
+          "fiber_index": 0,
+          "v_mm": -32.0,
+          "q_I_mm": -48.50203282183347,
+          "I_xy_mm": [
+            -192.1560723290025,
+            551.2422951692678
+          ],
+          "inner_path_station_mm": 2192.418220687368,
+          "intersection_count": 1,
+          "q_E_mm": 386.0591213055892,
+          "E_xy_mm": [
+            22.359918789787486,
+            929.165946494348
+          ],
+          "outer_path_station_mm": 2410.7938524412757,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 1,
+          "v_mm": -28.0,
+          "q_I_mm": -51.50540778104669,
+          "I_xy_mm": [
+            -197.11732241060812,
+            550.6049108476866
+          ],
+          "inner_path_station_mm": 2187.4161949831528,
+          "intersection_count": 1,
+          "q_E_mm": 382.6853450301542,
+          "E_xy_mm": [
+            17.21582446472766,
+            928.2064362382405
+          ],
+          "outer_path_station_mm": 2405.56103548295,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 2,
+          "v_mm": -24.0,
+          "q_I_mm": -54.50878274026005,
+          "I_xy_mm": [
+            -202.0785724922138,
+            549.9675265261054
+          ],
+          "inner_path_station_mm": 2182.4141692789376,
+          "intersection_count": 1,
+          "q_E_mm": 379.31384965474143,
+          "E_xy_mm": [
+            12.072856079076502,
+            927.248909606432
+          ],
+          "outer_path_station_mm": 2400.3296889543685,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 3,
+          "v_mm": -20.0,
+          "q_I_mm": -57.51215769947328,
+          "I_xy_mm": [
+            -207.03982257381938,
+            549.3301422045242
+          ],
+          "inner_path_station_mm": 2177.4121435747224,
+          "intersection_count": 1,
+          "q_E_mm": 375.95182184685586,
+          "E_xy_mm": [
+            6.9345612465313025,
+            926.2996166090729
+          ],
+          "outer_path_station_mm": 2395.1044395841477,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 4,
+          "v_mm": -16.0,
+          "q_I_mm": -60.51553265868664,
+          "I_xy_mm": [
+            -212.00107265542508,
+            548.692757882943
+          ],
+          "inner_path_station_mm": 2172.4101178705073,
+          "intersection_count": 1,
+          "q_E_mm": 372.59302030933753,
+          "E_xy_mm": [
+            1.7978590243214967,
+            925.3531293937444
+          ],
+          "outer_path_station_mm": 2389.881264171633,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 5,
+          "v_mm": -12.0,
+          "q_I_mm": -63.518907617899856,
+          "I_xy_mm": [
+            -216.96232273703066,
+            548.0553735613619
+          ],
+          "inner_path_station_mm": 2167.408092166292,
+          "intersection_count": 1,
+          "q_E_mm": 369.24141424834414,
+          "E_xy_mm": [
+            -3.3352912357221953,
+            924.4128998494834
+          ],
+          "outer_path_station_mm": 2384.6627142592447,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 6,
+          "v_mm": -8.0,
+          "q_I_mm": -66.52228257711323,
+          "I_xy_mm": [
+            -221.92357281863636,
+            547.4179892397807
+          ],
+          "inner_path_station_mm": 2162.406066462077,
+          "intersection_count": 1,
+          "q_E_mm": 365.895244431402,
+          "E_xy_mm": [
+            -8.465757957972556,
+            923.4773980292305
+          ],
+          "outer_path_station_mm": 2379.4476525815608,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 7,
+          "v_mm": -4.0,
+          "q_I_mm": -69.52565753632645,
+          "I_xy_mm": [
+            -226.88482290024194,
+            546.7806049181995
+          ],
+          "inner_path_station_mm": 2157.404040757862,
+          "intersection_count": 1,
+          "q_E_mm": 362.5540334516803,
+          "E_xy_mm": [
+            -13.593776808683856,
+            922.5462087478479
+          ],
+          "outer_path_station_mm": 2374.235772804454,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 8,
+          "v_mm": 0.0,
+          "q_I_mm": -72.52306977608528,
+          "I_xy_mm": [
+            -231.84312955567756,
+            546.1484061791001
+          ],
+          "inner_path_station_mm": 2152.405583066469,
+          "intersection_count": 1,
+          "q_E_mm": 359.2204337124998,
+          "E_xy_mm": [
+            -18.71803846022354,
+            921.621638713927
+          ],
+          "outer_path_station_mm": 2369.028767945762,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 9,
+          "v_mm": 4.0,
+          "q_I_mm": -75.49457652957838,
+          "I_xy_mm": [
+            -236.7886482731925,
+            545.5387365958304
+          ],
+          "inner_path_station_mm": 2147.4226268770108,
+          "intersection_count": 1,
+          "q_E_mm": 355.8895912990452,
+          "E_xy_mm": [
+            -23.840938990422018,
+            920.6994666361888
+          ],
+          "outer_path_station_mm": 2363.823529124798,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 10,
+          "v_mm": 8.0,
+          "q_I_mm": -78.46608328307133,
+          "I_xy_mm": [
+            -241.7341669907074,
+            544.9290670125607
+          ],
+          "inner_path_station_mm": 2142.439670687553,
+          "intersection_count": 1,
+          "q_E_mm": 352.56850046497686,
+          "E_xy_mm": [
+            -28.95902576840828,
+            919.7857751887434
+          ],
+          "outer_path_station_mm": 2358.6245246303215,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 11,
+          "v_mm": 12.0,
+          "q_I_mm": -81.43759003656444,
+          "I_xy_mm": [
+            -246.67968570822237,
+            544.319397429291
+          ],
+          "inner_path_station_mm": 2137.4567144980956,
+          "intersection_count": 1,
+          "q_E_mm": 349.2495418451895,
+          "E_xy_mm": [
+            -34.07606000394935,
+            918.8739380584611
+          ],
+          "outer_path_station_mm": 2353.426881478073,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 12,
+          "v_mm": 16.0,
+          "q_I_mm": -84.4090967900574,
+          "I_xy_mm": [
+            -251.62520442573725,
+            543.7097278460213
+          ],
+          "inner_path_station_mm": 2132.4737583086376,
+          "intersection_count": 1,
+          "q_E_mm": 345.9393576166506,
+          "E_xy_mm": [
+            -39.188762864683326,
+            917.9697317298445
+          ],
+          "outer_path_station_mm": 2348.2348376004784,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 13,
+          "v_mm": 20.0,
+          "q_I_mm": -87.3806035435505,
+          "I_xy_mm": [
+            -256.5707231432522,
+            543.1000582627516
+          ],
+          "inner_path_station_mm": 2127.49080211918,
+          "intersection_count": 1,
+          "q_E_mm": 342.63281301925775,
+          "E_xy_mm": [
+            -44.29966906440612,
+            917.0686906696352
+          ],
+          "outer_path_station_mm": 2343.0451120240264,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 14,
+          "v_mm": 24.0,
+          "q_I_mm": -90.33849607417393,
+          "I_xy_mm": [
+            -261.5095213601323,
+            542.5022285247326
+          ],
+          "inner_path_station_mm": 2122.5159366089947,
+          "intersection_count": 1,
+          "q_E_mm": 339.3329187055601,
+          "E_xy_mm": [
+            -49.40729242997642,
+            916.173433144085
+          ],
+          "outer_path_station_mm": 2337.8596224153616,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 15,
+          "v_mm": 28.0,
+          "q_I_mm": -93.2783758610643,
+          "I_xy_mm": [
+            -266.4394277984032,
+            541.9200638819881
+          ],
+          "inner_path_station_mm": 2117.551775737169,
+          "intersection_count": 1,
+          "q_E_mm": 336.0387281962274,
+          "E_xy_mm": [
+            -54.51210017975856,
+            915.2831360310145
+          ],
+          "outer_path_station_mm": 2332.677759178231,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 16,
+          "v_mm": 32.0,
+          "q_I_mm": -96.21825564795455,
+          "I_xy_mm": [
+            -271.36933423667404,
+            541.3378992392436
+          ],
+          "inner_path_station_mm": 2112.5876148653433,
+          "intersection_count": 1,
+          "q_E_mm": 332.74909787476975,
+          "E_xy_mm": [
+            -59.61465684655178,
+            914.3968047644905
+          ],
+          "outer_path_station_mm": 2327.4987952227807,
+          "outer_intersection_count": 1
+        }
+      ]
+    },
+    {
+      "family": "fan",
+      "index": 4,
+      "source_rafter_id": "fan_rafter_04",
+      "center_I_path_station_mm": 2497.870312389863,
+      "center_E_path_station_mm": 2832.4710740967384,
+      "v_station_order_sign": -1,
+      "v_station_differences_mm": [
+        -5.967241774926606,
+        -5.930092740917644,
+        -5.927158589395731,
+        -5.927158589396186,
+        -5.927158589395731,
+        -5.927158589395731,
+        -5.927158589395731,
+        -5.927158589396186,
+        -5.9038948803881794,
+        -5.894272725854989,
+        -5.894272725854989,
+        -5.894272725854989,
+        -5.894272725854989,
+        -5.867055564613565,
+        -5.861902250543153,
+        -5.861902250542698
+      ],
+      "v_station_span_mm": [
+        2450.7984665403555,
+        2545.3305984420826
+      ],
+      "controls": [
+        {
+          "fiber_index": 0,
+          "v_mm": -32.0,
+          "q_I_mm": -51.10000574499009,
+          "I_xy_mm": [
+            156.4565802002756,
+            605.9205632315056
+          ],
+          "inner_path_station_mm": 2545.3305984420826,
+          "intersection_count": 1,
+          "q_E_mm": 488.4287522836677,
+          "E_xy_mm": [
+            484.3387762581031,
+            1034.38823558059
+          ],
+          "outer_path_station_mm": 2884.7233838876955,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 1,
+          "v_mm": -28.0,
+          "q_I_mm": -55.528094994365475,
+          "I_xy_mm": [
+            150.58893687318266,
+            604.8348670555634
+          ],
+          "inner_path_station_mm": 2539.363356667156,
+          "intersection_count": 1,
+          "q_E_mm": 483.2258430201312,
+          "E_xy_mm": [
+            478.00025962905505,
+            1032.6872147847514
+          ],
+          "outer_path_station_mm": 2878.160589909168,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 2,
+          "v_mm": -24.0,
+          "q_I_mm": -59.90598374030576,
+          "I_xy_mm": [
+            144.7518013754956,
+            603.7890376940171
+          ],
+          "inner_path_station_mm": 2533.4332639262384,
+          "intersection_count": 1,
+          "q_E_mm": 478.03475201334635,
+          "E_xy_mm": [
+            471.6689251861642,
+            1030.9955794774273
+          ],
+          "outer_path_station_mm": 2871.60715980566,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 3,
+          "v_mm": -20.0,
+          "q_I_mm": -64.27990748722333,
+          "I_xy_mm": [
+            138.9170754853922,
+            602.7463571431261
+          ],
+          "inner_path_station_mm": 2527.5061053368427,
+          "intersection_count": 1,
+          "q_E_mm": 472.85311309124626,
+          "E_xy_mm": [
+            465.34333496031013,
+            1029.3114505590831
+          ],
+          "outer_path_station_mm": 2865.0612142844684,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 4,
+          "v_mm": -16.0,
+          "q_I_mm": -68.6538312341409,
+          "I_xy_mm": [
+            133.08234959528878,
+            601.7036765922352
+          ],
+          "inner_path_station_mm": 2521.5789467474465,
+          "intersection_count": 1,
+          "q_E_mm": 467.68299590519655,
+          "E_xy_mm": [
+            459.02474671917406,
+            1027.6364716468388
+          ],
+          "outer_path_station_mm": 2858.5243869410633,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 5,
+          "v_mm": -12.0,
+          "q_I_mm": -73.02775498105848,
+          "I_xy_mm": [
+            127.24762370518535,
+            600.6609960413442
+          ],
+          "inner_path_station_mm": 2515.6517881580507,
+          "intersection_count": 1,
+          "q_E_mm": 462.5270520949931,
+          "E_xy_mm": [
+            452.71477191620767,
+            1025.9727485449062
+          ],
+          "outer_path_station_mm": 2851.9987629956318,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 6,
+          "v_mm": -8.0,
+          "q_I_mm": -77.40167872797603,
+          "I_xy_mm": [
+            121.41289781508195,
+            599.6183154904533
+          ],
+          "inner_path_station_mm": 2509.724629568655,
+          "intersection_count": 1,
+          "q_E_mm": 457.3803848198363,
+          "E_xy_mm": [
+            446.41043464532385,
+            1024.316392418913
+          ],
+          "outer_path_station_mm": 2845.480465019255,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 7,
+          "v_mm": -4.0,
+          "q_I_mm": -81.7756024748936,
+          "I_xy_mm": [
+            115.57817192497853,
+            598.5756349395622
+          ],
+          "inner_path_station_mm": 2503.7974709792593,
+          "intersection_count": 1,
+          "q_E_mm": 452.24293950490096,
+          "E_xy_mm": [
+            440.1117017403323,
+            1022.6673599281694
+          ],
+          "outer_path_station_mm": 2838.9694478022293,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 8,
+          "v_mm": 0.0,
+          "q_I_mm": -86.1495262218112,
+          "I_xy_mm": [
+            109.74344603487509,
+            597.5329543886712
+          ],
+          "inner_path_station_mm": 2497.870312389863,
+          "intersection_count": 1,
+          "q_E_mm": 447.12152751051644,
+          "E_xy_mm": [
+            433.82271259834516,
+            1021.0310603259591
+          ],
+          "outer_path_station_mm": 2832.4710740967375,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 9,
+          "v_mm": 4.0,
+          "q_I_mm": -90.49185113128505,
+          "I_xy_mm": [
+            103.92792337733295,
+            596.5153681077834
+          ],
+          "inner_path_station_mm": 2491.966417509475,
+          "intersection_count": 1,
+          "q_E_mm": 442.00935813864254,
+          "E_xy_mm": [
+            427.5393403791282,
+            1019.4021007679904
+          ],
+          "outer_path_station_mm": 2825.9799802154184,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 10,
+          "v_mm": 8.0,
+          "q_I_mm": -94.82110637517606,
+          "I_xy_mm": [
+            98.1203434116108,
+            595.508161123842
+          ],
+          "inner_path_station_mm": 2486.07214478362,
+          "intersection_count": 1,
+          "q_E_mm": 436.90624021010694,
+          "E_xy_mm": [
+            421.26146889935296,
+            1017.7803294290013
+          ],
+          "outer_path_station_mm": 2819.496013517569,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 11,
+          "v_mm": 12.0,
+          "q_I_mm": -99.15036161906706,
+          "I_xy_mm": [
+            92.31276344588866,
+            594.5009541399005
+          ],
+          "inner_path_station_mm": 2480.177872057765,
+          "intersection_count": 1,
+          "q_E_mm": 431.81698167498945,
+          "E_xy_mm": [
+            414.9920200444746,
+            1016.1695645506499
+          ],
+          "outer_path_station_mm": 2813.0229499123457,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 12,
+          "v_mm": 16.0,
+          "q_I_mm": -103.47961686295805,
+          "I_xy_mm": [
+            86.50518348016652,
+            593.493747155959
+          ],
+          "inner_path_station_mm": 2474.28359933191,
+          "intersection_count": 1,
+          "q_E_mm": 426.73884547837986,
+          "E_xy_mm": [
+            408.7293304526031,
+            1014.5676324961667
+          ],
+          "outer_path_station_mm": 2806.5586256695788,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 13,
+          "v_mm": 20.0,
+          "q_I_mm": -107.80887210684905,
+          "I_xy_mm": [
+            80.69760351444437,
+            592.4865401720175
+          ],
+          "inner_path_station_mm": 2468.389326606055,
+          "intersection_count": 1,
+          "q_E_mm": 421.66959375493974,
+          "E_xy_mm": [
+            402.4720401291307,
+            1012.9727560610222
+          ],
+          "outer_path_station_mm": 2800.1012785809758,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 14,
+          "v_mm": 24.0,
+          "q_I_mm": -112.10098347886712,
+          "I_xy_mm": [
+            74.91259660733783,
+            591.5088310565151
+          ],
+          "inner_path_station_mm": 2462.5222710414414,
+          "intersection_count": 1,
+          "q_E_mm": 416.61223948302376,
+          "E_xy_mm": [
+            396.22198012003014,
+            1011.3873280070541
+          ],
+          "outer_path_station_mm": 2793.6532686374608,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 15,
+          "v_mm": 28.0,
+          "q_I_mm": -116.38606200730958,
+          "I_xy_mm": [
+            69.13186369705127,
+            590.5367070855893
+          ],
+          "inner_path_station_mm": 2456.6603687908982,
+          "intersection_count": 1,
+          "q_E_mm": 411.56768053613933,
+          "E_xy_mm": [
+            389.97969608062203,
+            1009.812061382021
+          ],
+          "outer_path_station_mm": 2787.2152883573453,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 16,
+          "v_mm": 32.0,
+          "q_I_mm": -120.67114053575204,
+          "I_xy_mm": [
+            63.35113078676471,
+            589.5645831146636
+          ],
+          "inner_path_station_mm": 2450.7984665403555,
+          "intersection_count": 1,
+          "q_E_mm": 406.53184255050854,
+          "E_xy_mm": [
+            383.74271194021844,
+            1008.2437205230634
+          ],
+          "outer_path_station_mm": 2780.784138660503,
+          "outer_intersection_count": 1
+        }
+      ]
+    },
+    {
+      "family": "fan",
+      "index": 5,
+      "source_rafter_id": "fan_rafter_05",
+      "center_I_path_station_mm": 2840.148547697357,
+      "center_E_path_station_mm": 3337.6570076613166,
+      "v_station_order_sign": -1,
+      "v_station_differences_mm": [
+        -7.236754442517395,
+        -7.236754442517395,
+        -7.184006419769048,
+        -7.1706616698079415,
+        -7.170661669807487,
+        -7.170661669807487,
+        -7.170661669807487,
+        -7.170661669807487,
+        -7.125757728534154,
+        -7.116603081587527,
+        -7.116603081587527,
+        -7.116603081587527,
+        -7.074154128187274,
+        -7.06353684620899,
+        -7.063536846209445,
+        -7.063536846208535
+      ],
+      "v_station_span_mm": [
+        2783.408216057246,
+        2897.659371351199
+      ],
+      "controls": [
+        {
+          "fiber_index": 0,
+          "v_mm": -32.0,
+          "q_I_mm": -56.71252865033116,
+          "I_xy_mm": [
+            501.29385227505645,
+            678.0039754478835
+          ],
+          "inner_path_station_mm": 2897.659371351199,
+          "intersection_count": 1,
+          "q_E_mm": 647.4170468948118,
+          "E_xy_mm": [
+            982.8660294324131,
+            1191.7030092656498
+          ],
+          "outer_path_station_mm": 3407.6429059065736,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 1,
+          "v_mm": -28.0,
+          "q_I_mm": -62.743334140586796,
+          "I_xy_mm": [
+            494.2510231744798,
+            676.3398921803249
+          ],
+          "inner_path_station_mm": 2890.4226169086814,
+          "intersection_count": 1,
+          "q_E_mm": 639.5399655889777,
+          "E_xy_mm": [
+            974.5604852080573,
+            1188.6919720629587
+          ],
+          "outer_path_station_mm": 3398.808404794529,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 2,
+          "v_mm": -24.0,
+          "q_I_mm": -68.77413963084243,
+          "I_xy_mm": [
+            487.2081940739032,
+            674.6758089127663
+          ],
+          "inner_path_station_mm": 2883.185862466164,
+          "intersection_count": 1,
+          "q_E_mm": 631.6913674752545,
+          "E_xy_mm": [
+            966.2744213653153,
+            1185.7017148257391
+          ],
+          "outer_path_station_mm": 3389.9992902129075,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 3,
+          "v_mm": -20.0,
+          "q_I_mm": -74.74152050086515,
+          "I_xy_mm": [
+            480.2087426888945,
+            673.0579971941747
+          ],
+          "inner_path_station_mm": 2876.001856046395,
+          "intersection_count": 1,
+          "q_E_mm": 623.8706089392664,
+          "E_xy_mm": [
+            958.0073977198988,
+            1182.7317680039334
+          ],
+          "outer_path_station_mm": 3381.214970064918,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 4,
+          "v_mm": -16.0,
+          "q_I_mm": -80.69285554292483,
+          "I_xy_mm": [
+            473.22026545491525,
+            671.4518917390433
+          ],
+          "inner_path_station_mm": 2868.831194376587,
+          "intersection_count": 1,
+          "q_E_mm": 616.0774411356335,
+          "E_xy_mm": [
+            949.7592440801047,
+            1179.7819500519345
+          ],
+          "outer_path_station_mm": 3372.4552047215693,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 5,
+          "v_mm": -12.0,
+          "q_I_mm": -86.64419058498449,
+          "I_xy_mm": [
+            466.2317882209362,
+            669.8457862839119
+          ],
+          "inner_path_station_mm": 2861.6605327067796,
+          "intersection_count": 1,
+          "q_E_mm": 608.3116183591311,
+          "E_xy_mm": [
+            941.5297924018632,
+            1176.852081715041
+          ],
+          "outer_path_station_mm": 3363.719757693722,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 6,
+          "v_mm": -8.0,
+          "q_I_mm": -92.59552562704413,
+          "I_xy_mm": [
+            459.2433109869571,
+            668.2396808287805
+          ],
+          "inner_path_station_mm": 2854.489871036972,
+          "intersection_count": 1,
+          "q_E_mm": 600.5728979944107,
+          "E_xy_mm": [
+            933.3188767543486,
+            1173.9419859927773
+          ],
+          "outer_path_station_mm": 3355.008395581851,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 7,
+          "v_mm": -4.0,
+          "q_I_mm": -98.54686066910376,
+          "I_xy_mm": [
+            452.254833752978,
+            666.633575373649
+          ],
+          "inner_path_station_mm": 2847.3192093671646,
+          "intersection_count": 1,
+          "q_E_mm": 592.8610404666815,
+          "E_xy_mm": [
+            925.1263332862507,
+            1171.0514881029117
+          ],
+          "outer_path_station_mm": 3346.320888026772,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 8,
+          "v_mm": 0.0,
+          "q_I_mm": -104.49819571116342,
+          "I_xy_mm": [
+            445.2663565189989,
+            665.0274699185176
+          ],
+          "inner_path_station_mm": 2840.148547697357,
+          "intersection_count": 1,
+          "q_E_mm": 585.1758091933398,
+          "E_xy_mm": [
+            916.952000192692,
+            1168.1804154461677
+          ],
+          "outer_path_station_mm": 3337.657007661316,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 9,
+          "v_mm": 4.0,
+          "q_I_mm": -110.39533361414554,
+          "I_xy_mm": [
+            438.31494609085746,
+            663.4609040864141
+          ],
+          "inner_path_station_mm": 2833.022789968823,
+          "intersection_count": 1,
+          "q_E_mm": 577.5169705365124,
+          "E_xy_mm": [
+            908.795717682772,
+            1165.3285975716035
+          ],
+          "outer_path_station_mm": 3329.016530062916,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 10,
+          "v_mm": 8.0,
+          "q_I_mm": -116.28142224929704,
+          "I_xy_mm": [
+            431.3710925388223,
+            661.902399268087
+          ],
+          "inner_path_station_mm": 2825.9061868872354,
+          "intersection_count": 1,
+          "q_E_mm": 569.8842937565012,
+          "E_xy_mm": [
+            900.6573279477251,
+            1162.4958661426454
+          ],
+          "outer_path_station_mm": 3320.399233707095,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 11,
+          "v_mm": 12.0,
+          "q_I_mm": -122.16751088444856,
+          "I_xy_mm": [
+            424.42723898678713,
+            660.34389444976
+          ],
+          "inner_path_station_mm": 2818.789583805648,
+          "intersection_count": 1,
+          "q_E_mm": 562.277550966109,
+          "E_xy_mm": [
+            892.5366751296847,
+            1159.6820549037675
+          ],
+          "outer_path_station_mm": 3311.8048999218386,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 12,
+          "v_mm": 16.0,
+          "q_I_mm": -128.05359951960003,
+          "I_xy_mm": [
+            417.483385434752,
+            658.7853896314331
+          ],
+          "inner_path_station_mm": 2811.6729807240604,
+          "intersection_count": 1,
+          "q_E_mm": 554.696517085824,
+          "E_xy_mm": [
+            884.4336052910314,
+            1156.8869996477956
+          ],
+          "outer_path_station_mm": 3303.2333128428218,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 13,
+          "v_mm": 20.0,
+          "q_I_mm": -133.88827570580133,
+          "I_xy_mm": [
+            410.5746941679465,
+            657.2643928603025
+          ],
+          "inner_path_station_mm": 2804.598826595873,
+          "intersection_count": 1,
+          "q_E_mm": 547.1409697998478,
+          "E_xy_mm": [
+            876.34796638432,
+            1154.1105381838279
+          ],
+          "outer_path_station_mm": 3294.684259369481,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 14,
+          "v_mm": 24.0,
+          "q_I_mm": -139.71009267112692,
+          "I_xy_mm": [
+            403.6747976503018,
+            655.7527775575393
+          ],
+          "inner_path_station_mm": 2797.535289749664,
+          "intersection_count": 1,
+          "q_E_mm": 539.6106895129419,
+          "E_xy_mm": [
+            868.2796082227655,
+            1151.3525103057523
+          ],
+          "outer_path_station_mm": 3286.1575291219087,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 15,
+          "v_mm": 28.0,
+          "q_I_mm": -145.53190963645253,
+          "I_xy_mm": [
+            396.77490113265713,
+            654.2411622547761
+          ],
+          "inner_path_station_mm": 2790.4717529034547,
+          "intersection_count": 1,
+          "q_E_mm": 532.1068353958216,
+          "E_xy_mm": [
+            860.2293235927878,
+            1148.6137616887072
+          ],
+          "outer_path_station_mm": 3277.6541282369085,
+          "outer_intersection_count": 1
+        },
+        {
+          "fiber_index": 16,
+          "v_mm": 32.0,
+          "q_I_mm": -151.35372660177808,
+          "I_xy_mm": [
+            389.87500461501253,
+            652.7295469520129
+          ],
+          "inner_path_station_mm": 2783.408216057246,
+          "intersection_count": 1,
+          "q_E_mm": 524.6291617971816,
+          "E_xy_mm": [
+            852.1969444871929,
+            1145.894113117329
+          ],
+          "outer_path_station_mm": 3269.173821022986,
+          "outer_intersection_count": 1
+        }
+      ]
+    }
+  ],
+  "front_boundary_path_xy_mm": [
+    [
+      -2382.0,
+      492.0
+    ],
+    [
+      -1700.0,
+      492.0
+    ],
+    [
+      -1625.0,
+      492.0
+    ],
+    [
+      -1550.0,
+      492.0
+    ],
+    [
+      -1475.0,
+      492.0
+    ],
+    [
+      -1400.0,
+      492.0
+    ],
+    [
+      -1325.0,
+      492.0
+    ],
+    [
+      -1250.0,
+      492.0
+    ],
+    [
+      -1175.0,
+      492.0
+    ],
+    [
+      -1099.9356754062362,
+      492.0000356694365
+    ],
+    [
+      -1057.2097261199997,
+      492.1310634905978
+    ],
+    [
+      -1028.5255848000147,
+      492.365625286846
+    ],
+    [
+      -985.7388899276065,
+      492.9343591959384
+    ],
+    [
+      -942.9564818047047,
+      493.7651850317445
+    ],
+    [
+      -914.2800123974669,
+      494.46880768416435
+    ],
+    [
+      -871.5083403400913,
+      495.7371868783375
+    ],
+    [
+      -828.7452406351866,
+      497.26755284515997
+    ],
+    [
+      -800.0841130015056,
+      498.4400481615534
+    ],
+    [
+      -757.3389035485743,
+      500.4077333977947
+    ],
+    [
+      -714.6065497583023,
+      502.63723018116116
+    ],
+    [
+      -685.9684296556428,
+      504.2782845637913
+    ],
+    [
+      -643.2611155188299,
+      506.94474956141926
+    ],
+    [
+      -600.5709369164672,
+      509.872780856055
+    ],
+    [
+      -571.9634839486581,
+      511.98195538552386
+    ],
+    [
+      -529.3054877040901,
+      515.3464869669482
+    ],
+    [
+      -486.66890228266044,
+      518.972269636261
+    ],
+    [
+      -458.09976785124707,
+      521.5490001889034
+    ],
+    [
+      -415.50249888439515,
+      525.6106984703702
+    ],
+    [
+      -372.93091030279095,
+      529.9332627559163
+    ],
+    [
+      -344.40773556056877,
+      532.97686015468
+    ],
+    [
+      -301.8825870146778,
+      537.7346387869601
+    ],
+    [
+      -259.3873815476213,
+      542.7528285678112
+    ],
+    [
+      -230.917795354924,
+      546.2624787665843
+    ],
+    [
+      -188.47614108377604,
+      551.7150652255285
+    ],
+    [
+      -146.06868457642034,
+      557.4275383274954
+    ],
+    [
+      -117.660301460692,
+      561.4023026288353
+    ],
+    [
+      -75.31349298653959,
+      567.5482385557239
+    ],
+    [
+      -33.00512781454094,
+      573.9534671103333
+    ],
+    [
+      -4.66554593374085,
+      578.3922824165302
+    ],
+    [
+      37.57509058879241,
+      585.2299240081329
+    ],
+    [
+      79.77304855292677,
+      592.3261948612728
+    ],
+    [
+      108.03624944254733,
+      597.2278739586914
+    ],
+    [
+      150.15941625578145,
+      604.7553924069174
+    ],
+    [
+      192.2356806692575,
+      612.5408075770445
+    ],
+    [
+      220.41494124044632,
+      617.9040394536538
+    ],
+    [
+      262.4093720053654,
+      626.1194214346915
+    ],
+    [
+      304.35268907376667,
+      634.5918986204667
+    ],
+    [
+      332.4404724500962,
+      640.4152488164856
+    ],
+    [
+      374.2949352596635,
+      649.3162970292883
+    ],
+    [
+      416.09408674691554,
+      658.4735701665116
+    ],
+    [
+      444.0828805186218,
+      664.7554811580791
+    ],
+    [
+      485.7861809018804,
+      674.3398149120576
+    ],
+    [
+      527.4299871306962,
+      684.1794347797538
+    ],
+    [
+      555.3123053639564,
+      690.9182263954998
+    ],
+    [
+      596.8532892801334,
+      701.18328224727
+    ],
+    [
+      638.330612122152,
+      711.7026171227676
+    ],
+    [
+      666.0989973612772,
+      718.8964869931947
+    ],
+    [
+      707.2946836897854,
+      729.7937728088683
+    ]
+  ],
+  "outer_boundary_path_xy_mm": [
+    [
+      -2382.0,
+      825.0
+    ],
+    [
+      -1100.0,
+      825.0
+    ],
+    [
+      -1090.676500406444,
+      825.0071267719817
+    ],
+    [
+      -1081.3530226033533,
+      825.0285070712699
+    ],
+    [
+      -1072.0295883811427,
+      825.064140847896
+    ],
+    [
+      -1062.7062195301255,
+      825.1140280185782
+    ],
+    [
+      -1053.382937840461,
+      825.1781684667225
+    ],
+    [
+      -1044.0597651021058,
+      825.2565620424227
+    ],
+    [
+      -1034.7367231047615,
+      825.3492085624608
+    ],
+    [
+      -1025.4138336378242,
+      825.4561078103071
+    ],
+    [
+      -1016.0911184903334,
+      825.5772595361221
+    ],
+    [
+      -1006.7685994509214,
+      825.7126634567554
+    ],
+    [
+      -997.4462983077622,
+      825.8623192557466
+    ],
+    [
+      -988.1242368485201,
+      826.0262265833265
+    ],
+    [
+      -978.8024368602997,
+      826.2043850564196
+    ],
+    [
+      -969.4809201295943,
+      826.3967942586405
+    ],
+    [
+      -960.1597084422351,
+      826.6034537403001
+    ],
+    [
+      -950.8388235833406,
+      826.8243630184028
+    ],
+    [
+      -941.5182873372653,
+      827.0595215766486
+    ],
+    [
+      -932.1981214875489,
+      827.3089288654361
+    ],
+    [
+      -922.8783478168654,
+      827.5725843018616
+    ],
+    [
+      -913.5589881069725,
+      827.8504872697223
+    ],
+    [
+      -904.24006413866,
+      828.1426371195141
+    ],
+    [
+      -894.9215976916998,
+      828.4490331684392
+    ],
+    [
+      -885.603610544794,
+      828.7696747004012
+    ],
+    [
+      -876.2861244755247,
+      829.1045609660118
+    ],
+    [
+      -866.9691612603032,
+      829.4536911825891
+    ],
+    [
+      -857.6527426743181,
+      829.8170645341627
+    ],
+    [
+      -848.3368904914859,
+      830.1946801714712
+    ],
+    [
+      -839.0216264843988,
+      830.5865372119702
+    ],
+    [
+      -829.7069724242746,
+      830.9926347398274
+    ],
+    [
+      -820.3929500809053,
+      831.4129718059304
+    ],
+    [
+      -811.079581222607,
+      831.847547427886
+    ],
+    [
+      -801.7668876161678,
+      832.2963605900239
+    ],
+    [
+      -792.4548910267981,
+      832.7594102433977
+    ],
+    [
+      -783.1436132180794,
+      833.2366953057888
+    ],
+    [
+      -773.8330759519126,
+      833.7282146617079
+    ],
+    [
+      -764.5233009884689,
+      834.2339671623976
+    ],
+    [
+      -755.2143100861367,
+      834.7539516258364
+    ],
+    [
+      -745.9061250014727,
+      835.2881668367396
+    ],
+    [
+      -736.5987674891501,
+      835.8366115465632
+    ],
+    [
+      -727.292259301908,
+      836.3992844735072
+    ],
+    [
+      -717.9866221905003,
+      836.9761843025173
+    ],
+    [
+      -708.681877903645,
+      837.567309685289
+    ],
+    [
+      -699.3780481879741,
+      838.1726592402706
+    ],
+    [
+      -690.0751547879811,
+      838.7922315526669
+    ],
+    [
+      -680.7732194459719,
+      839.4260251744405
+    ],
+    [
+      -671.472263902013,
+      840.0740386243173
+    ],
+    [
+      -662.172309893881,
+      840.7362703877899
+    ],
+    [
+      -652.873379157012,
+      841.412718917119
+    ],
+    [
+      -643.5754934244501,
+      842.10338263134
+    ],
+    [
+      -634.2786744267971,
+      842.8082599162652
+    ],
+    [
+      -624.9829438921624,
+      843.527349124486
+    ],
+    [
+      -615.6883235461107,
+      844.2606485753795
+    ],
+    [
+      -606.3948351116121,
+      845.0081565551111
+    ],
+    [
+      -597.1025003089916,
+      845.7698713166384
+    ],
+    [
+      -587.8113408558779,
+      846.5457910797167
+    ],
+    [
+      -578.5213784671524,
+      847.3359140309005
+    ],
+    [
+      -569.2326348548992,
+      848.14023832355
+    ],
+    [
+      -559.9451317283537,
+      848.9587620778339
+    ],
+    [
+      -550.6588907938519,
+      849.7914833807359
+    ],
+    [
+      -541.3739337547805,
+      850.6384002860567
+    ],
+    [
+      -532.0902823115248,
+      851.4995108144198
+    ],
+    [
+      -522.8079581614193,
+      852.374812953277
+    ],
+    [
+      -513.526982998696,
+      853.264304656911
+    ],
+    [
+      -504.2473785144342,
+      854.1679838464413
+    ],
+    [
+      -494.9691663965101,
+      855.0858484098295
+    ],
+    [
+      -485.6923683295448,
+      856.017896201884
+    ],
+    [
+      -476.4170059948559,
+      856.9641250442643
+    ],
+    [
+      -467.1431010704042,
+      857.9245327254872
+    ],
+    [
+      -457.87067523074495,
+      858.89911700093
+    ],
+    [
+      -448.59975014697636,
+      859.887875592838
+    ],
+    [
+      -439.33034748668945,
+      860.89080619033
+    ],
+    [
+      -430.0624889139166,
+      861.9079064494009
+    ],
+    [
+      -420.7961960890816,
+      862.9391739929284
+    ],
+    [
+      -411.53149066894923,
+      863.9846064106823
+    ],
+    [
+      -402.2683943065739,
+      865.0442012593238
+    ],
+    [
+      -393.00692865124915,
+      866.1179560624151
+    ],
+    [
+      -383.7471153484578,
+      867.2058683104244
+    ],
+    [
+      -374.4889760398206,
+      868.3079354607324
+    ],
+    [
+      -365.23253236304606,
+      869.4241549376371
+    ],
+    [
+      -355.97780595187965,
+      870.5545241323607
+    ],
+    [
+      -346.7248184360533,
+      871.6990404030536
+    ],
+    [
+      -337.47359144123493,
+      872.8577010748052
+    ],
+    [
+      -328.22414658897753,
+      874.0305034396454
+    ],
+    [
+      -318.9765054966698,
+      875.2174447565515
+    ],
+    [
+      -309.7306897774838,
+      876.4185222514595
+    ],
+    [
+      -300.48672104032585,
+      877.6337331172641
+    ],
+    [
+      -291.2446208897859,
+      878.8630745138282
+    ],
+    [
+      -282.0044109260858,
+      880.1065435679911
+    ],
+    [
+      -272.7661127450308,
+      881.3641373735726
+    ],
+    [
+      -263.5297479379574,
+      882.6358529913801
+    ],
+    [
+      -254.29533809168367,
+      883.9216874492174
+    ],
+    [
+      -245.06290478845824,
+      885.22163774189
+    ],
+    [
+      -235.83246960591134,
+      886.5357008312111
+    ],
+    [
+      -226.60405411700185,
+      887.8638736460128
+    ],
+    [
+      -217.3776798899694,
+      889.2061530821485
+    ],
+    [
+      -208.15336848828247,
+      890.5625360025031
+    ],
+    [
+      -198.93114147058827,
+      891.9330192369983
+    ],
+    [
+      -189.71102039066272,
+      893.3175995826027
+    ],
+    [
+      -180.4930267973599,
+      894.7162738033376
+    ],
+    [
+      -171.27718223456122,
+      896.1290386302833
+    ],
+    [
+      -162.063508241126,
+      897.5558907615898
+    ],
+    [
+      -152.8520263508401,
+      898.9968268624825
+    ],
+    [
+      -143.6427580923663,
+      900.4518435652693
+    ],
+    [
+      -134.435724989194,
+      901.9209374693504
+    ],
+    [
+      -125.23094855958834,
+      903.4041051412262
+    ],
+    [
+      -116.02845031654033,
+      904.9013431145032
+    ],
+    [
+      -106.82825176771712,
+      906.4126478899034
+    ],
+    [
+      -97.63037441540996,
+      907.938015935274
+    ],
+    [
+      -88.43483975648599,
+      909.4774436855917
+    ],
+    [
+      -79.24166928233683,
+      911.0309275429763
+    ],
+    [
+      -70.05088447882872,
+      912.598463876694
+    ],
+    [
+      -60.86250682625223,
+      914.1800490231702
+    ],
+    [
+      -51.676557799271905,
+      915.7756792859938
+    ],
+    [
+      -42.49305886687603,
+      917.3853509359299
+    ],
+    [
+      -33.31203149232738,
+      919.0090602109253
+    ],
+    [
+      -24.133497133111405,
+      920.64680331612
+    ],
+    [
+      -14.957477240887556,
+      922.2985764238542
+    ],
+    [
+      -5.783993261438582,
+      923.9643756736782
+    ],
+    [
+      3.386933365379946,
+      925.6441971723598
+    ],
+    [
+      12.55528120568897,
+      927.3380369938958
+    ],
+    [
+      21.72102883163666,
+      929.045891179519
+    ],
+    [
+      30.88415482144842,
+      930.7677557377104
+    ],
+    [
+      40.04463775947693,
+      932.5036266442046
+    ],
+    [
+      49.20245623625124,
+      934.2534998420019
+    ],
+    [
+      58.35758884852885,
+      936.0173712413773
+    ],
+    [
+      67.51001419934369,
+      937.7952367198887
+    ],
+    [
+      76.65971089805703,
+      939.5870921223894
+    ],
+    [
+      85.80665756040821,
+      941.3929332610358
+    ],
+    [
+      94.95083280856306,
+      943.2127559152952
+    ],
+    [
+      104.09221527116438,
+      945.0465558319611
+    ],
+    [
+      113.23078358338307,
+      946.8943287251575
+    ],
+    [
+      122.36651638696662,
+      948.7560702763527
+    ],
+    [
+      131.49939233028954,
+      950.6317761343687
+    ],
+    [
+      140.62939006840338,
+      952.521441915388
+    ],
+    [
+      149.75648826308657,
+      954.42506320297
+    ],
+    [
+      158.8806655828937,
+      956.3426355480553
+    ],
+    [
+      168.00190070320673,
+      958.2741544689803
+    ],
+    [
+      177.12017230628294,
+      960.2196154514855
+    ],
+    [
+      186.23545908130723,
+      962.1790139487262
+    ],
+    [
+      195.3477397244394,
+      964.1523453812842
+    ],
+    [
+      204.45699293886514,
+      966.1396051371778
+    ],
+    [
+      213.5631974348462,
+      968.1407885718719
+    ],
+    [
+      222.66633192976929,
+      970.1558910082913
+    ],
+    [
+      231.76637514819618,
+      972.1849077368281
+    ],
+    [
+      240.86330582191385,
+      974.2278340153559
+    ],
+    [
+      249.95710268998278,
+      976.2846650692389
+    ],
+    [
+      259.04774449878914,
+      978.3553960913423
+    ],
+    [
+      268.13521000209175,
+      980.4400222420481
+    ],
+    [
+      277.2194779610734,
+      982.5385386492608
+    ],
+    [
+      286.3005271443899,
+      984.6509404084215
+    ],
+    [
+      295.37833632822026,
+      986.7772225825202
+    ],
+    [
+      304.452884296315,
+      988.9173802021052
+    ],
+    [
+      313.5241498400476,
+      991.0714082652951
+    ],
+    [
+      322.5921117584626,
+      993.239301737793
+    ],
+    [
+      331.6567488583253,
+      995.4210555528949
+    ],
+    [
+      340.7180399541721,
+      997.6166646115039
+    ],
+    [
+      349.77596386835967,
+      999.8261237821412
+    ],
+    [
+      358.8304994311136,
+      1002.0494279009566
+    ],
+    [
+      367.8816254805795,
+      1004.2865717717447
+    ],
+    [
+      376.9293208628708,
+      1006.5375501659514
+    ],
+    [
+      385.9735644321188,
+      1008.802357822693
+    ],
+    [
+      395.0143350505232,
+      1011.080989448761
+    ],
+    [
+      404.05161158839974,
+      1013.3734397186392
+    ],
+    [
+      413.08537292423034,
+      1015.6797032745171
+    ],
+    [
+      422.1155979447133,
+      1017.9997747262983
+    ],
+    [
+      431.14226554481047,
+      1020.3336486516151
+    ],
+    [
+      440.1653546277994,
+      1022.6813195958422
+    ],
+    [
+      449.18484410532005,
+      1025.0427820721088
+    ],
+    [
+      458.2007128974258,
+      1027.4180305613097
+    ],
+    [
+      467.21293993263225,
+      1029.807059512121
+    ],
+    [
+      476.2215041479658,
+      1032.2098633410117
+    ],
+    [
+      485.22638448901444,
+      1034.6264364322558
+    ],
+    [
+      494.22755990997393,
+      1037.0567731379465
+    ],
+    [
+      503.22500937370137,
+      1039.5008677780106
+    ],
+    [
+      512.2187118517606,
+      1041.9587146402193
+    ],
+    [
+      521.2086463244734,
+      1044.4303079802032
+    ],
+    [
+      530.1947917809675,
+      1046.915642021465
+    ],
+    [
+      539.1771272192263,
+      1049.4147109553924
+    ],
+    [
+      548.1556316461376,
+      1051.9275089412747
+    ],
+    [
+      557.1302840775434,
+      1054.454030106313
+    ],
+    [
+      566.1010635382877,
+      1056.994268545634
+    ],
+    [
+      575.0679490622674,
+      1059.5482183223075
+    ],
+    [
+      584.0309196924786,
+      1062.1158734673554
+    ],
+    [
+      592.989954481068,
+      1064.6972279797703
+    ],
+    [
+      601.945032489381,
+      1067.2922758265252
+    ],
+    [
+      610.8961327880106,
+      1069.901010942591
+    ],
+    [
+      619.8432344568462,
+      1072.5234272309485
+    ],
+    [
+      628.7863165851222,
+      1075.1595185626043
+    ],
+    [
+      637.7253582714682,
+      1077.8092787766032
+    ],
+    [
+      646.6603386239558,
+      1080.4727016800448
+    ],
+    [
+      655.5912367601497,
+      1083.149781048096
+    ],
+    [
+      664.518031807155,
+      1085.8405106240077
+    ],
+    [
+      673.4407029016656,
+      1088.5448841191264
+    ],
+    [
+      682.3592291900152,
+      1091.2628952129119
+    ],
+    [
+      691.2735898282233,
+      1093.9945375529503
+    ],
+    [
+      700.1837639820455,
+      1096.7398047549696
+    ],
+    [
+      709.0897308270214,
+      1099.498690402854
+    ],
+    [
+      717.9914695485252,
+      1102.2711880486597
+    ],
+    [
+      726.8889593418119,
+      1105.05729121263
+    ],
+    [
+      735.7821794120662,
+      1107.856993383209
+    ],
+    [
+      744.6711089744535,
+      1110.6702880170578
+    ],
+    [
+      753.5557272541648,
+      1113.4971685390706
+    ],
+    [
+      762.4360134864692,
+      1116.3376283423886
+    ],
+    [
+      771.3119469167593,
+      1119.1916607884173
+    ],
+    [
+      780.183506800601,
+      1122.0592592068385
+    ],
+    [
+      789.0506724037818,
+      1124.9404168956305
+    ],
+    [
+      797.9134230023601,
+      1127.835127121081
+    ],
+    [
+      806.7717378827112,
+      1130.743383117802
+    ],
+    [
+      815.6255963415792,
+      1133.665178088749
+    ],
+    [
+      824.4749776861231,
+      1136.6005052052324
+    ],
+    [
+      833.3198612339645,
+      1139.5493576069377
+    ],
+    [
+      842.1602263132381,
+      1142.5117284019398
+    ],
+    [
+      850.9960522626388,
+      1145.4876106667173
+    ],
+    [
+      859.8273184314696,
+      1148.4769974461728
+    ],
+    [
+      868.6540041796918,
+      1151.4798817536437
+    ],
+    [
+      877.4760888779699,
+      1154.496256570925
+    ],
+    [
+      886.2935519077232,
+      1157.5261148482796
+    ],
+    [
+      895.1063726611721,
+      1160.5694495044593
+    ],
+    [
+      903.9145305413867,
+      1163.6262534267178
+    ],
+    [
+      912.7180049623346,
+      1166.69651947083
+    ],
+    [
+      921.5167753489309,
+      1169.7802404611082
+    ],
+    [
+      930.3108211370825,
+      1172.877409190418
+    ],
+    [
+      939.10012177374,
+      1175.9880184201943
+    ],
+    [
+      947.8846567169437,
+      1179.1120608804617
+    ],
+    [
+      956.6644054358721,
+      1182.249529269848
+    ],
+    [
+      965.4393474108897,
+      1185.4004162556014
+    ],
+    [
+      974.2094621335955,
+      1188.5647144736115
+    ],
+    [
+      982.9747291068702,
+      1191.7424165284215
+    ],
+    [
+      991.7351278449241,
+      1194.9335149932485
+    ],
+    [
+      1000.4906378733463,
+      1198.1380024100004
+    ],
+    [
+      1009.2412387291506,
+      1201.3558712892927
+    ],
+    [
+      1017.9869099608245,
+      1204.587114110467
+    ],
+    [
+      1026.7276311283777,
+      1207.8317233216062
+    ],
+    [
+      1035.463381803388,
+      1211.0896913395554
+    ],
+    [
+      1044.1941415690503,
+      1214.3610105499379
+    ],
+    [
+      1052.9198900202236,
+      1217.6456733071734
+    ],
+    [
+      1061.6406067634794,
+      1220.9436719344942
+    ],
+    [
+      1070.3562714171503,
+      1224.2549987239665
+    ],
+    [
+      1079.0668636113742,
+      1227.5796459365051
+    ],
+    [
+      1087.7723629881461,
+      1230.9176058018943
+    ],
+    [
+      1096.4727492013621,
+      1234.2688705188032
+    ],
+    [
+      1105.1680019168698,
+      1237.633432254806
+    ],
+    [
+      1113.8581008125143,
+      1241.0112831464
+    ],
+    [
+      1122.5430255781853,
+      1244.4024152990232
+    ],
+    [
+      1131.222755915866,
+      1247.8068207870742
+    ],
+    [
+      1139.897271539679,
+      1251.224491653928
+    ],
+    [
+      1148.5665521759356,
+      1254.6554199119573
+    ],
+    [
+      1157.2305775631812,
+      1258.0995975425512
+    ],
+    [
+      1165.8893274522443,
+      1261.5570164961314
+    ],
+    [
+      1174.5427816062816,
+      1265.027668692174
+    ],
+    [
+      1183.1909198008284,
+      1268.511546019225
+    ],
+    [
+      1191.8337218238435,
+      1272.008640334923
+    ],
+    [
+      1200.4711674757568,
+      1275.518943466016
+    ],
+    [
+      1209.1032365695178,
+      1279.042447208381
+    ],
+    [
+      1217.7299089306412,
+      1282.5791433270415
+    ],
+    [
+      1226.3511643972547,
+      1286.1290235561917
+    ]
+  ]
+}

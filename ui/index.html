@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>直角戗角工作台 v0.2</title>
+  <link rel="stylesheet" href="/ui/styles.css">
+  <script src="/ui/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 42 42" role="presentation">
+            <path d="M7 29.5 21 8l14 21.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11 29.5h20M15.4 22.8h11.2M21 9v20.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="21" cy="30" r="2.1" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-kicker">木作参数 · 精确建模</div>
+          <h1>直角戗角工作台 <span class="version-tag">v0.2</span></h1>
+        </div>
+      </div>
+      <div class="header-badges" aria-label="工作台信息">
+        <span class="badge angle-badge"><span class="angle-mark">90°</span> 对称角部</span>
+        <span class="badge runtime-badge"><span class="badge-dot"></span> 精确实体 · 后台生成</span>
+      </div>
+    </header>
+
+    <main class="workbench-grid">
+      <aside class="control-panel" aria-label="参数工作区">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">CONFIGURATION</p>
+            <h2>参数工作区</h2>
+          </div>
+          <span id="draft-indicator" class="state-pill state-neutral">连接中</span>
+        </div>
+        <div class="panel-scroll">
+          <section class="control-section case-section" aria-labelledby="case-section-title">
+            <div class="section-heading-row">
+              <h3 id="case-section-title">方案与历史</h3>
+              <span id="case-count" class="quiet-count">—</span>
+            </div>
+            <label class="field-label" for="case-picker">成功案例与历史结果</label>
+            <select id="case-picker" class="select-control" disabled>
+              <option>正在读取案例…</option>
+            </select>
+            <div class="case-actions case-actions-primary">
+              <button id="load-case-button" class="button button-secondary" type="button" disabled>载入参数到草稿</button>
+              <button id="view-case-button" class="button button-secondary" type="button" disabled>查看此结果</button>
+            </div>
+            <div class="case-actions">
+              <button id="import-button" class="button button-secondary" type="button" disabled>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 13V3m0 0L6.7 6.3M10 3l3.3 3.3M4 12.5v3h12v-3"/></svg>
+                导入 JSON
+              </button>
+              <button id="export-config-button" class="button button-secondary" type="button" disabled>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0 3.3-3.3M10 13 6.7 9.7M4 13.5v2h12v-2"/></svg>
+                下载配置
+              </button>
+              <input id="config-file" class="visually-hidden" type="file" accept=".json,application/json">
+            </div>
+            <p id="case-note" class="field-note">“查看此结果”会切换右侧并将该结果参数回填到草稿；“载入参数到草稿”只回填草稿。两种操作都不会启动计算。</p>
+          </section>
+
+          <section class="control-section identity-section" aria-labelledby="identity-title">
+            <div class="section-heading-row">
+              <h3 id="identity-title">本次配置</h3>
+              <span class="section-caption">改名不会改变几何</span>
+            </div>
+            <div id="identity-fields" class="field-grid"></div>
+            <div class="fixed-angle-row">
+              <span class="fixed-angle-label">建筑平面角</span>
+              <span class="fixed-angle-value">90° <span>本期固定</span></span>
+            </div>
+          </section>
+
+          <section class="control-section primary-section" aria-labelledby="primary-title">
+            <div class="section-heading-row">
+              <div>
+                <p class="eyebrow">PRIMARY INPUTS</p>
+                <h3 id="primary-title">主要参数</h3>
+              </div>
+              <span id="primary-count" class="quiet-count">读取中</span>
+            </div>
+            <div id="primary-fields" class="field-group-list"></div>
+          </section>
+
+          <section class="control-section advanced-section" aria-labelledby="advanced-title">
+            <div class="advanced-toolbar">
+              <div>
+                <p class="eyebrow">TUNING</p>
+                <h3 id="advanced-title">进阶参数</h3>
+              </div>
+              <span id="advanced-count" class="quiet-count">折叠</span>
+            </div>
+            <label class="search-wrap" for="parameter-search">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.6"/><path d="m13 13 4 4"/></svg>
+              <input id="parameter-search" type="search" placeholder="搜索参数名称或说明" autocomplete="off" disabled>
+              <kbd>/</kbd>
+            </label>
+            <details id="advanced-details" class="details-block advanced-details">
+              <summary><span>显示进阶参数</span><span id="advanced-summary-count" class="summary-count"></span></summary>
+              <p class="advanced-intro">用于材料尺寸、求交与显示精度。完整建模耗时较长，建议一次调整后统一生成。</p>
+              <div id="advanced-fields" class="field-group-list"></div>
+            </details>
+          </section>
+
+        </div>
+        <section class="control-section validation-section" aria-labelledby="validation-title">
+          <div class="section-heading-row">
+            <div>
+              <p class="eyebrow">CHECK BEFORE BUILD</p>
+              <h3 id="validation-title">参数校验</h3>
+            </div>
+            <span id="validation-indicator" class="state-pill state-neutral">未校验</span>
+          </div>
+          <p id="validation-summary" class="validation-summary">检查输入值和已知参数范围；模型形态需在生成后查看。</p>
+          <div id="validation-result" class="validation-result" hidden></div>
+          <div class="action-row">
+            <button id="validate-button" class="button button-secondary button-grow" type="button" disabled>校验参数</button>
+            <button id="generate-button" class="button button-primary button-grow" type="button" disabled>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4.5 8 5.5-8 5.5z" fill="currentColor" stroke="none"/></svg>
+              更新模型
+            </button>
+          </div>
+          <button id="cancel-button" class="button button-cancel" type="button" hidden>取消当前任务</button>
+          <p class="runtime-note">不会因每次按键启动计算。提交后可离开页面刷新，工作台会恢复任务状态。</p>
+        </section>
+      </aside>
+
+      <section class="result-panel" aria-label="当前结果">
+        <div class="result-heading">
+          <div class="result-title-group">
+            <p class="eyebrow">CURRENT RESULT</p>
+            <h2 id="result-title">正在载入默认模型…</h2>
+            <p id="result-subtitle" class="result-subtitle">编辑草稿与当前显示结果分别保存。</p>
+          </div>
+          <span id="result-state" class="result-state-pill"><span class="result-state-dot"></span> 读取结果</span>
+        </div>
+
+        <section id="job-card" class="job-card" aria-live="polite" hidden>
+          <div class="job-mark" aria-hidden="true"><span></span></div>
+          <div class="job-copy">
+            <div class="job-title-row">
+              <h3 id="job-title">正在生成</h3>
+              <span id="job-elapsed" class="job-elapsed">00:00</span>
+            </div>
+            <p id="job-stage" class="job-stage">等待任务状态…</p>
+            <p id="job-message" class="job-message"></p>
+            <details id="job-log-details" class="job-log-details" hidden>
+              <summary>查看最近日志</summary>
+              <pre id="job-log"></pre>
+            </details>
+          </div>
+        </section>
+
+        <div class="viewer-toolbar">
+          <div class="view-tabs" role="tablist" aria-label="结果视图">
+            <button id="model-tab" class="view-tab active" type="button" role="tab" aria-selected="true" aria-controls="model-view">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 2.8 6.6 3.8v6.8L10 17.2l-6.6-3.8V6.6zM3.4 6.6 10 10.4l6.6-3.8M10 10.4v6.8"/></svg>
+              三维模型
+            </button>
+            <button id="layout-tab" class="view-tab" type="button" role="tab" aria-selected="false" aria-controls="layout-view">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 16.5V4.2h14v12.3zM3 13.7l3-1.2 2.5-4.1 2.4 2 3.5-4 2.6 1.1"/><circle cx="6" cy="12.5" r=".9" fill="currentColor"/><circle cx="11" cy="10.4" r=".9" fill="currentColor"/></svg>
+              立脚飞椽排料
+            </button>
+          </div>
+          <span id="viewer-case-label" class="viewer-case-label">默认结果</span>
+        </div>
+
+        <div class="viewer-frame-wrap">
+          <div id="viewer-empty" class="viewer-empty">
+            <div class="empty-mark" aria-hidden="true">木</div>
+            <h3>正在连接本地生成器</h3>
+            <p>初始通过结果会在载入后显示在这里。</p>
+          </div>
+          <iframe id="model-view" class="result-iframe active" title="直角戗角三维模型查看器" loading="eager" hidden></iframe>
+          <iframe id="layout-view" class="result-iframe" title="立脚飞椽单列排料方案" loading="lazy" hidden></iframe>
+        </div>
+
+        <div class="result-footer">
+          <div class="result-metrics-block">
+            <div class="metrics-heading">
+              <div>
+                <p class="eyebrow">RESULT SUMMARY</p>
+                <h3>当前显示结果</h3>
+              </div>
+              <span id="result-validation" class="validated-tag" hidden><span></span> 生成完成</span>
+            </div>
+            <div id="result-metrics" class="metrics-grid">
+              <div class="metric-card metric-placeholder"><span>结果统计</span><strong>载入中</strong></div>
+            </div>
+            <div class="downloads-row">
+              <span class="downloads-label">导出</span>
+              <div id="result-downloads" class="download-links"></div>
+            </div>
+            <p class="result-footnote">排料图为单侧模板，按左右对称制作两套；正身飞椽不计入该排料。曲线平移误差只作诊断，模型保持原角点。</p>
+          </div>
+          <aside class="result-hint" aria-label="工作方式说明">
+            <div class="hint-icon" aria-hidden="true">↗</div>
+            <p class="eyebrow">WORKFLOW</p>
+            <h3>草稿与结果分开</h3>
+            <p>输入改动只保存在草稿里。只有完整任务成功后，右侧模型和排料才会切换；失败或取消会保留这份有效结果。</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <div id="app-error" class="app-error" role="alert" hidden></div>
+  </div>
+</body>
+</html>

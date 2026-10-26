@@ -1,0 +1,277 @@
+{
+  "case_id": "default",
+  "source_config": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\default.json",
+  "construction_assumptions": {
+    "I_lower_point": "actual lower-board top at each side's fitted I station after the existing 0.01mm ruled-edge safety fit",
+    "I_thickness": "stage04 plane_depth_at evaluated at that side's actual q_I",
+    "E_upper": "fly_top_at evaluated from each width-offset E point projected to the existing stage04 end curve",
+    "R": "first inward intersection of the side-specific straight top motherline with actual lower-board top",
+    "R_to_I_lower_edge": "straight line between actual board top at R and I; signed board gap/penetration is measured",
+    "A_B_mapping": "A is v=-w_fly/2; B is v=+w_fly/2 along record.width_axis"
+  },
+  "selected_flyers": [
+    {
+      "family": "fan",
+      "index": 1,
+      "source_id": "fan_rafter_01",
+      "sides": [
+        {
+          "side": "A(v=-w/2)",
+          "v_mm": -30.0,
+          "q_I_mm": -52.77536558117197,
+          "H_I_board_mm": -117.7370619001332,
+          "dI_world_Z_mm": 40.00347533264271,
+          "I_upper_world_Z_mm": -77.73358656749049,
+          "E_bottom_z_mm": -225.86242125269382,
+          "E_upper_control_z_mm": -185.42470104097126,
+          "E_depth_world_Z_mm": 40.437720211722564,
+          "E_upper_control_source": "fly_top_at(E_plus_width_axis_v, projected_end_curve_fraction, gamma)",
+          "projected_end_curve_fraction": 0.05468750000000005,
+          "I_likou_mesh_z_range_mm": {
+            "min_z_mm": -137.9614423432414,
+            "max_z_mm": -60.30165566630006,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          },
+          "I_likou_top_minus_board_top_mm": 57.43540623383314,
+          "S_board_top_z_mm": null,
+          "S_likou_mesh_z_range_mm": {
+            "min_z_mm": -166.60907948023674,
+            "max_z_mm": -88.82818290024245,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          },
+          "R_q_mm": -220.53147886242198,
+          "R_board_z_mm": -26.62396797637973,
+          "root_gap_to_target_mm": 0.0034283933264305233,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -7.105427357601002e-14,
+            "max": 0.0,
+            "max_abs": 7.105427357601002e-14,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.0034283933264305233,
+            "max": 40.00347533264271
+          }
+        },
+        {
+          "side": "B(v=+w/2)",
+          "v_mm": 30.0,
+          "q_I_mm": -56.66989683117197,
+          "H_I_board_mm": -114.99014130951161,
+          "dI_world_Z_mm": 40.00347533264271,
+          "I_upper_world_Z_mm": -74.9866659768689,
+          "E_bottom_z_mm": -225.07148064111402,
+          "E_upper_control_z_mm": -185.48595004846112,
+          "E_depth_world_Z_mm": 39.5855305926529,
+          "E_upper_control_source": "fly_top_at(E_plus_width_axis_v, projected_end_curve_fraction, gamma)",
+          "projected_end_curve_fraction": 0.031249999999999965,
+          "I_likou_mesh_z_range_mm": {
+            "min_z_mm": -135.22359525601183,
+            "max_z_mm": -59.489297464091166,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          },
+          "I_likou_top_minus_board_top_mm": 55.50084384542045,
+          "S_board_top_z_mm": null,
+          "S_likou_mesh_z_range_mm": null,
+          "R_q_mm": -227.68040464367198,
+          "R_board_z_mm": -22.109493591199268,
+          "root_gap_to_target_mm": 0.003459297575943765,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -7.105427357601002e-15,
+            "max": 4.263256414560601e-14,
+            "max_abs": 4.263256414560601e-14,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.003459297575943765,
+            "max": 40.00347533264271
+          }
+        }
+      ],
+      "dI_A_minus_B_mm": 0.0
+    },
+    {
+      "family": "fan",
+      "index": 6,
+      "source_id": "fan_rafter_06",
+      "sides": [
+        {
+          "side": "A(v=-w/2)",
+          "v_mm": -30.0,
+          "q_I_mm": -46.26866105927693,
+          "H_I_board_mm": -156.6908734947066,
+          "dI_world_Z_mm": 41.019892729262565,
+          "I_upper_world_Z_mm": -115.67098076544404,
+          "E_bottom_z_mm": -179.00206782001817,
+          "E_upper_control_z_mm": -136.88604258166515,
+          "E_depth_world_Z_mm": 42.11602523835302,
+          "E_upper_control_source": "fly_top_at(E_plus_width_axis_v, projected_end_curve_fraction, gamma)",
+          "projected_end_curve_fraction": 0.4726562500000004,
+          "I_likou_mesh_z_range_mm": null,
+          "I_likou_top_minus_board_top_mm": null,
+          "S_board_top_z_mm": null,
+          "S_likou_mesh_z_range_mm": {
+            "min_z_mm": -198.51074504837518,
+            "max_z_mm": -74.90630876244694,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          },
+          "R_q_mm": -141.97912004365193,
+          "R_board_z_mm": -111.08807672359879,
+          "root_gap_to_target_mm": 0.12564023405641933,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -5.684341886080802e-14,
+            "max": 5.684341886080802e-14,
+            "max_abs": 5.684341886080802e-14,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.12564023405641933,
+            "max": 41.019892729262565
+          }
+        },
+        {
+          "side": "B(v=+w/2)",
+          "v_mm": 30.0,
+          "q_I_mm": -90.49522355927694,
+          "H_I_board_mm": -153.47619069676654,
+          "dI_world_Z_mm": 41.124340221411344,
+          "I_upper_world_Z_mm": -112.35185047535519,
+          "E_bottom_z_mm": -179.51490797764365,
+          "E_upper_control_z_mm": -141.5496386053591,
+          "E_depth_world_Z_mm": 37.96526937228455,
+          "E_upper_control_source": "fly_top_at(E_plus_width_axis_v, projected_end_curve_fraction, gamma)",
+          "projected_end_curve_fraction": 0.4570312500000003,
+          "I_likou_mesh_z_range_mm": {
+            "min_z_mm": -173.75313820410219,
+            "max_z_mm": -55.869018691061825,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          },
+          "I_likou_top_minus_board_top_mm": 97.60717200570471,
+          "S_board_top_z_mm": null,
+          "S_likou_mesh_z_range_mm": null,
+          "R_q_mm": -189.28185441865196,
+          "R_board_z_mm": -106.4077020635863,
+          "root_gap_to_target_mm": 0.12223641024354492,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -2.842170943040401e-14,
+            "max": 5.684341886080802e-14,
+            "max_abs": 5.684341886080802e-14,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.12223641024354492,
+            "max": 41.124340221411344
+          }
+        }
+      ],
+      "dI_A_minus_B_mm": -0.10444749214877902
+    },
+    {
+      "family": "fan",
+      "index": 11,
+      "source_id": "fan_rafter_11",
+      "sides": [
+        {
+          "side": "A(v=-w/2)",
+          "v_mm": -30.0,
+          "q_I_mm": -55.839020737314875,
+          "H_I_board_mm": -200.0110721907608,
+          "dI_world_Z_mm": 41.33866795373268,
+          "I_upper_world_Z_mm": -158.67240423702813,
+          "E_bottom_z_mm": 143.86061060474884,
+          "E_upper_control_z_mm": 189.1265632086923,
+          "E_depth_world_Z_mm": 45.26595260394345,
+          "E_upper_control_source": "fly_top_at(E_plus_width_axis_v, projected_end_curve_fraction, gamma)",
+          "projected_end_curve_fraction": 0.9335937499999998,
+          "I_likou_mesh_z_range_mm": {
+            "min_z_mm": -213.0838052860639,
+            "max_z_mm": -56.28677790411098,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          },
+          "I_likou_top_minus_board_top_mm": 143.72429428664984,
+          "S_board_top_z_mm": null,
+          "S_likou_mesh_z_range_mm": {
+            "min_z_mm": -236.18624106681443,
+            "max_z_mm": -78.19552418520932,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          },
+          "R_q_mm": -103.24845433106488,
+          "R_board_z_mm": -182.38674874810073,
+          "root_gap_to_target_mm": 0.1798170153315084,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -1.7337242752546445e-12,
+            "max": 2.7000623958883807e-12,
+            "max_abs": 2.7000623958883807e-12,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.1798170153315084,
+            "max": 41.33866795373268
+          }
+        },
+        {
+          "side": "B(v=+w/2)",
+          "v_mm": 30.0,
+          "q_I_mm": -151.92886448731488,
+          "H_I_board_mm": -188.2322877030521,
+          "dI_world_Z_mm": 41.521253372468564,
+          "I_upper_world_Z_mm": -146.71103433058352,
+          "E_bottom_z_mm": 145.012226402463,
+          "E_upper_control_z_mm": 175.19562463820893,
+          "E_depth_world_Z_mm": 30.183398235745926,
+          "E_upper_control_source": "fly_top_at(E_plus_width_axis_v, projected_end_curve_fraction, gamma)",
+          "projected_end_curve_fraction": 0.9218749999999998,
+          "I_likou_mesh_z_range_mm": {
+            "min_z_mm": -208.4687704521458,
+            "max_z_mm": -53.56127555868717,
+            "hits": 2,
+            "part_ids": [
+              "likou_x"
+            ]
+          },
+          "I_likou_top_minus_board_top_mm": 134.6710121443649,
+          "S_board_top_z_mm": null,
+          "S_likou_mesh_z_range_mm": null,
+          "R_q_mm": -205.2111008154399,
+          "R_board_z_mm": -168.4004774343735,
+          "root_gap_to_target_mm": 0.1612396644337366,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -2.6716406864579767e-12,
+            "max": 1.8474111129762605e-12,
+            "max_abs": 2.6716406864579767e-12,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.1612396644337366,
+            "max": 41.52125337246858
+          }
+        }
+      ],
+      "dI_A_minus_B_mm": -0.18258541873588285
+    }
+  ],
+  "old_geometry_likou_notch_probe": null,
+  "profile_basis": "centerline_approximation",
+  "base_and_probe_elapsed_seconds": 27.177842800039798
+}

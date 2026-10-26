@@ -1,0 +1,23 @@
+[
+  {
+    "target": 0.25,
+    "seconds": 0.07170470000710338,
+    "accepted": false,
+    "max_deflection": 2.1371582031249545,
+    "triangles": 1570,
+    "guard": false,
+    "reasons": [
+      "one_or_more_faces_exceed_requested_linear_deflection",
+      "triangulation_guard_false_without_degenerate_edge_explanation"
+    ]
+  },
+  {
+    "target": 0.125,
+    "seconds": 0.08338369999546558,
+    "accepted": true,
+    "max_deflection": 1.0200073242190228,
+    "triangles": 3108,
+    "guard": true,
+    "reasons": []
+  }
+]

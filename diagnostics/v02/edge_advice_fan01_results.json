@@ -1,0 +1,2223 @@
+{
+  "source_module": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+  "function_source": "def _measure_side_brep_generators(shape, record, controls, roots,\n                                  E_bottom_center, E_depth_center,\n                                  coordinate_tolerance_mm=1e-5,\n                                  coverage_tolerance_mm=1e-3,\n                                  straightness_tolerance_mm=1e-5):\n    \"\"\"Measure actual fused-BRep A/B longitudinal boundaries against the shared rails.\"\"\"\n    half_width = max(abs(float(controls[0][\"v_mm\"])),\n                     abs(float(controls[-1][\"v_mm\"])))\n    S = np.asarray(record[\"S\"], dtype=float)\n    U = np.asarray(record[\"unit\"], dtype=float)\n    W = np.asarray(record[\"width_axis\"], dtype=float)\n    results = []\n    for side, fiber_index in ((\"A\", 0), (\"B\", len(controls) - 1)):\n        edge = controls[fiber_index]\n        root = roots[fiber_index]\n        q_i, q_e, q_r = (float(edge[\"q_front_mm\"]), float(edge[\"q_E_mm\"]),\n                         float(root[\"q_root_mm\"]))\n        expected_v = -half_width if side == \"A\" else half_width\n        expected_ranges = {\n            \"tail_R_to_I\": (q_r, q_i),\n            \"outer_I_to_E\": (q_i, q_e),\n        }\n        intervals = {name: [] for name in expected_ranges}\n        residuals = {name: [] for name in expected_ranges}\n        geom_types = {name: [] for name in expected_ranges}\n        for brep_edge in shape.Edges():\n            vertices = brep_edge.Vertices()\n            if len(vertices) != 2:\n                continue\n            endpoint_coords = []\n            for vertex in vertices:\n                xyz = np.asarray(vertex.Center().toTuple(), dtype=float)\n                delta = xyz[:2] - S\n                q = float(np.dot(delta, U))\n                v = float(np.dot(delta, W))\n                endpoint_coords.append((q, v, xyz))\n            if any(abs(v - expected_v) > coordinate_tolerance_mm\n                   for _, v, _ in endpoint_coords):\n                continue\n            qa, qb = endpoint_coords[0][0], endpoint_coords[1][0]\n            if abs(qb - qa) < 1.0:\n                continue\n            region = next((name for name, q_range in expected_ranges.items()\n                           if min(qa, qb) >= min(q_range) - 1.0 and\n                           max(qa, qb) <= max(q_range) + 1.0), None)\n            if region is None:\n                continue\n            intervals[region].append((min(qa, qb), max(qa, qb)))\n            geom_types[region].append(str(brep_edge.geomType()))\n            for fraction in (0.0, 0.25, 0.5, 0.75, 1.0):\n                point = np.asarray(brep_edge.positionAt(fraction).toTuple(), dtype=float)\n                delta = point[:2] - S\n                q = float(np.dot(delta, U))\n                v = float(np.dot(delta, W))\n                if region == \"tail_R_to_I\":\n                    bottom = tail_bottom_line(q, edge, root)\n                    top = linear_value_at(q, q_r, float(edge[\"R_top_z_mm\"]),\n                                          q_i, float(edge[\"I_upper_z_mm\"]))\n                else:\n                    bottom = bottom_outer_line(record, edge, q, v, E_bottom_center)\n                    top = top_motherline(record, edge, float(edge[\"dI_world_Z_mm\"]), q, v,\n                                         E_bottom_center, E_depth_center)\n                expected_xy = xy_at_q(record, q, v)\n                xy_error = float(np.linalg.norm(point[:2] - np.asarray(expected_xy, dtype=float)))\n                z_error = min(abs(float(point[2]) - float(bottom)),\n                              abs(float(point[2]) - float(top)))\n                residuals[region].append(max(xy_error, z_error))\n\n        region_results = {}\n        for region, q_range in expected_ranges.items():\n            merged = []\n            for lower, upper in sorted(intervals[region]):\n                if not merged or lower > merged[-1][1] + coverage_tolerance_mm:\n                    merged.append([lower, upper])\n                else:\n                    merged[-1][1] = max(merged[-1][1], upper)\n            expected_length = abs(float(q_range[1]) - float(q_range[0]))\n            covered_length = float(sum(upper - lower for lower, upper in merged))\n            endpoint_error = (float(max(abs(merged[0][0] - min(q_range)),\n                                        abs(merged[-1][1] - max(q_range)))) if merged else None)\n            residual_max = float(max(residuals[region])) if residuals[region] else None\n            region_results[region] = {\n                \"expected_q_range_mm\": [float(min(q_range)), float(max(q_range))],\n                \"merged_brep_edge_q_ranges_mm\": merged,\n                \"covered_length_mm\": covered_length,\n                \"expected_length_mm\": expected_length,\n                \"endpoint_coverage_error_mm\": endpoint_error,\n                \"candidate_edge_count\": len(intervals[region]),\n                \"brep_geom_types\": sorted(set(geom_types[region])),\n                \"max_residual_to_straight_shared_rail_mm\": residual_max,\n                \"coverage_pass\": bool(endpoint_error is not None and\n                                       endpoint_error <= coverage_tolerance_mm and\n                                       abs(covered_length - expected_length) <= coverage_tolerance_mm),\n                \"straightness_pass\": bool(residual_max is not None and\n                                           residual_max <= straightness_tolerance_mm),\n            }\n        valid = all(item[\"coverage_pass\"] and item[\"straightness_pass\"]\n                    for item in region_results.values())\n        results.append({\"side\": side, \"v_mm\": float(expected_v),\n                        \"regions\": region_results, \"valid\": bool(valid)})\n    return results\n",
+  "brep_sha256": "32052d9d4443d88663201ad81e9966923bb6e04fad64dab3545c06753180ee6d",
+  "input_path": "diagnostics\\v02\\fan01_shared_motherboard_controls_B400.json",
+  "basis": [
+    [
+      0.11723459613455578,
+      -0.9931042490439599
+    ],
+    [
+      0.9931042490439599,
+      0.11723459613455578
+    ]
+  ],
+  "gram": [
+    [
+      0.9999999999999999,
+      -2.2249874609247157e-18
+    ],
+    [
+      -2.2249874609247157e-18,
+      0.9999999999999999
+    ]
+  ],
+  "v_extremes": [
+    -32.0,
+    32.0
+  ],
+  "sides": [
+    {
+      "side": "A",
+      "v": -32.0,
+      "summary": {
+        "tail_lower": {
+          "count": 1,
+          "max_residual": 6.394884621840902e-14,
+          "max_chord_error": 5.94359476298976e-13,
+          "merged": [
+            [
+              -266.2646457119987,
+              -53.95507539949878
+            ]
+          ],
+          "expected": [
+            -266.26464571199915,
+            -53.95507539949912
+          ],
+          "endpoint_error": 4.547473508864641e-13,
+          "types": [
+            "LINE"
+          ]
+        },
+        "tail_upper": {
+          "count": 12,
+          "max_residual": 1.2079226507921703e-13,
+          "max_chord_error": 5.301660996557767e-13,
+          "merged": [
+            [
+              -266.2646457119987,
+              -53.95507539949878
+            ]
+          ],
+          "expected": [
+            -266.26464571199915,
+            -53.95507539949912
+          ],
+          "endpoint_error": 4.547473508864641e-13,
+          "types": [
+            "BSPLINE"
+          ]
+        },
+        "outer_lower": {
+          "count": 12,
+          "max_residual": 1.1368683772161603e-13,
+          "max_chord_error": 6.315722041474357e-13,
+          "merged": [
+            [
+              -53.95507539949878,
+              283.3043485469466
+            ]
+          ],
+          "expected": [
+            -53.95507539949912,
+            283.30434854694664
+          ],
+          "endpoint_error": 3.410605131648481e-13,
+          "types": [
+            "BSPLINE"
+          ]
+        },
+        "outer_upper": {
+          "count": 12,
+          "max_residual": 1.1368683772161603e-13,
+          "max_chord_error": 6.81372066909177e-13,
+          "merged": [
+            [
+              -53.95507539949878,
+              283.3043485469466
+            ]
+          ],
+          "expected": [
+            -53.95507539949912,
+            283.30434854694664
+          ],
+          "endpoint_error": 3.410605131648481e-13,
+          "types": [
+            "BSPLINE"
+          ]
+        }
+      },
+      "groups": {
+        "tail_lower": [
+          {
+            "max_control_pole_chord_error": null,
+            "edge_index": 30,
+            "q_range": [
+              -266.2646457119987,
+              -53.95507539949878
+            ],
+            "type": "LINE",
+            "sample_max_chord_error": 5.94359476298976e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -893.258238589267,
+                495.042719756697,
+                -91.8042268250154
+              ],
+              [
+                -918.148265320354,
+                284.197183366656,
+                24.0854465341946
+              ]
+            ]
+          }
+        ],
+        "tail_upper": [
+          {
+            "max_control_pole_chord_error": 4.96646924935231e-13,
+            "edge_index": 493,
+            "q_range": [
+              -71.64753959220732,
+              -53.95507539949878
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.96646924935231e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -895.332407483524,
+                477.47225839086,
+                -41.8130515009405
+              ],
+              [
+                -893.258238589267,
+                495.042719756697,
+                -47.8039209609451
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.4512502260584233e-13,
+            "edge_index": 496,
+            "q_range": [
+              -89.34000378491592,
+              -71.64753959220732
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.4512502260584233e-13,
+            "max_rail_residual": 7.105427357601002e-14,
+            "endpoints": [
+              [
+                -897.406576377781,
+                459.901797025023,
+                -35.822182040936
+              ],
+              [
+                -895.332407483524,
+                477.47225839086,
+                -41.8130515009405
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.132406640184705e-13,
+            "edge_index": 580,
+            "q_range": [
+              -124.7249321703321,
+              -107.03246797762444
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.132406640184705e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -901.554914166296,
+                424.76087429335,
+                -23.8404431209269
+              ],
+              [
+                -899.480745272038,
+                442.331335659186,
+                -29.8313125809315
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.135001034819409e-13,
+            "edge_index": 583,
+            "q_range": [
+              -142.4173963630406,
+              -124.7249321703321
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.135001034819409e-13,
+            "max_rail_residual": 1.2079226507921703e-13,
+            "endpoints": [
+              [
+                -903.629083060553,
+                407.190412927513,
+                -17.8495736609224
+              ],
+              [
+                -901.554914166296,
+                424.76087429335,
+                -23.8404431209269
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 1.355038611303769e-13,
+            "edge_index": 586,
+            "q_range": [
+              -160.1098605557492,
+              -142.4173963630406
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 1.355038611303769e-13,
+            "max_rail_residual": 1.0658141036401503e-13,
+            "endpoints": [
+              [
+                -905.70325195481,
+                389.619951561676,
+                -11.8587042009178
+              ],
+              [
+                -903.629083060553,
+                407.190412927513,
+                -17.8495736609224
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.208130865033769e-13,
+            "edge_index": 670,
+            "q_range": [
+              -195.49478894116538,
+              -177.80232474845775
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.208130865033769e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -909.851589743325,
+                354.479028830003,
+                0.123034719091251
+              ],
+              [
+                -907.777420849067,
+                372.049490195839,
+                -5.8678347409133
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.209240907900461e-13,
+            "edge_index": 673,
+            "q_range": [
+              -213.1872531338739,
+              -195.49478894116538
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.209240907900461e-13,
+            "max_rail_residual": 7.815970093361102e-14,
+            "endpoints": [
+              [
+                -911.925758637582,
+                336.908567464166,
+                6.1139041790958
+              ],
+              [
+                -909.851589743325,
+                354.479028830003,
+                0.123034719091251
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.6112463832605157e-13,
+            "edge_index": 676,
+            "q_range": [
+              -230.8797173265825,
+              -213.1872531338739
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.6112463832605157e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -913.999927531839,
+                319.338106098329,
+                12.1047736391003
+              ],
+              [
+                -911.925758637582,
+                336.908567464166,
+                6.1139041790958
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.301660996557767e-13,
+            "edge_index": 760,
+            "q_range": [
+              -266.2646457119987,
+              -248.57218151929104
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.301660996557767e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -918.148265320354,
+                284.197183366656,
+                24.0865125591094
+              ],
+              [
+                -916.074096426096,
+                301.767644732492,
+                18.0956430991049
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.62997670719183e-13,
+            "edge_index": 777,
+            "q_range": [
+              -248.57218151929104,
+              -230.8797173265825
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.62997670719183e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -916.074096426096,
+                301.767644732492,
+                18.0956430991049
+              ],
+              [
+                -913.999927531839,
+                319.338106098329,
+                12.1047736391003
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.9001298954479015e-13,
+            "edge_index": 803,
+            "q_range": [
+              -177.80232474845775,
+              -160.1098605557492
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.9001298954479015e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -907.777420849067,
+                372.049490195839,
+                -5.8678347409133
+              ],
+              [
+                -905.70325195481,
+                389.619951561676,
+                -11.8587042009178
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.1355887389973113e-13,
+            "edge_index": 829,
+            "q_range": [
+              -107.03246797762444,
+              -89.34000378491592
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.1355887389973113e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -899.480745272038,
+                442.331335659186,
+                -29.8313125809315
+              ],
+              [
+                -897.406576377781,
+                459.901797025023,
+                -35.822182040936
+              ]
+            ]
+          }
+        ],
+        "outer_lower": [
+          {
+            "max_control_pole_chord_error": 3.6568664316471237e-13,
+            "edge_index": 910,
+            "q_range": [
+              255.19939655140973,
+              283.3043485469466
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.6568664316471237e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -857.01463892691,
+                802.065339462086,
+                -198.575539356599
+              ],
+              [
+                -853.719766230332,
+                829.97648670803,
+                -208.282022314016
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.246513345132968e-13,
+            "edge_index": 913,
+            "q_range": [
+              227.09444455587214,
+              255.19939655140973
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.246513345132968e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -860.309511623488,
+                774.154192216141,
+                -188.869056399183
+              ],
+              [
+                -857.01463892691,
+                802.065339462086,
+                -198.575539356599
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.116764117592924e-13,
+            "edge_index": 1009,
+            "q_range": [
+              170.88454056479773,
+              198.98949256033546
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.4355958545240946e-13,
+            "max_rail_residual": 1.1368683772161603e-13,
+            "endpoints": [
+              [
+                -866.899257016644,
+                718.331897724252,
+                -169.456090484349
+              ],
+              [
+                -863.604384320066,
+                746.243044970197,
+                -179.162573441766
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 6.315722041474357e-13,
+            "edge_index": 1012,
+            "q_range": [
+              142.77958856926116,
+              170.88454056479773
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 6.315722041474357e-13,
+            "max_rail_residual": 7.815970093361102e-14,
+            "endpoints": [
+              [
+                -870.194129713221,
+                690.420750478308,
+                -159.749607526932
+              ],
+              [
+                -866.899257016644,
+                718.331897724252,
+                -169.456090484349
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 6.311458344706203e-13,
+            "edge_index": 1015,
+            "q_range": [
+              114.67463657372345,
+              142.77958856926116
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 6.312212893544883e-13,
+            "max_rail_residual": 7.105427357601002e-14,
+            "endpoints": [
+              [
+                -873.489002409799,
+                662.509603232363,
+                -150.043124569516
+              ],
+              [
+                -870.194129713221,
+                690.420750478308,
+                -159.749607526932
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.1361462006932796e-13,
+            "edge_index": 1111,
+            "q_range": [
+              58.46473258264902,
+              86.56968457818674
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.4662028280338594e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -880.078747802955,
+                606.687308740474,
+                -130.630158654682
+              ],
+              [
+                -876.783875106377,
+                634.598455986419,
+                -140.336641612099
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.616369834995906e-13,
+            "edge_index": 1114,
+            "q_range": [
+              30.359780587112326,
+              58.46473258264902
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.616369834995906e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -883.373620499533,
+                578.77616149453,
+                -120.923675697266
+              ],
+              [
+                -880.078747802955,
+                606.687308740474,
+                -130.630158654682
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.612399015439764e-13,
+            "edge_index": 1117,
+            "q_range": [
+              2.2548285915756323,
+              30.359780587112326
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.612399015439764e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -886.668493196111,
+                550.865014248586,
+                -111.217192739849
+              ],
+              [
+                -883.373620499533,
+                578.77616149453,
+                -120.923675697266
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.268242635973028e-13,
+            "edge_index": 1198,
+            "q_range": [
+              -25.85012340396209,
+              2.2548285915756323
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.576103421003389e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -889.963365892689,
+                522.953867002641,
+                -101.510709782432
+              ],
+              [
+                -886.668493196111,
+                550.865014248586,
+                -111.217192739849
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.78562106637616e-13,
+            "edge_index": 1228,
+            "q_range": [
+              86.56968457818674,
+              114.67463657372345
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.78562106637616e-13,
+            "max_rail_residual": 7.105427357601002e-14,
+            "endpoints": [
+              [
+                -876.783875106377,
+                634.598455986419,
+                -140.336641612099
+              ],
+              [
+                -873.489002409799,
+                662.509603232363,
+                -150.043124569516
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.243829270799905e-13,
+            "edge_index": 1258,
+            "q_range": [
+              198.98949256033546,
+              227.09444455587214
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.243829270799905e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -863.604384320066,
+                746.243044970197,
+                -179.162573441766
+              ],
+              [
+                -860.309511623488,
+                774.154192216141,
+                -188.869056399183
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.003460917930661e-13,
+            "edge_index": 1324,
+            "q_range": [
+              -53.95507539949878,
+              -25.85012340396209
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.388923265758726e-13,
+            "max_rail_residual": 7.105427357601002e-14,
+            "endpoints": [
+              [
+                -893.258238589267,
+                495.042719756697,
+                -91.8042268250154
+              ],
+              [
+                -889.963365892689,
+                522.953867002641,
+                -101.510709782432
+              ]
+            ]
+          }
+        ],
+        "outer_upper": [
+          {
+            "max_control_pole_chord_error": 3.522215770018524e-13,
+            "edge_index": 223,
+            "q_range": [
+              255.19939655140973,
+              283.3043485469466
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.522215770018524e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -857.01463892691,
+                802.065339462086,
+                -152.487138870062
+              ],
+              [
+                -853.719766230332,
+                829.97648670803,
+                -162.003795043618
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.240867658054856e-13,
+            "edge_index": 226,
+            "q_range": [
+              227.09444455587214,
+              255.19939655140973
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.409793382978498e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -860.309511623488,
+                774.154192216141,
+                -142.970482696506
+              ],
+              [
+                -857.01463892691,
+                802.065339462086,
+                -152.487138870062
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.373273510886329e-13,
+            "edge_index": 310,
+            "q_range": [
+              170.88454056479773,
+              198.98949256033546
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.373273510886329e-13,
+            "max_rail_residual": 1.1368683772161603e-13,
+            "endpoints": [
+              [
+                -866.899257016644,
+                718.331897724252,
+                -123.937170349393
+              ],
+              [
+                -863.604384320066,
+                746.243044970197,
+                -133.45382652295
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 6.51118625149981e-13,
+            "edge_index": 313,
+            "q_range": [
+              142.77958856926116,
+              170.88454056479773
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 6.51118625149981e-13,
+            "max_rail_residual": 7.815970093361102e-14,
+            "endpoints": [
+              [
+                -870.194129713221,
+                690.420750478308,
+                -114.420514175837
+              ],
+              [
+                -866.899257016644,
+                718.331897724252,
+                -123.937170349393
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 6.504479535048968e-13,
+            "edge_index": 316,
+            "q_range": [
+              114.67463657372345,
+              142.77958856926116
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 6.81372066909177e-13,
+            "max_rail_residual": 7.105427357601002e-14,
+            "endpoints": [
+              [
+                -873.489002409799,
+                662.509603232363,
+                -104.903858002281
+              ],
+              [
+                -870.194129713221,
+                690.420750478308,
+                -114.420514175837
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.2460769649577755e-13,
+            "edge_index": 400,
+            "q_range": [
+              58.46473258264902,
+              86.56968457818674
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.543185924399678e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -880.078747802955,
+                606.687308740474,
+                -85.8705456551693
+              ],
+              [
+                -876.783875106377,
+                634.598455986419,
+                -95.3872018287253
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 1.6874346107911e-13,
+            "edge_index": 403,
+            "q_range": [
+              30.359780587112326,
+              58.46473258264902
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 1.6874346107911e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -883.373620499533,
+                578.77616149453,
+                -76.3538894816132
+              ],
+              [
+                -880.078747802955,
+                606.687308740474,
+                -85.8705456551693
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.0924576382596251e-13,
+            "edge_index": 406,
+            "q_range": [
+              2.2548285915756323,
+              30.359780587112326
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.4203401874548517e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -886.668493196111,
+                550.865014248586,
+                -66.8372333080572
+              ],
+              [
+                -883.373620499533,
+                578.77616149453,
+                -76.3538894816132
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.967455073173496e-13,
+            "edge_index": 490,
+            "q_range": [
+              -53.95507539949878,
+              -25.85012340396209
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.33980849208284e-13,
+            "max_rail_residual": 7.105427357601002e-14,
+            "endpoints": [
+              [
+                -893.258238589267,
+                495.042719756697,
+                -47.8039209609451
+              ],
+              [
+                -889.963365892689,
+                522.953867002641,
+                -57.3205771345011
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.2613123248012597e-13,
+            "edge_index": 855,
+            "q_range": [
+              -25.85012340396209,
+              2.2548285915756323
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.587399379448104e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -889.963365892689,
+                522.953867002641,
+                -57.3205771345011
+              ],
+              [
+                -886.668493196111,
+                550.865014248586,
+                -66.8372333080572
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.7388402536011475e-13,
+            "edge_index": 881,
+            "q_range": [
+              86.56968457818674,
+              114.67463657372345
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.982441135747957e-13,
+            "max_rail_residual": 7.105427357601002e-14,
+            "endpoints": [
+              [
+                -876.783875106377,
+                634.598455986419,
+                -95.3872018287253
+              ],
+              [
+                -873.489002409799,
+                662.509603232363,
+                -104.903858002281
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.251651282622453e-13,
+            "edge_index": 907,
+            "q_range": [
+              198.98949256033546,
+              227.09444455587214
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.251651282622453e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -863.604384320066,
+                746.243044970197,
+                -133.45382652295
+              ],
+              [
+                -860.309511623488,
+                774.154192216141,
+                -142.970482696506
+              ]
+            ]
+          }
+        ]
+      },
+      "rejected": []
+    },
+    {
+      "side": "B",
+      "v": 32.0,
+      "summary": {
+        "tail_lower": {
+          "count": 5,
+          "max_residual": 1.0658141036401503e-13,
+          "max_chord_error": 5.424841605078166e-13,
+          "merged": [
+            [
+              -286.5711844820195,
+              -63.13856729451921
+            ]
+          ],
+          "expected": [
+            -286.5711844820194,
+            -63.1385672945194
+          ],
+          "endpoint_error": 1.8474111129762605e-13,
+          "types": [
+            "BSPLINE",
+            "LINE"
+          ]
+        },
+        "tail_upper": {
+          "count": 12,
+          "max_residual": 1.2079226507921703e-13,
+          "max_chord_error": 5.3915214422555e-13,
+          "merged": [
+            [
+              -286.5711844820195,
+              -63.13856729451921
+            ]
+          ],
+          "expected": [
+            -286.5711844820194,
+            -63.1385672945194
+          ],
+          "endpoint_error": 1.8474111129762605e-13,
+          "types": [
+            "BSPLINE"
+          ]
+        },
+        "outer_lower": {
+          "count": 12,
+          "max_residual": 1.1368683772161603e-13,
+          "max_chord_error": 6.333257943532491e-13,
+          "merged": [
+            [
+              -63.13856729451921,
+              273.4621440273342
+            ]
+          ],
+          "expected": [
+            -63.1385672945194,
+            273.4621440273341
+          ],
+          "endpoint_error": 1.8474111129762605e-13,
+          "types": [
+            "BSPLINE"
+          ]
+        },
+        "outer_upper": {
+          "count": 12,
+          "max_residual": 1.1368683772161603e-13,
+          "max_chord_error": 4.897761552355084e-13,
+          "merged": [
+            [
+              -63.13856729451921,
+              273.4621440273342
+            ]
+          ],
+          "expected": [
+            -63.1385672945194,
+            273.4621440273341
+          ],
+          "endpoint_error": 1.8474111129762605e-13,
+          "types": [
+            "BSPLINE"
+          ]
+        }
+      },
+      "groups": {
+        "tail_lower": [
+          {
+            "max_control_pole_chord_error": null,
+            "edge_index": 9,
+            "q_range": [
+              -137.6161063570199,
+              -63.13856729451921
+            ],
+            "type": "LINE",
+            "sample_max_chord_error": 5.424829786547936e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -966.624877704585,
+                419.461608585996,
+                -48.203335453264
+              ],
+              [
+                -957.893533491498,
+                493.425569087303,
+                -88.8570735859664
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": null,
+            "edge_index": 49,
+            "q_range": [
+              -286.5711844820195,
+              -212.09364541951965
+            ],
+            "type": "LINE",
+            "sample_max_chord_error": 2.626236120676713e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -984.087566130761,
+                271.533687583384,
+                33.1041408121406
+              ],
+              [
+                -975.356221917673,
+                345.49764808469,
+                -7.54959732056172
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": null,
+            "edge_index": 53,
+            "q_range": [
+              -193.47426065389425,
+              -156.23549112264433
+            ],
+            "type": "LINE",
+            "sample_max_chord_error": 3.359892522994149e-13,
+            "max_rail_residual": 1.0658141036401503e-13,
+            "endpoints": [
+              [
+                -973.173385864401,
+                363.988638210017,
+                -17.7130318537373
+              ],
+              [
+                -968.807713757857,
+                400.97061846067,
+                -38.0399009200885
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.7100952959496957e-13,
+            "edge_index": 100,
+            "q_range": [
+              -212.09364541951965,
+              -193.47426065389425
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.8251772165522475e-13,
+            "max_rail_residual": 9.237055564881302e-14,
+            "endpoints": [
+              [
+                -975.356221917673,
+                345.49764808469,
+                -7.54959732056172
+              ],
+              [
+                -973.173385864401,
+                363.988638210017,
+                -17.7130318537373
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.424841605078166e-13,
+            "edge_index": 1340,
+            "q_range": [
+              -156.23549112264433,
+              -137.6161063570199
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.424841605078166e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -968.807713757857,
+                400.97061846067,
+                -38.0399009200885
+              ],
+              [
+                -966.624877704585,
+                419.461608585996,
+                -48.203335453264
+              ]
+            ]
+          }
+        ],
+        "tail_upper": [
+          {
+            "max_control_pole_chord_error": 1.1553420452066442e-13,
+            "edge_index": 106,
+            "q_range": [
+              -286.5711844820195,
+              -267.951799716394
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 1.3419526299634716e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -984.087566130761,
+                271.533687583384,
+                33.1052455237404
+              ],
+              [
+                -981.904730077489,
+                290.024677708711,
+                26.608411086604
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 1.2667877781533764e-13,
+            "edge_index": 109,
+            "q_range": [
+              -267.951799716394,
+              -249.33241495076956
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 1.2667877781533764e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -981.904730077489,
+                290.024677708711,
+                26.608411086604
+              ],
+              [
+                -979.721894024217,
+                308.515667834037,
+                20.1115766494677
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 1.4261645289724806e-13,
+            "edge_index": 112,
+            "q_range": [
+              -249.33241495076956,
+              -230.7130301851441
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 1.7867429409845353e-13,
+            "max_rail_residual": 9.237055564881302e-14,
+            "endpoints": [
+              [
+                -979.721894024217,
+                308.515667834037,
+                20.1115766494677
+              ],
+              [
+                -977.539057970945,
+                327.006657959364,
+                13.6147422123313
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.614238990315691e-13,
+            "edge_index": 115,
+            "q_range": [
+              -230.7130301851441,
+              -212.09364541951965
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.614238990315691e-13,
+            "max_rail_residual": 4.973799150320701e-14,
+            "endpoints": [
+              [
+                -977.539057970945,
+                327.006657959364,
+                13.6147422123313
+              ],
+              [
+                -975.356221917673,
+                345.49764808469,
+                7.11790777519492
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.61491970425872e-13,
+            "edge_index": 118,
+            "q_range": [
+              -212.09364541951965,
+              -193.47426065389425
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.8220856467039727e-13,
+            "max_rail_residual": 9.237055564881302e-14,
+            "endpoints": [
+              [
+                -975.356221917673,
+                345.49764808469,
+                7.11790777519492
+              ],
+              [
+                -973.173385864401,
+                363.988638210017,
+                0.621073338058537
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.92068149722508e-13,
+            "edge_index": 121,
+            "q_range": [
+              -193.47426065389425,
+              -174.85487588826973
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.92068149722508e-13,
+            "max_rail_residual": 7.815970093361102e-14,
+            "endpoints": [
+              [
+                -973.173385864401,
+                363.988638210017,
+                0.621073338058537
+              ],
+              [
+                -970.990549811129,
+                382.479628335343,
+                -5.87576109907783
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.919121238387344e-13,
+            "edge_index": 124,
+            "q_range": [
+              -174.85487588826973,
+              -156.23549112264433
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.403910054199144e-13,
+            "max_rail_residual": 1.2079226507921703e-13,
+            "endpoints": [
+              [
+                -970.990549811129,
+                382.479628335343,
+                -5.87576109907783
+              ],
+              [
+                -968.807713757857,
+                400.97061846067,
+                -12.3725955362142
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.372912456733891e-13,
+            "edge_index": 127,
+            "q_range": [
+              -156.23549112264433,
+              -137.6161063570199
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.372912456733891e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -968.807713757857,
+                400.97061846067,
+                -12.3725955362142
+              ],
+              [
+                -966.624877704585,
+                419.461608585996,
+                -18.8694299733506
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 5.369986170873099e-13,
+            "edge_index": 130,
+            "q_range": [
+              -137.6161063570199,
+              -118.99672159139456
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.369986170873099e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -966.624877704585,
+                419.461608585996,
+                -18.8694299733506
+              ],
+              [
+                -964.442041651314,
+                437.952598711323,
+                -25.366264410487
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.503744141865928e-13,
+            "edge_index": 133,
+            "q_range": [
+              -118.99672159139456,
+              -100.37733682576899
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.503744141865928e-13,
+            "max_rail_residual": 8.526512829121202e-14,
+            "endpoints": [
+              [
+                -964.442041651314,
+                437.952598711323,
+                -25.366264410487
+              ],
+              [
+                -962.259205598041,
+                456.44358883665,
+                -31.8630988476233
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.464749097967399e-13,
+            "edge_index": 136,
+            "q_range": [
+              -100.37733682576899,
+              -81.75795206014467
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.515199564835852e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -962.259205598041,
+                456.44358883665,
+                -31.8630988476233
+              ],
+              [
+                -960.07636954477,
+                474.934578961976,
+                -38.3599332847597
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.899065536525593e-13,
+            "edge_index": 139,
+            "q_range": [
+              -81.75795206014467,
+              -63.13856729451921
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 5.3915214422555e-13,
+            "max_rail_residual": 9.947598300641403e-14,
+            "endpoints": [
+              [
+                -960.07636954477,
+                474.934578961976,
+                -38.3599332847597
+              ],
+              [
+                -957.893533491498,
+                493.425569087303,
+                -44.8567677218961
+              ]
+            ]
+          }
+        ],
+        "outer_lower": [
+          {
+            "max_control_pole_chord_error": 4.938226140585444e-13,
+            "edge_index": 957,
+            "q_range": [
+              217.36202547369209,
+              245.41208475051312
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.938226140585444e-13,
+            "max_rail_residual": 9.237055564881302e-14,
+            "endpoints": [
+              [
+                -925.009159782813,
+                771.991899624763,
+                -184.901833798609
+              ],
+              [
+                -921.720722411944,
+                799.848532678509,
+                -194.506309819873
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.209938262325623e-13,
+            "edge_index": 960,
+            "q_range": [
+              189.311966196871,
+              217.36202547369209
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.209938262325623e-13,
+            "max_rail_residual": 1.1368683772161603e-13,
+            "endpoints": [
+              [
+                -928.297597153681,
+                744.135266571017,
+                -175.297357777345
+              ],
+              [
+                -925.009159782813,
+                771.991899624763,
+                -184.901833798609
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.6245189177283737e-13,
+            "edge_index": 963,
+            "q_range": [
+              161.2619069200498,
+              189.311966196871
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.6245189177283737e-13,
+            "max_rail_residual": 9.237055564881302e-14,
+            "endpoints": [
+              [
+                -931.58603452455,
+                716.278633517271,
+                -165.692881756081
+              ],
+              [
+                -928.297597153681,
+                744.135266571017,
+                -175.297357777345
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.517991053976702e-13,
+            "edge_index": 1059,
+            "q_range": [
+              105.16178836640754,
+              133.2118476432287
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.517991053976702e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -938.162909266287,
+                660.565367409779,
+                -146.483929713552
+              ],
+              [
+                -934.874471895418,
+                688.422000463525,
+                -156.088405734816
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 2.68133352107217e-13,
+            "edge_index": 1062,
+            "q_range": [
+              77.11172908958646,
+              105.16178836640754
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 2.68133352107217e-13,
+            "max_rail_residual": 7.815970093361102e-14,
+            "endpoints": [
+              [
+                -941.451346637155,
+                632.708734356033,
+                -136.879453692288
+              ],
+              [
+                -938.162909266287,
+                660.565367409779,
+                -146.483929713552
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 6.333257943532491e-13,
+            "edge_index": 1065,
+            "q_range": [
+              49.06166981276527,
+              77.11172908958646
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 6.333257943532491e-13,
+            "max_rail_residual": 1.0658141036401503e-13,
+            "endpoints": [
+              [
+                -944.739784008024,
+                604.852101302287,
+                -127.274977671023
+              ],
+              [
+                -941.451346637155,
+                632.708734356033,
+                -136.879453692288
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.654210544909999e-13,
+            "edge_index": 1161,
+            "q_range": [
+              -7.038448740877003,
+              21.011610535944193
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.654210544909999e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -951.316658749761,
+                549.138835194795,
+                -108.066025628495
+              ],
+              [
+                -948.028221378892,
+                576.995468248541,
+                -117.670501649759
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.6529763354097037e-13,
+            "edge_index": 1164,
+            "q_range": [
+              -35.088508017698075,
+              -7.038448740877003
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.6529763354097037e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -954.605096120629,
+                521.282202141049,
+                -98.4615496072307
+              ],
+              [
+                -951.316658749761,
+                549.138835194795,
+                -108.066025628495
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 6.32964069726104e-13,
+            "edge_index": 1213,
+            "q_range": [
+              21.011610535944193,
+              49.06166981276527
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 6.32964069726104e-13,
+            "max_rail_residual": 1.1368683772161603e-13,
+            "endpoints": [
+              [
+                -948.028221378892,
+                576.995468248541,
+                -117.670501649759
+              ],
+              [
+                -944.739784008024,
+                604.852101302287,
+                -127.274977671023
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.528002524455632e-13,
+            "edge_index": 1243,
+            "q_range": [
+              133.2118476432287,
+              161.2619069200498
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.528002524455632e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -934.874471895418,
+                688.422000463525,
+                -156.088405734816
+              ],
+              [
+                -931.58603452455,
+                716.278633517271,
+                -165.692881756081
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.943707007245158e-13,
+            "edge_index": 1286,
+            "q_range": [
+              245.41208475051312,
+              273.4621440273342
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.943707007245158e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -921.720722411944,
+                799.848532678509,
+                -194.506309819873
+              ],
+              [
+                -918.432285041076,
+                827.705165732255,
+                -204.110785841138
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.887183287724494e-13,
+            "edge_index": 1339,
+            "q_range": [
+              -63.13856729451921,
+              -35.088508017698075
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.887183287724494e-13,
+            "max_rail_residual": 9.237055564881302e-14,
+            "endpoints": [
+              [
+                -957.893533491498,
+                493.425569087303,
+                -88.8570735859664
+              ],
+              [
+                -954.605096120629,
+                521.282202141049,
+                -98.4615496072307
+              ]
+            ]
+          }
+        ],
+        "outer_upper": [
+          {
+            "max_control_pole_chord_error": 4.897761552355084e-13,
+            "edge_index": 142,
+            "q_range": [
+              -63.13856729451921,
+              -35.088508017698075
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.897761552355084e-13,
+            "max_rail_residual": 9.237055564881302e-14,
+            "endpoints": [
+              [
+                -957.893533491498,
+                493.425569087303,
+                -44.8567677218961
+              ],
+              [
+                -954.605096120629,
+                521.282202141049,
+                -54.644233493043
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.7573337660955537e-13,
+            "edge_index": 145,
+            "q_range": [
+              -35.088508017698075,
+              -7.038448740877003
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.7573337660955537e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -954.605096120629,
+                521.282202141049,
+                -54.644233493043
+              ],
+              [
+                -951.316658749761,
+                549.138835194795,
+                -64.4316992641898
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.75825541851982e-13,
+            "edge_index": 148,
+            "q_range": [
+              -7.038448740877003,
+              21.011610535944193
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.75825541851982e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -951.316658749761,
+                549.138835194795,
+                -64.4316992641898
+              ],
+              [
+                -948.028221378892,
+                576.995468248541,
+                -74.2191650353367
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.6684880085053454e-13,
+            "edge_index": 151,
+            "q_range": [
+              21.011610535944193,
+              49.06166981276527
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.6684880085053454e-13,
+            "max_rail_residual": 1.1368683772161603e-13,
+            "endpoints": [
+              [
+                -948.028221378892,
+                576.995468248541,
+                -74.2191650353367
+              ],
+              [
+                -944.739784008024,
+                604.852101302287,
+                -84.0066308064836
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.669790324621396e-13,
+            "edge_index": 154,
+            "q_range": [
+              49.06166981276527,
+              77.11172908958646
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.669790324621396e-13,
+            "max_rail_residual": 1.0658141036401503e-13,
+            "endpoints": [
+              [
+                -944.739784008024,
+                604.852101302287,
+                -84.0066308064836
+              ],
+              [
+                -941.451346637155,
+                632.708734356033,
+                -93.7940965776304
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.302938034515198e-13,
+            "edge_index": 157,
+            "q_range": [
+              77.11172908958646,
+              105.16178836640754
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.302938034515198e-13,
+            "max_rail_residual": 7.815970093361102e-14,
+            "endpoints": [
+              [
+                -941.451346637155,
+                632.708734356033,
+                -93.7940965776304
+              ],
+              [
+                -938.162909266287,
+                660.565367409779,
+                -103.581562348777
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.2942755755466625e-13,
+            "edge_index": 160,
+            "q_range": [
+              105.16178836640754,
+              133.2118476432287
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.2942755755466625e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -938.162909266287,
+                660.565367409779,
+                -103.581562348777
+              ],
+              [
+                -934.874471895418,
+                688.422000463525,
+                -113.369028119924
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.989561556140741e-13,
+            "edge_index": 163,
+            "q_range": [
+              133.2118476432287,
+              161.2619069200498
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.9912076441129053e-13,
+            "max_rail_residual": 6.394884621840902e-14,
+            "endpoints": [
+              [
+                -934.874471895418,
+                688.422000463525,
+                -113.369028119924
+              ],
+              [
+                -931.58603452455,
+                716.278633517271,
+                -123.156493891071
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.1219266701348534e-13,
+            "edge_index": 166,
+            "q_range": [
+              161.2619069200498,
+              189.311966196871
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.2877139547893175e-13,
+            "max_rail_residual": 9.237055564881302e-14,
+            "endpoints": [
+              [
+                -931.58603452455,
+                716.278633517271,
+                -123.156493891071
+              ],
+              [
+                -928.297597153681,
+                744.135266571017,
+                -132.943959662218
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 3.121324183106918e-13,
+            "edge_index": 169,
+            "q_range": [
+              189.311966196871,
+              217.36202547369209
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 3.121324183106918e-13,
+            "max_rail_residual": 1.1368683772161603e-13,
+            "endpoints": [
+              [
+                -928.297597153681,
+                744.135266571017,
+                -132.943959662218
+              ],
+              [
+                -925.009159782813,
+                771.991899624763,
+                -142.731425433365
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.4081463327863644e-13,
+            "edge_index": 172,
+            "q_range": [
+              217.36202547369209,
+              245.41208475051312
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.4081463327863644e-13,
+            "max_rail_residual": 9.237055564881302e-14,
+            "endpoints": [
+              [
+                -925.009159782813,
+                771.991899624763,
+                -142.731425433365
+              ],
+              [
+                -921.720722411944,
+                799.848532678509,
+                -152.518891204512
+              ]
+            ]
+          },
+          {
+            "max_control_pole_chord_error": 4.67353706736259e-13,
+            "edge_index": 175,
+            "q_range": [
+              245.41208475051312,
+              273.4621440273342
+            ],
+            "type": "BSPLINE",
+            "sample_max_chord_error": 4.704102452018438e-13,
+            "max_rail_residual": 5.684341886080802e-14,
+            "endpoints": [
+              [
+                -921.720722411944,
+                799.848532678509,
+                -152.518891204512
+              ],
+              [
+                -918.432285041076,
+                827.705165732255,
+                -162.306356975659
+              ]
+            ]
+          }
+        ]
+      },
+      "rejected": []
+    }
+  ],
+  "current_disk": [
+    {
+      "side": "A",
+      "v_mm": -32.0,
+      "regions": {
+        "tail_R_to_I": {
+          "expected_q_range_mm": [
+            -266.26464571199915,
+            -53.95507539949912
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -266.26464571199864,
+              -53.95507539949878
+            ]
+          ],
+          "covered_length_mm": 212.30957031249986,
+          "expected_length_mm": 212.30957031250003,
+          "endpoint_coverage_error_mm": 5.115907697472721e-13,
+          "candidate_edge_count": 13,
+          "brep_geom_types": [
+            "BSPLINE",
+            "LINE"
+          ],
+          "max_residual_to_straight_shared_rail_mm": 1.1368683772161603e-13,
+          "coverage_pass": true,
+          "straightness_pass": true
+        },
+        "outer_I_to_E": {
+          "expected_q_range_mm": [
+            -53.95507539949912,
+            283.30434854694664
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -53.95507539949878,
+              283.3043485469465
+            ]
+          ],
+          "covered_length_mm": 337.2594239464453,
+          "expected_length_mm": 337.25942394644574,
+          "endpoint_coverage_error_mm": 3.410605131648481e-13,
+          "candidate_edge_count": 24,
+          "brep_geom_types": [
+            "BSPLINE"
+          ],
+          "max_residual_to_straight_shared_rail_mm": 1.1368683772161603e-13,
+          "coverage_pass": true,
+          "straightness_pass": true
+        }
+      },
+      "valid": true
+    },
+    {
+      "side": "B",
+      "v_mm": 32.0,
+      "regions": {
+        "tail_R_to_I": {
+          "expected_q_range_mm": [
+            -286.5711844820194,
+            -63.1385672945194
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -286.5711844820194,
+              -63.13856729451921
+            ]
+          ],
+          "covered_length_mm": 223.4326171875002,
+          "expected_length_mm": 223.43261718750003,
+          "endpoint_coverage_error_mm": 1.8474111129762605e-13,
+          "candidate_edge_count": 17,
+          "brep_geom_types": [
+            "BSPLINE",
+            "LINE"
+          ],
+          "max_residual_to_straight_shared_rail_mm": 1.1368683772161603e-13,
+          "coverage_pass": true,
+          "straightness_pass": true
+        },
+        "outer_I_to_E": {
+          "expected_q_range_mm": [
+            -63.1385672945194,
+            273.4621440273341
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -63.13856729451921,
+              273.4621440273342
+            ]
+          ],
+          "covered_length_mm": 336.6007113218534,
+          "expected_length_mm": 336.6007113218535,
+          "endpoint_coverage_error_mm": 1.8474111129762605e-13,
+          "candidate_edge_count": 24,
+          "brep_geom_types": [
+            "BSPLINE"
+          ],
+          "max_residual_to_straight_shared_rail_mm": 1.1368683772161603e-13,
+          "coverage_pass": true,
+          "straightness_pass": true
+        }
+      },
+      "valid": true
+    }
+  ],
+  "historical_halfwidth_bug": [
+    {
+      "side": "A",
+      "v_mm": -16.0,
+      "regions": {
+        "tail_R_to_I": {
+          "expected_q_range_mm": [
+            -266.26464571199915,
+            -53.95507539949912
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -253.44241373919138,
+              -56.326630047784896
+            ]
+          ],
+          "covered_length_mm": 197.11578369140648,
+          "expected_length_mm": 212.30957031250003,
+          "endpoint_coverage_error_mm": 12.82223197280777,
+          "candidate_edge_count": 11,
+          "brep_geom_types": [
+            "BSPLINE"
+          ],
+          "max_residual_to_straight_shared_rail_mm": 0.49283034041757645,
+          "coverage_pass": false,
+          "straightness_pass": false
+        },
+        "outer_I_to_E": {
+          "expected_q_range_mm": [
+            -53.95507539949912,
+            283.30434854694664
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -28.23454869719636,
+              280.7783461592819
+            ]
+          ],
+          "covered_length_mm": 309.0128948564783,
+          "expected_length_mm": 337.25942394644574,
+          "endpoint_coverage_error_mm": 25.720526702302763,
+          "candidate_edge_count": 22,
+          "brep_geom_types": [
+            "BSPLINE"
+          ],
+          "max_residual_to_straight_shared_rail_mm": 0.9104136748405267,
+          "coverage_pass": false,
+          "straightness_pass": false
+        }
+      },
+      "valid": false
+    },
+    {
+      "side": "B",
+      "v_mm": 16.0,
+      "regions": {
+        "tail_R_to_I": {
+          "expected_q_range_mm": [
+            -286.5711844820194,
+            -63.1385672945194
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -281.6247517953484,
+              -79.31914876800539
+            ]
+          ],
+          "covered_length_mm": 202.305603027343,
+          "expected_length_mm": 223.43261718750003,
+          "endpoint_coverage_error_mm": 16.180581473485994,
+          "candidate_edge_count": 12,
+          "brep_geom_types": [
+            "BSPLINE"
+          ],
+          "max_residual_to_straight_shared_rail_mm": 0.5164192993487688,
+          "coverage_pass": false,
+          "straightness_pass": false
+        },
+        "outer_I_to_E": {
+          "expected_q_range_mm": [
+            -63.1385672945194,
+            273.4621440273341
+          ],
+          "merged_brep_edge_q_ranges_mm": [
+            [
+              -60.92773031097435,
+              247.79153887277243
+            ]
+          ],
+          "covered_length_mm": 308.7192691837468,
+          "expected_length_mm": 336.6007113218535,
+          "endpoint_coverage_error_mm": 25.670605154561656,
+          "candidate_edge_count": 22,
+          "brep_geom_types": [
+            "BSPLINE"
+          ],
+          "max_residual_to_straight_shared_rail_mm": 0.8348905532429853,
+          "coverage_pass": false,
+          "straightness_pass": false
+        }
+      },
+      "valid": false
+    }
+  ]
+}

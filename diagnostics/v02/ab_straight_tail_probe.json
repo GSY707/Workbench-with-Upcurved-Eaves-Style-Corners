@@ -1,0 +1,174 @@
+{
+  "case_id": "default",
+  "source_config": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\default.json",
+  "construction_assumptions": {
+    "I_lower_point": "actual lower-board top at the measured per-side I station",
+    "I_thickness": "stage04 plane_depth_at evaluated at that side's actual q_I",
+    "R": "first inward intersection of the straight top motherline with actual lower-board top",
+    "R_to_I_lower_edge": "straight line between actual board top at R and I; no board-following curve",
+    "A_B_mapping": "A is v=-w_fly/2; B is v=+w_fly/2 along record.width_axis"
+  },
+  "selected_flyers": [
+    {
+      "family": "fan",
+      "index": 1,
+      "source_id": "fan_rafter_01",
+      "sides": [
+        {
+          "side": "A(v=-w/2)",
+          "v_mm": -30.0,
+          "q_I_mm": -52.76292417492197,
+          "H_I_board_mm": -117.74381918005598,
+          "dI_world_Z_mm": 40.00347533264271,
+          "I_upper_world_Z_mm": -77.74034384741327,
+          "R_q_mm": -221.39207456554698,
+          "R_board_z_mm": -26.15655408847124,
+          "root_gap_to_target_mm": 0.0010285797815470232,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -7.105427357601002e-14,
+            "max": 1.4210854715202004e-14,
+            "max_abs": 7.105427357601002e-14,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.0010285797815470232,
+            "max": 40.00347533264271
+          }
+        },
+        {
+          "side": "B(v=+w/2)",
+          "v_mm": 30.0,
+          "q_I_mm": -56.65745542492197,
+          "H_I_board_mm": -114.99689858943441,
+          "dI_world_Z_mm": 40.00347533264271,
+          "I_upper_world_Z_mm": -74.9934232567917,
+          "R_q_mm": -226.82225034679698,
+          "R_board_z_mm": -22.575581482262635,
+          "root_gap_to_target_mm": 0.0008591959784070013,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -4.263256414560601e-14,
+            "max": 3.197442310920451e-14,
+            "max_abs": 4.263256414560601e-14,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.0008591959784070013,
+            "max": 40.00347533264271
+          }
+        }
+      ],
+      "dI_A_minus_B_mm": 0.0
+    },
+    {
+      "family": "fan",
+      "index": 6,
+      "source_id": "fan_rafter_06",
+      "sides": [
+        {
+          "side": "A(v=-w/2)",
+          "v_mm": -30.0,
+          "q_I_mm": -46.25670793427693,
+          "H_I_board_mm": -156.69656875451346,
+          "dI_world_Z_mm": 41.01986450021064,
+          "I_upper_world_Z_mm": -115.67670425430282,
+          "R_q_mm": -143.37096574677693,
+          "R_board_z_mm": -110.42490931838648,
+          "root_gap_to_target_mm": 0.0008640697428035082,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -4.263256414560601e-14,
+            "max": 2.842170943040401e-14,
+            "max_abs": 4.263256414560601e-14,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.0008640697428035082,
+            "max": 41.019864500210645
+          }
+        },
+        {
+          "side": "B(v=+w/2)",
+          "v_mm": 30.0,
+          "q_I_mm": -90.48327043427693,
+          "H_I_board_mm": -153.48188595657348,
+          "dI_world_Z_mm": 41.12431199235942,
+          "I_upper_world_Z_mm": -112.35757396421405,
+          "R_q_mm": -188.54723527802693,
+          "R_board_z_mm": -106.75772323921933,
+          "root_gap_to_target_mm": 0.0011543153464259603,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -5.684341886080802e-14,
+            "max": 5.684341886080802e-14,
+            "max_abs": 5.684341886080802e-14,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.0011543153464259603,
+            "max": 41.124311992359424
+          }
+        }
+      ],
+      "dI_A_minus_B_mm": -0.10444749214877902
+    },
+    {
+      "family": "fan",
+      "index": 11,
+      "source_id": "fan_rafter_11",
+      "sides": [
+        {
+          "side": "A(v=-w/2)",
+          "v_mm": -30.0,
+          "q_I_mm": -55.71378636231488,
+          "H_I_board_mm": -200.05762771702905,
+          "dI_world_Z_mm": 41.338429989241256,
+          "I_upper_world_Z_mm": -158.7191977277878,
+          "R_q_mm": -103.73502659668988,
+          "R_board_z_mm": -182.20586687844926,
+          "root_gap_to_target_mm": 0.001454315373365489,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -1.1368683772161603e-12,
+            "max": 2.7853275241795927e-12,
+            "max_abs": 2.7853275241795927e-12,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.001454315373365489,
+            "max": 41.33842998924126
+          }
+        },
+        {
+          "side": "B(v=+w/2)",
+          "v_mm": 30.0,
+          "q_I_mm": -151.8036301123149,
+          "H_I_board_mm": -188.27890031797563,
+          "dI_world_Z_mm": 41.52101540797713,
+          "I_upper_world_Z_mm": -146.7578849099985,
+          "R_q_mm": -204.4476730810649,
+          "R_board_z_mm": -168.68462755691363,
+          "root_gap_to_target_mm": 0.0007233466494369623,
+          "tail_bottom_line_minus_board_mm": {
+            "min": -2.7000623958883807e-12,
+            "max": 2.7284841053187847e-12,
+            "max_abs": 2.7284841053187847e-12,
+            "samples": 21
+          },
+          "tail_line_thickness_mm": {
+            "min": 0.0007233466494369623,
+            "max": 41.52101540797713
+          }
+        }
+      ],
+      "dI_A_minus_B_mm": -0.18258541873587575
+    }
+  ],
+  "old_geometry_likou_notch_probe": {
+    "target_id": "likou_x",
+    "cut_solid_valid": true,
+    "cut_solid_count": 1,
+    "removed_volume_mm3": 331016.1579840332,
+    "sampled_above_seat_floor_residual_count": 0,
+    "sampled_residual_examples": [],
+    "missing_board_samples": 0,
+    "sampling": "one representative flyer; 4 q stations x 5 width stations x 12mm z interval"
+  },
+  "base_and_probe_elapsed_seconds": 81.38027639995562
+}
