@@ -1,0 +1,16 @@
+generator: validated case=angle_60_B400 angle=60deg; starting geometry
+stage05: dynamic stage04 base start (angle_60_B400)
+stage04: case angle_60_B400 preflight start
+stage04: stage02 framing rebuild start
+stage02: support members start
+stage02: support members complete
+stage02: old corner and support wedges complete; fan rafters start
+stage02: fan rafters complete; one-side count=8; straight rafters start
+stage02: base framing complete
+stage04: stage02 framing rebuild complete (31 parts); young corner start
+stage04: young corner and curved likou complete; board surfaces start
+stage04: board surfaces complete; total base parts=62
+stage04: board mesh sampled (30 panels); flyer poses start
+stage04: fan 8 seat coverage missed coarse q grid; refining near_best_coverage with 728 samples at about 0.050mm
+stage04: preflight complete; selected fly records=12
+生成失败：NameError: name 'join_x' is not defined

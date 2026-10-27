@@ -11,8 +11,11 @@ function init(){
   const data=JSON.parse(el('model-data').textContent);
   if(!Array.isArray(data.parts)||!data.parts.length)throw Error('没有可显示的构件。');
   const stageNumber=data.metadata?.stage;
-  el('model-title').textContent='直角戗角 · '+(data.metadata?.case_id||'参数模型');
-  el('stage-label').textContent='90° 对称角部 · 参数生成';
+  const cornerAngle=Number(data.metadata?.corner_angle_deg ?? 90);
+  const halfAngle=cornerAngle*Math.PI/360;
+  el('model-title').textContent='戗角 · '+(data.metadata?.case_id||'参数模型');
+  document.title=el('model-title').textContent;
+  el('stage-label').textContent=`${cornerAngle}° 对称角部 · 参数生成`;
   el('scope-note').textContent='排料页仅包含立脚飞椽，采用本次生成结果的中心截面梯形。曲线拟合只作比较，不改变三维模型。';
   if(data.metadata?.visual_review_label){el('stage-label').textContent=data.metadata.visual_review_label;el('scope-note').textContent='视觉检查副本：几何沿用所选结果，仅使用当前查看器显示。请打开阴影和三角面网格检查。';}
   if(stageNumber>=2)el('show-skeleton').checked=false;
@@ -94,7 +97,7 @@ function init(){
     el('visible-count').textContent='显示 '+meshes.filter(m=>m.visible).length+' / '+meshes.length+' 个构件';
   }
   function changeView(name){
-    const directions={iso:new THREE.Vector3(2,-3,1.65),top:new THREE.Vector3(0,0,1),bottom:new THREE.Vector3(0,0,-1),side:new THREE.Vector3(-1,0,0),corner:new THREE.Vector3(-1,1,0)};
+    const directions={iso:new THREE.Vector3(2,-3,1.65),top:new THREE.Vector3(0,0,1),bottom:new THREE.Vector3(0,0,-1),side:new THREE.Vector3(-1,0,0),corner:new THREE.Vector3(-Math.sin(halfAngle),Math.cos(halfAngle),0)};
     const direction=directions[name]||directions.iso;
     camera.up.set(0,name==='top'?-1:name==='bottom'?1:0,name==='top'||name==='bottom'?0:1);
     controls.target.copy(center);camera.position.copy(center).addScaledVector(direction.normalize(),radius*4);camera.zoom=1;camera.updateProjectionMatrix();controls.update();fit();

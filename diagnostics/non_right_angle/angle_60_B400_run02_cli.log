@@ -1,0 +1,15 @@
+generator: validated case=angle_60_B400 angle=60deg; starting geometry
+stage05: dynamic stage04 base start (angle_60_B400)
+stage04: case angle_60_B400 preflight start
+stage04: stage02 framing rebuild start
+stage02: support members start
+stage02: support members complete
+stage02: old corner and support wedges complete; fan rafters start
+stage02: fan rafters complete; one-side count=8; straight rafters start
+stage02: base framing complete
+stage04: stage02 framing rebuild complete (31 parts); young corner start
+stage04: young corner and curved likou complete; board surfaces start
+stage04: board surfaces complete; total base parts=62
+stage04: board mesh sampled (30 panels); flyer poses start
+stage04: preflight complete; selected fly records=11
+生成失败：ValueError: 立脚飞椽预检不完整，拒绝静默漏根：按间距规则应有8根/侧，通过7根/侧；失败1项。index=8 reason=no q candidate has actual likou coverage across the full 60mm width

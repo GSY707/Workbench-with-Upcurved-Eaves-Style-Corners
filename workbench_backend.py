@@ -30,7 +30,7 @@ OUTPUTS_DIR = GENERATOR_DIR / "outputs"
 UI_DIR = GENERATOR_DIR / "ui"
 STATE_DIR = GENERATOR_DIR / "ui_state"
 APP_ID = "mu-gouzao-corner-workbench"
-API_VERSION = "0.2.0"
+API_VERSION = "0.3.0"
 MAX_BODY_BYTES = 1024 * 1024
 MAX_LOG_CHARS = 16000
 MAX_JOBS = 100
@@ -343,7 +343,11 @@ class WorkbenchBackend:
         examples = []
         for example_id, title, name in (
                 ("default", "默认参数", "default.json"),
-                ("size_variant_valid64", "尺寸与间距变化示例", "size_variant_valid64.json")):
+                ("size_variant_valid64", "尺寸与间距变化示例", "size_variant_valid64.json"),
+                ("angle_60", "60° 对称角部参数", "angle_60.json"),
+                ("angle_120", "120° 对称角部参数", "angle_120.json")):
+            if not (self.generator_dir / "configs" / name).is_file():
+                continue
             config = load_json(self.generator_dir / "configs" / name)
             examples.append({"id": example_id, "title": title, "config": config})
         defaults, _, _, _ = self.validate(default_raw)
@@ -510,6 +514,10 @@ class WorkbenchBackend:
             raise ValueError("manifest案例标识与配置不一致")
         if resolved.get("case_id") != normalized["case_id"]:
             raise ValueError("保存的参数与配置案例标识不一致")
+        if resolved.get("corner_angle_deg") != normalized["corner_angle_deg"]:
+            raise ValueError("保存的建筑平面内角与本次配置不一致")
+        if mesh.get("metadata", {}).get("corner_angle_deg", 90.0) != normalized["corner_angle_deg"]:
+            raise ValueError("模型网格的建筑平面内角与本次配置不一致")
         if resolved.get("parameters") != normalized["parameters"] or resolved.get("advanced") != normalized["advanced"]:
             raise ValueError("保存的解析参数与本次配置不一致")
         if validation.get("passed") is not True:
@@ -729,7 +737,7 @@ class WorkbenchBackend:
                 # cases are immutable and are never replaced on failure or cancel.
                 self.state["cases"].append(record)
                 job["result"] = self._public_case(record)
-                self._finish_job_locked(job, "succeeded", "生成完成，结果已验证")
+                self._finish_job_locked(job, "succeeded", "生成完成")
         except Exception as exc:
             with self.lock:
                 job = self._find_job_locked(job_id)

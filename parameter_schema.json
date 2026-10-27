@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "90°对称角部参数生成器输入配置",
+  "title": "左右对称建筑凸角参数生成器输入配置",
   "description": "根数随间距规则计算；未知字段会报错。所有长度单位为mm，mesh_angular_tolerance_rad单位为rad。",
   "type": "object",
   "additionalProperties": false,
@@ -15,10 +15,12 @@
       "description": "案例标识。"
     },
     "corner_angle_deg": {
-      "const": 90,
+      "type": "number",
       "default": 90,
-      "description": "本期只支持90°对称角部；其他角度明确拒绝。",
-      "x-unit": "deg"
+      "description": "建筑两条向屋内檐桁射线之间的内角；两翼关于其平分面对称，必须满足0 < 角度 < 180°。",
+      "x-unit": "deg",
+      "exclusiveMinimum": 0,
+      "exclusiveMaximum": 180
     },
     "parameters": {
       "type": "object",

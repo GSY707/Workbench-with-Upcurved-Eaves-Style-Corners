@@ -1,0 +1,844 @@
+{
+  "case_id": "angle_60_B400",
+  "corner_angle_deg": 60.0,
+  "config_path": "configs/angle_60.json",
+  "source_identity_sha256": "f9e3541f0a264c5a1eff792b3289393774b14f8ad322a900d1eadb629a7ffce4",
+  "source_identity_unchanged": true,
+  "source_files": [
+    {
+      "path": "generate.py",
+      "sha256": "185c284590a3956b9ee71e37920c398e7c7cd109167354be97b8973e4decbc24"
+    },
+    {
+      "path": "parameter_schema.json",
+      "sha256": "1e2e69bd6f9615fb650fffbe56816283dbb7baf63d93919746067c1f47f918b6"
+    },
+    {
+      "path": "render_delivery.py",
+      "sha256": "e97074bcc6b9b326568a5cf052d0dfaf5275b4db4bb3b093d48972c37db2ad64"
+    },
+    {
+      "path": "viewer.js",
+      "sha256": "7ba1dceb4c1fcd1d12945f6c553a53dba2192847356266d339759bab9b96d4e4"
+    },
+    {
+      "path": "viewer.css",
+      "sha256": "0e4e48f92205e2502ebd1511dd867548164510c3c886954639178f31b6304285"
+    },
+    {
+      "path": "viewer.template.html",
+      "sha256": "bb632ccc5516e13fe5f8cc7315ee617a4e9f07c47f859fa04ea8e5186bcc0bec"
+    },
+    {
+      "path": "layout.js",
+      "sha256": "29a1586a77d440bbcf56a52c3cac9537445d205026a5a1211d555b7e993ff82c"
+    },
+    {
+      "path": "layout.template.html",
+      "sha256": "132bdbb204368e75fb8fa5bb38e1316eb9ac5fb92599749a781956cef6c3fdf6"
+    },
+    {
+      "path": "vendor/viewer-runtime.js",
+      "sha256": "f4e41f34bc829dcb4224cb56f1f28b347d78038e6bb00a8685ae8436d5783f38"
+    },
+    {
+      "path": "engine/config.py",
+      "sha256": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+    },
+    {
+      "path": "engine/stage02_core.py",
+      "sha256": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219"
+    },
+    {
+      "path": "engine/stage03_core.py",
+      "sha256": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741"
+    },
+    {
+      "path": "engine/stage04_core.py",
+      "sha256": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f"
+    },
+    {
+      "path": "engine/stage05_core.py",
+      "sha256": "58690ee815f75fbddbbb99269379cbda7bc1ca704347983d74e8b57d4128c55b"
+    }
+  ],
+  "started_utc": "2026-10-27T07:14:11.965234+00:00",
+  "finished_utc": "2026-10-27T07:15:00.367732+00:00",
+  "elapsed_seconds": 48.403013100032695,
+  "scope": "single fan05 cutter field and original stage04 likou_x; not whole-model QA",
+  "fan_index": 5,
+  "q_limits_mm": [
+    -2555.242590771559,
+    1283.097929293618
+  ],
+  "upper_z_mm": -51.08704797601583,
+  "width_fibers": 17,
+  "band_count": 16,
+  "determinant_U_W": 0.9999999999999998,
+  "expected_band_volume_sum_mm3": 29355087.23741801,
+  "brep_band_volume_sum_mm3": 19766781.011826947,
+  "brep_band_minus_expected_sum_mm3": -9588306.225591063,
+  "full_width_loft_volume_mm3": 29355087.237417974,
+  "full_width_loft_minus_expected_sum_mm3": -3.725290298461914e-08,
+  "full_width_loft_valid": true,
+  "full_width_loft_solid_count": 1,
+  "bands": [
+    {
+      "band_index": 0,
+      "v_interval_mm": [
+        -30.0,
+        -26.25
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -1994.6194608432208,
+          -1068.0900880861798,
+          -259.62904121692895
+        ],
+        [
+          -1997.1649357645301,
+          -1065.336352909191,
+          -258.4671250518533
+        ],
+        [
+          823.9867555209667,
+          1537.349787452569,
+          -115.50866689749688
+        ],
+        [
+          821.4412805996576,
+          1540.1035226295578,
+          -115.5981045629803
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -187.30073443231487,
+      "expected_analytic_volume_mm3": 1960629.4204224963,
+      "loft_brep_volume_mm3": 1960629.420422452,
+      "loft_minus_expected_mm3": -4.423782229423523e-08,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 1,
+      "v_interval_mm": [
+        -26.25,
+        -22.5
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -1997.1649357645301,
+          -1065.336352909191,
+          -258.4671250518533
+        ],
+        [
+          -1999.7104106858392,
+          -1062.582617732202,
+          -249.76007958643066
+        ],
+        [
+          821.4412805996576,
+          1540.1035226295578,
+          -115.5981045629803
+        ],
+        [
+          818.8958056783486,
+          1542.8572578065468,
+          -119.75834647562235
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -185.89591391922164,
+      "expected_analytic_volume_mm3": 1940408.7473019045,
+      "loft_brep_volume_mm3": 327303.39696322195,
+      "loft_minus_expected_mm3": -1613105.3503386825,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 2,
+      "v_interval_mm": [
+        -22.5,
+        -18.75
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -1999.7104106858392,
+          -1062.582617732202,
+          -249.76007958643066
+        ],
+        [
+          -2002.2558856071482,
+          -1059.8288825552129,
+          -248.61885304047536
+        ],
+        [
+          818.8958056783486,
+          1542.8572578065468,
+          -119.75834647562235
+        ],
+        [
+          816.3503307570395,
+          1545.6109929835359,
+          -119.86911314650507
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -184.50159806225835,
+      "expected_analytic_volume_mm3": 1920339.2758585862,
+      "loft_brep_volume_mm3": 1920339.2758586037,
+      "loft_minus_expected_mm3": 1.7462298274040222e-08,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 3,
+      "v_interval_mm": [
+        -18.75,
+        -15.0
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2002.2558856071482,
+          -1059.8288825552129,
+          -248.61885304047536
+        ],
+        [
+          -2004.8013605284573,
+          -1057.0751473782238,
+          -240.066375760573
+        ],
+        [
+          816.3503307570395,
+          1545.6109929835359,
+          -119.86911314650507
+        ],
+        [
+          813.8048558357305,
+          1548.364728160525,
+          -124.02330546043717
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -183.14441185199766,
+      "expected_analytic_volume_mm3": 1900804.2402681462,
+      "loft_brep_volume_mm3": 293624.4257464268,
+      "loft_minus_expected_mm3": -1607179.8145217192,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 4,
+      "v_interval_mm": [
+        -15.0,
+        -11.25
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2004.8013605284573,
+          -1057.0751473782238,
+          -240.066375760573
+        ],
+        [
+          -2007.3468354497663,
+          -1054.3214122012348,
+          -238.94593090940305
+        ],
+        [
+          813.8048558357305,
+          1548.364728160525,
+          -124.02330546043717
+        ],
+        [
+          811.2593809144213,
+          1551.118463337514,
+          -124.15504128047954
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -181.7976633527232,
+      "expected_analytic_volume_mm3": 1881419.442761513,
+      "loft_brep_volume_mm3": 1881419.4427615402,
+      "loft_minus_expected_mm3": 2.7241185307502747e-08,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 5,
+      "v_interval_mm": [
+        -11.25,
+        -7.5
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2007.3468354497663,
+          -1054.3214122012348,
+          -238.94593090940305
+        ],
+        [
+          -2009.8923103710754,
+          -1051.567677024246,
+          -237.84392624686632
+        ],
+        [
+          811.2593809144213,
+          1551.118463337514,
+          -124.15504128047954
+        ],
+        [
+          808.7139059931122,
+          1553.8721985145028,
+          -124.28604511614097
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -181.30773588822245,
+      "expected_analytic_volume_mm3": 1874367.5361156906,
+      "loft_brep_volume_mm3": 1874367.5361156177,
+      "loft_minus_expected_mm3": -7.28759914636612e-08,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 6,
+      "v_interval_mm": [
+        -7.5,
+        -3.75
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2009.8923103710754,
+          -1051.567677024246,
+          -237.84392624686632
+        ],
+        [
+          -2012.4377852923844,
+          -1048.813941847257,
+          -229.53156208260287
+        ],
+        [
+          808.7139059931122,
+          1553.8721985145028,
+          -124.28604511614097
+        ],
+        [
+          806.1684310718032,
+          1556.6259336914918,
+          -128.43196977794466
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -180.0233758058887,
+      "expected_analytic_volume_mm3": 1855880.7435667808,
+      "loft_brep_volume_mm3": 257477.64944430458,
+      "loft_minus_expected_mm3": -1598403.0941224762,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 7,
+      "v_interval_mm": [
+        -3.75,
+        0.0
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2012.4377852923844,
+          -1048.813941847257,
+          -229.53156208260287
+        ],
+        [
+          -2014.9832602136935,
+          -1046.060206670268,
+          -228.50335587155234
+        ],
+        [
+          806.1684310718032,
+          1556.6259336914918,
+          -128.43196977794466
+        ],
+        [
+          803.6229561504941,
+          1559.3796688684808,
+          -128.56890460025554
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -178.75894808308885,
+      "expected_analytic_volume_mm3": 1837680.8529550945,
+      "loft_brep_volume_mm3": 1837680.8529550976,
+      "loft_minus_expected_mm3": 3.026798367500305e-09,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 8,
+      "v_interval_mm": [
+        0.0,
+        3.75
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2014.9832602136935,
+          -1046.060206670268,
+          -228.50335587155234
+        ],
+        [
+          -2017.5287351350025,
+          -1043.3064714932789,
+          -220.34040426686278
+        ],
+        [
+          803.6229561504941,
+          1559.3796688684808,
+          -128.56890460025554
+        ],
+        [
+          801.0774812291851,
+          1562.13340404547,
+          -132.70697712003573
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -177.5299104646766,
+      "expected_analytic_volume_mm3": 1819990.3596122088,
+      "loft_brep_volume_mm3": 224984.18374840677,
+      "loft_minus_expected_mm3": -1595006.175863802,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 9,
+      "v_interval_mm": [
+        3.75,
+        7.5
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2017.5287351350025,
+          -1043.3064714932789,
+          -220.34040426686278
+        ],
+        [
+          -2020.0742100563116,
+          -1040.5527363162898,
+          -219.33153932973812
+        ],
+        [
+          801.0774812291851,
+          1562.13340404547,
+          -132.70697712003573
+        ],
+        [
+          798.532006307876,
+          1564.887139222459,
+          -132.86416504711724
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -176.31077144093848,
+      "expected_analytic_volume_mm3": 1802442.3444331838,
+      "loft_brep_volume_mm3": 1802442.344433206,
+      "loft_minus_expected_mm3": 2.2118911147117615e-08,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 10,
+      "v_interval_mm": [
+        7.5,
+        11.25
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2020.0742100563116,
+          -1040.5527363162898,
+          -219.33153932973812
+        ],
+        [
+          -2022.6196849776206,
+          -1037.799001139301,
+          -218.32522761386332
+        ],
+        [
+          798.532006307876,
+          1564.887139222459,
+          -132.86416504711724
+        ],
+        [
+          795.986531386567,
+          1567.6408743994477,
+          -133.0245144588462
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -175.88636161239123,
+      "expected_analytic_volume_mm3": 1796333.4840255831,
+      "loft_brep_volume_mm3": 1796333.4840255138,
+      "loft_minus_expected_mm3": -6.938353180885315e-08,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 11,
+      "v_interval_mm": [
+        11.25,
+        15.0
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2022.6196849776206,
+          -1037.799001139301,
+          -218.32522761386332
+        ],
+        [
+          -2025.1651598989297,
+          -1035.045265962312,
+          -210.32707016807024
+        ],
+        [
+          795.986531386567,
+          1567.6408743994477,
+          -133.0245144588462
+        ],
+        [
+          793.4410564652578,
+          1570.3946095764368,
+          -137.17077025924354
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -174.7118956250058,
+      "expected_analytic_volume_mm3": 1779428.482567509,
+      "loft_brep_volume_mm3": 190066.24185355255,
+      "loft_minus_expected_mm3": -1589362.2407139563,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 12,
+      "v_interval_mm": [
+        15.0,
+        18.75
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2025.1651598989297,
+          -1035.045265962312,
+          -210.32707016807024
+        ],
+        [
+          -2027.7106348202387,
+          -1032.291530785323,
+          -209.34027397692267
+        ],
+        [
+          793.4410564652578,
+          1570.3946095764368,
+          -137.17077025924354
+        ],
+        [
+          790.8955815439488,
+          1573.1483447534258,
+          -137.35097684734808
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -173.54727281289613,
+      "expected_analytic_volume_mm3": 1762665.1615788357,
+      "loft_brep_volume_mm3": 1762665.1615788473,
+      "loft_minus_expected_mm3": 1.1641532182693481e-08,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 13,
+      "v_interval_mm": [
+        18.75,
+        22.5
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2027.7106348202387,
+          -1032.291530785323,
+          -209.34027397692267
+        ],
+        [
+          -2030.2561097415478,
+          -1029.537795608334,
+          -208.35601002090385
+        ],
+        [
+          790.8955815439488,
+          1573.1483447534258,
+          -137.35097684734808
+        ],
+        [
+          788.3501066226397,
+          1575.9020799304149,
+          -137.53436440331734
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -173.145406312123,
+      "expected_analytic_volume_mm3": 1756880.7848029318,
+      "loft_brep_volume_mm3": 1756880.784802943,
+      "loft_minus_expected_mm3": 1.1175870895385742e-08,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 14,
+      "v_interval_mm": [
+        22.5,
+        26.25
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2030.2561097415478,
+          -1029.537795608334,
+          -208.35601002090385
+        ],
+        [
+          -2032.8015846628568,
+          -1026.7840604313449,
+          -200.53900036645797
+        ],
+        [
+          788.3501066226397,
+          1575.9020799304149,
+          -137.53436440331734
+        ],
+        [
+          785.8046317013307,
+          1578.655815107404,
+          -141.6823830168507
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -172.02793945188247,
+      "expected_analytic_volume_mm3": 1740796.21606734,
+      "loft_brep_volume_mm3": 155546.6660370457,
+      "loft_minus_expected_mm3": -1585249.5500302943,
+      "valid": true,
+      "solid_count": 1
+    },
+    {
+      "band_index": 15,
+      "v_interval_mm": [
+        26.25,
+        30.0
+      ],
+      "four_bottom_corners_q0v0_q0v1_q1v0_q1v1_mm": [
+        [
+          -2032.8015846628568,
+          -1026.7840604313449,
+          -200.53900036645797
+        ],
+        [
+          -2035.3470595841661,
+          -1024.030325254356,
+          -199.6399909905257
+        ],
+        [
+          785.8046317013307,
+          1578.655815107404,
+          -141.6823830168507
+        ],
+        [
+          783.2591567800216,
+          1581.4095502843927,
+          -141.86624686087825
+        ]
+      ],
+      "mean_four_corner_bottom_z_mm": -170.93190530867815,
+      "expected_analytic_volume_mm3": 1725020.1450802048,
+      "loft_brep_volume_mm3": 1725020.1450801676,
+      "loft_minus_expected_mm3": -3.725290298461914e-08,
+      "valid": true,
+      "solid_count": 1
+    }
+  ],
+  "internal_seams": [
+    {
+      "seam_index": 1,
+      "v_mm": -26.25,
+      "bottom_z_q_limits_mm": [
+        -258.4671250518533,
+        -115.5981045629803
+      ],
+      "expected_planar_common_face_area_mm2": 521805.3776921948,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 2,
+      "v_mm": -22.5,
+      "bottom_z_q_limits_mm": [
+        -249.76007958643066,
+        -119.75834647562235
+      ],
+      "expected_planar_common_face_area_mm2": 513079.28753548773,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 3,
+      "v_mm": -18.75,
+      "bottom_z_q_limits_mm": [
+        -248.61885304047536,
+        -119.86911314650507
+      ],
+      "expected_planar_common_face_area_mm2": 511101.6595890916,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 4,
+      "v_mm": -15.0,
+      "bottom_z_q_limits_mm": [
+        -240.066375760573,
+        -124.02330546043717
+      ],
+      "expected_planar_common_face_area_mm2": 502660.6018872531,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 5,
+      "v_mm": -11.25,
+      "bottom_z_q_limits_mm": [
+        -238.94593090940305,
+        -124.15504128047954
+      ],
+      "expected_planar_common_face_area_mm2": 500763.1009188873,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 6,
+      "v_mm": -7.5,
+      "bottom_z_q_limits_mm": [
+        -237.84392624686632,
+        -124.28604511614097
+      ],
+      "expected_planar_common_face_area_mm2": 498899.5850094812,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 7,
+      "v_mm": -3.75,
+      "bottom_z_q_limits_mm": [
+        -229.53156208260287,
+        -128.43196977794466
+      ],
+      "expected_planar_common_face_area_mm2": 490903.4782261354,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 8,
+      "v_mm": 0.0,
+      "bottom_z_q_limits_mm": [
+        -228.50335587155234,
+        -128.56890460025554
+      ],
+      "expected_planar_common_face_area_mm2": 489192.9766832485,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 9,
+      "v_mm": 3.75,
+      "bottom_z_q_limits_mm": [
+        -220.34040426686278,
+        -132.70697712003573
+      ],
+      "expected_planar_common_face_area_mm2": 481468.54844326316,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 10,
+      "v_mm": 7.5,
+      "bottom_z_q_limits_mm": [
+        -219.33153932973812,
+        -132.86416504711724
+      ],
+      "expected_planar_common_face_area_mm2": 479834.03525443486,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 11,
+      "v_mm": 11.25,
+      "bottom_z_q_limits_mm": [
+        -218.32522761386332,
+        -133.0245144588462
+      ],
+      "expected_planar_common_face_area_mm2": 478210.48955920956,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 12,
+      "v_mm": 15.0,
+      "bottom_z_q_limits_mm": [
+        -210.32707016807024,
+        -137.17077025924354
+      ],
+      "expected_planar_common_face_area_mm2": 470818.03447679547,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 13,
+      "v_mm": 18.75,
+      "bottom_z_q_limits_mm": [
+        -209.34027397692267,
+        -137.35097684734808
+      ],
+      "expected_planar_common_face_area_mm2": 469270.05169858376,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 14,
+      "v_mm": 22.5,
+      "bottom_z_q_limits_mm": [
+        -208.35601002090385,
+        -137.53436440331734
+      ],
+      "expected_planar_common_face_area_mm2": 467733.0335296467,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    },
+    {
+      "seam_index": 15,
+      "v_mm": 26.25,
+      "bottom_z_q_limits_mm": [
+        -200.53900036645797,
+        -141.6823830168507
+      ],
+      "expected_planar_common_face_area_mm2": 460691.61503960134,
+      "brep_common_face_area_mm2": 0.0,
+      "brep_common_face_count": 0,
+      "brep_common_volume_mm3": 0.0,
+      "brep_distance_mm": 0.0
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "case_id": "angle_60_B400",
+  "corner_angle_deg": 60,
+  "config_path": "configs/angle_60.json",
+  "created_at": "2026-10-27T07:09:23.1723367Z",
+  "completion_status": "60-degree and 120-degree full no-render CLIs succeeded; 90-degree stage04 preflight succeeded",
+  "runs": [
+    {
+      "run": "01",
+      "output_path": "outputs/angle_60_B400",
+      "result": "failed",
+      "failure_stage": "provenance not preserved",
+      "failure_summary": "Only parameters_resolved.json is preserved in the output directory; no CLI log or source identity is available for this attempt.",
+      "available_output_files": [
+        "parameters_resolved.json"
+      ],
+      "provenance_path": null,
+      "cli_log_path": null,
+      "source_identity_sha256": null
+    },
+    {
+      "run": "02",
+      "output_path": "outputs/angle_60_B400_run02",
+      "result": "failed",
+      "failure_stage": "stage04 preflight",
+      "failure_summary": "Fan 8 missed full 60 mm likou coverage on the fixed coarse q grid; 7 of 8 fan records passed.",
+      "cli_process_start": "2026-10-27T14:36:15.9388224+08:00",
+      "cli_process_end": "2026-10-27T14:36:21.940513+08:00",
+      "exit_code": 2,
+      "source_identity_sha256": "989775542e5dd191604e0a27d143d61441e3edbb91fb52c27748d543395e0b71",
+      "source_identity_unchanged": true,
+      "source_file_count": 14,
+      "provenance_path": "diagnostics/non_right_angle/angle_60_B400_run02_cli_provenance.json",
+      "cli_log_path": "diagnostics/non_right_angle/angle_60_B400_run02_cli.log"
+    },
+    {
+      "run": "03",
+      "output_path": "outputs/angle_60_B400_run03",
+      "result": "failed",
+      "failure_stage": "stage04 likou extension",
+      "failure_summary": "Adaptive refinement selected all 8 fan records, then extension stopped with NameError: join_x is not defined.",
+      "cli_process_start": "2026-10-27T14:48:51.5112959+08:00",
+      "cli_process_end": "2026-10-27T14:49:01.3189083+08:00",
+      "exit_code": 2,
+      "source_identity_sha256": "bc30b9140729c38c4f80442c860e4a083c4af3d736cd0ae01f7a5ba4dbb8d876",
+      "source_identity_unchanged": true,
+      "source_file_count": 14,
+      "provenance_path": "diagnostics/non_right_angle/angle_60_B400_run03_cli_provenance.json",
+      "cli_log_path": "diagnostics/non_right_angle/angle_60_B400_run03_cli.log"
+    },
+    {
+      "run": "04",
+      "output_path": "outputs/angle_60_B400_run04",
+      "result": "failed",
+      "failure_stage": "stage05 flyer BRep",
+      "failure_summary": "Fan 01 tip-control path returned 3 intersections; the outer path still used the 90-degree boundary x=-D.",
+      "cli_process_start": "2026-10-27T14:50:00.0202341+08:00",
+      "cli_process_end": "2026-10-27T14:50:10.4292869+08:00",
+      "exit_code": 2,
+      "source_identity_sha256": "2d7d839c28faa86baf76c58eb6978dcfd14dbff7ddd8ab113a1212413c34e004",
+      "source_identity_unchanged": true,
+      "source_file_count": 14,
+      "provenance_path": "diagnostics/non_right_angle/angle_60_B400_run04_cli_provenance.json",
+      "cli_log_path": "diagnostics/non_right_angle/angle_60_B400_run04_cli.log"
+    },
+    {
+      "run": "05",
+      "output_path": "outputs/angle_60_B400_run05",
+      "result": "failed",
+      "failure_stage": "stage05 fan05 likou cutter",
+      "failure_summary": "All 12 flyer BReps completed; cutter fusion stopped with ValueError: valid=True solids=2.",
+      "cli_process_start": "2026-10-27T14:51:26.6413235+08:00",
+      "cli_process_end": "2026-10-27T14:59:07.6442823+08:00",
+      "exit_code": 2,
+      "source_identity_sha256": "f9e3541f0a264c5a1eff792b3289393774b14f8ad322a900d1eadb629a7ffce4",
+      "source_identity_unchanged": true,
+      "source_file_count": 14,
+      "provenance_path": "diagnostics/non_right_angle/angle_60_B400_run05_cli_provenance.json",
+      "cli_log_path": "diagnostics/non_right_angle/angle_60_B400_run05_cli.log"
+    }
+  ],
+  "fan05_diagnostic": {
+    "source_code": "engine/stage05_core.py",
+    "functions": [
+      "contact_notch_cutter (line 1541)",
+      "cut_contact_likou_notches (line 1599)"
+    ],
+    "probe_files": [
+      "diagnostics/non_right_angle/angle_60_fan05_notch_probe.json",
+      "diagnostics/non_right_angle/angle_60_fan05_notch_probe_02.json"
+    ],
+    "q_limits_mm": [
+      -2555.242590771559,
+      1283.097929293618
+    ],
+    "fiber_count": 17,
+    "band_count": 16,
+    "all_bands_valid_single_positive": true,
+    "adjacent_band_distances_mm": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "first_pair_fused_valid": true,
+    "first_pair_fused_solids": 2,
+    "band_volume_sum_mm3": 19766781.011826947,
+    "compound_cut": {
+      "valid": true,
+      "solids": 7,
+      "removed_volume_mm3": 305066.49801261723
+    },
+    "full_width_loft": {
+      "valid": true,
+      "solids": 1,
+      "tool_volume_mm3": 29355087.237417974,
+      "removed_volume_mm3": 488262.8768761158
+    },
+    "removal_volume_delta_mm3": 183196.37886349857,
+    "interpretation": "The direct full-width loft is not equivalent to the 16-band removal as currently constructed: the compound cut leaves 7 likou solids while the loft cut removes 183196.3789 mm3 more material. Root cause is unresolved; no further cutter changes were made.",
+    "analytic_volume_audit_path": "diagnostics/non_right_angle/angle_60_fan05_analytic_volume_audit.json",
+    "analytic_audit_source_sha256": "f9e3541f0a264c5a1eff792b3289393774b14f8ad322a900d1eadb629a7ffce4",
+    "source_defined_expected_volume_sum_mm3": 29355087.23741801,
+    "old_brep_band_volume_sum_mm3": 19766781.011826947,
+    "old_brep_volume_mismatch_band_indices_zero_based": [
+      1,
+      3,
+      6,
+      8,
+      11,
+      14
+    ],
+    "actual_brep_common_face_area_sum_mm2": 0.0,
+    "source_formula_matches_full_width_loft": true,
+    "expected_internal_common_face_area_range_mm2": [
+      460691.61503960134,
+      521805.3776921948
+    ]
+  },
+  "successful_full_cli_runs": [
+    {
+      "case_id": "angle_60_B400",
+      "corner_angle_deg": 60.0,
+      "config_path": "configs/angle_60.json",
+      "output_path": "outputs/angle_60_B400_run06",
+      "cli_log_path": "diagnostics/non_right_angle/angle_60_B400_run06_cli.log",
+      "provenance_path": "diagnostics/non_right_angle/angle_60_B400_run06_cli_provenance.json",
+      "source_identity_sha256": "ef5340fed7c096b557a9258a71b94c618365dc62a33b29de8c8fdef0a1daa33d",
+      "source_identity_unchanged": true,
+      "source_file_count": 14,
+      "cli_process_start_utc": "2026-10-27T15:18:54.240591+08:00",
+      "cli_process_end_utc": "2026-10-27T15:32:26.390959+08:00",
+      "wall_elapsed_seconds": 812.1504878998967,
+      "generator_elapsed_seconds": 810.3716848999029,
+      "exit_code": 0,
+      "parts": 90,
+      "fan_templates_per_side": 8,
+      "standing_flyer_3d_count_both_sides": 16,
+      "mesh_triangles": 212074,
+      "layout_board_mm": [
+        313.2462149273411,
+        873.5248115944871,
+        60.0
+      ],
+      "render": null
+    },
+    {
+      "case_id": "angle_120_B400",
+      "corner_angle_deg": 120.0,
+      "config_path": "configs/angle_120.json",
+      "output_path": "outputs/angle_120_B400_run01",
+      "cli_log_path": "diagnostics/non_right_angle/angle_120_B400_run01_cli.log",
+      "provenance_path": "diagnostics/non_right_angle/angle_120_B400_run01_cli_provenance.json",
+      "source_identity_sha256": "ef5340fed7c096b557a9258a71b94c618365dc62a33b29de8c8fdef0a1daa33d",
+      "source_identity_unchanged": true,
+      "source_file_count": 14,
+      "cli_process_start_utc": "2026-10-27T15:32:43.500049+08:00",
+      "cli_process_end_utc": "2026-10-27T15:37:01.412136+08:00",
+      "wall_elapsed_seconds": 257.9118247999577,
+      "generator_elapsed_seconds": 256.4294790000422,
+      "exit_code": 0,
+      "parts": 54,
+      "fan_templates_per_side": 2,
+      "standing_flyer_3d_count_both_sides": 4,
+      "mesh_triangles": 29122,
+      "layout_board_mm": [
+        79.13409210270302,
+        562.3809525640794,
+        60.0
+      ],
+      "render": null
+    }
+  ],
+  "source_defined_shell_fix": {
+    "source_code": "engine/stage05_core.py",
+    "helper": "_contact_notch_cutter_from_fibers",
+    "probe_path": "diagnostics/non_right_angle/angle_60_fan05_shell_cut_probe.json",
+    "source_identity_sha256": "ef5340fed7c096b557a9258a71b94c618365dc62a33b29de8c8fdef0a1daa33d",
+    "construction": "16 ruled bottom faces from 17 shared fibers, two outer ruled sides, one top face, and two q-end planar caps sewn as one closed shell",
+    "cutter_valid": true,
+    "cutter_solid_count": 1,
+    "cutter_face_count": 21,
+    "cutter_volume_mm3": 29355087.237417962,
+    "local_cut_valid": true,
+    "local_cut_solid_count": 1,
+    "local_cut_removed_volume_mm3": 488262.87598789483,
+    "elapsed_seconds": 10.915520099923015
+  },
+  "regression_and_test_record": {
+    "config_command": "python -X utf8 -m unittest discover -s tests -p 'test_config.py' -v",
+    "config_tests": 6,
+    "config_result": "passed",
+    "angle_geometry_command": "python -X utf8 -m unittest discover -s tests -p 'test_angle_geometry.py' -v",
+    "angle_geometry_tests": 3,
+    "angle_geometry_result": "passed",
+    "py_compile": "engine/stage05_core.py and three non-right-angle diagnostic scripts passed",
+    "angle_90_stage04_preflight_path": "diagnostics/non_right_angle/angle_90_B400_preflight_result.json",
+    "angle_90_preflight_source_sha256": "ef5340fed7c096b557a9258a71b94c618365dc62a33b29de8c8fdef0a1daa33d",
+    "angle_90_preflight_elapsed_seconds": 5.061098600039259,
+    "angle_90_base_part_count": 46,
+    "angle_90_expected_and_selected_fan_count_per_side": [
+      4,
+      4
+    ],
+    "angle_90_selected_record_count": 8,
+    "angle_90_pose_failures": []
+  },
+  "acceptance_boundary": {
+    "complete_model_geometry_validation_run": false,
+    "visual_shape_review": "parent/independent reviewer managed separately; no exterior-shape conclusion is made here",
+    "cli_success_means": "normal geometry construction, mesh export, profile and layout CLI stages completed",
+    "note": "The fan05 analytic audit targets the previously failing slot-tool construction only; it is not full-model numerical QA."
+  }
+}

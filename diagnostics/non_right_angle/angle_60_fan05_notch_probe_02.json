@@ -1,0 +1,50 @@
+{
+  "case_id": "angle_60_B400",
+  "corner_angle_deg": 60.0,
+  "fan_index": 5,
+  "component_source": "16 cutter bands from adjacent pairs of the same 17 shared W_i fibers, each lofted between identical q_limits",
+  "q_limits_mm": [
+    -2555.242590771559,
+    1283.097929293618
+  ],
+  "fiber_count": 17,
+  "band_count": 16,
+  "all_bands_valid_single_positive": true,
+  "band_volume_sum_mm3": 19766781.011826947,
+  "full_width_cutter": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 29355087.237417974
+  },
+  "band_sum_minus_full_volume_mm3": -9588306.225591026,
+  "adjacent_band_distances_mm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "compound_cut": {
+    "valid": true,
+    "solids": 7,
+    "volume_mm3": 28433288.912787676,
+    "removed_volume_mm3": 305066.49801261723
+  },
+  "single_loft_cut": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 28250092.533924177,
+    "removed_volume_mm3": 488262.8768761158
+  },
+  "cut_volume_delta_mm3": 183196.37886349857
+}

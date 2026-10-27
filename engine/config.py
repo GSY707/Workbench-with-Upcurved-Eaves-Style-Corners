@@ -85,11 +85,11 @@ def _merge(section, defaults, name):
 def resolve_config(data: dict) -> dict:
     _keys(data, TOP_KEYS, "配置顶层")
     if "corner_angle_deg" not in data:
-        raise ValueError("corner_angle_deg为必填项；本期只支持90°对称角部")
+        raise ValueError("corner_angle_deg为必填项；角部内角必须满足0 < 角度 < 180°")
     angle = data["corner_angle_deg"]
     if (isinstance(angle, bool) or not isinstance(angle, (int, float)) or
-            not math.isfinite(float(angle)) or abs(float(angle) - 90.0) > 1e-9):
-        raise ValueError(f"corner_angle_deg={angle!r}不受支持；本期只支持90°，不会静默忽略")
+            not math.isfinite(float(angle)) or not 0.0 < float(angle) < 180.0):
+        raise ValueError(f"corner_angle_deg={angle!r}无效；建筑凸角内角必须满足0 < 角度 < 180°")
     params = _merge(data.get("parameters", {}), PARAMETER_DEFAULTS, "parameters")
     advanced = _merge(data.get("advanced", {}), ADVANCED_DEFAULTS, "advanced")
     case_id = data.get("case_id", "custom")
@@ -152,9 +152,10 @@ def resolve_config(data: dict) -> dict:
         raise ValueError("组合木端点比例必须分居嫩戗根点u=0两侧")
 
     included = math.degrees(math.asin(params["U_n"] / params["L_n"]))
-    old_axis_angle = math.degrees(math.atan(params["t"] / math.sqrt(2.0)))
+    half_angle_rad = math.radians(float(angle) / 2.0)
+    old_axis_angle = math.degrees(math.atan(params["t"] * math.sin(half_angle_rad)))
     derived = {
-        "corner_angle_deg": 90.0,
+        "corner_angle_deg": float(angle),
         "young_plan_run_mm": math.sqrt(params["L_n"] ** 2 - params["U_n"] ** 2),
         "young_rise_angle_deg": included,
         "old_young_control_included_angle_deg": 180.0 - included - old_axis_angle,
@@ -166,9 +167,9 @@ def resolve_config(data: dict) -> dict:
         "young_sagitta_rule": "派生为min(根车背,梢车背)×0.75",
         "fly_tail_ratio": None,
         "fly_tail_rule": "尖尾由本次生成的下层板上表面触底求得；不强制1.5比值",
-        "included_angle_source": "由嫩戗升角asin(U_n/L_n)和老戗方向atan(t/sqrt(2))按实轴方向派生；不作为输入",
+        "included_angle_source": "由嫩戗升角asin(U_n/L_n)和老戗方向atan(t*sin(corner_angle_deg/2))按实轴方向派生；不作为输入",
     }
-    return {"case_id": case_id, "corner_angle_deg": 90.0,
+    return {"case_id": case_id, "corner_angle_deg": float(angle),
             "parameters": params, "advanced": advanced, "derived": derived}
 
 

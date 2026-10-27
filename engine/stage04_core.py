@@ -165,13 +165,13 @@ def young_side_tip(young_info, case):
     width *= float(young_info["tip_width_mm"])
     body_h = float(young_info["tip_body_height_mm"])
     top_edge = center + width*0.5 + height*body_h
-    return top_edge.tolist(), {"side":"x-bank positive-width side (y>=x)","width_axis":width.tolist(),
+    return top_edge.tolist(), {"side":"canonical X wing; opposite wing is reflected across the configured bisector","width_axis":width.tolist(),
                                "height_axis":height.tolist(),"body_height_mm":body_h,
                                "source_tip_center":center.tolist()}
 
 
 def outer_end_curve(case, young_info):
-    A = (-case["D"], case["e"]+float(case["p"]["p"]))
+    A = (float(case["old_start"][0]), case["e"]+float(case["p"]["p"]))
     B3, B_info = young_side_tip(young_info, case)
     B = (B3[0],B3[1])
     pts, radius, theta, lengths = circle_arc_points(A,B)
@@ -209,7 +209,7 @@ def make_paths(case):
 
 
 def base_z_likou(case, x, y):
-    if x < -case["D"]-1e-5 and abs(y-case["e"]) <= float(case["p"]["likou_width"])+1e-4:
+    if x < float(case["old_start"][0])-1e-5 and abs(y-case["e"]) <= float(case["p"]["likou_width"])+1e-4:
         return float(case["fan_top_intercept"])-float(case["p"]["t"])*y
     return s2.fan_top_z(case,x,y)
 
@@ -325,7 +325,8 @@ def projection_records(case, fan_path, inner_path, end_curve, board_sampler, lik
         S=(float(xc),float(case["e"])); I=(float(xc),float(case["e"]-float(case["p"]["likou_width"]))); E=(float(xc),float(case["e"]+float(case["p"]["p"])))
         unit=(0.0,1.0); w=(-1.0,0.0); L=float(case["p"]["p"])
         # Only the corner-transition straight member intersects the modeled curved-likou return.
-        transition_limit = -float(case["D"]) - float(case["purlin_radius"]) - float(case["eave_rafters_width"]) / 2.0
+        transition_limit = (float(case["old_start"][0]) - float(case["purlin_radius"])
+                            - float(case["eave_rafters_width"]) / 2.0)
         if float(xc) <= transition_limit + 1e-6:
             g,g_info=seat_slope(case,fan_path,S,unit,likou_sampler)
         else:
@@ -394,6 +395,47 @@ def board_section(record,q,board_sampler,side_offsets):
     return found
 
 
+def adaptive_seat_refinement_samples(q_coarse, coverage_counts, width_count,
+                                    target_step_mm=0.05, max_samples=5000):
+    """Build a bounded local q scan after coarse seat samples miss full coverage."""
+    q_values=[float(q) for q in q_coarse]
+    coverage=[int(n) for n in coverage_counts]
+    if len(q_values)!=len(coverage) or not q_values:
+        return {"q_values_mm":[],"step_mm":None,"ranges_mm":[],"scope":"none"}
+    q_min=min(q_values); q_max=max(q_values)
+    coarse_step=max((abs(b-a) for a,b in zip(q_values,q_values[1:])),default=0.0)
+    max_covered=max(coverage)
+    # A near-full coarse section localizes likely boundary crossings. If the
+    # coarse grid sees less than width_count-2 stations anywhere, refine the
+    # complete q span so a narrow common interval cannot be skipped silently.
+    if max_covered >= max(1,int(width_count)-2):
+        anchors=[q for q,n in zip(q_values,coverage) if n>=max_covered-1]
+        raw_ranges=[(max(q_min,q-coarse_step),min(q_max,q+coarse_step)) for q in anchors]
+        scope="near_best_coverage"
+    else:
+        raw_ranges=[(q_min,q_max)]
+        scope="full_q_range"
+    raw_ranges.sort()
+    ranges=[]
+    for lo,hi in raw_ranges:
+        if not ranges or lo>ranges[-1][1]+1e-9:
+            ranges.append([lo,hi])
+        else:
+            ranges[-1][1]=max(ranges[-1][1],hi)
+    ranges=[(float(lo),float(hi)) for lo,hi in ranges if hi>=lo]
+    total_length=sum(hi-lo for lo,hi in ranges)
+    budget=max(2,int(max_samples))
+    target=max(float(target_step_mm),1e-9)
+    step=max(target,total_length/max(1,budget-len(ranges)))
+    refined=[]
+    for lo,hi in ranges:
+        count=max(2,int(math.ceil((hi-lo)/step))+1)
+        refined.extend(float(q) for q in np.linspace(lo,hi,count))
+    refined=sorted(set(round(q,9) for q in refined))
+    return {"q_values_mm":refined,"step_mm":float(step),
+            "ranges_mm":[[lo,hi] for lo,hi in ranges],"scope":scope}
+
+
 def correct_fan_pose(records,gamma,end_curve,board_sampler,likou_sampler,case,delta=3.0,tail_gap=1.0,
                      seat_q_count=31,width_count=9,tail_step_mm=5.0):
     """Use one global longitudinal plane per flyer, then trim to actual board contact."""
@@ -412,16 +454,42 @@ def correct_fan_pose(records,gamma,end_curve,board_sampler,likou_sampler,case,de
         bE=fly_top_at(r["E"],r["outer_curve_fraction"],gamma,end_curve)-float(r["tip_thickness_normal_mm"])*math.sqrt(1.0+float(r["g"])**2)
         m0=(bE-bR0)/(2.5*l)
         q_seat=np.linspace(qI,0.0,seat_q_count)
-        seat_candidates=[]; seat_missing=[]
+        seat_candidates=[]; seat_missing=[]; seat_coverage_counts=[]
+        seat_section_cache={}
         for q in q_seat:
             pts=board_section(r,float(q),likou_sampler,side_offsets)
-            if any(z is None for _,_,z in pts):
+            seat_section_cache[round(float(q),9)]=pts
+            covered_count=sum(z is not None for _,_,z in pts)
+            seat_coverage_counts.append(covered_count)
+            if covered_count<len(side_offsets):
                 seat_missing.append(float(q)); continue
             ratios=[(bE+float(r["g"])*v-float(z["max_z_mm"])+delta)/(l-float(q)) for v,_,z in pts]
             seat_candidates.append({"q_mm":float(q),"m_required":max(ratios),"max_ratio_at_v_mm":side_offsets[int(np.argmax(ratios))]})
+        seat_refinement={"q_values_mm":[],"step_mm":None,"ranges_mm":[],"scope":"not_needed"}
+        seat_refinement_sample_count=0
+        if not seat_candidates:
+            seat_refinement=adaptive_seat_refinement_samples(
+                q_seat,seat_coverage_counts,len(side_offsets))
+            coarse_keys={round(float(q),9) for q in q_seat}
+            refined_q=[q for q in seat_refinement["q_values_mm"] if round(float(q),9) not in coarse_keys]
+            seat_refinement_sample_count=len(refined_q)
+            if refined_q:
+                print(f"stage04: fan {i} seat coverage missed coarse q grid; refining "
+                      f"{seat_refinement['scope']} with {seat_refinement_sample_count} samples "
+                      f"at about {seat_refinement['step_mm']:.3f}mm",flush=True)
+            for q in refined_q:
+                pts=board_section(r,float(q),likou_sampler,side_offsets)
+                seat_section_cache[round(float(q),9)]=pts
+                if any(z is None for _,_,z in pts):
+                    seat_missing.append(float(q)); continue
+                ratios=[(bE+float(r["g"])*v-float(z["max_z_mm"])+delta)/(l-float(q)) for v,_,z in pts]
+                seat_candidates.append({"q_mm":float(q),"m_required":max(ratios),"max_ratio_at_v_mm":side_offsets[int(np.argmax(ratios))]})
         if not seat_candidates:
             failures.append({"index":i,"reason":f"no q candidate has actual likou coverage across the full {2.0*half:g}mm width",
-                             "missing_q_count":len(seat_missing),"seat_candidate_count":0}); continue
+                             "missing_q_count":len(seat_missing),"seat_candidate_count":0,
+                             "seat_refinement_sample_count":seat_refinement_sample_count,
+                             "seat_refinement_step_mm":seat_refinement["step_mm"],
+                             "seat_refinement_scope":seat_refinement["scope"]}); continue
         seat_min=min(seat_candidates,key=lambda x:x["m_required"])
         mseat=float(seat_min["m_required"]); m=max(m0,mseat)
         q_scan_count=max(31,int(math.ceil((qI-qR0)/tail_step_mm))+1)
@@ -495,7 +563,7 @@ def correct_fan_pose(records,gamma,end_curve,board_sampler,likou_sampler,case,de
         else:
             qR=q_hit+float(tail_gap)
             typ="tail_trimmed_at_actual_board_contact"
-            trim_reason="trimmed 1mm outboard of first full-width actual-board contact after common plane rotation"
+            trim_reason=f"trimmed {float(tail_gap):g}mm outboard of first full-width actual-board contact after common plane rotation"
             if qR>=qI:
                 # I is the conservative innermost fallback only if its actual
                 # board sample is covered and does not materially penetrate.
@@ -532,8 +600,10 @@ def correct_fan_pose(records,gamma,end_curve,board_sampler,likou_sampler,case,de
             typ="tail_trimmed_at_actual_board_contact"
         # Record slot-floor depth; do not impose the retired 20mm uplift target.
         floor_values=[]; floor_missing=0; floor_probe_count=0
-        for q in np.linspace(qI,0.0,31):
-            pts=board_section(r,float(q),likou_sampler,side_offsets)
+        floor_q_values=sorted(seat_section_cache)
+        for q_key in floor_q_values:
+            q=float(q_key)
+            pts=seat_section_cache[q_key]
             floor_probe_count+=len(pts)
             floor_missing+=sum(z is None for _,_,z in pts)
             if any(z is None for _,_,z in pts): continue
@@ -552,7 +622,11 @@ def correct_fan_pose(records,gamma,end_curve,board_sampler,likou_sampler,case,de
                         "root_depth_vertical_mm":hR*math.sqrt(1.0+float(r["g"])**2),"slope_scale":math.sqrt(1.0+float(r["g"])**2),
                         "seat_delta_mm":delta,"seat_candidate_q_mm":seat_min["q_mm"],"seat_candidate_m_required":mseat,
                         "seat_candidate_width_offset_mm":seat_min["max_ratio_at_v_mm"],"seat_candidate_count":len(seat_candidates),
-                        "seat_missing_candidate_count":len(seat_missing),"tail_first_full_board_q_mm":tail_states[first_full]["q_mm"],
+                        "seat_missing_candidate_count":len(seat_missing),
+                        "seat_refinement_sample_count":seat_refinement_sample_count,
+                        "seat_refinement_step_mm":seat_refinement["step_mm"],
+                        "seat_refinement_scope":seat_refinement["scope"],
+                        "tail_first_full_board_q_mm":tail_states[first_full]["q_mm"],
                         "tail_first_full_board_q_offset_from_I_mm":tail_states[first_full]["q_mm"]-qI,
                         "tail_leading_uncovered_count":first_full,
                         "tail_leading_missing_width_offsets_mm":leading_missing_offsets,
@@ -563,6 +637,7 @@ def correct_fan_pose(records,gamma,end_curve,board_sampler,likou_sampler,case,de
                         "tail_board_parts_at_qR":sorted({pid for _,_,z in trim_pts for pid in z["part_ids"]}),
                         "tail_board_parts_at_R0":end_state["part_ids"],"tail_trim_reason":trim_reason,
                         "short_slot_floor_min_sampled_mm":floor_min,"short_slot_floor_samples_count":len(floor_values),
+                        "short_slot_floor_q_station_count":len(floor_q_values),
                         "seat_floor_missing_width_samples":floor_missing,"seat_floor_width_sample_count":floor_probe_count,
                         "ordinary_R0_supported":actual_support})
     return results,failures
@@ -582,7 +657,8 @@ def build_base_and_preflight(config):
         mesh_parts.append({"id":part["id"],"name":part["name"],"group":part["group"],
                            "vertices":[float(c) for v in verts for c in v.toTuple()],
                            "triangles":[int(i) for tri in tris for i in tri]})
-    mesh={"metadata":{"units":"mm","up_axis":"Z","case_id":config["case_id"],"stage":3},"parts":mesh_parts}
+    mesh={"metadata":{"units":"mm","up_axis":"Z","case_id":config["case_id"],
+                       "corner_angle_deg":float(config["corner_angle_deg"]),"stage":3},"parts":mesh_parts}
     board_sampler=MeshSurface(mesh,{"lower_board"})
     likou_sampler=MeshSurface(mesh,{"likou"})
     print(f"stage04: board mesh sampled ({len(mesh_parts)} panels); flyer poses start", flush=True)
@@ -634,11 +710,11 @@ def create_fly_shape(record, case):
 
 
 def likou_extension_shape(case, outer_edge_x, overlap_mm=None):
-    """Straight 55x70mm regular segment aligned with the existing x-bank rail."""
+    """Build the regular segment on the canonical wing from current inputs."""
     e=float(case["e"]); width=float(case["p"]["likou_width"]); h=float(case["p"]["likou_h_regular"])
     if overlap_mm is None:
         overlap_mm=float(case["p"]["likou_surface_overlap_mm"])
-    join_x=-float(case["D"])-float(case["eave_tail_extension"])
+    join_x=float(case["old_start"][0])-float(case["eave_tail_extension"])
     x0=float(outer_edge_x); x1=join_x+float(overlap_mm)
     if x0>=x1: raise ValueError(f"likou extension has no length: {x0} to {x1}")
     pitch=float(case["p"]["t"])
@@ -660,9 +736,10 @@ def extend_likou(ctx):
     outer_edge=min(v[0] for p in straight_x for v in zip(p["vertices"][0::3],p["vertices"][1::3],p["vertices"][2::3]))
     case=ctx["case"]
     extension,info=likou_extension_shape(case,outer_edge)
+    join_x=float(info["join_x_mm"])
     by={p["id"]:p for p in ctx["parts"]}
     for side in ("x","y"):
-        ext=extension if side=="x" else extension.mirror((1.0,-1.0,0.0),(0.0,0.0,0.0))
+        ext=extension if side=="x" else s2.mirror_shape(case, extension)
         old=by[f"likou_{side}"]["shape"]
         merged=old.fuse(ext).clean()
         solids=list(merged.Solids())
@@ -672,12 +749,13 @@ def extend_likou(ctx):
     info["member_ids"]=["likou_x","likou_y"]
     info["single_solid_after_fusion"]=True
     ctx["likou_extension"]=info
-    ctx["control"].append({"id":"likou_extension_x_axis","name":"弯里口木X向正身延长中心线","group":"likou",
+    ctx["control"].append({"id":"likou_extension_x_axis","name":"弯里口木基准翼正身延长中心线","group":"likou",
                            "points":[[outer_edge,case["e"],case["fan_top_intercept"]-case["p"]["t"]*case["e"]+case["p"]["likou_h_regular"]/2.0],
-                                     [-case["D"]-case["eave_tail_extension"],case["e"],case["fan_top_intercept"]-case["p"]["t"]*case["e"]+case["p"]["likou_h_regular"]/2.0]]})
-    ctx["control"].append({"id":"likou_extension_y_axis","name":"弯里口木Y向正身延长中心线","group":"likou",
-                           "points":[[case["e"],outer_edge,case["fan_top_intercept"]-case["p"]["t"]*case["e"]+case["p"]["likou_h_regular"]/2.0],
-                                     [case["e"],-case["D"]-case["eave_tail_extension"],case["fan_top_intercept"]-case["p"]["t"]*case["e"]+case["p"]["likou_h_regular"]/2.0]]})
+                                     [join_x,case["e"],case["fan_top_intercept"]-case["p"]["t"]*case["e"]+case["p"]["likou_h_regular"]/2.0]]})
+    ctx["control"].append({"id":"likou_extension_y_axis","name":"弯里口木镜像翼正身延长中心线","group":"likou",
+                           "points":[s2.reflect_xyz(case, p) for p in
+                                     ([outer_edge,case["e"],case["fan_top_intercept"]-case["p"]["t"]*case["e"]+case["p"]["likou_h_regular"]/2.0],
+                                      [join_x,case["e"],case["fan_top_intercept"]-case["p"]["t"]*case["e"]+case["p"]["likou_h_regular"]/2.0])]})
 
 
 def notch_cutter(record,case,upper_z=500.0):
@@ -698,7 +776,7 @@ def cut_likou_notches(ctx):
     cutters_x=[]
     for r in ctx["chosen"]:
         cutters_x.append(notch_cutter(r,case))
-    cutters_y=[c.mirror((1.0,-1.0,0.0),(0.0,0.0,0.0)) for c in cutters_x]
+    cutters_y=[s2.mirror_shape(case, c) for c in cutters_x]
     summary=[]
     for side,cutters in (("x",cutters_x),("y",cutters_y)):
         target=by[f"likou_{side}"]["shape"]
@@ -727,7 +805,9 @@ def selected_record_summary(record):
           "tail_full_width_coverage_count","tail_missing_coverage_count","tail_R0_clearance_range_mm",
           "tail_trim_clearance_range_mm","tail_board_parts_at_qR","tail_first_full_board_q_offset_from_I_mm",
           "tail_leading_uncovered_count","tail_leading_missing_width_offsets_mm",
-          "seat_floor_missing_width_samples","seat_floor_width_sample_count")
+          "seat_candidate_q_mm","seat_candidate_count","seat_missing_candidate_count",
+          "seat_refinement_sample_count","seat_refinement_step_mm","seat_refinement_scope",
+          "short_slot_floor_q_station_count","seat_floor_missing_width_samples","seat_floor_width_sample_count")
     return {k:record.get(k) for k in keys if k in record}
 
 
@@ -740,21 +820,21 @@ def add_flyers(ctx):
         if r["family"]=="fan":
             pid=f"flying_fan_x_{r['index']:02d}"
             group=WING_GROUP
-            name=f"立脚飞椽X向-{r['index']:02d}（{r['type']}）"
+            name=f"立脚飞椽基准翼-{r['index']:02d}（{r['type']}）"
             mirror_id=f"flying_fan_y_{r['index']:02d}"
         else:
             pid=f"straight_flying_x_{r['index']:02d}"
             group=STRAIGHT_GROUP
-            name=f"正身飞椽X向-{r['index']:02d}"
+            name=f"正身飞椽基准翼-{r['index']:02d}"
             mirror_id=f"straight_flying_y_{r['index']:02d}"
         add(parts,pid,name,group,shape)
-        mirrored=shape.mirror((1.0,-1.0,0.0),(0.0,0.0,0.0))
-        add(parts,mirror_id,name.replace("X向","Y向"),group,mirrored)
+        mirrored=s2.mirror_shape(case, shape)
+        add(parts,mirror_id,name.replace("基准翼","镜像翼"),group,mirrored)
         axis=[(float(r["R"][0]),float(r["R"][1]),float(r["bR_mm"])),
               (float(r["E"][0]),float(r["E"][1]),float(r["bE_mm"]))]
         control.append({"id":pid+"_axis","name":pid+"底线","group":group,"points":axis})
         control.append({"id":mirror_id+"_axis","name":mirror_id+"底线","group":group,
-                        "points":[(p[1],p[0],p[2]) for p in axis]})
+                        "points":[s2.reflect_xyz(case, p) for p in axis]})
         fly_records.append({**selected_record_summary(r),"part_ids":[pid,mirror_id],
                             "one_solid_each":True,"bottom_rule":"single linear edge from R to E; fixed lateral slope g"})
     curve=ctx["end_curve"]
@@ -766,11 +846,11 @@ def add_flyers(ctx):
         line.append((float(x),float(y),float(z)))
     control.append({"id":"flying_outer_end_curve_x","name":"立脚飞椽外端底曲线","group":WING_GROUP,"points":line[::4]})
     control.append({"id":"flying_outer_end_curve_y","name":"立脚飞椽外端底曲线镜像","group":WING_GROUP,
-                    "points":[(p[1],p[0],p[2]) for p in line[::4]]})
+                    "points":[s2.reflect_xyz(case, p) for p in line[::4]]})
     return fly_records
 
 
-def export_mesh_obj(parts, control):
+def export_mesh_obj(parts, control, case):
     mesh_parts=[]; obj_lines=[]; offset=1; faces=0
     for part in parts:
         verts,tris=part["shape"].tessellate(2.0,0.35)
@@ -782,7 +862,8 @@ def export_mesh_obj(parts, control):
         obj_lines.extend("v %.6f %.6f %.6f"%v.toTuple() for v in verts)
         obj_lines.extend("f %d %d %d"%tuple(offset+int(i) for i in tri) for tri in tris)
         offset+=len(verts)
-    mesh={"metadata":{"units":"mm","up_axis":"Z","case_id":"CASE_ASSUMED_001","stage":4,
+    mesh={"metadata":{"units":"mm","up_axis":"Z","case_id":case["source"].get("case_id","CASE_ASSUMED_001"),
+                       "corner_angle_deg":float(case.get("corner_angle_deg",90.0)),"stage":4,
                        "stage_name":STAGE_NAME,
                        "scope":"在通过的stage03基础上增加立脚飞椽与正身飞椽，不含擦脚木、菱角木、扁担木、上层卷戗板或遮檐板。",
                        "mesh_tessellation_mm":2.0,"base_stage03_mesh_sha256":BASE_STAGE03_SHA256},
@@ -796,17 +877,20 @@ def export_mesh_obj(parts, control):
 def parameter_snapshot(ctx,fly_records):
     case=ctx["case"]
     p=case["p"]
-    return {"metadata":{"case_id":"CASE_ASSUMED_001","stage":4,"stage_name":STAGE_NAME,"units":"mm","up_axis":"Z"},
+    return {"metadata":{"case_id":case["source"].get("case_id","CASE_ASSUMED_001"),
+                         "corner_angle_deg":float(case.get("corner_angle_deg",90.0)),
+                         "stage":4,"stage_name":STAGE_NAME,"units":"mm","up_axis":"Z"},
             "base_stage03_mesh_sha256":BASE_STAGE03_SHA256,
             "source_pages":["资料整理/阅图/PDF001/PDF001_p131.png","资料整理/阅图/PDF001/PDF001_p132.png","资料整理/阅图/PDF001/PDF001_p135.png"],
-            "source_parameters":{"p_mm":p["p"],"fly_width_mm":p["w_fly"],"fly_tip_normal_thickness_mm":p["fly_tip_t"],
+            "source_parameters":{"corner_angle_deg":float(case.get("corner_angle_deg",90.0)),
+                                 "p_mm":p["p"],"fly_width_mm":p["w_fly"],"fly_tip_normal_thickness_mm":p["fly_tip_t"],
                                  "fly_corner_root_ratio":p["fly_corner_root_ratio"],"normal_tail_ratio":p["fly_tail_ratio"],
                                  "fan_rays_per_side":len(case["fan_geometry"]["fan_rafters"])},
             "outer_end_curve":{"A_xy_mm":list(ctx["end_curve"]["A"]),"B_xy_mm":list(ctx["end_curve"]["B"]),
                                "B_actual_side_top_z_mm":ctx["end_curve"]["B_top_z_mm"],
                                "radius_mm":ctx["end_curve"]["radius_mm"],"derived_mid_sagitta_mm":ctx["end_curve"]["derived_mid_sagitta_mm"],
                                "gamma":ctx["selected_gamma"],"continuity":"A端正身檐线水平相切；端点接嫩戗实际侧上缘；整体向步桁内凹。",
-                               "comparison":"派生矢高113.707mm与stage03里口内凹弧矢高64.867mm不同；本期优先实际端点、正身切向与内凹方向，不声称两弧同半径或同矢高。"},
+                               "comparison":"外端弧由实际端点、正身切向与内凹方向派生；stage03里口弧另由檐弧与里口宽度派生，不将两弧视为同半径或同矢高。"},
             "section_rule":{"width_mm":p["w_fly"],"width_axis":"水平且垂直各自中心射线",
                             "cross_slope_g":"由对应里口木实际顶面模板在飞椽横宽两端的投影站点求得，并沿整根固定；不逐站扭曲。正身主体段不经过弯里口时取g=0。",
                             "physical_thickness_normal_mm":{"straight_tail":40.0,"corner_tail":0.65*ctx["young_info"]["tip_body_height_mm"],"outer_tip":40.0},
@@ -822,8 +906,10 @@ def parameter_snapshot(ctx,fly_records):
                              "m":"max(m0,m_seat); one straight longitudinal plane per rafter, no pointwise height edits",
                              "bottom":"b(q,v)=bE-m*(l-q)+g*v",
                              "thickness":"h(q)=hR0+(40-hR0)*(q+1.5*l)/(2.5*l), inherited at cropped qR",
-                             "seat_delta_mm":3.0,"tail_trim_gap_mm":1.0,
-                             "tail_crop":f"scan I to R0 against actual stage03 board mesh at full {float(p['w_fly']):g}mm width; trim 1mm outboard of first contact; keep R0 only when fully covered and supported",
+                             "seat_delta_mm":float(p["flyer_seat_delta_mm"]),
+                             "tail_trim_gap_mm":float(p["flyer_contact_tail_gap_mm"]),
+                             "seat_search_refinement":"after the coarse q grid misses full-width likou coverage, refine only that root near best partial coverage; the same cached q samples feed the remaining slot-floor calculation",
+                             "tail_crop":f"scan I to R0 against actual stage03 board mesh at full {float(p['w_fly']):g}mm width; trim {float(p['flyer_contact_tail_gap_mm']):g}mm outboard of first contact; keep R0 only when fully covered and supported",
                              "tail_interface":"per-root qR coverage and bottom-to-board clearance are recorded; do not infer that all trimmed tails require the same historical support member"},
                          "fan_tail_root_rule":"qR is derived by the full-width actual-board contact scan; bR and physical thickness are inherited from the same global plane; no fixed +20mm root offset.",
                          "sampled_fan_slot_remaining_floor_min_mm":min((r["short_slot_floor_min_sampled_mm"] for r in ctx["chosen"] if r["family"]=="fan"),default=None),
@@ -837,12 +923,12 @@ def parameter_snapshot(ctx,fly_records):
             "likou_upward_open_notches":ctx.get("likou_notches"),
             "assumptions":["外端曲线A到B的端点与B高程取嫩戗同侧实际侧边顶角，不取中心脊线。",
                            "外端高度z(s)=A_z+(B_z-A_z)s^gamma，A斜率为0；gamma全组统一为3。",
-                           "正身飞椽从y=600到y=900，外挑300mm；常规后尾长1.5×300=450mm。",
-                           "扇椽先以gamma=3和实际板/里口表面确定整根直底面斜势，delta=3mm为本期入座量假设；不按短尾根数优化gamma。",
-                           f"q(R0)=-1.5l处虚拟板高取stage03实际下层望板三角网竖向射线；沿I到R0以{float(p['w_fly']):g}mm全宽样点寻找首次实际板接触，qR在接触外侧留1mm假设间隙；短尾截点不重设斜率或截面厚度。",
+                           f"基准翼正身飞椽檐端坐标为y=e+{float(case['eave_tail_extension']):g}mm={float(case['e']+case['eave_tail_extension']):g}mm；外端弧实际A={list(ctx['end_curve']['A'])}、B={list(ctx['end_curve']['B'])}，另一翼关于建筑角平分面反射。",
+                           f"扇椽以gamma={float(ctx['selected_gamma']):g}和实际板/里口表面确定整根直底面斜势，delta={float(p['flyer_seat_delta_mm']):g}mm为本期入座量假设；不按短尾根数优化gamma。",
+                           f"q(R0)=-1.5l处虚拟板高取stage03实际下层望板三角网竖向射线；沿I到R0以{float(p['w_fly']):g}mm全宽样点寻找首次实际板接触，qR在接触外侧留{float(p['flyer_contact_tail_gap_mm']):g}mm假设间隙；短尾截点不重设斜率或截面厚度。",
                            "扇椽根部厚度由R0至外端线性收分，截尾继承同一厚度函数；本期采样余底不能替代全域保证。",
                            "两根里口的stage04正身直段延到正身望板实边，再按对应飞椽I-S区间开向上敞槽；不做精榫卯、不新增第五层构件。",
-                           "stage03望板扇区边界抬升约70.336mm的承托过渡问题仍未解决；本层不改望板或下层椽。"]}
+                           "stage03望板扇区边界承托过渡仍未解决；本层不改望板或下层椽。"]}
 
 
 def finish(ctx,fly_records,mesh_path,mesh_faces,mesh):
@@ -906,7 +992,7 @@ def finish(ctx,fly_records,mesh_path,mesh_faces,mesh):
                       ("fan_fly_mirror","flying_fan_x_01","flying_fan_y_01")):
         rec={"label":label,"pair":[a,b]}
         try:
-            mirrored=by[a].mirror((1.0,-1.0,0.0),(0.0,0.0,0.0))
+            mirrored=s2.mirror_shape(case, by[a])
             rec["reflected_shape_distance_mm"]=float(mirrored.distance(by[b]))
             rec["pass"]=rec["reflected_shape_distance_mm"]<1e-6
         except Exception as exc:
@@ -918,7 +1004,9 @@ def finish(ctx,fly_records,mesh_path,mesh_faces,mesh):
         path=OUT/name
         artifacts[name]={"bytes":path.stat().st_size,"sha256":sha256(path)}
     validation={"stage":4,"stage_name":STAGE_NAME,
-        "status":"118 valid single solids and STEP roundtrip passed; fan tail fit and support interfaces checked by finite actual-mesh sampling; no full-pair collision scan",
+        "case_id":ctx["case"]["source"].get("case_id","CASE_ASSUMED_001"),
+        "corner_angle_deg":float(ctx["case"].get("corner_angle_deg",90.0)),
+        "status":f"{len(entities)} valid single solids and STEP roundtrip passed; fan tail fit and support interfaces checked by finite actual-mesh sampling; no full-pair collision scan",
         "base_stage03_mesh_sha256":BASE_STAGE03_SHA256,
         "geometry":{"piece_count":len(parts),"groups":{g:sum(p["group"]==g for p in parts) for g in sorted({p["group"] for p in parts})},
                     "generator_sha256":sha256(OUT/"generate_stage04.py"),"artifacts":artifacts,"mesh_face_count":mesh_faces},
@@ -946,7 +1034,7 @@ def finish(ctx,fly_records,mesh_path,mesh_faces,mesh):
             "likou_notches":ctx.get("likou_notches"),
             "straight_likou_support_coverage":{"extension":ctx.get("likou_extension"),
                 "center_count_per_side":sum(1 for r in ctx["chosen"] if r["family"]=="straight"),
-                "all_seven_centers_within_extended_straight_or_existing_curved_likou":True},
+                "all_centers_within_extended_straight_or_existing_curved_likou":True},
             "board_tail_fit":"each fan rafter uses one global straight longitudinal plane selected by m=max(m0,m_seat); qR is cut from the first full-width sampled contact against actual stage03 board triangles, with R0 retained only for the full-length supported case.",
             "tail_support_interfaces":{"per_root_qR_clearance_ranges_mm":[{"index":r["index"],"range_mm":r["tail_trim_clearance_range_mm"],
                 "tail_length_mm":r["tail_length_mm"],"tail_ratio":r["tail_ratio_actual"],"type":r["type"]}
@@ -957,7 +1045,7 @@ def finish(ctx,fly_records,mesh_path,mesh_faces,mesh):
                 "per_root_first_full_width_offset_from_I_mm":[{"index":r["index"],"offset_mm":r["tail_first_full_board_q_offset_from_I_mm"],
                     "leading_uncovered_q_samples":r["tail_leading_uncovered_count"],"missing_width_offsets_mm":r["tail_leading_missing_width_offsets_mm"]}
                     for r in ctx["chosen"] if r["family"]=="fan"]},
-            "stage03_board_transition":"the previously documented 70.336mm board edge rise/support gap is unchanged and not corrected in stage04.",
+                         "stage03_board_transition":"stage03 board geometry is used as generated; this stage does not modify or claim to resolve its support transition.",
             "strength_or_code_compliance":"not analyzed"},
         "runtime_export_targeted_seconds":time.perf_counter()-t0}
     (OUT/"stage04_validation.json").write_text(json.dumps(validation,ensure_ascii=False,indent=2,allow_nan=False),encoding="utf-8")
@@ -966,34 +1054,45 @@ def finish(ctx,fly_records,mesh_path,mesh_faces,mesh):
 
 def write_readme(ctx,fly_records,validation):
     gamma=ctx["selected_gamma"]
+    case=ctx["case"]
+    p=case["p"]
     fan=sorted((r for r in ctx["chosen"] if r["family"]=="fan"),key=lambda r:int(r["index"]))
+    straight_count=sum(r["family"]=="straight" for r in ctx["chosen"])
     ordinary=sum(r["type"]=="ordinary_tail_board_supported" for r in fan)
     trimmed=len(fan)-ordinary
+    qgap_min=min(float(r["tail_trim_clearance_range_mm"][0]) for r in fan)
     qgap_max=max(float(r["tail_trim_clearance_range_mm"][1]) for r in fan)
     floor_min=min(float(r["short_slot_floor_min_sampled_mm"]) for r in fan)
     floor_max=max(float(r["short_slot_floor_min_sampled_mm"]) for r in fan)
+    floor_q_count=max(int(r.get("short_slot_floor_q_station_count",0)) for r in fan)
+    floor_width_count=int(p["flyer_width_fiber_stations"])
+    refined_fans=[r for r in fan if int(r.get("seat_refinement_sample_count",0))>0]
+    A=ctx["end_curve"]["A"]; B=ctx["end_curve"]["B"]
     table=["|序号|斜率角|qR尾长 mm|尾长/l|qR对板净空范围 mm|类型|","|---:|---:|---:|---:|---:|---|"]
     for r in fan:
         cr=r["tail_trim_clearance_range_mm"]
         table.append(f"|{r['index']}|{r['slope_angle_deg']:+.2f}°|{r['tail_length_mm']:.1f}|{r['tail_ratio_actual']:.3f}|{cr[0]:+.2f} 至 {cr[1]:+.2f}|{r['type']}|")
-    gap_summary=(f"全组qR截面底面相对实际望板顶面的全宽采样净空为0.12–{qgap_max:.2f}mm；#1保留R0，横向样点约−0.10至+0.10mm。"
-                 if trimmed else f"qR截面净空最大{qgap_max:.2f}mm。")
+    gap_summary=(f"全组qR截面底面相对实际望板顶面的全宽采样净空范围为{qgap_min:.2f}–{qgap_max:.2f}mm；"
+                 f"{ordinary}根保留R0，{trimmed}根按实际接触截尾。" if trimmed else
+                 f"qR截面全宽采样净空范围为{qgap_min:.2f}–{qgap_max:.2f}mm。")
     lines=["# 第四层：立脚飞椽与正身飞椽","",
-      "本层保留已通过stage03实体，增加每侧11根立脚飞椽和7根正身飞椽，共118件。没有加入擦脚木、菱角木、扁担木、上层卷戗板或遮檐板；stage01–03文件未改写。","",
+      f"本层保留stage03实体，按{float(case['corner_angle_deg']):g}°建筑凸角生成每翼{len(fan)}根立脚飞椽和{straight_count}根正身飞椽，共{2*len(fly_records)}件。没有加入擦脚木、菱角木、扁担木、上层卷戗板或遮檐板；stage01–03文件未改写。","",
       f"stage03源网格SHA-256：`{BASE_STAGE03_SHA256}`。","",
       "## 定位和共面约束","",
-      "各扇椽沿既有射线分别求里口外边S、内边I和外端E交点。令q(S)=0、q(E)=l、虚拟尾点q(R0)=−1.5l；正身飞椽外挑300mm、名义尾长450mm。外端平面弧仍采用已核看的A=(-1200,900)至嫩戗同侧实际上缘B端点，正身端水平切向，γ=3固定。弧半径和派生矢高见参数文件；不把外端弧数值等同于里口弧矢高。","",
-      "飞椽底面不再按每点最大支承高度抬升，也不对近角逐根变形。先以实际望板在R0的三角网顶面高bR0确定m0=(bE−bR0)/(2.5l)，再以弯里口实际顶面H(q,v)和全宽横坡g计算mseat=min_q max_v[(bE+g·v−H+δ)/(l−q)]；δ=3mm为本期座入量假设。整根取m=max(m0,mseat)，底面b(q,v)=bE−m(l−q)+g·v，纵向为直面。","",
-      "飞椽厚度沿虚拟R0至梢端线性收分：h(q)=hR0+(40−hR0)(q+1.5l)/(2.5l)。实际截尾qR处沿此同一函数取厚度，不重新赋值。扇椽尾端名义厚度以嫩戗主体高度的0.65比例形成，梢端法向厚40mm；正身飞椽尾/梢法向厚40mm。横向宽轴水平、垂直于射线，g沿全根固定。","",
+      f"各扇椽沿既有射线分别求里口外边S、内边I和外端E交点。令q(S)=0、q(E)=l、虚拟尾点q(R0)=−1.5l；正身飞椽基准翼檐端坐标为y=e+{float(case['eave_tail_extension']):g}mm。外端平面弧端点为A=({float(A[0]):.3f},{float(A[1]):.3f})mm、B=({float(B[0]):.3f},{float(B[1]):.3f})mm，正身端水平切向，γ={float(gamma):g}固定；镜像翼关于建筑角平分面对称。弧半径和派生矢高见参数文件，不把外端弧数值等同于里口弧矢高。","",
+      f"飞椽底面不再按每点最大支承高度抬升，也不对近角逐根变形。先以实际望板在R0的三角网顶面高bR0确定m0=(bE−bR0)/(2.5l)，再以弯里口实际顶面H(q,v)和全宽横坡g计算mseat=min_q max_v[(bE+g·v−H+δ)/(l−q)]；δ={float(p['flyer_seat_delta_mm']):g}mm为本期座入量假设。整根取m=max(m0,mseat)，底面b(q,v)=bE−m(l−q)+g·v，纵向为直面。","",
+      f"飞椽厚度沿虚拟R0至梢端线性收分：h(q)=hR0+({float(p['fly_tip_t']):g}−hR0)(q+1.5l)/(2.5l)。实际截尾qR处沿此同一函数取厚度，不重新赋值。扇椽尾端名义厚度以嫩戗主体高度的{float(p['fly_corner_root_ratio']):g}比例形成，梢端法向厚{float(p['fly_tip_t']):g}mm；正身飞椽尾/梢法向厚{float(p['fly_tip_t']):g}mm。横向宽轴水平、垂直于射线，g沿全根固定。","",
       "## 实板接触与尾部几何止裁","",
-      f"gamma固定3，不再为短尾数量优化。11根扇椽中{ordinary}根保留完整R0尾，{trimmed}根按实际望板首次接触点qhit向外侧留1mm假设间隙截尾。几何止裁只是本模型尾长变化，不据此认定书中存在同数量的特殊短尾，也不把各根都指定为同一种擦脚木做法。逐根真实长度、1.5l比例、截面角、qR、全宽净空及板件ID见`stage04_parameters.json`。","",
-      "尾部搜索从I向R0进行，q步距不大于5mm，宽向9个站点检查实际stage03望板三角网。I端开始的局部宽度可能超出望板实际外缘；这些部分覆盖样点单独记录，不作为无碰撞证据。从首次全宽覆盖起至R0要求连续覆盖，若发现内部缺样或间隙生成器会停止。三角网和有限采样仍是近似检查，不等同于连续曲面证明。","",
-      gap_summary+"这些qR净空是端截面的面间距采样，不代表与望板已接触。近嫩戗端最大约30.23mm，应作为后续承托接口记录；不为消除此缝扭曲飞椽。#1完整尾有约0.1mm轻微交错，处于用户允许的小量装配余量。","",
-      "扇椽I–S承口沿实际飞椽底面向上敞开。31×9里口样点的剩余槽底范围为"+f"{floor_min:.2f}–{floor_max:.2f}mm；这是离散样点值，不是全域最小保证。stage03两根里口在stage04副本内向正身延至望板实边约−2645mm，并开对应槽口；stage03原件保持不变。","",
+      f"gamma固定{float(gamma):g}，不再为短尾数量优化。每翼{len(fan)}根扇椽中{ordinary}根保留完整R0尾，{trimmed}根按实际望板首次接触点qhit向外侧留{float(p['flyer_contact_tail_gap_mm']):g}mm假设间隙截尾。几何止裁只是本模型尾长变化，不据此认定书中存在同数量的特殊短尾，也不把各根都指定为同一种擦脚木做法。逐根真实长度、qR、全宽净空及板件ID见`stage04_parameters.json`。","",
+      f"尾部搜索从I向R0进行，q步距不大于5mm，宽向{int(p['flyer_width_fiber_stations'])}个站点检查实际stage03望板三角网。I端开始的局部宽度可能超出望板实际外缘；这些部分覆盖样点单独记录，不作为无碰撞证据。从首次全宽覆盖起至R0要求连续覆盖，若发现内部缺样或间隙生成器会停止。三角网和有限采样仍是近似检查，不等同于连续曲面证明。","",
+      gap_summary+"这些qR净空是端截面的面间距采样，不代表与望板已接触；按实测记录后续承托接口，不为消除此缝扭曲飞椽。","",
+      f"扇椽I–S承口沿实际飞椽底面向上敞开。槽底按原席位q网格并复用全宽细化搜索点采样，最多{floor_q_count}×{floor_width_count}个q/宽向站组合；剩余槽底样点范围为{floor_min:.2f}–{floor_max:.2f}mm。"+
+      (f"{len(refined_fans)}根因粗网格未覆盖而触发局部细化。" if refined_fans else "本案未触发局部细化。")+
+      "这些离散样点值不是全域最小保证。stage03里口在stage04副本内沿基准翼正身方向延长并开对应槽口；stage03原件保持不变。","",
       "## 预检逐根数值","",*table,"",
       "## 最终验证与未决项","",
       f"{validation['entity_integrity']['valid_single_solid_count']}/{validation['entity_integrity']['entity_count']}实体为有效单实体。STEP回读{validation['step_roundtrip']['solid_count']}/{validation['step_roundtrip']['expected_solid_count']}实体，体积相对误差{validation['step_roundtrip']['relative_volume_error']:.3g}；有限代表距离样本及部件列表见`stage04_validation.json`。未运行全体对公共体积扫描。","",
-      "承口、飞椽与望板的抽样不等于全域面接触或强度验算。第三层望板边缘约70.336mm高差/可能离椽缝保持原样；本层未调整下层椽或板，也不声称该支承过渡已解决。近角止裁尾是否需擦脚木及其具体界面留待后续层按逐根净空处理。","",
+      "承口、飞椽与望板的抽样不等于全域面接触或强度验算。stage03望板边缘过渡保持原样；本层未调整下层椽或板，也不声称该支承过渡已解决。近角止裁尾是否需擦脚木及其具体界面留待后续层按逐根净空处理。","",
       "## 文件","","- `generate_stage04.py`：生成器。","- `stage04_model_mesh.json`、`stage04_model.obj`：显示网格和OBJ。","- `stage04_model.step`：STEP实体。","- `stage04_parameters.json`：公式、参数和逐根定位/净空。","- `stage04_validation.json`：有效性、STEP回读和有界检查。","- `README_stage04.md`：本说明。","",
       f"网格SHA-256：`{validation['geometry']['artifacts']['stage04_model_mesh.json']['sha256']}`。"]
     (OUT/"README_stage04.md").write_text("\n".join(lines)+"\n",encoding="utf-8")
@@ -1038,11 +1137,11 @@ def main():
     extend_likou(ctx)
     fly_records=add_flyers(ctx)
     cut_likou_notches(ctx)
-    mesh_path,mesh_faces,mesh=export_mesh_obj(ctx["parts"],ctx["control"])
+    mesh_path,mesh_faces,mesh=export_mesh_obj(ctx["parts"],ctx["control"],ctx["case"])
     params=parameter_snapshot(ctx,fly_records)
     (OUT/"stage04_parameters.json").write_text(json.dumps(params,ensure_ascii=False,indent=2,allow_nan=False),encoding="utf-8")
     print(json.dumps({"stage04_preview_mesh":str(mesh_path),"piece_count":len(ctx["parts"]),
-                      "flyer_count":36,"groups":{g:sum(p["group"]==g for p in ctx["parts"]) for g in sorted({p["group"] for p in ctx["parts"]})},
+                      "flyer_count":2*len(ctx["chosen"]),"groups":{g:sum(p["group"]==g for p in ctx["parts"]) for g in sorted({p["group"] for p in ctx["parts"]})},
                       "mesh_faces":mesh_faces,"mesh_sha256":sha256(mesh_path),"elapsed_s":time.perf_counter()-t0},ensure_ascii=False),flush=True)
     if MESH_ONLY:
         print(json.dumps({"mesh_only":True,"likou_extension":ctx.get("likou_extension"),"likou_notches":ctx.get("likou_notches")},ensure_ascii=False),flush=True)

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import os
 import subprocess
@@ -26,14 +27,13 @@ from workbench_backend import (  # noqa: E402
     WorkbenchBackend,
     calculation_key,
     create_server,
+    load_json,
 )
-from _workbench_fixtures import default_config, fake_command_builder  # noqa: E402
+from _workbench_fixtures import default_config, fake_command_builder, make_seed_outputs  # noqa: E402
 
 
 def seed_source_fingerprint():
-    catalog = json.loads((ROOT / "configs" / "seed_catalog.json").read_text(encoding="utf-8"))
-    return next(case["source_fingerprint"] for case in catalog["cases"]
-                if case["id"] == "default")
+    return hashlib.sha256(b"workbench-synthetic-seed-source-v1").hexdigest()
 
 
 class WorkbenchHTTPTests(unittest.TestCase):
@@ -49,16 +49,28 @@ class WorkbenchHTTPTests(unittest.TestCase):
     def _start_backend(self, *, seed_existing=False, outputs_dir=None,
                        source_fingerprint_provider=None, command_builder=None,
                        state_dir=None):
-        self.backend = WorkbenchBackend(
-            generator_dir=ROOT,
-            workspace_root=ROOT.parents[1],
-            outputs_dir=outputs_dir or self.temp_path / "outputs",
-            ui_dir=ROOT / "ui",
-            state_dir=state_dir or self.temp_path / "state",
-            source_fingerprint_provider=source_fingerprint_provider or (lambda: "test-source-v1"),
-            command_builder=command_builder,
-            seed_existing=seed_existing,
-        )
+        seed_catalog = None
+        if seed_existing:
+            if not hasattr(self, "seed_fixtures"):
+                self.seed_fixtures = make_seed_outputs(ROOT, self.temp_path, seed_source_fingerprint())
+            outputs_dir, seed_catalog = self.seed_fixtures
+
+        def fixture_json(path):
+            if seed_catalog is not None and Path(path) == ROOT / "configs" / "seed_catalog.json":
+                return seed_catalog
+            return load_json(path)
+
+        with mock.patch("workbench_backend.load_json", side_effect=fixture_json):
+            self.backend = WorkbenchBackend(
+                generator_dir=ROOT,
+                workspace_root=ROOT.parents[1],
+                outputs_dir=outputs_dir or self.temp_path / "outputs",
+                ui_dir=ROOT / "ui",
+                state_dir=state_dir or self.temp_path / "state",
+                source_fingerprint_provider=source_fingerprint_provider or (lambda: "test-source-v1"),
+                command_builder=command_builder,
+                seed_existing=seed_existing,
+            )
         self.server = create_server(self.backend, port=0)
         self.server_thread = threading.Thread(target=self.server.serve_forever,
                                               kwargs={"poll_interval": 0.02}, daemon=True)
@@ -107,6 +119,41 @@ class WorkbenchHTTPTests(unittest.TestCase):
         status, payload, _ = self.request("/api/validate", {"config": config})
         self.assertEqual(status, 200, payload)
         return payload
+
+    def test_angle_changes_configuration_and_cache_identity(self):
+        keys = []
+        for angle in (60.0, 90.0, 120.0):
+            config = self.get_default_config()
+            config["corner_angle_deg"] = angle
+            result = self.post_config(config)
+            self.assertEqual(result["normalized_config"]["corner_angle_deg"], angle)
+            self.assertEqual(result["derived"]["corner_angle_deg"], angle)
+            keys.append(result["calculation_key"])
+        self.assertEqual(len(set(keys)), 3)
+        for angle in (0, 180, -1, True, "120"):
+            config["corner_angle_deg"] = angle
+            status, _, _ = self.request("/api/validate", {"config": config})
+            self.assertEqual(status, 400, angle)
+
+    def test_non_right_angle_result_cannot_be_registered_as_another_angle(self):
+        self._stop_server()
+        self._start_backend(command_builder=fake_command_builder(ROOT, lambda _: "success"))
+        config = self.get_default_config()
+        config["corner_angle_deg"] = 120
+        status, start = self.request("/api/jobs", {"config": config})[:2]
+        self.assertEqual(status, 202)
+        job = self.wait_job(start["job"]["id"], {"succeeded", "failed"})
+        self.assertEqual(job["status"], "succeeded", job)
+        self.assertEqual(job["result"]["config"]["corner_angle_deg"], 120)
+        record = self.backend.state["cases"][-1]
+        wrong_config = copy.deepcopy(config)
+        wrong_config["corner_angle_deg"] = 90
+        _, normalized, key, fingerprint = self.backend.validate(wrong_config)
+        with self.assertRaisesRegex(ValueError, "建筑平面内角"):
+            self.backend._case_record_from_output(
+                case_id=record["id"], title=record["title"], raw_config=wrong_config,
+                normalized=normalized, key=key, fingerprint=fingerprint,
+                output_rel=record["output_rel"], elapsed_seconds=0)
 
     def wait_job(self, job_id, terminal, timeout=8.0):
         deadline = time.monotonic() + timeout
@@ -217,8 +264,7 @@ class WorkbenchHTTPTests(unittest.TestCase):
         self.assertTrue(attempts[0].is_file())
 
     def test_seeded_cases_validate_reuse_and_serve_registered_files(self):
-        # Recreate backend with the two handoff outputs registered only in this
-        # temporary state directory; no production state or CAD output is touched.
+        # Registry/cache tests use bounded synthetic deliveries in temporary directories.
         self._stop_server()
         seed_state = self.temp_path / "seed-state"
         self._start_backend(seed_existing=True, outputs_dir=ROOT / "outputs",
@@ -226,12 +272,12 @@ class WorkbenchHTTPTests(unittest.TestCase):
                             source_fingerprint_provider=seed_source_fingerprint)
         status, bootstrap, _ = self.request("/api/bootstrap")
         self.assertEqual(status, 200)
-        self.assertEqual(API_VERSION, "0.2.0")
+        self.assertEqual(API_VERSION, "0.3.0")
         self.assertEqual(bootstrap["version"], API_VERSION)
         self.assertEqual(bootstrap["app_id"], APP_ID)
         self.assertEqual(Path(bootstrap["workspace"]).resolve(), ROOT.parents[1].resolve())
-        self.assertEqual({item["id"] for item in bootstrap["examples"]},
-                         {"default", "size_variant_valid64"})
+        self.assertTrue({"default", "size_variant_valid64"} <=
+                        {item["id"] for item in bootstrap["examples"]})
         cases = {case["id"]: case for case in bootstrap["cases"]}
         self.assertEqual(set(cases), {"default", "size_variant_valid64"})
 
@@ -308,7 +354,7 @@ class WorkbenchHTTPTests(unittest.TestCase):
         succeeded = self.wait_job(submitted["job"]["id"], {"succeeded", "failed"})
         self.assertEqual(succeeded["status"], "succeeded", succeeded)
         self.assertTrue(succeeded["result"]["validated"])
-        self.assertEqual(succeeded["stage"], "生成完成，结果已验证")
+        self.assertEqual(succeeded["stage"], "生成完成")
         self.assertIn("offline viewer rendering complete", succeeded["log_tail"])
 
         failed_config = copy.deepcopy(config)

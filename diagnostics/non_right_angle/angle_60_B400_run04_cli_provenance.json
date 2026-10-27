@@ -1,0 +1,77 @@
+{
+  "case_id": "angle_60_B400",
+  "config_path": "configs/angle_60.json",
+  "output_path": "outputs/angle_60_B400_run04",
+  "cli_args": [
+    "--config",
+    "configs/angle_60.json",
+    "--output",
+    "outputs/angle_60_B400_run04",
+    "--no-render"
+  ],
+  "source_identity_sha256": "2d7d839c28faa86baf76c58eb6978dcfd14dbff7ddd8ab113a1212413c34e004",
+  "source_files": [
+    {
+      "path": "generate.py",
+      "sha256": "185c284590a3956b9ee71e37920c398e7c7cd109167354be97b8973e4decbc24"
+    },
+    {
+      "path": "parameter_schema.json",
+      "sha256": "1e2e69bd6f9615fb650fffbe56816283dbb7baf63d93919746067c1f47f918b6"
+    },
+    {
+      "path": "render_delivery.py",
+      "sha256": "e97074bcc6b9b326568a5cf052d0dfaf5275b4db4bb3b093d48972c37db2ad64"
+    },
+    {
+      "path": "viewer.js",
+      "sha256": "7ba1dceb4c1fcd1d12945f6c553a53dba2192847356266d339759bab9b96d4e4"
+    },
+    {
+      "path": "viewer.css",
+      "sha256": "0e4e48f92205e2502ebd1511dd867548164510c3c886954639178f31b6304285"
+    },
+    {
+      "path": "viewer.template.html",
+      "sha256": "bb632ccc5516e13fe5f8cc7315ee617a4e9f07c47f859fa04ea8e5186bcc0bec"
+    },
+    {
+      "path": "layout.js",
+      "sha256": "29a1586a77d440bbcf56a52c3cac9537445d205026a5a1211d555b7e993ff82c"
+    },
+    {
+      "path": "layout.template.html",
+      "sha256": "132bdbb204368e75fb8fa5bb38e1316eb9ac5fb92599749a781956cef6c3fdf6"
+    },
+    {
+      "path": "vendor/viewer-runtime.js",
+      "sha256": "f4e41f34bc829dcb4224cb56f1f28b347d78038e6bb00a8685ae8436d5783f38"
+    },
+    {
+      "path": "engine/config.py",
+      "sha256": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+    },
+    {
+      "path": "engine/stage02_core.py",
+      "sha256": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219"
+    },
+    {
+      "path": "engine/stage03_core.py",
+      "sha256": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741"
+    },
+    {
+      "path": "engine/stage04_core.py",
+      "sha256": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f"
+    },
+    {
+      "path": "engine/stage05_core.py",
+      "sha256": "b1145fae4f59a0c3d3d8e30c14a499a61979e9fc275a679d23d0058379443353"
+    }
+  ],
+  "identity_after_cli_sha256": "2d7d839c28faa86baf76c58eb6978dcfd14dbff7ddd8ab113a1212413c34e004",
+  "identity_unchanged": true,
+  "cli_process_start_utc": "2026-10-27T06:50:00.0202341+00:00",
+  "cli_process_end_utc": "2026-10-27T06:50:10.4292869+00:00",
+  "exit_code": 2,
+  "cli_log_path": "diagnostics\\non_right_angle\\angle_60_B400_run04_cli.log"
+}

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>直角戗角工作台 v0.2</title>
+  <title>戗角工作台 v0.3</title>
   <link rel="stylesheet" href="/ui/styles.css">
   <script src="/ui/app.js" defer></script>
 </head>
@@ -21,11 +21,11 @@
         </div>
         <div>
           <div class="brand-kicker">木作参数 · 精确建模</div>
-          <h1>直角戗角工作台 <span class="version-tag">v0.2</span></h1>
+          <h1>戗角工作台 <span class="version-tag">v0.3</span></h1>
         </div>
       </div>
       <div class="header-badges" aria-label="工作台信息">
-        <span class="badge angle-badge"><span class="angle-mark">90°</span> 对称角部</span>
+        <span class="badge angle-badge"><span id="displayed-angle" class="angle-mark">—</span> 当前模型 · 左右对称</span>
         <span class="badge runtime-badge"><span class="badge-dot"></span> 精确实体 · 后台生成</span>
       </div>
     </header>
@@ -73,10 +73,6 @@
               <span class="section-caption">改名不会改变几何</span>
             </div>
             <div id="identity-fields" class="field-grid"></div>
-            <div class="fixed-angle-row">
-              <span class="fixed-angle-label">建筑平面角</span>
-              <span class="fixed-angle-value">90° <span>本期固定</span></span>
-            </div>
           </section>
 
           <section class="control-section primary-section" aria-labelledby="primary-title">
@@ -179,7 +175,7 @@
             <h3>正在连接本地生成器</h3>
             <p>初始通过结果会在载入后显示在这里。</p>
           </div>
-          <iframe id="model-view" class="result-iframe active" title="直角戗角三维模型查看器" loading="eager" hidden></iframe>
+          <iframe id="model-view" class="result-iframe active" title="戗角三维模型查看器" loading="eager" hidden></iframe>
           <iframe id="layout-view" class="result-iframe" title="立脚飞椽单列排料方案" loading="lazy" hidden></iframe>
         </div>
 

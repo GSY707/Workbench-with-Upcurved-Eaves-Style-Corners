@@ -14,6 +14,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--url", default="http://127.0.0.1:8765")
     parser.add_argument("--report", type=Path)
+    parser.add_argument("--case-id", action="append", default=[],
+                        help="核对指定的已登记结果，可重复；只允许命中当前源码缓存，不启动CAD")
     args = parser.parse_args()
     base = args.url.rstrip("/")
     records = []
@@ -36,14 +38,19 @@ def main():
     root = request("/")
     assert b"<!doctype html" in root.lower(), "Workbench HTML missing"
     cases = request("/api/cases")["cases"]
-    assert len(cases) >= 2, "Both verified examples must be available"
+    assert cases, "No completed case is available"
     cached = []
-    for example_id in ("default", "size_variant_valid64"):
-        example = next(e for e in boot["examples"] if e["id"] == example_id)
-        checked = request("/api/validate", {"config": example["config"]})
+    if args.case_id:
+        selections = [next(c for c in cases if c["id"] == case_id) for case_id in args.case_id]
+    else:
+        selections = [next(e for e in boot["examples"] if e["id"] == example_id)
+                      for example_id in ("default", "size_variant_valid64")]
+    for selection in selections:
+        example_id = selection["id"]
+        checked = request("/api/validate", {"config": selection["config"]})
         match = next((c for c in cases if c["calculation_key"] == checked["calculation_key"]), None)
         assert match and match["validated"], f"No current validated cache for {example_id}; refuse to start CAD"
-        result = request("/api/jobs", {"config": example["config"]})
+        result = request("/api/jobs", {"config": selection["config"]})
         job = result["job"]
         if not result.get("reused"):
             request(f"/api/jobs/{job['id']}/cancel", {})

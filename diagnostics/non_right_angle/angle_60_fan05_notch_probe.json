@@ -1,0 +1,25 @@
+{
+  "case_id": "angle_60_B400",
+  "angle_deg": 60.0,
+  "fan_index": 5,
+  "q_limits_mm": [
+    -2555.242590771559,
+    1283.097929293618
+  ],
+  "width_fibers": 17,
+  "band_count": 16,
+  "band0_valid": true,
+  "band1_valid": true,
+  "band0_solids": 1,
+  "band1_solids": 1,
+  "adjacent_distance_mm": 0.0,
+  "adjacent_common_volume_mm3": 0.0,
+  "first_pair_fused_valid": true,
+  "first_pair_fused_solids": 2,
+  "full_width_single_loft": {
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 29355087.237417974,
+    "is_null": false
+  }
+}

@@ -1,0 +1,43 @@
+generator: validated case=angle_60_B400 angle=60deg; starting geometry
+stage05: dynamic stage04 base start (angle_60_B400)
+stage04: case angle_60_B400 preflight start
+stage04: stage02 framing rebuild start
+stage02: support members start
+stage02: support members complete
+stage02: old corner and support wedges complete; fan rafters start
+stage02: fan rafters complete; one-side count=8; straight rafters start
+stage02: base framing complete
+stage04: stage02 framing rebuild complete (31 parts); young corner start
+stage04: young corner and curved likou complete; board surfaces start
+stage04: board surfaces complete; total base parts=62
+stage04: board mesh sampled (30 panels); flyer poses start
+stage04: fan 8 seat coverage missed coarse q grid; refining near_best_coverage with 728 samples at about 0.050mm
+stage04: preflight complete; selected fly records=12
+stage05: dynamic stage04 base ready (62 parts)
+generator: standing/straight flyer solids start
+stage05: flyer BRep build start (12 records)
+stage05: flyer fan 01 complete
+stage05: flyer fan 02 complete
+stage05: flyer fan 03 complete
+stage05: flyer fan 04 complete
+stage05: flyer fan 05 complete
+stage05: flyer fan 06 complete
+stage05: flyer fan 07 complete
+stage05: flyer fan 08 complete
+stage05: flyer straight 01 complete
+stage05: flyer straight 02 complete
+stage05: flyer straight 03 complete
+stage05: flyer straight 04 complete
+stage05: flyer BRep build complete
+generator: likou seat refit start
+stage05: likou notch cutters start (12 flyer records)
+stage05: likou cutter 1/12 fan 01 start
+stage05: likou cutter 1/12 fan 01 complete (1.9s)
+stage05: likou cutter 2/12 fan 02 start
+stage05: likou cutter 2/12 fan 02 complete (2.0s)
+stage05: likou cutter 3/12 fan 03 start
+stage05: likou cutter 3/12 fan 03 complete (2.1s)
+stage05: likou cutter 4/12 fan 04 start
+stage05: likou cutter 4/12 fan 04 complete (1.9s)
+stage05: likou cutter 5/12 fan 05 start
+生成失败：ValueError: shared-field fan 5 likou cutter fusion 1 is invalid: valid=True solids=2

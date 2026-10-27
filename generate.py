@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Generate the parametric 90-degree corner model and flyer layout."""
+"""Generate a symmetric convex corner model and its flyer layout."""
 from __future__ import annotations
 
 import argparse
@@ -956,7 +956,8 @@ def export_mesh(parts, control, config, output_dir):
          for attempt in part["attempts"][-1:] for face in attempt.get("faces", [])
          if face.get("deflection_mm") is not None), default=0.0)
     mesh = {"metadata": {"units": "mm", "up_axis": "Z", "case_id": config["case_id"],
-                         "stage": 5, "stage_name": "90° parametric corner construction",
+                         "stage": 5, "stage_name": "symmetric parametric corner construction",
+                         "corner_angle_deg": float(config["corner_angle_deg"]),
                          "mesh_tessellation_mm": tolerance,
                          "mesh_requested_linear_deflection_mm": tolerance,
                          "mesh_linear_deflection_mm": tolerance,
@@ -1224,7 +1225,7 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
     phase_started = time.perf_counter()
     config = load_config(config_path)
     phase_timings["config_validation_and_initial_write"] = time.perf_counter() - phase_started
-    print(f"generator: validated case={config['case_id']} angle=90deg; starting geometry", flush=True)
+    print(f"generator: validated case={config['case_id']} angle={config['corner_angle_deg']:g}deg; starting geometry", flush=True)
     phase_started = time.perf_counter()
     identity_stage05 = load_stage05()
     identity_case, identity_arc, identity_young_sagitta = derived_geometry_values(

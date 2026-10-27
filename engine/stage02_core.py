@@ -47,6 +47,38 @@ def smooth(t):
     return t * t * (3.0 - 2.0 * t)
 
 
+def reflect_xy(case, point):
+    """Reflect a plan point across the building angle bisector."""
+    x, y = float(point[0]), float(point[1])
+    nx, ny = case["mirror_plane_normal"]
+    distance = x * nx + y * ny
+    return (x - 2.0 * distance * nx, y - 2.0 * distance * ny)
+
+
+def reflect_xyz(case, point):
+    x, y = reflect_xy(case, point[:2])
+    return (x, y, float(point[2]))
+
+
+def mirror_shape(case, shape):
+    """Rigidly reflect a BRep across the bisector while preserving millimetres."""
+    nx, ny = case["mirror_plane_normal"]
+    return shape.mirror((float(nx), float(ny), 0.0), (0.0, 0.0, 0.0))
+
+
+def bisector_signed_distance(case, point, origin=(0.0, 0.0)):
+    """Signed distance to the bisector-parallel line through ``origin``."""
+    nx, ny = case["mirror_plane_normal"]
+    return ((float(point[0]) - float(origin[0])) * nx +
+            (float(point[1]) - float(origin[1])) * ny)
+
+
+def symmetric_roof_pitch_projection(case, point):
+    """Common roof-normal run on the bisector, in millimetres."""
+    ux, uy = case["old_unit"]
+    return math.sin(case["half_angle_rad"]) * (float(point[0]) * ux + float(point[1]) * uy)
+
+
 def bbox_overlap(a, b, tol=1e-6):
     aa, bb = a.BoundingBox(), b.BoundingBox()
     return not (aa.xmax < bb.xmin - tol or bb.xmax < aa.xmin - tol or
@@ -97,6 +129,11 @@ def load_case(config):
     D = float(params["D"])
     e = float(params["e"])
     pitch = float(params["t"])
+    corner_angle_deg = float(config.get("corner_angle_deg", 90.0))
+    half_angle = math.radians(corner_angle_deg / 2.0)
+    sin_h, cos_h = math.sin(half_angle), math.cos(half_angle)
+    if sin_h <= 1e-8 or cos_h <= 1e-8:
+        raise ValueError(f"corner_angle_deg={corner_angle_deg:g}°导致角平分线投影退化；必须满足0<角度<180")
     p = float(params["p"])
     a = float(params["a"])
     radius = float(params["purlin_radius_mm"])
@@ -104,20 +141,19 @@ def load_case(config):
     z_step = D * pitch
     purlin_diameter = radius * 2.0
     end_extension = purlin_diameter
-    eave_start, eave_end = -2.0 * D - end_extension, end_extension
-    step_start, step_end = eave_start, -D + end_extension
+    old_start = (-D * cos_h / sin_h, -D)
+    eave_start, eave_end = old_start[0] - D - end_extension, end_extension
+    step_start, step_end = eave_start, old_start[0] + end_extension
     old_width_root = 1.5 * a
     old_tail_scale = float(params.get("old_tail_scale", 0.8))
     old_height_root = a
     old_ridge_height_root = float(params.get("old_ridge_h", 41.25))
     c = float(params["k_c"]) * p
-    old_start = (-D, -D)
-    old_end = (e + c, e + c)
+    old_end = ((e + c) * cos_h / sin_h, e + c)
     old_length_plan = math.dist(old_start, old_end)
     # The inner end of the future young corner member is set back three cun.
     young_root_setback = float(params["setback"])
-    old_unit = ((old_end[0] - old_start[0]) / old_length_plan,
-                (old_end[1] - old_start[1]) / old_length_plan)
+    old_unit = (cos_h, sin_h)
     old_root = (old_end[0] - old_unit[0] * young_root_setback,
                 old_end[1] - old_unit[1] * young_root_setback)
     old_tip_t = 1.0
@@ -132,11 +168,14 @@ def load_case(config):
     old_width_at_eave = old_width_root * (1.0 - (1.0 - old_tail_scale) * smooth(D / old_length_plan))
     old_half_width_normal = old_width_at_eave / 2.0
     qiangshan_clearance = float(params["qiangshan_clearance_mm"])
-    qiangshan_end = -(qiangshan_width / 2.0 + math.sqrt(2.0) *
+    qiangshan_end = -(qiangshan_width / 2.0 + 1.0 / sin_h *
                       (old_half_width_normal + qiangshan_clearance))
 
     return {
         "source": {"case_id": config.get("case_id", "custom"), "scope": "parameter-driven fifth-stage rebuild"},
+        "corner_angle_deg": corner_angle_deg,
+        "half_angle_rad": half_angle,
+        "mirror_plane_normal": (-sin_h, cos_h),
         "p": params, "D": D, "e": e, "c": c,
         "purlin_diameter": purlin_diameter, "purlin_radius": radius,
         "eave_axis_z": z_eave, "step_axis_z": z_step,
@@ -155,7 +194,7 @@ def load_case(config):
         "qiangshan_width": qiangshan_width,
         "old_half_width_normal_at_eave": old_half_width_normal,
         "qiangshan_clearance": qiangshan_clearance,
-        "qiangshan_end": qiangshan_end,
+        "qiangshan_end": qiangshan_end, "qiangshan_start": old_start[0],
         "fan_width": float(params["fan_rafter_width_mm"]),
         "fan_height": float(params["fan_rafter_height_mm"]),
         "rafter_seat_relief": float(params["rafter_seat_relief_mm"]),
@@ -190,21 +229,34 @@ def purlin_half_lap_y(shape, x, y, z, radius):
 
 
 def trim_positive_corner_purlin_end(shape, keep_side):
-    """Miter the short positive-axis end at the shared x=y corner plane.
+    """Compatibility wrapper for legacy direct callers at a right-angle case."""
+    case = {"mirror_plane_normal": (-math.sqrt(0.5), math.sqrt(0.5)),
+            "old_unit": (math.sqrt(0.5), math.sqrt(0.5))}
+    center = (0.0, 0.0)
+    return trim_purlin_to_bisector(shape, case, center, 1 if keep_side == "x" else -1)
 
-    The X-running member keeps x<=y and the Y-running member keeps y<=x.
-    This is only an end trim of the four support rails; it does not cut seats
-    into the old corner, fan rafters, or straight rafters.
-    """
-    if keep_side not in ("x", "y"):
-        raise ValueError(f"unknown purlin end side: {keep_side}")
+
+def trim_purlin_to_bisector(shape, case, center, keep_sign):
+    """Miter one support-rail end against the corner-bisector plane."""
+    if keep_sign not in (-1, 1):
+        raise ValueError(f"keep_sign must be -1 or +1, got {keep_sign!r}")
     box = shape.BoundingBox()
     extent = max(abs(float(v)) for v in
-                 (box.xmin, box.xmax, box.ymin, box.ymax)) + 10.0
-    if keep_side == "x":
-        removed_half_plane = [(extent, -extent), (extent, extent), (-extent, -extent)]
-    else:
-        removed_half_plane = [(-extent, extent), (extent, extent), (-extent, -extent)]
+                 (box.xmin, box.xmax, box.ymin, box.ymax,
+                  center[0], center[1])) * 2.0 + 100.0
+    ux, uy = case["old_unit"]
+    nx, ny = case["mirror_plane_normal"]
+    c = (float(center[0]), float(center[1]))
+    removed_sign = -keep_sign
+    n = (removed_sign * nx, removed_sign * ny)
+    removed_half_plane = [
+        (c[0] - ux * extent, c[1] - uy * extent),
+        (c[0] + ux * extent, c[1] + uy * extent),
+        (c[0] + ux * extent + n[0] * extent,
+         c[1] + uy * extent + n[1] * extent),
+        (c[0] - ux * extent + n[0] * extent,
+         c[1] - uy * extent + n[1] * extent),
+    ]
     zmin, zmax = float(box.zmin) - 10.0, float(box.zmax) + 10.0
     cutter = plan_prism(removed_half_plane, zmin, zmax)
     return shape.cut(cutter).clean()
@@ -212,7 +264,7 @@ def trim_positive_corner_purlin_end(shape, keep_side):
 
 def qiangshan_wedge(case, along_x):
     width = case["qiangshan_width"]
-    start, end = -case["D"], case["qiangshan_end"]
+    start, end = case["qiangshan_start"], case["qiangshan_end"]
     sections = []
     offsets = np.linspace(-width / 2.0, width / 2.0, 5)
     q_values = np.linspace(start, end, 25)
@@ -257,22 +309,23 @@ def qiangshan_wedge(case, along_x):
 
 def support_parts(case, parts):
     D, r = case["D"], case["purlin_radius"]
-    eave_x = cylinder_x(case["eave_start"], case["eave_end"], 0.0, case["eave_axis_z"], r)
-    eave_y = cylinder_y(case["eave_start"], case["eave_end"], 0.0, case["eave_axis_z"], r)
-    eave_x = purlin_half_lap_x(eave_x, 0.0, 0.0, case["eave_axis_z"], r)
-    eave_y = purlin_half_lap_y(eave_y, 0.0, 0.0, case["eave_axis_z"], r)
-    eave_x = trim_positive_corner_purlin_end(eave_x, "x")
-    eave_y = trim_positive_corner_purlin_end(eave_y, "y")
-    step_x = cylinder_x(case["step_start"], case["step_end"], -D, case["step_axis_z"], r)
-    step_y = cylinder_y(case["step_start"], case["step_end"], -D, case["step_axis_z"], r)
-    step_x = purlin_half_lap_x(step_x, -D, -D, case["step_axis_z"], r)
-    step_y = purlin_half_lap_y(step_y, -D, -D, case["step_axis_z"], r)
-    step_x = trim_positive_corner_purlin_end(step_x, "x")
-    step_y = trim_positive_corner_purlin_end(step_y, "y")
-    add_part(parts, "eave_purlin_x", "廊桁X向（中心轴y=0）", "eave_purlins", eave_x)
-    add_part(parts, "eave_purlin_y", "廊桁Y向（中心轴x=0）", "eave_purlins", eave_y)
-    add_part(parts, "step_purlin_x", "步桁X向（中心轴y=-D）", "step_purlins", step_x)
-    add_part(parts, "step_purlin_y", "步桁Y向（中心轴x=-D）", "step_purlins", step_y)
+    eave_x_raw = cylinder_x(case["eave_start"], case["eave_end"], 0.0, case["eave_axis_z"], r)
+    eave_x = purlin_half_lap_x(eave_x_raw, 0.0, 0.0, case["eave_axis_z"], r)
+    eave_x = trim_purlin_to_bisector(eave_x, case, (0.0, 0.0), 1)
+    eave_y_raw = mirror_shape(case, eave_x_raw)
+    eave_y = purlin_half_lap_y(eave_y_raw, 0.0, 0.0, case["eave_axis_z"], r)
+    eave_y = trim_purlin_to_bisector(eave_y, case, (0.0, 0.0), -1)
+    step_x_raw = cylinder_x(case["step_start"], case["step_end"], -D, case["step_axis_z"], r)
+    step_x = step_x_raw
+    step_x = purlin_half_lap_x(step_x, case["old_start"][0], -D, case["step_axis_z"], r)
+    step_x = trim_purlin_to_bisector(step_x, case, case["old_start"], 1)
+    step_y = mirror_shape(case, step_x_raw)
+    step_y = purlin_half_lap_y(step_y, case["old_start"][0], -D, case["step_axis_z"], r)
+    step_y = trim_purlin_to_bisector(step_y, case, case["old_start"], -1)
+    add_part(parts, "eave_purlin_x", "廊桁第一翼（X基准翼）", "eave_purlins", eave_x)
+    add_part(parts, "eave_purlin_y", "廊桁第二翼（关于建筑角平分面镜像）", "eave_purlins", eave_y)
+    add_part(parts, "step_purlin_x", "步桁第一翼（X基准翼）", "step_purlins", step_x)
+    add_part(parts, "step_purlin_y", "步桁第二翼（关于建筑角平分面镜像）", "step_purlins", step_y)
     case["purlin_shapes"] = {p["id"]: p["shape"] for p in parts}
 
 
@@ -297,7 +350,10 @@ def old_corner_shape(case):
         width = width0 * (1.0 - (1.0 - taper) * smooth(t))
         height = height0 * (1.0 - (1.0 - taper) * smooth(t))
         ridge = ridge0 * (1.0 - (1.0 - taper) * smooth(t))
-        bottom = case["purlin_radius"] - float(case["p"]["t"]) * x - case["old_seat_relief"]
+        # The canonical X wing pitches along y.  The shared old corner uses
+        # the equal roof-normal projection on the angle bisector, which is y
+        # on its centerline and remains invariant under the wing reflection.
+        bottom = case["purlin_radius"] - float(case["p"]["t"]) * y - case["old_seat_relief"]
         nl, nr = (-width / 2.0, width / 2.0)
         left = (x + normal[0] * nl, y + normal[1] * nl)
         right = (x + normal[0] * nr, y + normal[1] * nr)
@@ -379,9 +435,9 @@ def old_side_body_top(case, r):
     start, unit, length = case["old_start"], case["old_unit"], case["old_length_plan"]
     t = ((point[0] - start[0]) * unit[0] + (point[1] - start[1]) * unit[1]) / length
     t = min(1.0, max(0.0, t))
-    xc = start[0] + unit[0] * length * t
+    yc = start[1] + unit[1] * length * t
     height = case["old_height_root"] * (1.0 - (1.0 - case["old_tail_scale"]) * smooth(t))
-    body_top = case["purlin_radius"] - float(case["p"]["t"]) * xc - case["old_seat_relief"] + height
+    body_top = case["purlin_radius"] - float(case["p"]["t"]) * yc - case["old_seat_relief"] + height
     # At O, close the 4.21 mm datum difference to the supported 750 mm top;
     # taper this explicit fitting allowance to zero at B.
     return body_top + ctx["O_closure_delta_mm"] * (1.0 - r)
@@ -389,12 +445,13 @@ def old_side_body_top(case, r):
 
 def setup_fan_surface(case):
     D, e = case["D"], case["e"]
-    A = (-D, e)
+    x_boundary = float(case["old_start"][0])
+    A = (x_boundary, e)
     B = case["old_near_side_B"]
     arc_points, arc_info = circular_arc(A, B, case["fan_arc_sagitta_reference"],
                                         samples=case["fan_station_count"])
     n = choose_fan_count(arc_info["arc_length_mm"], case["fan_spacing_limit"])
-    O = (-D, -D + case["old_width_root"] / math.sqrt(2.0))
+    O = (x_boundary, -D + case["old_width_root"] / (2.0 * math.cos(case["half_angle_rad"])))
     # O rests on the step-purlin crown; the straight rafter top there is crown + 60.
     zO = case["step_axis_z"] + case["purlin_radius"] + case["fan_height"]
     t_pitch = float(case["p"]["t"])
@@ -408,9 +465,9 @@ def setup_fan_surface(case):
     unit, length, start = case["old_unit"], case["old_length_plan"], case["old_start"]
     tO = ((O[0] - start[0]) * unit[0] + (O[1] - start[1]) * unit[1]) / length
     tO = min(1.0, max(0.0, tO))
-    xc = start[0] + unit[0] * length * tO
+    yc = start[1] + unit[1] * length * tO
     hO = case["old_height_root"] * (1.0 - (1.0 - case["old_tail_scale"]) * smooth(tO))
-    actual_O = case["purlin_radius"] - t_pitch * xc - case["old_seat_relief"] + hO
+    actual_O = case["purlin_radius"] - t_pitch * yc - case["old_seat_relief"] + hO
     side_ctx["old_body_top_at_O_actual_mm"] = actual_O
     side_ctx["O_closure_delta_mm"] = zO - actual_O
     side_ctx["raw_old_body_top_at_O_mm"] = actual_O
@@ -449,30 +506,25 @@ def support_crown_z(case, x, y):
     r = case["purlin_radius"]
     candidates = []
     for sid in PURLIN_IDS:
+        mirrored = sid.endswith("_y")
+        px, py = reflect_xy(case, (x, y)) if mirrored else (float(x), float(y))
         if sid.startswith("eave"):
             zc, lo, hi = case["eave_axis_z"], case["eave_start"], case["eave_end"]
             cross = 0.0
             notch_center = 0.0
-            longitudinal = x if sid.endswith("_x") else y
-            transverse = y if sid.endswith("_x") else x
         else:
             zc, lo, hi = case["step_axis_z"], case["step_start"], case["step_end"]
             cross = -case["D"]
-            notch_center = -case["D"]
-            longitudinal = x if sid.endswith("_x") else y
-            transverse = y if sid.endswith("_x") else x
+            notch_center = case["old_start"][0]
+        longitudinal, transverse = px, py
         if longitudinal < lo or longitudinal > hi or abs(transverse - cross) > r:
             continue
-        # The positive X/Y ends are mitered at x=y. Do not sample support
-        # beyond that actual BRep boundary when deriving a shared surface.
-        if sid.endswith("_x") and x > y + 1e-8:
-            continue
-        if sid.endswith("_y") and y > x + 1e-8:
+        miter_center = (0.0, 0.0) if sid.startswith("eave") else case["old_start"]
+        if bisector_signed_distance(case, (px, py), miter_center) < -1e-8:
             continue
         crown = zc + math.sqrt(max(0.0, r * r - (transverse - cross) ** 2))
         # The X-running half-lap removes the upper half at its crossing.
-        if (sid.endswith("_x") and abs(longitudinal - notch_center) <= r and
-                abs(transverse - cross) <= r):
+        if (abs(longitudinal - notch_center) <= r and abs(transverse - cross) <= r):
             crown = zc
         candidates.append(crown)
     return max(candidates) if candidates else -math.inf
@@ -487,9 +539,10 @@ def plan_prism(points, zmin=-1000.0, zmax=1200.0):
 
 def qiangshan_top_z(case, x, y, mirrored=False):
     """Top support height with a local monotone A-end connector when needed."""
-    start, end = -case["D"], case["qiangshan_end"]
-    along = y if mirrored else x
-    across = x if mirrored else y
+    if mirrored:
+        x, y = reflect_xy(case, (x, y))
+    start, end = case["qiangshan_start"], case["qiangshan_end"]
+    along, across = float(x), float(y)
     if not (start - 1e-6 <= along <= end + 1e-6 and
             abs(across) <= case["qiangshan_width"] / 2.0 + 1e-6):
         return None
@@ -501,7 +554,7 @@ def qiangshan_top_z(case, x, y, mirrored=False):
 
 def _qiangshan_profile_for_across(case, across, q_values=None):
     """Keep the original underside field except for a descending A-end hump."""
-    start, end = -case["D"], case["qiangshan_end"]
+    start, end = case["qiangshan_start"], case["qiangshan_end"]
     qs = np.asarray(q_values if q_values is not None else np.linspace(start, end, 25), dtype=float)
     raw = np.asarray([
         fan_top_z(case, float(q), float(across)) - float(case["fan_height"])
@@ -608,7 +661,7 @@ def fan_rafter_parts(case, parts, control, old_member):
         if not shape.isValid() or len(shape.Solids()) != 1 or shape.Volume() <= 1e-5:
             raise ValueError(f"扇椽几何无效 fan_{i+1:02d}: valid={shape.isValid()} solids={len(shape.Solids())} volume={shape.Volume()}")
         pid = f"fan_rafter_{fan_index:02d}"
-        add_part(parts, pid, f"摔网椽{fan_index:02d}（70宽，扇区割角）", "fan_rafters", shape)
+        add_part(parts, pid, f"摔网椽基准翼{fan_index:02d}（70宽，扇区割角）", "fan_rafters", shape)
         fan_records.append({"id": pid, "index": fan_index, "role": "fan", "is_boundary": False,
                             "centerline_plan_start": list(O),
                             "centerline_plan_end": list(target), "centerline": centerline,
@@ -627,7 +680,7 @@ def fan_rafter_parts(case, parts, control, old_member):
         "fan_division_count_n": n, "fan_rafter_count": len(fan_records),
         "internal_arc_station_count": len(fan_records), "arc_boundary_points": all_arc,
         "fan_rafters": fan_records,
-        "construction": "半侧y>=x由O向弧线内部i/n等分点放射；邻根按相邻分点之间的中界扇区割角，弧端点不另生摔网；另一半对角镜像，不以整宽共点插入老戗。",
+        "construction": "基准翼由O向弧线内部i/n等分点放射；邻根按相邻分点之间的中界扇区割角，弧端点不另生摔网；第二翼由同一实体刚体镜像到建筑角平分面的另一侧，不以整宽共点插入老戗。",
     }
     control.append({"id": "fan_arc", "name": "摔网椽外端平面圆弧", "group": "fan_rafters",
                     "points": all_arc})
@@ -638,21 +691,21 @@ def fan_rafter_parts(case, parts, control, old_member):
 
 
 def mirror_group_across_diagonal(parts, control, case, group, id_prefix, name_prefix):
-    """Reflect one half across y=x; the transform swaps its pitch direction too."""
+    """Reflect the canonical X wing across the configured building bisector."""
     originals = [p for p in parts if p["group"] == group and not p["id"].startswith(id_prefix + "mirror_")]
     for part in originals:
         old_id = part["id"]
         suffix = old_id.removeprefix(id_prefix)
         new_id = f"{id_prefix}mirror_{suffix}"
-        reflected = part["shape"].mirror((1.0, -1.0, 0.0), (0.0, 0.0, 0.0))
-        add_part(parts, new_id, f"{name_prefix}镜像{suffix}", group, reflected)
+        reflected = mirror_shape(case, part["shape"])
+        add_part(parts, new_id, f"{name_prefix}镜像翼{suffix}", group, reflected)
     for item in list(control):
         if item.get("group") != group:
             continue
         pid = item["id"]
         if not pid.startswith(id_prefix) and pid not in ("fan_arc", "fan_O"):
             continue
-        reflected_points = [[p[1], p[0], p[2]] for p in item["points"]]
+        reflected_points = [reflect_xyz(case, p) for p in item["points"]]
         control.append({"id": f"mirror_{pid}", "name": f"镜像{item['name']}",
                         "group": group, "points": reflected_points})
 
@@ -676,7 +729,7 @@ def eave_rafter_parts(case, parts, control):
     D, e = case["D"], case["e"]
     # Include the ordinary eave rafter on the A-end boundary; continue the
     # regular B-pitch centers outward while retaining the prior tail envelope.
-    x_boundary = -D
+    x_boundary = float(case["old_start"][0])
     x_first = case["step_start"] + case["eave_rafters_width"] / 2.0
     outward_intervals = max(0, int(math.floor((x_boundary - x_first) / case["eave_pitch"] + 1e-9)))
     x_centers = [x_boundary - i * case["eave_pitch"]
@@ -710,19 +763,22 @@ def eave_rafter_parts(case, parts, control):
         "vertical_rule": f"直椽底线z={case['purlin_radius']:g}-{case['p']['t']:g}*y-{case['rafter_seat_relief']:g}mm；沿全长保持原线性纵坡和放置基准，不在桁位切座或抬高。",
         "nominal_purlin_seat_relief_mm": case["rafter_seat_relief"],
         "rafter_centerline_offset_from_step_purlin_y_axis_mm": case["purlin_radius"] + case["eave_rafters_width"] / 2.0,
-        "construction": "边界普通出檐椽中心线位于x=-D，与fan_surface.A端同轴并计一次；其余正身出檐椽由边界按B向外等档排列，保持既有有效尾端范围。",
+        "construction": "边界普通出檐椽中心线位于old_start.x，与fan_surface.A端同轴并计一次；其余正身出檐椽由边界按B向外等档排列，保持既有有效尾端范围。",
     }
 
 
 def control_axes(case):
-    D = case["D"]
-    axes = (
-        ("axis_eave_x", "廊桁X向中心轴", "eave_purlins", [case["eave_start"], 0, 0], [0, 0, 0]),
-        ("axis_eave_y", "廊桁Y向中心轴", "eave_purlins", [0, case["eave_start"], 0], [0, 0, 0]),
-        ("axis_step_x", "步桁X向中心轴", "step_purlins", [case["step_start"], -D, case["step_axis_z"]], [-D, -D, case["step_axis_z"]]),
-        ("axis_step_y", "步桁Y向中心轴", "step_purlins", [-D, case["step_start"], case["step_axis_z"]], [-D, -D, case["step_axis_z"]]),
+    base_axes = (
+        ("axis_eave_x", "廊桁基准翼中心线", "eave_purlins", [case["eave_start"], 0.0, 0.0], [0.0, 0.0, 0.0]),
+        ("axis_step_x", "步桁基准翼中心线", "step_purlins", [case["step_start"], -case["D"], case["step_axis_z"]],
+         [case["old_start"][0], -case["D"], case["step_axis_z"]]),
     )
-    return [{"id": cid, "name": name, "group": group, "points": [a, b]} for cid, name, group, a, b in axes]
+    axes = []
+    for cid, name, group, a, b in base_axes:
+        axes.append({"id": cid, "name": name, "group": group, "points": [a, b]})
+        axes.append({"id": cid.replace("_x", "_y"), "name": name.replace("基准翼", "镜像翼"), "group": group,
+                     "points": [reflect_xyz(case, a), reflect_xyz(case, b)]})
+    return axes
 
 
 def make_parts(case):
@@ -735,10 +791,10 @@ def make_parts(case):
     control.append({"id": "old_corner_axis", "name": "老戗中心线", "group": "old_corner",
                     "points": [case["old_corner_centerline"][0], case["old_corner_centerline"][-1]]})
     setup_fan_surface(case)
-    add_part(parts, "qiangshan_x", "戗山木X向（上承面由共同椽底导出）", "qiangshan",
-             qiangshan_wedge(case, True))
-    add_part(parts, "qiangshan_y", "戗山木Y向镜像（上承面由共同椽底导出）", "qiangshan",
-             qiangshan_wedge(case, False))
+    qiangshan_x = qiangshan_wedge(case, True)
+    add_part(parts, "qiangshan_x", "戗山木第一翼（上承面由共同椽底导出）", "qiangshan", qiangshan_x)
+    add_part(parts, "qiangshan_y", "戗山木第二翼镜像（上承面由共同椽底导出）", "qiangshan",
+             mirror_shape(case, qiangshan_x))
     case["purlin_shapes"].update({p["id"]: p["shape"] for p in parts if p["id"].startswith("qiangshan_")})
     print("stage02: old corner and support wedges complete; fan rafters start", flush=True)
     fan_rafter_parts(case, parts, control, old_member)
@@ -770,8 +826,9 @@ def write_preview_mesh(parts, control):
             obj_lines.append("f %d %d %d" % tuple(obj_offset + int(i) for i in tri))
         obj_offset += len(vertices)
     mesh = {
-        "metadata": {"units": "mm", "up_axis": "Z", "case_id": "CASE_ASSUMED_001",
+        "metadata": {"units": "mm", "up_axis": "Z", "case_id": case["source"]["case_id"],
                      "stage": STAGE, "stage_name": STAGE_NAME,
+                     "corner_angle_deg": float(case.get("corner_angle_deg", 90.0)),
                      "scope": "合成假设的第二层；含老戗、摔网椽和正身出檐椽，不含嫩戗、飞椽及板。",
                      "mesh_tessellation_mm": 2.0},
         "parts": mesh_parts, "control_lines": control,
@@ -808,8 +865,8 @@ def validate(parts, case):
         require("old_corner", sid, "老戗—实际圆桁座口")
     require("eave_purlin_x", "eave_purlin_y", "廊桁半搭接触")
     require("step_purlin_x", "step_purlin_y", "步桁半搭接触")
-    require("qiangshan_x", "eave_purlin_x", "戗山木X向—廊桁座口")
-    require("qiangshan_y", "eave_purlin_y", "戗山木Y向—廊桁座口")
+    require("qiangshan_x", "eave_purlin_x", "基准翼戗山木—廊桁座口")
+    require("qiangshan_y", "eave_purlin_y", "镜像翼戗山木—廊桁座口")
     for part in parts:
         pid = part["id"]
         if part["group"] == "fan_rafters":
@@ -973,9 +1030,10 @@ def validate(parts, case):
             "step_purlins_mm": [case["step_start"], -case["D"]],
             "positive_stock_end_before_miter_mm": {
                 "eave": case["eave_end"], "step": case["step_end"]},
-            "miter_plane": "vertical x=y at each pair's crossing; X rails keep x<=y and Y rails keep y<=x",
+            "miter_plane": "vertical architectural angle-bisector plane through each support crossing; paired rails are rigid reflections",
             "diameter_mm": case["purlin_diameter"],
-            "axis_intersections_mm": {"eave": [0, 0, 0], "step": [-case["D"], -case["D"], case["step_axis_z"]]},
+            "axis_intersections_mm": {"eave": [0, 0, 0],
+                                      "step": [case["old_start"][0], -case["D"], case["step_axis_z"]]},
         },
         "fan_layout": case["fan_geometry"],
         "straight_eave_rafters": case["eave_rafters_geometry"],
@@ -996,7 +1054,8 @@ def snapshot(case):
     p = case["p"]
     selected = {k: p[k] for k in ("D", "e", "p", "t", "B", "f_plan", "a", "k_c", "old_tail_scale", "old_ridge_h") if k in p}
     return {
-        "metadata": {"case_id": "CASE_ASSUMED_001", "stage": STAGE, "stage_name": STAGE_NAME,
+        "metadata": {"case_id": case["source"].get("case_id", "CASE_ASSUMED_001"), "stage": STAGE, "stage_name": STAGE_NAME,
+                     "corner_angle_deg": float(case.get("corner_angle_deg", 90.0)),
                      "units": "mm", "up_axis": "Z"},
         "selected_source_parameters": selected,
         "support_snapshot": {
@@ -1005,17 +1064,17 @@ def snapshot(case):
             "step_axis_extent_mm": [case["step_start"], -case["D"]],
             "positive_stock_end_before_miter_mm": {
                 "eave": case["eave_end"], "step": case["step_end"]},
-            "corner_end_miter_plane": "vertical x=y; X rails keep x<=y and Y rails keep y<=x",
+            "corner_end_miter_plane": "vertical architectural angle-bisector plane; X rails are cut at its intersection and paired rails are rigid reflections",
             "eave_axis_height_mm": case["eave_axis_z"], "step_axis_height_mm": case["step_axis_z"],
             "qiangshan_width_mm": case["qiangshan_width"],
-            "qiangshan_extent_mm": [-case["D"], case["qiangshan_end"]],
+            "qiangshan_extent_mm": [case["qiangshan_start"], case["qiangshan_end"]],
             "qiangshan_surface_rule": "下缘按廊桁实体切配；上承面沿宽度取共同扇椽底场，A至首个局部低点使用单调smoothstep连接消除端部倒坡，其余纵向控制和B端保留原场。",
             "qiangshan_profile_adjustment": case.get("qiangshan_profile_adjustment"),
         },
         "old_corner": {
             "plan_start_step_intersection_mm": list(case["old_start"]),
             "plan_end_assumption_Q_mm": list(case["old_end"]),
-            "centerline_support_datum": f"bottom z=90-0.5*x-{case['old_seat_relief']}；保留原完整轮廓，不按圆桁切座",
+            "centerline_support_datum": f"bottom z={case['purlin_radius']:g}-{case['p']['t']:g}*y-{case['old_seat_relief']}；保留原完整轮廓，不按圆桁切座",
             "width_root_mm": case["old_width_root"],
             "width_at_eave_crossing_mm": case["old_width_eave"],
             "tip_scale": case["old_tail_scale"],
@@ -1044,14 +1103,14 @@ def snapshot(case):
         "eave_rafters": {
             "width_mm": case["eave_rafters_width"], "vertical_depth_mm": case["eave_rafters_height"],
             "center_pitch_mm": case["eave_pitch"], "tail_extension_past_step_mm": case["eave_tail_extension"],
-            "vertical_datum": "沿Y向直椽采用共同线性纵坡z=90-0.5*y-12mm；保持完整轮廓，不在圆桁处切底或抬高。",
+            "vertical_datum": f"基准翼直椽采用共同线性纵坡z={case['purlin_radius']:g}-{case['p']['t']:g}·y-{case['rafter_seat_relief']:g}mm；镜像翼按建筑角平分面刚体反射，保持完整轮廓，不在圆桁处切底或抬高。",
             "layout": case.get("eave_rafters_geometry"),
         },
         "assumptions": [
             "扇椽和出檐椽断面深均暂取60mm世界Z厚度，未从照片量取。",
             f"弧线以最小奇数等分区间数n={case.get('fan_geometry', {}).get('n')}控制，A=L弧/n={case.get('fan_geometry', {}).get('arc_length_over_n_mm')}mm；每侧生成n−1条内部摔网轴线，边界出檐椽独立归正身组。",
-            "边界出檐椽中心位于x=-D；其余正身中心档从此边界按B向外排列，最外中心仍落在原有效尾端范围内。",
-            "出檐椽越过步桁向里尾伸300mm；外端到y=e=600mm。",
+            f"边界出檐椽中心位于基准翼边界x={case['old_start'][0]:.3f}mm；其余正身中心档从此边界按B={case['eave_pitch']:g}mm向外排列，最外中心仍落在原有效尾端范围内。",
+            f"基准翼出檐椽越过步桁向里尾伸{case['eave_tail_extension']:g}mm；外端到y=e={case['e']:g}mm；镜像翼由基准翼反射。",
             "老戗车背以截面中央三角凸脊近似，不对车背曲面作史料断定。",
             "扇椽与戗山木共底面按离散截面放样，允许报告记录的局部相交残差；不以逐点抬椽换取零交叠。",
         ],
@@ -1075,7 +1134,7 @@ def write_outputs(parts, control, case, validation):
             obj_lines.append("f %d %d %d" % tuple(obj_offset + int(i) for i in tri))
         obj_offset += len(vertices)
     mesh = {
-        "metadata": {"units": "mm", "up_axis": "Z", "case_id": "CASE_ASSUMED_001",
+        "metadata": {"units": "mm", "up_axis": "Z", "case_id": case["source"].get("case_id", "CASE_ASSUMED_001"),
                      "stage": STAGE, "stage_name": STAGE_NAME,
                      "scope": "合成假设的第二层；含老戗、摔网椽和正身出檐椽，不含嫩戗、飞椽及板。",
                      "mesh_tessellation_mm": 2.0},

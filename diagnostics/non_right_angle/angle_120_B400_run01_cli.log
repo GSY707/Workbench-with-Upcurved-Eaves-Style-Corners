@@ -1,0 +1,55 @@
+generator: validated case=angle_120_B400 angle=120deg; starting geometry
+stage05: dynamic stage04 base start (angle_120_B400)
+stage04: case angle_120_B400 preflight start
+stage04: stage02 framing rebuild start
+stage02: support members start
+stage02: support members complete
+stage02: old corner and support wedges complete; fan rafters start
+stage02: fan rafters complete; one-side count=2; straight rafters start
+stage02: base framing complete
+stage04: stage02 framing rebuild complete (19 parts); young corner start
+stage04: young corner and curved likou complete; board surfaces start
+stage04: board surfaces complete; total base parts=38
+stage04: board mesh sampled (18 panels); flyer poses start
+stage04: preflight complete; selected fly records=6
+stage05: dynamic stage04 base ready (38 parts)
+generator: standing/straight flyer solids start
+stage05: flyer BRep build start (6 records)
+stage05: flyer fan 01 complete
+stage05: flyer fan 02 complete
+stage05: flyer straight 01 complete
+stage05: flyer straight 02 complete
+stage05: flyer straight 03 complete
+stage05: flyer straight 04 complete
+stage05: flyer BRep build complete
+generator: likou seat refit start
+stage05: likou notch cutters start (6 flyer records)
+stage05: likou cutter 1/6 fan 01 start
+stage05: likou cutter 1/6 fan 01 complete (0.1s)
+stage05: likou cutter 2/6 fan 02 start
+stage05: likou cutter 2/6 fan 02 complete (0.1s)
+stage05: likou cutter 3/6 straight 01 start
+stage05: likou cutter 3/6 straight 01 complete (0.1s)
+stage05: likou cutter 4/6 straight 02 start
+stage05: likou cutter 4/6 straight 02 complete (0.1s)
+stage05: likou cutter 5/6 straight 03 start
+stage05: likou cutter 5/6 straight 03 complete (0.1s)
+stage05: likou cutter 6/6 straight 04 start
+stage05: likou cutter 6/6 straight 04 complete (0.1s)
+stage05: likou x boolean start (6/6 cutters overlap)
+stage05: likou x boolean complete (19.0s)
+stage05: likou y mirror fallback (separate y-side compound Boolean after mirror check fallback; 20.274s)
+generator: upper roll-board rebuild start
+generator: combination timber rebuild start
+stage05: combination stock loft
+stage05: combination stock loft complete
+stage05: subtracting old/young BReps from combination stock
+stage05: combination BRep cut complete
+stage05: split lingjiao/biandan complete
+generator: geometry complete (54 parts); saving mesh-failure checkpoint
+generator: mesh-failure checkpoint ready (C:\Users\24408\Documents\ChatGPT\木构造\生成器\直角戗角\outputs\angle_120_B400_run01\geometry_checkpoint; 2.721s)
+generator: geometry complete (54 parts); exporting mesh
+generator: mesh/OBJ complete (29122 triangles); extracting profiles
+generator: profiles ready (2 standing templates); computing layout
+generator: layout and spline calculations complete
+{"case_id": "angle_120_B400", "output_dir": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\outputs\\angle_120_B400_run01", "parts": 54, "fan_templates_per_side": 2, "standing_flyer_3d_count_both_sides": 4, "layout_board_mm": [79.13409210270302, 562.3809525640794, 60.0], "retain_ratio_percent": 87.12085890543649, "translation_error_max_mm": 5.550560893646491, "translation_error_rms_mm": 5.550560893646491, "mesh_triangles": 29122, "render": null, "phase_timings_seconds": {"config_validation_and_initial_write": 0.000202300027012825, "lightweight_geometry_identity_derivation": 1.2493132000090554, "stage04_base_and_preflight": 3.022684199968353, "stage05_flyer_build": 100.15844779997133, "stage05_likou_cut_and_mirror": 40.4815950000193, "stage05_upper_board_rebuild": 0.2989813999738544, "stage05_combination_rebuild": 82.97646889998578, "geometry_total_after_stage04": 223.91549309995025, "geometry_checkpoint_write": 2.7210310000227764, "mesh_remesh_and_export": 24.525428500026464, "mesh_absolute_remesh_only": 24.107003199285828, "profiles": 0.0008975999662652612, "layout_and_json": 0.8081439000088722, "generation_record": 0.00022799998987466097}, "elapsed_seconds": 256.4294790000422}

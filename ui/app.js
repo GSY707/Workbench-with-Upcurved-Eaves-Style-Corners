@@ -20,6 +20,7 @@
   ];
   const LABELS = {
     case_id: '案例标识',
+    corner_angle_deg: '建筑平面内角 α',
     D: '界深 D', e: '正身檐出 e', p: '正身飞椽水平外挑 p', t: '正身提栈系数 t', B: '分椽中心档控制值 B',
     L_n: '嫩戗控制弦长 Lₙ', U_n: '嫩戗端点高差 Uₙ', a: '老戗主体高度尺度 a', w_fly: '立脚飞椽宽度 w_fly',
     k_c: '放叉系数 k_c', old_tail_scale: '老戗梢部收分比例', old_ridge_h: '老戗车背加高', young_root_scale: '嫩戗根部主体比例',
@@ -277,7 +278,8 @@
   }
 
   function renderField(section, key, property) {
-    const path = `${section}.${key}`;
+    const path = section ? `${section}.${key}` : key;
+    const fieldSection = section || 'top';
     const helpText = HELP_OVERRIDES[key] || property.description || '本字段参与当前模型计算。';
     const control = document.createElement('div');
     control.className = 'field-control';
@@ -288,7 +290,7 @@
     head.className = 'field-head';
     const label = document.createElement('label');
     label.className = 'field-title';
-    label.htmlFor = `input-${section}-${key}`;
+    label.htmlFor = `input-${fieldSection}-${key}`;
     label.textContent = LABELS[key] || key;
     const unit = document.createElement('span');
     unit.className = 'field-unit';
@@ -298,15 +300,15 @@
     const entry = document.createElement('div');
     entry.className = 'field-entry-row';
     const input = document.createElement('input');
-    input.id = `input-${section}-${key}`;
+    input.id = `input-${fieldSection}-${key}`;
     input.className = 'field-input';
     input.type = 'text';
     input.inputMode = 'decimal';
     input.autocomplete = 'off';
     input.spellcheck = false;
-    input.value = state.draft[section][key] ?? '';
-    input.setAttribute('aria-describedby', `help-${section}-${key} error-${section}-${key}`);
-    input.dataset.section = section;
+    input.value = (section ? state.draft[section][key] : state.draft[key]) ?? '';
+    input.setAttribute('aria-describedby', `help-${fieldSection}-${key} error-${fieldSection}-${key}`);
+    input.dataset.section = section || '';
     input.dataset.key = key;
     input.addEventListener('input', onNumericInput);
     const defaultValue = document.createElement('span');
@@ -316,7 +318,7 @@
 
     const help = document.createElement('p');
     help.className = 'field-help';
-    help.id = `help-${section}-${key}`;
+    help.id = `help-${fieldSection}-${key}`;
     help.textContent = helpText;
     const constraint = rangeDescription(property, key);
     if (constraint) {
@@ -328,7 +330,7 @@
     }
     const error = document.createElement('p');
     error.className = 'field-error';
-    error.id = `error-${section}-${key}`;
+    error.id = `error-${fieldSection}-${key}`;
     error.hidden = true;
     control.append(head, entry, help, error);
     return control;
@@ -411,6 +413,7 @@
     error.hidden = true;
     control.append(head, input, help, error);
     container.append(control);
+    container.append(renderField(null, 'corner_angle_deg', state.schema.properties.corner_angle_deg));
   }
 
   function renderParameterFields() {
@@ -437,9 +440,9 @@
     const add = (path, message) => errors.push({ path, message });
     if (!String(state.draft.case_id ?? '').trim()) add('case_id', '请填写案例标识。');
     const angle = numericValue(state.draft.corner_angle_deg);
-    if (!angle.valid || angle.value !== 90) add('corner_angle_deg', '本期建筑平面角固定为 90°。');
+    if (!angle.valid || angle.value <= 0 || angle.value >= 180) add('corner_angle_deg', '建筑平面内角须为大于 0°、小于 180° 的有限数值。');
 
-    const numericConfig = { case_id: String(state.draft.case_id ?? '').trim(), corner_angle_deg: 90, parameters: {}, advanced: {} };
+    const numericConfig = { case_id: String(state.draft.case_id ?? '').trim(), corner_angle_deg: angle.value, parameters: {}, advanced: {} };
     for (const section of ['parameters', 'advanced']) {
       for (const [key, property] of Object.entries(schemaProperties(section))) {
         const raw = state.draft[section][key];
@@ -623,8 +626,9 @@
     const input = event.currentTarget;
     const section = input.dataset.section;
     const key = input.dataset.key;
-    state.draft[section][key] = input.value;
-    state.touched.add(`${section}.${key}`);
+    if (section) state.draft[section][key] = input.value;
+    else state.draft[key] = input.value;
+    state.touched.add(section ? `${section}.${key}` : key);
     state.serverValidation = null;
     state.serverValidationCurrent = false;
     state.validationAttempted = false;
@@ -634,6 +638,12 @@
   }
 
   function setFieldRaw(path, value) {
+    if (path === 'corner_angle_deg') {
+      state.draft.corner_angle_deg = String(value ?? '');
+      const input = byId('input-top-corner_angle_deg');
+      if (input) input.value = state.draft.corner_angle_deg;
+      return;
+    }
     if (path === 'case_id') {
       state.draft.case_id = String(value ?? '');
       const input = byId('input-case-id');
@@ -700,6 +710,7 @@
   function caseOptionLabel(caseValue) {
     const title = String(caseValue.title || caseValue.id);
     const parts = [];
+    if (Number.isFinite(caseValue.config?.corner_angle_deg)) parts.push(`${formatNumber(caseValue.config.corner_angle_deg)}°`);
     if (caseValue.metrics && caseValue.metrics.parts_count != null && Number.isFinite(Number(caseValue.metrics.parts_count))) parts.push(`${formatNumber(caseValue.metrics.parts_count, 0)} 件`);
     if (caseValue.created_at) {
       const date = new Date(caseValue.created_at);
@@ -912,6 +923,8 @@
 
   function displayCase(caseValue, persist = true) {
     state.currentCase = caseValue || null;
+    const displayedAngle = caseValue?.config?.corner_angle_deg;
+    setText(byId('displayed-angle'), Number.isFinite(displayedAngle) ? `${formatNumber(displayedAngle)}°` : '—');
     byId('viewer-empty').hidden = Boolean(caseValue);
     if (!caseValue) {
       setText(byId('result-title'), '暂无已登记的有效结果');
@@ -1313,7 +1326,7 @@
       if (!asPlainObject(parsed)) throw new Error('配置内容必须是 JSON 对象。');
       const unknown = detectUnknownKeys(parsed);
       if (unknown.length) throw new Error(`包含当前版本不认识的字段：${unknown.join('、')}`);
-      if (Object.hasOwn(parsed, 'corner_angle_deg') && (typeof parsed.corner_angle_deg !== 'number' || parsed.corner_angle_deg !== 90)) throw new Error('本期只接受 JSON 数字 90 的建筑平面角。该配置尚未导入。');
+      if (Object.hasOwn(parsed, 'corner_angle_deg') && (typeof parsed.corner_angle_deg !== 'number' || !Number.isFinite(parsed.corner_angle_deg) || parsed.corner_angle_deg <= 0 || parsed.corner_angle_deg >= 180)) throw new Error('建筑平面内角须为大于 0°、小于 180° 的有限 JSON 数字。该配置尚未导入。');
       if (Object.hasOwn(parsed, 'case_id') && typeof parsed.case_id !== 'string') throw new Error('case_id 必须是文字。该配置尚未导入。');
       for (const section of ['parameters', 'advanced']) {
         if (Object.hasOwn(parsed, section) && !asPlainObject(parsed[section])) throw new Error(`${section} 必须是 JSON 对象。该配置尚未导入。`);
@@ -1321,7 +1334,7 @@
           if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error(`${section}.${key} 必须是有限的 JSON 数字。该配置尚未导入。`);
         }
       }
-      state.draft = makeRawDraft(mergeWithDefaults({ ...parsed, corner_angle_deg: 90 }));
+      state.draft = makeRawDraft(mergeWithDefaults(parsed));
       state.touched.clear();
       state.serverValidation = null;
       state.serverValidationCurrent = false;

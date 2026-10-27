@@ -69,7 +69,9 @@ def young_corner(case, old_member):
     root_ridge = old_ridge * float(src["young_root_scale"])
     tip_scale = float(src["young_tip_scale"])
     tip_width, tip_height, tip_ridge = root_width * tip_scale, root_height * tip_scale, root_ridge * tip_scale
-    start_bottom_z = case["purlin_radius"] - float(case["p"]["t"]) * root_xy[0] - case["old_seat_relief"] + old_h
+    start_bottom_z = (case["purlin_radius"] - float(case["p"]["t"]) *
+                      s2.symmetric_roof_pitch_projection(case, root_xy) -
+                      case["old_seat_relief"] + old_h)
     # 112.5 mm belongs to the combined future upper outline, after separate
     # diamond/carry members are added. Keep the young-corner body baseline
     # straight and apply only a shallow curve to its existing raised carback.
@@ -107,10 +109,11 @@ def young_corner(case, old_member):
                                 (0.0, body_h+ridge_h-carback_drop_z/height_axis[2]),
                                 (-width/2, body_h)):
             p = np.array(c) + width_axis*lateral + height_axis*height
-            # Apply the pitch datum along the diagonal bisector. Using only
-            # X made the two lateral sides receive different Z corrections,
-            # so the member was not symmetric under X/Y reflection.
-            bisector_run = 0.5 * ((p[0] - c[0]) + (p[1] - c[1]))
+            # The shared pitch datum is the equal projection of the two roof
+            # normals onto the angle bisector. This keeps the cross section
+            # invariant under reflection for every supported included angle.
+            bisector_run = (s2.symmetric_roof_pitch_projection(case, p[:2]) -
+                            s2.symmetric_roof_pitch_projection(case, c[:2]))
             p[2] -= float(case["p"]["t"]) * bisector_run
             vertices.append([float(v) for v in p])
         sections.append(vertices)
@@ -144,8 +147,9 @@ def young_corner(case, old_member):
 
 def rail_path(case):
     D, e, ext = case["D"], case["e"], case["eave_tail_extension"]
-    A = (-D, e)
-    straight = [(float(x), float(e)) for x in np.linspace(-D-ext, -D, 9)]
+    x_boundary = float(case["old_start"][0])
+    A = (x_boundary, e)
+    straight = [(float(x), float(e)) for x in np.linspace(x_boundary-ext, x_boundary, 9)]
     arc = case["fan_surface"]["arc_points"]
     selected = [arc[int(round(i*(len(arc)-1)/48))] for i in range(49)]
     path = straight + [(float(x), float(y)) for x, y in selected[1:]]
@@ -176,13 +180,13 @@ def build_likou_half(case, path, mirror=False):
         t = lengths[i]/total
         h = h_low + (h_high-h_low)*smooth(t)
         edge_points = [(p[0], p[1]), (p[0]+inward[0]*width, p[1]+inward[1]*width)]
-        if p[0] <= -D + 1e-6 and abs(p[1]-e) < 1e-5:
+        if p[0] <= float(case["old_start"][0]) + 1e-6 and abs(p[1]-e) < 1e-5:
             base_z = case["fan_top_intercept"] - float(case["p"]["t"])*e
         else:
             base_z = s2.fan_top_z(case, p[0], p[1])
         section = []
         for x, y in edge_points:
-            if x < -D-1e-5 and abs(y-e) <= width+1e-4:
+            if x < float(case["old_start"][0])-1e-5 and abs(y-e) <= width+1e-4:
                 z = case["fan_top_intercept"] - float(case["p"]["t"])*y
             else:
                 z = s2.fan_top_z(case, x, y)
@@ -190,7 +194,7 @@ def build_likou_half(case, path, mirror=False):
         for x, y in reversed(edge_points):
             # Matching top face follows the shared support surface plus the
             # varying vertical beam height.
-            if x < -D-1e-5 and abs(y-e) <= width+1e-4:
+            if x < float(case["old_start"][0])-1e-5 and abs(y-e) <= width+1e-4:
                 z = case["fan_top_intercept"] - float(case["p"]["t"])*y
             else:
                 z = s2.fan_top_z(case, x, y)
@@ -199,15 +203,15 @@ def build_likou_half(case, path, mirror=False):
         centerline.append([p[0], p[1], base_z-float(case["likou_surface_overlap"])+h/2.0])
     shape = s2.loft_sections(sections)
     if mirror:
-        shape = shape.mirror((1.0, -1.0, 0.0), (0.0, 0.0, 0.0))
-        centerline = [[p[1], p[0], p[2]] for p in centerline]
+        shape = s2.mirror_shape(case, shape)
+        centerline = [s2.reflect_xyz(case, p) for p in centerline]
     info = {"width_mm": width, "low_height_mm": h_low, "high_height_mm": h_high,
             "height_transition": "沿直段+内凹圆弧总长使用smoothstep",
             "straight_extension_mm": float(case["eave_tail_extension"]),
             "path_length_mm": total, "station_count": len(path),
-            "path": [[p[1], p[0]] if mirror else [p[0], p[1]] for p in path],
-            "plan_rule": "以stage02内凹檐端弧为外侧参考线，沿屋面内侧偏移55mm作为里口内边；望板止于该内边。",
-            "vertical_rule": "底面跟随同一摔网/正身椽顶面并预留0.2mm搭接；高端157.5mm、低端70mm。"}
+            "path": [list(s2.reflect_xy(case, p)) if mirror else [p[0], p[1]] for p in path],
+            "plan_rule": f"以stage02内凹檐端弧为外侧参考线，沿屋面内侧偏移{width:g}mm作为里口内边；望板止于该内边。",
+            "vertical_rule": f"底面跟随同一摔网/正身椽顶面并预留{float(case['likou_surface_overlap']):g}mm搭接；高端{h_high:g}mm、低端{h_low:g}mm。"}
     return shape, info, centerline
 
 
@@ -216,70 +220,67 @@ def straight_boards(case, parts, control):
     pitch = case["eave_pitch"]
     boundaries = [centers[0]-pitch/2.0]
     boundaries.extend((centers[i]+centers[i+1])/2.0 for i in range(len(centers)-1))
-    boundaries.append(-case["D"])
+    old_start = case["old_start"]
+    boundaries.append(float(old_start[0]))
     y0 = -case["D"]-case["eave_tail_extension"]
     y1 = case["eave"]["inner_edge_y"]
     fan_surface = case["fan_surface"]
     O_run = fan_surface["O"][1]
     root_miter_relief = 0.5
+    tan_h = math.tan(float(case["half_angle_rad"]))
+    cot_h = 1.0 / tan_h
     records = []
 
+    def miter_run_at_x(x):
+        return float(old_start[1]) + tan_h * (float(x) - float(old_start[0]))
+
+    def miter_x_at_run(q):
+        return float(old_start[0]) + cot_h * (float(q) - float(old_start[1]))
+
     def board_plane_z(q):
-        # One plane for the complete straight bank. Raise the rear control
-        # point to O while retaining A at the eave; lifting just one panel edge
-        # introduced a twisted surface and a kink at the root of the fan.
+        # One plane for the complete straight bank, controlled by O and A.
         return float(fan_surface["zO"]) + (
             float(fan_surface["zA"]) - float(fan_surface["zO"])) * (
                 q - O_run) / (float(fan_surface["A"][1]) - O_run)
-    for side in ("x", "y"):
-        for i in range(len(centers)):
-            x0, x1 = boundaries[i], boundaries[i+1]
-            # The two straight banks meet at the diagonal split. Clip every
-            # run section to its own half-plane rather than filling both
-            # overlapping rectangular corners.
-            q0 = max(y0, x0 + root_miter_relief)
-            if q0 >= y1:
-                raise ValueError(f"正身望板{i+1:02d}裁角后无有效跨度")
-            qs = [float(v) for v in np.linspace(q0, y1, 11)]
-            sections = []
-            for q in qs:
-                cross_hi = min(x1, q)
-                if cross_hi <= x0:
-                    raise ValueError(f"正身望板{i+1:02d}裁角截面宽度非正")
-                z = board_plane_z(q) - float(case["board_surface_overlap"])
-                z_hi = z
-                if side == "x":
-                    section = [[x0,q,z],[cross_hi,q,z_hi],[cross_hi,q,z_hi+case["board_lower_t"]],[x0,q,z+case["board_lower_t"]]]
-                else:
-                    section = [[q,x0,z],[q,cross_hi,z_hi],[q,cross_hi,z_hi+case["board_lower_t"]],[q,x0,z+case["board_lower_t"]]]
-                sections.append(section)
-            shape = s2.loft_sections(sections)
+
+    for i in range(len(centers)):
+        x0, x1 = boundaries[i], boundaries[i+1]
+        q0 = max(y0, miter_run_at_x(x0) + root_miter_relief)
+        if q0 >= y1:
+            raise ValueError(f"正身望板{i+1:02d}裁角后无有效跨度")
+        qs = [float(v) for v in np.linspace(q0, y1, 11)]
+        sections = []
+        for q in qs:
+            cross_hi = min(x1, miter_x_at_run(q))
+            if cross_hi <= x0:
+                raise ValueError(f"正身望板{i+1:02d}裁角截面宽度非正")
+            z = board_plane_z(q) - float(case["board_surface_overlap"])
+            sections.append([[x0,q,z],[cross_hi,q,z],[cross_hi,q,z+case["board_lower_t"]],
+                             [x0,q,z+case["board_lower_t"]]])
+        base_shape = s2.loft_sections(sections)
+        cross_hi_start = min(x1, miter_x_at_run(q0))
+        cross_hi_end = min(x1, miter_x_at_run(y1))
+        ztop0, ztop1 = board_plane_z(q0), board_plane_z(y1)
+        base_edge = [[x0,q0,ztop0],[cross_hi_start,q0,ztop0],
+                     [cross_hi_end,y1,ztop1],[x0,y1,ztop1]]
+        for side in ("x", "y"):
+            shape = base_shape if side == "x" else s2.mirror_shape(case, base_shape)
             pid = f"lower_board_straight_{side}_{i+1:02d}"
-            add(parts,pid,f"下层望板正身{side.upper()}向{i+1:02d}（{case['board_lower_t']:g}厚）","lower_board",shape)
-            tail_cut_run = max(0.0, min(y1, x0)-y0)
-            triangle_start = max(y0, x0)
-            triangle_end = min(y1, x1)
-            trim_area = (x1-x0)*tail_cut_run + 0.5*max(0.0, triangle_end-triangle_start)**2
+            edge = base_edge if side == "x" else [s2.reflect_xyz(case, p) for p in base_edge]
+            wing_label="基准翼" if side=="x" else "镜像翼"
+            add(parts,pid,f"下层望板正身{wing_label}{i+1:02d}（{case['board_lower_t']:g}厚）","lower_board",shape)
             records.append({"id":pid,"side":side,"plan_x_or_y_extent_mm":[x0,x1],
                             "nominal_run_extent_mm":[y0,y1],"generated_run_extent_mm":[q0,y1],
                             "thickness_mm":float(case["board_lower_t"]),"underface_overlap_mm":float(case["board_surface_overlap"]),
                             "supported_rafter_center_mm":centers[i],
-                            "diagonal_half_plane_rule":"x-bank y>=x; mirrored y-bank x>=y; each run section cross-width upper bound=min(panel edge,q).",
+                            "half_plane_rule":"基准翼按建筑角平分面裁切；镜像翼由同一实体刚体反射得到。",
                             "root_miter_relief_mm":root_miter_relief,
-                            "plan_area_trimmed_by_diagonal_mm2":trim_area,
                             "surface_rule":"全翼正身望板共用经过摔网根点O与檐口A的平面；宽向等高，取消末道板单边抬升。",
                             "plane_control_O_q_z_mm":[float(O_run),float(fan_surface["zO"])],
                             "plane_control_A_q_z_mm":[float(fan_surface["A"][1]),float(fan_surface["zA"])]})
-            cross_hi_start, cross_hi_end = min(x1,q0), min(x1,y1)
-            ztop0, ztop1 = board_plane_z(q0), board_plane_z(y1)
-            ztop_hi0, ztop_hi1 = ztop0, ztop1
             control.append({"id":pid+"_edge","name":pid+"边界","group":"lower_board",
-                            "points":[[x0,q0,ztop0],[cross_hi_start,q0,ztop_hi0],
-                                      [cross_hi_end,y1,ztop_hi1],[x0,y1,ztop1]] if side=="x" else
-                                      [[q0,x0,ztop0],[q0,cross_hi_start,ztop_hi0],
-                                       [y1,cross_hi_end,ztop_hi1],[y1,x0,ztop1]]})
+                            "points":edge})
     return records
-
 
 def fan_boards(case, parts, control):
     ctx = case["fan_surface"]
@@ -329,15 +330,18 @@ def fan_boards(case, parts, control):
     for side in ("x","y"):
         reflected=side=="y"
         for i,base_shape in enumerate(shapes):
-            shape=base_shape.mirror((1.0,-1.0,0.0),(0.0,0.0,0.0)) if reflected else base_shape
+            shape=s2.mirror_shape(case, base_shape) if reflected else base_shape
             pid=f"lower_board_fan_{side}_{i+1:02d}" if len(shapes)>1 else f"lower_board_fan_{side}"
-            add(parts,pid,f"下层望板摔网{side.upper()}向{i+1:02d}（{board_t:g}厚）","lower_board",shape)
+            wing_label="基准翼" if side=="x" else "镜像翼"
+            add(parts,pid,f"下层望板摔网{wing_label}{i+1:02d}（{board_t:g}厚）","lower_board",shape)
             entries.append({"id":pid,"side":side,"thickness_mm":board_t,
                             "underface_overlap_mm":board_overlap,"fan_sector_index":i+1,
                             "construction":"由分射点到弯里口内边的扇区放样，完整覆盖摔网椽至里口内边。"})
             if len(shapes)==1 and i==0:
                 control.append({"id":pid+"_outer_edge","name":"扇形望板内口边","group":"lower_board",
-                                "points":[[x,y,s2.fan_top_z(case,x,y)-board_overlap+board_t] for x,y in boundary]})
+                                "points":([s2.reflect_xyz(case, (x,y,s2.fan_top_z(case,x,y)-board_overlap+board_t))
+                                           for x,y in boundary] if reflected else
+                                          [[x,y,s2.fan_top_z(case,x,y)-board_overlap+board_t] for x,y in boundary])})
     # Measure how well the chosen one-piece loft follows the shared height rule;
     # the fallback panels use the same endpoint interpolation in triangular cells.
     max_deviation=0.0
@@ -376,7 +380,7 @@ def hash_file(path):
     return h.hexdigest()
 
 
-def write_mesh(parts, control):
+def write_mesh(parts, control, case):
     mesh_parts=[]; obj_lines=[]; offset=1; face_count=0
     for part in parts:
         vertices,triangles=part["shape"].tessellate(2.0,0.35)
@@ -388,7 +392,8 @@ def write_mesh(parts, control):
         for v in vertices: obj_lines.append("v %.6f %.6f %.6f"%v.toTuple())
         for tri in triangles: obj_lines.append("f %d %d %d"%tuple(offset+int(i) for i in tri))
         offset+=len(vertices)
-    mesh={"metadata":{"units":"mm","up_axis":"Z","case_id":"CASE_ASSUMED_001","stage":3,
+    mesh={"metadata":{"units":"mm","up_axis":"Z","case_id":case["source"].get("case_id","CASE_ASSUMED_001"),
+                       "corner_angle_deg":float(case.get("corner_angle_deg",90.0)),"stage":3,
                        "stage_name":STAGE_NAME,"scope":"第二层43件基础上增加嫩戗、两侧弯里口木与完整正身/摔网下层木望板；不含飞椽及上层卷戗板。",
                        "mesh_tessellation_mm":2.0},"parts":mesh_parts,"control_lines":control}
     mpath=OUT/"stage03_model_mesh.json"
@@ -410,31 +415,34 @@ def build():
     for side in ("x","y"):
         shape,info,axis=build_likou_half(case,path,mirror=(side=="y"))
         pid=f"likou_{side}"
-        add(parts,pid,f"弯里口木{side.upper()}向（弧形过渡）","likou",shape)
+        wing_label="基准翼" if side=="x" else "镜像翼"
+        add(parts,pid,f"弯里口木{wing_label}（弧形过渡）","likou",shape)
         info["id"]=pid
         likou_records.append(info)
         control.append({"id":pid+"_axis","name":pid+"中心线","group":"likou","points":axis[::max(1,len(axis)//12)]})
     case["eave"]={"inner_edge_y":case["e"]-float(case["p"]["likou_width"])}
     straight_records=straight_boards(case,parts,control)
     fan_entries,fan_info=fan_boards(case,parts,control)
-    params={"metadata":{"case_id":"CASE_ASSUMED_001","stage":3,"stage_name":STAGE_NAME,"units":"mm","up_axis":"Z"},
+    params={"metadata":{"case_id":case["source"].get("case_id","CASE_ASSUMED_001"),
+                         "corner_angle_deg":float(case.get("corner_angle_deg",90.0)),
+                         "stage":3,"stage_name":STAGE_NAME,"units":"mm","up_axis":"Z"},
             "base_stage02_mesh_sha256":hash_file(OUT/"stage02_model_mesh.json") if (OUT/"stage02_model_mesh.json").exists() else None,
             "young_corner":young_info,"likou":{"members":likou_records,"height_rule":"70mm低端至157.5mm高端，smoothstep连续过渡。"},
-            "lower_board":{"thickness_mm":20.0,"straight_panels":straight_records,"fan_panels":fan_entries,"fan_approximation":fan_info,
-                           "straight_surface_rule":"底面按z=138-0.5*run-0.2mm，厚20mm；末道板沿宽度在x/y=-D处接至fan_top_z共边，最大抬升为O处的高差，不修改stage02椽。",
-                           "coverage":"正身板从步桁内尾伸300mm延至里口木内边y=545mm；摔网板从分射点O覆盖至弧形里口木内边，分片/扇区接缝沿分椽方向，并在正身/摔网共边连续接高程。",
+            "lower_board":{"thickness_mm":float(case["board_lower_t"]),"straight_panels":straight_records,"fan_panels":fan_entries,"fan_approximation":fan_info,
+                           "straight_surface_rule":f"基准翼正身望板底面由摔网根点O与檐口A控制的平面定义，厚{float(case['board_lower_t']):g}mm并预留{float(case['board_surface_overlap']):g}mm搭接；末道板沿基准翼边界x={float(case['old_start'][0]):.3f}mm与摔网面共边，镜像翼按建筑角平分面反射，不修改stage02椽。",
+                           "coverage":f"基准翼正身板从步桁内尾伸{float(case['eave_tail_extension']):g}mm延至里口木内边y={float(case['eave']['inner_edge_y']):g}mm；摔网板从分射点O覆盖至弧形里口木内边，分片/扇区接缝沿分椽方向，并在正身/摔网共边连续接高程；镜像翼由基准翼反射。",
             "shared_seam_transition":{"max_side_rise_mm":max((r["fan_seam_transition_max_rise_mm"] for r in straight_records),default=0.0),
-                                    "rule":"末道板的板宽方向由正身坡面抬至x/y=-D处摔网坡面；局部高差不是小误差，未更改第二层椽。"}},
+                                    "rule":f"末道板的板宽方向由基准翼正身坡面接至x={float(case['old_start'][0]):.3f}mm边界处的摔网坡面；这是实体转接，不是小误差，未更改第二层椽。"}},
             "groups":{},"assumptions":[
                 "900mm控制弦解释为空间直线弦长；升高480mm后平面投影761.315mm。",
                 "嫩戗主体底线沿900/480控制弦保持直线；仅车背脊线施加浅凹，矢高为根梢较小车背高度的0.75；112.5mm留作后续菱角木/扁担木组合轮廓参考，不压入嫩戗主体。",
                 "根部从老戗头内退82.5mm处的侧身顶面起，简化底部坐势由对老戗实体切除形成；未建榫卯，亦未增加老戗头后的后延大楔块。",
-                "里口木平面以stage02内凹檐弧为外侧参考线，宽55mm向屋面内侧展开；高端157.5mm、正身低端70mm。",
-                "正身直板按200mm宽分板；末道止于x/y=-1200，并沿该板宽侧向接至摔网板共边高程；O处侧向抬高约70.34mm以消除共边台阶，stage02椽几何保持不变。",
+                f"里口木平面以stage02内凹檐弧为外侧参考线，宽{float(case['p']['likou_width']):g}mm向屋面内侧展开；高端{float(case['p']['likou_h_regular'])*float(case['p']['likou_h_corner_ratio']):g}mm、正身低端{float(case['p']['likou_h_regular']):g}mm。",
+                f"正身直板按{float(case['eave_pitch']):g}mm宽分板；末道止于基准翼边界x={float(case['old_start'][0]):.3f}mm，并沿该板宽侧向接至摔网板共边高程；共边过渡量以实际O点高程和部件记录为准，stage02椽几何保持不变。",
                 "摔网板沿内凹里口边界扇区放样；若曲面单体放样失效则退回逐扇区单实体，不为消除微小表面偏差扭曲椽面。",
                 "下层望板到里口木内边；不加入飞椽、上层卷戗板或精细承口。",
             ]}
-    mesh_path,mesh_faces=write_mesh(parts,control)
+    mesh_path,mesh_faces=write_mesh(parts,control,case)
     params["groups"]={g:sum(p["group"]==g for p in parts) for g in sorted({p["group"] for p in parts})}
     params["piece_count"]=len(parts)
     params_path=OUT/"stage03_parameters.json"
@@ -505,14 +513,14 @@ def finish(result):
     artifacts={n:{"bytes":(OUT/n).stat().st_size,"sha256":hash_file(OUT/n)} for n in artifact_names}
     O=case["fan_surface"]["O"]
     O_q=float(O[1])
-    O_straight_z=138.0-0.5*O_q
+    O_straight_z=float(case["fan_top_intercept"])-float(case["p"]["t"])*O_q
     O_fan_z=s2.fan_top_z(case,*O)
     seam_qs=np.linspace(O_q,case["e"][0] if isinstance(case["e"],tuple) else case["e"]-float(case["p"]["likou_width"]),101)
     seam_residuals=[]
     for q in seam_qs:
         q=float(q)
-        straight_z=138.0-0.5*q
-        fan_z=s2.fan_top_z(case,-case["D"],q)
+        straight_z=float(case["fan_top_intercept"])-float(case["p"]["t"])*q
+        fan_z=s2.fan_top_z(case,float(case["old_start"][0]),q)
         seam_residuals.append(abs(straight_z+max(0.0,fan_z-straight_z)-fan_z))
     shared_seam_check={"O_plan_xy_mm":list(O),"straight_roof_z_at_O_mm":O_straight_z,
                        "fan_board_underface_z_at_O_mm":O_fan_z,"side_transition_rise_at_O_mm":O_fan_z-O_straight_z,

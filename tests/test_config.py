@@ -16,9 +16,15 @@ class ConfigValidationTests(unittest.TestCase):
         self.assertGreater(config["derived"]["old_young_control_included_angle_deg"], 0.0)
         self.assertEqual(config["derived"]["fly_tail_ratio"], None)
 
-    def test_non_right_angle_and_nonfinite_angle_are_rejected(self):
-        for angle in (45, math.nan, math.inf):
-            with self.subTest(angle=angle), self.assertRaisesRegex(ValueError, "只支持90°"):
+    def test_symmetric_convex_angles_resolve_and_invalid_limits_are_rejected(self):
+        for angle in (60, 90, 120):
+            with self.subTest(angle=angle):
+                config = resolve_config({"corner_angle_deg": angle})
+                self.assertEqual(config["corner_angle_deg"], float(angle))
+                self.assertEqual(config["derived"]["corner_angle_deg"], float(angle))
+                self.assertGreater(config["derived"]["old_young_control_included_angle_deg"], 0.0)
+        for angle in (0, 180, -1, math.nan, math.inf, True):
+            with self.subTest(angle=angle), self.assertRaisesRegex(ValueError, "必须满足0 < 角度 < 180°"):
                 resolve_config({"corner_angle_deg": angle})
 
     def test_unknown_legacy_fields_are_rejected_with_migration_hint(self):
@@ -43,6 +49,13 @@ class ConfigValidationTests(unittest.TestCase):
     def test_schema_describes_every_accepted_field_and_its_default(self):
         import json
         schema = json.loads((ROOT / "parameter_schema.json").read_text(encoding="utf-8"))
+        angle = schema["properties"]["corner_angle_deg"]
+        self.assertEqual(angle["type"], "number")
+        self.assertEqual(angle["default"], 90)
+        self.assertEqual(angle["exclusiveMinimum"], 0)
+        self.assertEqual(angle["exclusiveMaximum"], 180)
+        self.assertIn("檐桁射线之间的内角", angle["description"])
+        self.assertNotIn("const", angle)
         for section, defaults in (("parameters", PARAMETER_DEFAULTS), ("advanced", ADVANCED_DEFAULTS)):
             properties = schema["properties"][section]["properties"]
             self.assertEqual(set(properties), set(defaults))

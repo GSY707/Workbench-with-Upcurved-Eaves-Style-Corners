@@ -50,6 +50,8 @@ def check_case(folder):
             assert target.is_file(), (filename, "missing local reference", ref)
             refs.append((filename, ref))
     shown_mesh = json.loads(pages["model.html"].payloads["model-data"])
+    resolved = json.loads((folder / "parameters_resolved.json").read_text(encoding="utf-8-sig"))
+    assert shown_mesh["metadata"].get("corner_angle_deg", 90) == resolved["corner_angle_deg"], "viewer angle differs from configuration"
     assert shown_mesh["parts"] == mesh["parts"], "3D viewer embeds a different model"
     assert shown_mesh["metadata"]["viewer_source_sha256"] == hashlib.sha256((folder / "model_mesh.json").read_bytes()).hexdigest()
     shown_layout = json.loads(pages["layout.html"].payloads["layout-data"])
@@ -76,7 +78,7 @@ def check_case(folder):
     report = {"status": "passed" if validation.get("passed") is True else "diagnostic_only", "geometry_validation_passed": validation.get("passed"), "scope": "离线页面、数据版本、尺寸表及本地链接整合检查；不代替浏览器交互验证",
               "case_dir": str(folder), "parts": len(mesh["parts"]), "templates": len(table),
               "local_references_checked": len(refs), "checks": ["embedded_mesh_matches", "embedded_layout_matches",
-              "mesh_hash_matches", "required_page_elements_exist", "marking_table_ids_match", "layout_model_ids_match", "local_references_exist"]}
+              "mesh_hash_matches", "viewer_angle_matches", "required_page_elements_exist", "marking_table_ids_match", "layout_model_ids_match", "local_references_exist"]}
     (folder / "delivery_check.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     return report
 

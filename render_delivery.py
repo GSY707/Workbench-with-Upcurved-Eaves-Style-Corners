@@ -6,6 +6,7 @@ import csv
 import hashlib
 import html
 import json
+import math
 import shutil
 import sys
 from pathlib import Path
@@ -126,7 +127,7 @@ def model_figure(model, out, diagnostic=False):
     lo, hi = vv.min(axis=0), vv.max(axis=0)
     ax.set_xlim(lo[0], hi[0]); ax.set_ylim(lo[1], hi[1]); ax.set_zlim(lo[2], hi[2])
     ax.set_box_aspect(np.maximum(hi-lo, 1))
-    ax.view_init(elev=29, azim=45)
+    ax.view_init(elev=29, azim=float(model.get("metadata", {}).get("corner_angle_deg", 90.0)) / 2.0)
     ax.set_xlabel("X / mm"); ax.set_ylabel("Y / mm"); ax.set_zlabel("Z / mm")
     ax.set_title("参数生成三维模型 · "+str(model.get("metadata", {}).get("case_id", out.name)),
                  fontproperties=FONT, fontsize=16)
@@ -142,6 +143,14 @@ def render_case(case_dir: Path):
     case_dir = Path(case_dir).resolve()
     model_path, layout_path = case_dir / "model_mesh.json", case_dir / "layout.json"
     model, layout = read_json(model_path), read_json(layout_path)
+    resolved = read_json(case_dir / "parameters_resolved.json")
+    angle = float(resolved["corner_angle_deg"])
+    if not math.isfinite(angle) or not 0.0 < angle < 180.0:
+        raise ValueError("生成结果的建筑平面内角无效")
+    stored_angle = model.get("metadata", {}).get("corner_angle_deg")
+    if stored_angle is not None and float(stored_angle) != angle:
+        raise ValueError("模型网格与本次配置的建筑平面内角不一致")
+    model.setdefault("metadata", {})["corner_angle_deg"] = angle
     validation_path = case_dir / "validation.json"
     validation = read_json(validation_path) if validation_path.exists() else {}
     diagnostic = validation.get("passed") is False
@@ -191,8 +200,8 @@ def render_case(case_dir: Path):
              'color:#2e483b;font:15px/1.75 "Microsoft YaHei",sans-serif}h1{font-weight:500}a{color:#356753}'
              '.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}img{width:100%;background:white;border:1px solid #dce0d5}'
              'li{margin:7px 0}@media(max-width:800px){.grid{grid-template-columns:1fr}}</style>'
-             '<h1>'+case_id+' · 直角戗角生成结果</h1>'+warning+
-             '<p>'+str(len(model["parts"]))+' 个三维构件；'+str(len(pieces))+' 种立脚飞椽模板 × 2 套。'
+             '<h1>'+case_id+' · 戗角生成结果</h1>'+warning+
+             '<p>建筑平面内角 '+f'{angle:g}'+'°，左右对称；'+str(len(model["parts"]))+' 个三维构件；'+str(len(pieces))+' 种立脚飞椽模板 × 2 套。'
              '每套木板 '+fmt("board_width_x_mm")+' × '+fmt("board_height_y_mm")+' × '+fmt("board_thickness_mm")+' mm。</p>'
              '<div class="grid"><a href="model.html"><img src="model_preview.png" alt="三维模型"></a>'
              '<a href="layout.html"><img src="layout.png" alt="立脚飞椽排料"></a></div><ul>'+link_html+'</ul>'
@@ -205,6 +214,7 @@ def render_case(case_dir: Path):
         "generation_completed": validation.get("passed"),
         "visual_review": validation.get("visual_review", {"status": "not_recorded"}),
         "model_mesh_sha256": hash_file(model_path),
+        "corner_angle_deg": angle,
         "layout_json_sha256": hash_file(layout_path),
         "parts": len(model["parts"]), "templates": len(pieces), "sets": 2,
         "artifacts": {p: hash_file(case_dir/p) for p in artifacts},

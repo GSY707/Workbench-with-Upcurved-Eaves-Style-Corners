@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Serve the local 90-degree corner workbench on loopback only."""
+"""Serve the local symmetric corner workbench on loopback only."""
 from __future__ import annotations
 
 import argparse

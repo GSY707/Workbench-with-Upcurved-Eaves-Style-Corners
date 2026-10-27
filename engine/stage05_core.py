@@ -9,7 +9,6 @@ from pathlib import Path
 
 OUT = Path(__file__).resolve().parent
 STAGE_NAME = "飞椽贴板尖尾、菱角木与扁担木、卷戗板"
-LOCAL_INV_SQRT2 = 1.0 / math.sqrt(2.0)
 
 SPEC4 = importlib.util.spec_from_file_location("stage04_for_stage05", OUT / "stage04_core.py")
 s4 = importlib.util.module_from_spec(SPEC4)
@@ -247,8 +246,9 @@ def _common_flyer_boundaries(ctx):
     front_y = float(case["e"]) - float(p["likou_width"])
     outer_y = float(case["e"]) + float(p["p"])
     likou_y = float(case["e"])
+    boundary_x = float(case["old_start"][0])
     front_path = [(float(x_min), front_y), *inner_path]
-    outer_path = [(float(x_min), outer_y), (-float(case["D"]), outer_y)]
+    outer_path = [(float(x_min), outer_y), (boundary_x, outer_y)]
     outer_path.extend((float(x), float(y)) for x, y in end_curve["points"][1:])
     likou_outer_path = [(float(x_min), likou_y),
                         *((float(x), float(y)) for x, y in ctx["path"])]
@@ -256,9 +256,9 @@ def _common_flyer_boundaries(ctx):
         "method": "extend the existing common inner path and end curve with straight-bank control lines",
         "front_extension_xy_mm": [[float(x_min), front_y], list(inner_path[0])],
         "front_extension_length_mm": float(math.dist((x_min, front_y), inner_path[0])),
-        "outer_extension_xy_mm": [[float(x_min), outer_y], [-float(case["D"]), outer_y]],
+        "outer_extension_xy_mm": [[float(x_min), outer_y], [boundary_x, outer_y]],
         "outer_extension_length_mm": float(math.dist(
-            (x_min, outer_y), (-float(case["D"]), outer_y))),
+            (x_min, outer_y), (boundary_x, outer_y))),
         "likou_outer_extension_xy_mm": [[float(x_min), likou_y],
                                          [float(ctx["path"][0][0]), float(ctx["path"][0][1])]],
         "likou_outer_extension_length_mm": float(math.dist(
@@ -701,10 +701,8 @@ def exact_brep_bbox_mm(shape):
 
 
 def reflected_bbox_error_mm(source_bbox, reflected_bbox):
-    """Compare [xmin,ymin,zmin,xmax,ymax,zmax] after x/y swap reflection."""
-    reflected = (float(source_bbox[1]), float(source_bbox[0]), float(source_bbox[2]),
-                 float(source_bbox[4]), float(source_bbox[3]), float(source_bbox[5]))
-    return max(abs(a - b) for a, b in zip(reflected, reflected_bbox))
+    """Compare exact bounds after the angle-aware rigid reflection was applied."""
+    return max(abs(float(a) - float(b)) for a, b in zip(source_bbox, reflected_bbox))
 
 
 def find_tail_endpoint(record, board_sampler, edge, dI_z, E_bottom_center, E_depth_z, max_length, case):
@@ -1454,14 +1452,15 @@ def add_contact_flyers(ctx):
             pid_x = f"flying_fan_x_{int(record['index']):02d}"
             pid_y = f"flying_fan_y_{int(record['index']):02d}"
             group = s4.WING_GROUP
-            name_x = f"立脚飞椽X向-{int(record['index']):02d}（贴板尖尾）"
+            name_x = f"立脚飞椽基准翼-{int(record['index']):02d}（贴板尖尾）"
         else:
             pid_x = f"straight_flying_x_{int(record['index']):02d}"
             pid_y = f"straight_flying_y_{int(record['index']):02d}"
             group = s4.STRAIGHT_GROUP
-            name_x = f"正身飞椽X向-{int(record['index']):02d}（贴板尖尾）"
+            name_x = f"正身飞椽基准翼-{int(record['index']):02d}（贴板尖尾）"
         add(parts, pid_x, name_x, group, shape)
-        add(parts, pid_y, name_x.replace("X向", "Y向"), group, shape.mirror((1.0, -1.0, 0.0), (0.0, 0.0, 0.0)))
+        add(parts, pid_y, name_x.replace("基准翼", "镜像翼"), group,
+            s2.mirror_shape(ctx["case"], shape))
         detail["part_ids"] = [pid_x, pid_y]
         detail["member_solid_count"] = len(shape.Solids())
         detail["geometry_assessment"] = "not_run"
@@ -1483,8 +1482,8 @@ def add_contact_flyers(ctx):
                                   q, 0.0, detail["E_bottom_center_mm"])
             axis_points.append((*xy_at_q(record, q, 0.0), float(b)))
         control.append({"id": pid_x + "_contact_axis", "name": name_x + "底线", "group": group, "points": axis_points})
-        control.append({"id": pid_y + "_contact_axis", "name": name_x.replace("X向", "Y向") + "底线", "group": group,
-                        "points": [(p[1], p[0], p[2]) for p in axis_points]})
+        control.append({"id": pid_y + "_contact_axis", "name": name_x.replace("基准翼", "镜像翼") + "底线", "group": group,
+                        "points": [s2.reflect_xyz(ctx["case"], p) for p in axis_points]})
         fly_records.append(detail)
         print(f"stage05: flyer {record['family']} {int(record['index']):02d} complete", flush=True)
     ctx["contact_fly_records"] = fly_records
@@ -1539,6 +1538,90 @@ def _contact_notch_cutter_legacy(record, detail, board_sampler, target_shape, up
     return cutter
 
 
+def _contact_notch_cutter_from_fibers(record, edges, q_limits, upper_z, E_bottom_center):
+    """Close one slot cutter from the original shared longitudinal fibers."""
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_Sewing
+    from OCP.BRepLib import BRepLib
+    from OCP.ShapeFix import ShapeFix_Shell
+
+    if len(edges) < 3 or len(edges) % 2 != 1:
+        raise ValueError(f"shared-field slot requires an odd fiber count >=3; got {len(edges)}")
+    q0, q1 = map(float, q_limits)
+    if not q1 > q0:
+        raise ValueError(f"shared-field slot q interval is not positive: {q_limits}")
+
+    def vector(point):
+        return cq.Vector(*(float(value) for value in point))
+
+    def polygon_face(points, label):
+        if len(points) < 3:
+            raise ValueError(f"{label}: polygon has fewer than three points")
+        vertices = [vector(point) for point in points]
+        wire = cq.Wire.makePolygon(vertices + [vertices[0]], close=False)
+        face = cq.Face.makeFromWires(wire)
+        if face.isNull() or not face.isValid():
+            raise ValueError(f"{label}: failed to make a valid planar face")
+        return face
+
+    bottom_points = [[], []]
+    top_points = [[], []]
+    for qi, q in enumerate((q0, q1)):
+        for edge in edges:
+            v = float(edge["v_mm"])
+            x, y = xy_at_q(record, q, v)
+            z = bottom_outer_line(record, edge, q, v, E_bottom_center)
+            bottom_points[qi].append((float(x), float(y), float(z)))
+            top_points[qi].append((float(x), float(y), float(upper_z)))
+
+    # bottom_outer_line is affine in q for each W_i. Represent each source
+    # fiber as its exact endpoint line, then form each neighboring bottom
+    # patch directly from those shared curves. This avoids loft wire remapping.
+    bottom_fibers = [cq.Edge.makeLine(vector(bottom_points[0][i]),
+                                      vector(bottom_points[1][i]))
+                     for i in range(len(edges))]
+    top_fibers = [cq.Edge.makeLine(vector(top_points[0][i]),
+                                   vector(top_points[1][i]))
+                  for i in range(len(edges))]
+    if any(edge.isNull() or not edge.isValid() for edge in (*bottom_fibers, *top_fibers)):
+        raise ValueError("shared-field slot contains an invalid longitudinal fiber")
+
+    faces = [cq.Face.makeRuledSurface(bottom_fibers[i], bottom_fibers[i + 1])
+             for i in range(len(edges) - 1)]
+    faces.extend((cq.Face.makeRuledSurface(bottom_fibers[0], top_fibers[0]),
+                  cq.Face.makeRuledSurface(bottom_fibers[-1], top_fibers[-1])))
+    faces.append(polygon_face([top_points[0][0], top_points[1][0],
+                               top_points[1][-1], top_points[0][-1]],
+                              "shared-field slot top"))
+    faces.append(polygon_face([*bottom_points[0], *reversed(top_points[0])],
+                              "shared-field slot q0 cap"))
+    faces.append(polygon_face([*bottom_points[1], *reversed(top_points[1])],
+                              "shared-field slot q1 cap"))
+    if len(faces) != len(edges) + 4 or any(face.isNull() or not face.isValid() for face in faces):
+        raise ValueError("shared-field slot source faces are incomplete or invalid")
+
+    sewing = BRepBuilderAPI_Sewing(1e-6, True, True, True, False)
+    for face in faces:
+        sewing.Add(face.wrapped)
+    sewing.Perform()
+    sewn = cq.Shape.cast(sewing.SewedShape())
+    shells = sewn.Shells()
+    if len(shells) != 1 or not sewn.isValid():
+        raise ValueError(
+            f"shared-field slot faces did not sew to one valid shell: "
+            f"shape={sewn.ShapeType()} shells={len(shells)} valid={sewn.isValid()}")
+    fix = ShapeFix_Shell(shells[0].wrapped)
+    fix.Perform()
+    shell = cq.Shell(fix.Shell())
+    cutter = cq.Solid.makeSolid(shell)
+    if not BRepLib.OrientClosedSolid_s(cutter.wrapped):
+        raise ValueError("shared-field slot shell is not closed and orientable")
+    if cutter.isNull() or not cutter.isValid() or len(cutter.Solids()) != 1:
+        raise ValueError(
+            f"invalid shared-field slot cutter: valid={cutter.isValid()} "
+            f"solids={len(cutter.Solids())} volume={cutter.Volume()}")
+    return cutter
+
+
 def contact_notch_cutter(record, detail, board_sampler, target_shape, upper_safety_mm=5.0):
     """Extend the shared W_i motherboard bottom through the complete real likou overlap."""
     edges = detail["I_front_edge_fiber_records"]
@@ -1559,37 +1642,8 @@ def contact_notch_cutter(record, detail, board_sampler, target_shape, upper_safe
         bottom_outer_line(record, edge, q, float(edge["v_mm"]),
                           float(detail["E_bottom_center_mm"]))
         for q in q_limits for edge in edges) + float(upper_safety_mm))
-    cutter_band_sections = [[] for _ in range(len(edges) - 1)]
-    # Every outer motherboard fibre is straight in q, so two stations describe
-    # its complete extension exactly. Keep the original lateral fibre stations.
-    for q in q_limits:
-        bottoms = []
-        for edge in edges:
-            bottom = bottom_outer_line(
-                record, edge, q, float(edge["v_mm"]), float(detail["E_bottom_center_mm"]))
-            xy = xy_at_q(record, q, float(edge["v_mm"]))
-            bottoms.append((float(xy[0]), float(xy[1]), float(bottom)))
-        for band_index in range(len(edges) - 1):
-            bottom_low, bottom_high = bottoms[band_index], bottoms[band_index + 1]
-            section = [bottom_low, bottom_high,
-                       (bottom_high[0], bottom_high[1], upper_z),
-                       (bottom_low[0], bottom_low[1], upper_z)]
-            cutter_band_sections[band_index].append(section)
-    cutter_bands = []
-    for band_index, sections in enumerate(cutter_band_sections):
-        cutter_band = s2.loft_sections(sections)
-        if cutter_band.isNull() or not cutter_band.isValid() or len(cutter_band.Solids()) != 1:
-            raise ValueError(
-                f"shared-field {record['family']} {record['index']} likou cutter band {band_index} "
-                f"is invalid: valid={cutter_band.isValid()} solids={len(cutter_band.Solids())}")
-        cutter_bands.append(cutter_band)
-    cutter = cutter_bands[0]
-    for band_index, cutter_band in enumerate(cutter_bands[1:], start=1):
-        cutter = cutter.fuse(cutter_band).clean()
-        if cutter.isNull() or not cutter.isValid() or len(cutter.Solids()) != 1:
-            raise ValueError(
-                f"shared-field {record['family']} {record['index']} likou cutter fusion {band_index} "
-                f"is invalid: valid={cutter.isValid()} solids={len(cutter.Solids())}")
+    cutter = _contact_notch_cutter_from_fibers(
+        record, edges, q_limits, upper_z, float(detail["E_bottom_center_mm"]))
     if not cutter.isValid() or len(cutter.Solids()) != 1 or float(cutter.Volume()) <= 1e-5:
         raise ValueError(
             f"invalid shared-field {record['family']} {record['index']} likou cutter: "
@@ -1616,7 +1670,7 @@ def cut_contact_likou_notches(ctx):
     cutter_build_seconds = float(time.perf_counter() - cutter_build_started)
 
     mirror_started = time.perf_counter()
-    mirrored_target_x = target_x.mirror((1.0, -1.0, 0.0), (0.0, 0.0, 0.0))
+    mirrored_target_x = s2.mirror_shape(ctx["case"], target_x)
     bbox_tolerance_mm = 1e-5
     source_bbox_error = None
     source_bbox_error_reason = None
@@ -1686,7 +1740,7 @@ def cut_contact_likou_notches(ctx):
     candidate_y_volume_error = None
     if source_mirror_confirmed:
         y_mirror_started = time.perf_counter()
-        candidate_y = cut_x.mirror((1.0, -1.0, 0.0), (0.0, 0.0, 0.0)).clean()
+        candidate_y = s2.mirror_shape(ctx["case"], cut_x).clean()
         y_mirror_seconds = float(time.perf_counter() - y_mirror_started)
         candidate_y_volume_error = abs(cut_volume_x - float(candidate_y.Volume()))
         candidate_valid = bool(candidate_y.isValid() and len(candidate_y.Solids()) == 1
@@ -1710,7 +1764,7 @@ def cut_contact_likou_notches(ctx):
                     "mirrored cut candidate failed validity, solid-count, exact-BBox, or volume check: "
                     f"bbox_error={candidate_y_bbox_error}; volume_error={candidate_y_volume_error}")
     if cut_y is None:
-        mirrored_cutters_y = [c.mirror((1.0, -1.0, 0.0), (0.0, 0.0, 0.0)).clean()
+        mirrored_cutters_y = [s2.mirror_shape(ctx["case"], c).clean()
                               for c in relevant]
         relevant_y = [c for c in mirrored_cutters_y if s2.bbox_overlap(target_y, c)]
         if relevant_y:
@@ -1891,9 +1945,9 @@ def add_scraping_blocks(ctx):
         idx = int(r["index"])
         pid_x = f"scraping_fan_x_{idx:02d}"
         pid_y = f"scraping_fan_y_{idx:02d}"
-        add(parts, pid_x, f"擦脚木拟合X向-{idx:02d}", "scraping_blocks", shape)
-        mirrored = shape.mirror((1.0, -1.0, 0.0), (0.0, 0.0, 0.0))
-        add(parts, pid_y, f"擦脚木拟合Y向-{idx:02d}", "scraping_blocks", mirrored)
+        add(parts, pid_x, f"擦脚木拟合基准翼-{idx:02d}", "scraping_blocks", shape)
+        mirrored = s2.mirror_shape(ctx["case"], shape)
+        add(parts, pid_y, f"擦脚木拟合镜像翼-{idx:02d}", "scraping_blocks", mirrored)
         records.append({"index": idx, "side": "x", "source_rafter_id": f"flying_fan_x_{idx:02d}",
                         "part_ids": [pid_x, pid_y], "classification": "geometrically trimmed tail support interface; not a historical type assertion",
                         **info})
@@ -2633,9 +2687,9 @@ def add_upper_rollboards(ctx):
     if len(board.Solids()) != 1:
         raise ValueError(f"全翼连续卷戗板构造形成{len(board.Solids())}个实体")
     pid_x, pid_y = "upper_board_x_continuous", "upper_board_y_continuous"
-    add(parts, pid_x, "卷戗板X翼（全宽连续曲面）", "upper_board", board)
-    mirrored = board.mirror((1.0, -1.0, 0.0), (0.0, 0.0, 0.0)).clean()
-    add(parts, pid_y, "卷戗板Y翼（全宽连续曲面）", "upper_board", mirrored)
+    add(parts, pid_x, "卷戗板基准翼（全宽连续曲面）", "upper_board", board)
+    mirrored = s2.mirror_shape(ctx["case"], board).clean()
+    add(parts, pid_y, "卷戗板镜像翼（全宽连续曲面）", "upper_board", mirrored)
 
     board_record = {
         "piece_type": "continuous_wing",
@@ -2674,15 +2728,18 @@ def add_upper_rollboards(ctx):
     return [board_record]
 
 
-def local_xy(u, v, origin_xy):
-    return (float(origin_xy[0]) + (float(u) - float(v)) * LOCAL_INV_SQRT2,
-            float(origin_xy[1]) + (float(u) + float(v)) * LOCAL_INV_SQRT2)
+def local_xy(u, v, origin_xy, case):
+    axis_u = np.asarray(case["old_unit"], dtype=float)
+    axis_v = np.asarray(case["old_normal"], dtype=float)
+    p = np.asarray(origin_xy, dtype=float) + float(u) * axis_u + float(v) * axis_v
+    return float(p[0]), float(p[1])
 
 
-def local_uv(x, y, origin_xy):
-    dx = float(x) - float(origin_xy[0])
-    dy = float(y) - float(origin_xy[1])
-    return ((dx + dy) * LOCAL_INV_SQRT2, (-dx + dy) * LOCAL_INV_SQRT2)
+def local_uv(x, y, origin_xy, case):
+    delta = np.asarray([float(x), float(y)], dtype=float) - np.asarray(origin_xy, dtype=float)
+    axis_u = np.asarray(case["old_unit"], dtype=float)
+    axis_v = np.asarray(case["old_normal"], dtype=float)
+    return float(np.dot(delta, axis_u)), float(np.dot(delta, axis_v))
 
 
 def circumcircle_through(p0, p1, p2):
@@ -2739,7 +2796,7 @@ def make_combination_blank(ctx):
     v_values = np.linspace(-width / 2.0, width / 2.0, int(p["combination_cross_width_stations"]))
 
     def F(u, v):
-        x, y = local_xy(u, v, root_xy)
+        x, y = local_xy(u, v, root_xy, ctx["case"])
         hit = sampler.z_range(x, y)
         if hit is None:
             raise ValueError(f"combination member missed current corner top at u={u:.2f}, v={v:.2f}")
@@ -2787,7 +2844,7 @@ def make_combination_blank(ctx):
             if depth < 0.0:
                 below_upper_count += 1
                 max_upper_deficit = max(max_upper_deficit, -depth)
-            x, y = local_xy(float(u), float(v), root_xy)
+            x, y = local_xy(float(u), float(v), root_xy, ctx["case"])
             low_edge.append((x, y, min(f, upper) - 0.2))
             top_edge.append((x, y, upper))
         sections.append(low_edge + list(reversed(top_edge)))
@@ -2819,8 +2876,8 @@ def make_combination_blank(ctx):
         if not shape.isValid() or len(shape.Solids()) != 1 or shape.Volume() <= 1e-4:
             raise ValueError(f"{name} split piece invalid/multisolid: valid={shape.isValid()} solids={len(shape.Solids())} volume={shape.Volume()}")
     info = {
-        "coordinate_frame": {"origin_xy_mm": root_xy, "u_axis": [LOCAL_INV_SQRT2, LOCAL_INV_SQRT2],
-                             "v_axis": [-LOCAL_INV_SQRT2, LOCAL_INV_SQRT2], "u_direction": "toward eave"},
+        "coordinate_frame": {"origin_xy_mm": root_xy, "u_axis": list(map(float, ctx["case"]["old_unit"])),
+                             "v_axis": list(map(float, ctx["case"]["old_normal"])), "u_direction": "toward eave"},
         "width_mm": width, "width_ratio_to_young_tip": float(p["combination_width_ratio_young_tip"]),
         "A_u_z_mm": [uA, fA0], "B_u_z_mm": [uB, fB0],
         "back_join_fraction": fraction,
