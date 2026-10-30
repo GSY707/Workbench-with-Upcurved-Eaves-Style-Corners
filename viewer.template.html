@@ -11,6 +11,7 @@
     <div><p class="eyebrow">木构造研究 / 参数生成器</p><h1 id="model-title">戗角 · 参数模型</h1></div>
     <div class="heading-note"><span id="stage-label">几何试建</span><br><span id="model-summary">单位 mm · 正在载入</span></div>
   </header>
+  <aside id="preview-banner" class="preview-banner" role="status" hidden>预览模型 · 此模型不是精确生成结果，不能作为排料、放样 CSV 或 STEP 加工文件。精确生成后可用。</aside>
   <main class="workspace">
     <aside class="sidebar" aria-label="模型显示设置">
       <section><h2>构件</h2><div id="group-list"></div></section>
@@ -36,7 +37,7 @@
       <div id="load-error" role="alert" hidden></div>
     </section>
   </main>
-  <footer><span>X / Y 为世界平面直角坐标，Z 铅垂向上；第一翼檐桁沿 X 轴，两翼按建筑内角布置。</span><span><a href="layout.html">立脚飞椽排料</a> · <a href="index.html">本次生成结果</a> · <a href="../../README.md">使用说明</a></span></footer>
+  <footer><span>X / Y 为世界平面直角坐标，Z 铅垂向上；第一翼檐桁沿 X 轴，两翼按建筑内角布置。</span><span><a id="layout-footer-link" href="layout.html">立脚飞椽排料</a> · <a href="index.html">本次生成结果</a> · <a href="../../README.md">使用说明</a></span></footer>
   <script id="model-data" type="application/json">__MODEL_DATA__</script>
   <script src="vendor/viewer-runtime.js"></script>
 </body>

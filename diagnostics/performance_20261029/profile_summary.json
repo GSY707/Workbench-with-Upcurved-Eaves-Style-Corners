@@ -1,0 +1,1647 @@
+{
+  "status": "completed",
+  "started_utc": "2026-10-29T23:05:06+08:00",
+  "finished_utc": "2026-10-29T23:08:05+08:00",
+  "probe_process_wall_seconds": 179.075749,
+  "geometry_wall_seconds": 177.796117,
+  "internal_geometry_limit_seconds": 350.0,
+  "scope": "build_stage04_base -> add_contact_flyers -> cut_contact_likou_notches -> add_upper_rollboards -> add_combination; no mesh export, BRep checkpoint, rendering, or saved full model",
+  "config": {
+    "path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\angle_120.json",
+    "sha256": "b7caaef9c3435f63db95677b83aec9e95e5f82f3d95c3b773b18f293d798e0ac",
+    "normalized": {
+      "case_id": "angle_120_B400",
+      "corner_angle_deg": 120.0,
+      "parameters": {
+        "D": 1200.0,
+        "e": 600.0,
+        "p": 300.0,
+        "t": 0.5,
+        "B": 400.0,
+        "L_n": 900.0,
+        "U_n": 480.0,
+        "a": 110.0,
+        "w_fly": 60.0,
+        "k_c": 0.9,
+        "old_tail_scale": 0.8,
+        "old_ridge_h": 41.25,
+        "young_root_scale": 0.8,
+        "young_tip_scale": 0.8,
+        "setback": 82.5,
+        "likou_width": 55.0,
+        "likou_h_regular": 70.0,
+        "likou_h_corner_ratio": 2.25,
+        "likou_extension_pitches": 1.5,
+        "board_lower_t": 20.0,
+        "board_upper_t": 13.75,
+        "fly_tip_t": 40.0,
+        "fly_corner_root_ratio": 0.65,
+        "back_join_fraction": 0.7
+      },
+      "advanced": {
+        "purlin_radius_mm": 90.0,
+        "qiangshan_width_mm": 90.0,
+        "qiangshan_clearance_mm": 20.0,
+        "fan_rafter_width_mm": 70.0,
+        "fan_rafter_height_mm": 60.0,
+        "rafter_seat_relief_mm": 12.0,
+        "straight_rafter_width_mm": 70.0,
+        "straight_rafter_height_mm": 60.0,
+        "old_seat_relief_mm": 25.0,
+        "board_surface_overlap_mm": 0.2,
+        "likou_surface_overlap_mm": 0.2,
+        "fan_station_count": 129,
+        "flyer_width_fiber_stations": 17,
+        "flyer_edge_inboard_bias_mm": 0.05,
+        "flyer_tail_search_step_mm": 5.0,
+        "flyer_front_edge_search_span_mm": 160.0,
+        "flyer_front_edge_coarse_step_mm": 4.0,
+        "flyer_tail_root_max_search_mm": 2200.0,
+        "flyer_edge_fit_clearance_mm": 0.01,
+        "flyer_root_fit_clearance_mm": 0.01,
+        "flyer_outer_tip_offset_mm": -3.5,
+        "flyer_tip_transition_power": 3.0,
+        "flyer_contact_tail_gap_mm": 1.0,
+        "flyer_seat_delta_mm": 3.0,
+        "upper_board_surface_overlap_mm": 0.2,
+        "combination_back_u_ratio_D": -0.559,
+        "combination_front_u_ratio_D": 0.41478875,
+        "combination_sagitta_ratio_chord": 0.11794,
+        "combination_width_ratio_young_tip": 0.75,
+        "combination_cross_width_stations": 7,
+        "combination_u_stations": 33,
+        "combination_end_trim_mm": 10.0,
+        "mesh_tessellation_mm": 2.0,
+        "mesh_angular_tolerance_rad": 0.35
+      },
+      "derived": {
+        "corner_angle_deg": 120.0,
+        "young_plan_run_mm": 761.3146524269712,
+        "young_rise_angle_deg": 32.230952635502106,
+        "old_young_control_included_angle_deg": 124.35582291812737,
+        "old_corner_fan_coefficient_mm": 270.0,
+        "fan_count_rule": "n为满足弧长/n < B的最小奇数等分区间数；内部i/n分点生成n-1根摔网椽，弧端点只作边界",
+        "fan_division_count_n": 3,
+        "fan_plan_sagitta_mm": 58.52685823451202,
+        "young_sagitta_mm": 15.853827220197648,
+        "young_sagitta_rule": "派生为min(根车背,梢车背)×0.75",
+        "fly_tail_ratio": null,
+        "fly_tail_rule": "尖尾由本次生成的下层板上表面触底求得；不强制1.5比值",
+        "included_angle_source": "由嫩戗升角asin(U_n/L_n)和老戗方向atan(t*sin(corner_angle_deg/2))按实轴方向派生；不作为输入",
+        "fan_count": 2,
+        "fan_spacing_mm": 376.3247647103797,
+        "fan_spacing_rule": "n为满足弧长/n < B的最小奇数等分区间数；摔网取内部i/n分点，弧端边界椽归正身",
+        "fan_plan_sagitta_reference_mm": 55.0
+      }
+    }
+  },
+  "geometry_source_identity_sha256": "4d69011cf266ac6a6e5d59c6dbcb70ef58b1b5dc183be0b538ddcaffe342dd70",
+  "tracked_sha256": {
+    "generate.py": "185c284590a3956b9ee71e37920c398e7c7cd109167354be97b8973e4decbc24",
+    "engine/stage02_core.py": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219",
+    "engine/stage03_core.py": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741",
+    "engine/stage04_core.py": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f",
+    "engine/stage05_core.py": "9aa5d2e8b2a3f7ef927205d910bf655c7da7b5f48d27be860947300f62bc3e09",
+    "engine/config.py": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+  },
+  "probe_source_sha256": "8407923fcbb0a59c47ec4317d13c74b89d94ca0f254d18925ec94be4ac61fcb9",
+  "stages": [
+    {
+      "name": "stage04_base_and_preflight",
+      "wall_seconds": 2.40381,
+      "elapsed_geometry_seconds": 2.403823,
+      "parts_after": 38,
+      "cad_ops_before": [
+        {
+          "operation": "Shape.cut",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        }
+      ],
+      "cad_ops_after": [
+        {
+          "operation": "Shape.cut",
+          "calls": 6,
+          "wall_seconds": 0.1815,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 2,
+          "wall_seconds": 0.256971,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 3,
+          "wall_seconds": 0.143073,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 12,
+          "wall_seconds": 0.024924,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 18,
+          "wall_seconds": 0.470569,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 21,
+          "wall_seconds": 0.220987,
+          "failures": 1
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 448,
+          "wall_seconds": 0.018711,
+          "failures": 0
+        }
+      ],
+      "chosen_records": 6,
+      "chosen_by_family": {
+        "fan": 2,
+        "straight": 4
+      },
+      "stage03_mesh_parts": 18
+    },
+    {
+      "name": "stage05_flyer_build",
+      "wall_seconds": 68.631846,
+      "elapsed_geometry_seconds": 71.037155,
+      "parts_after": 50,
+      "cad_ops_before": [
+        {
+          "operation": "Shape.cut",
+          "calls": 6,
+          "wall_seconds": 0.1815,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 2,
+          "wall_seconds": 0.256971,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 3,
+          "wall_seconds": 0.143073,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 12,
+          "wall_seconds": 0.024924,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 18,
+          "wall_seconds": 0.470569,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 21,
+          "wall_seconds": 0.220987,
+          "failures": 1
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 448,
+          "wall_seconds": 0.018711,
+          "failures": 0
+        }
+      ],
+      "cad_ops_after": [
+        {
+          "operation": "Shape.cut",
+          "calls": 6,
+          "wall_seconds": 0.1815,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 8,
+          "wall_seconds": 4.960752,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 3,
+          "wall_seconds": 0.143073,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 102,
+          "wall_seconds": 3.656374,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 18,
+          "wall_seconds": 0.470569,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 117,
+          "wall_seconds": 1.749439,
+          "failures": 1
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 2848,
+          "wall_seconds": 0.142489,
+          "failures": 0
+        }
+      ],
+      "fly_record_count": 6,
+      "width_ruled_band_count_total": 96,
+      "fiber_count_total": 102
+    },
+    {
+      "name": "stage05_likou_cut_and_mirror",
+      "wall_seconds": 30.930998,
+      "elapsed_geometry_seconds": 101.970163,
+      "parts_after": 50,
+      "cad_ops_before": [
+        {
+          "operation": "Shape.cut",
+          "calls": 6,
+          "wall_seconds": 0.1815,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 8,
+          "wall_seconds": 4.960752,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 3,
+          "wall_seconds": 0.143073,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 102,
+          "wall_seconds": 3.656374,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 18,
+          "wall_seconds": 0.470569,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 117,
+          "wall_seconds": 1.749439,
+          "failures": 1
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 0,
+          "wall_seconds": 0.0,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 2848,
+          "wall_seconds": 0.142489,
+          "failures": 0
+        }
+      ],
+      "cad_ops_after": [
+        {
+          "operation": "Shape.cut",
+          "calls": 6,
+          "wall_seconds": 0.1815,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 8,
+          "wall_seconds": 4.960752,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 3,
+          "wall_seconds": 0.143073,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 111,
+          "wall_seconds": 3.733956,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 18,
+          "wall_seconds": 0.470569,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 117,
+          "wall_seconds": 1.749439,
+          "failures": 1
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 6,
+          "wall_seconds": 0.039346,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 108,
+          "wall_seconds": 0.00824,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 2866,
+          "wall_seconds": 0.145574,
+          "failures": 0
+        }
+      ],
+      "notch_performance": {
+        "cutter_build_seconds": 0.27669710002373904,
+        "x_boolean_seconds": 12.361673400038853,
+        "y_mirror_seconds": 0.018488700035959482,
+        "mirror_pair_check_seconds": 30.64825949992519,
+        "y_boolean_seconds": 17.832532099913806,
+        "y_cut_method": "separate y-side compound Boolean after mirror check fallback",
+        "y_fallback_reason": "mirrored cut candidate failed validity, solid-count, exact-BBox, or volume check: bbox_error=2556.4187693057306; volume_error=5.587935447692871e-09",
+        "source_symmetry": {
+          "rule": "stage03 creates likou_y by reflecting likou_x; stage04 extension is reflected from the same x extension",
+          "verification_basis": "BRepBndLib.AddOptimal_s(useTriangulation=False,useShapeTolerance=False) plus exact volume equality",
+          "verified": true,
+          "source_bbox_max_abs_error_mm": 0.0,
+          "ordinary_tessellation_bbox_diagnostic_max_abs_error_mm": 1.9473452526749497,
+          "source_volume_abs_error_mm3": 1.1175870895385742e-08,
+          "source_volume_tolerance_mm3": 0.013980543602928304,
+          "bbox_tolerance_mm": 1e-05,
+          "fallback_reason": null
+        },
+        "cut_symmetry": {
+          "mirrored_bbox_max_abs_error_mm": 2556.4187693057306,
+          "cut_volume_abs_error_mm3": 0.0002882741391658783,
+          "cut_volume_tolerance_mm3": 0.01257886618988259,
+          "mirrored_candidate_bbox_error_mm": 2556.4187693057306,
+          "mirrored_candidate_volume_error_mm3": 5.587935447692871e-09,
+          "matches": false
+        }
+      }
+    },
+    {
+      "name": "stage05_upper_board_rebuild",
+      "wall_seconds": 0.611933,
+      "elapsed_geometry_seconds": 102.588816,
+      "parts_after": 52,
+      "cad_ops_before": [
+        {
+          "operation": "Shape.cut",
+          "calls": 6,
+          "wall_seconds": 0.1815,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 8,
+          "wall_seconds": 4.960752,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 3,
+          "wall_seconds": 0.143073,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 111,
+          "wall_seconds": 3.733956,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 18,
+          "wall_seconds": 0.470569,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 117,
+          "wall_seconds": 1.749439,
+          "failures": 1
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 6,
+          "wall_seconds": 0.039346,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 108,
+          "wall_seconds": 0.00824,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 2866,
+          "wall_seconds": 0.145574,
+          "failures": 0
+        }
+      ],
+      "cad_ops_after": [
+        {
+          "operation": "Shape.cut",
+          "calls": 6,
+          "wall_seconds": 0.1815,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 8,
+          "wall_seconds": 4.960752,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 3,
+          "wall_seconds": 0.143073,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 112,
+          "wall_seconds": 3.734285,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 18,
+          "wall_seconds": 0.470569,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 117,
+          "wall_seconds": 1.749439,
+          "failures": 1
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 7,
+          "wall_seconds": 0.045152,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 112,
+          "wall_seconds": 0.009335,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 2866,
+          "wall_seconds": 0.145574,
+          "failures": 0
+        }
+      ],
+      "upper_board_piece_count": 1,
+      "upper_board_details": [
+        {
+          "longitudinal_section_count": 33,
+          "width_control_point_count_per_section": 59,
+          "board_piece_count_per_wing": null,
+          "normal_offset_vertical_range_mm": [
+            13.75170463893402,
+            15.100618707256311
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stage05_combination_rebuild",
+      "wall_seconds": 75.174337,
+      "elapsed_geometry_seconds": 177.768463,
+      "parts_after": 54,
+      "cad_ops_before": [
+        {
+          "operation": "Shape.cut",
+          "calls": 6,
+          "wall_seconds": 0.1815,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 8,
+          "wall_seconds": 4.960752,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 3,
+          "wall_seconds": 0.143073,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 112,
+          "wall_seconds": 3.734285,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 18,
+          "wall_seconds": 0.470569,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 117,
+          "wall_seconds": 1.749439,
+          "failures": 1
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 7,
+          "wall_seconds": 0.045152,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 112,
+          "wall_seconds": 0.009335,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 2866,
+          "wall_seconds": 0.145574,
+          "failures": 0
+        }
+      ],
+      "cad_ops_after": [
+        {
+          "operation": "Shape.cut",
+          "calls": 7,
+          "wall_seconds": 73.597245,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.fuse",
+          "calls": 8,
+          "wall_seconds": 4.960752,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.intersect",
+          "calls": 3,
+          "wall_seconds": 0.143073,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.clean",
+          "calls": 115,
+          "wall_seconds": 3.837427,
+          "failures": 0
+        },
+        {
+          "operation": "Shape.tessellate",
+          "calls": 20,
+          "wall_seconds": 0.734378,
+          "failures": 0
+        },
+        {
+          "operation": "Solid.makeLoft",
+          "calls": 118,
+          "wall_seconds": 1.909335,
+          "failures": 1
+        },
+        {
+          "operation": "Solid.makeSolid",
+          "calls": 7,
+          "wall_seconds": 0.045152,
+          "failures": 0
+        },
+        {
+          "operation": "Face.makeRuledSurface",
+          "calls": 112,
+          "wall_seconds": 0.009335,
+          "failures": 0
+        },
+        {
+          "operation": "Wire.makePolygon",
+          "calls": 2899,
+          "wall_seconds": 0.148774,
+          "failures": 0
+        }
+      ],
+      "combination_info": {
+        "coordinate_frame": {
+          "origin_xy_mm": [
+            461.0447341949746,
+            798.5529041877838
+          ],
+          "u_axis": [
+            0.5000000000000001,
+            0.8660254037844386
+          ],
+          "v_axis": [
+            -0.8660254037844386,
+            0.5000000000000001
+          ],
+          "u_direction": "toward eave"
+        },
+        "width_mm": 63.41530888079059,
+        "width_ratio_to_young_tip": 0.75,
+        "A_u_z_mm": [
+          497.74649999999997,
+          160.84615438068235
+        ],
+        "B_u_z_mm": [
+          -670.8000000000001,
+          84.31312881749123
+        ],
+        "back_join_fraction": 0.7,
+        "back_join_point_u_z_mm": [
+          156.20885503492264,
+          0.06787250172502013
+        ],
+        "circle_center_u_z_mm": [
+          -150.149663992078,
+          1094.0077658388386
+        ],
+        "radius_mm": 1136.0281829315823,
+        "derived_chord_sagitta_mm": 138.11364325247186,
+        "upper_profile": "circle through dynamically sampled old/young corner top at endpoints and the configured back_join_fraction station with chord-relative downward sagitta; cross-width top offsets interpolate from actual old/young top surfaces",
+        "lower_profile": "F(u,v)=highest surface of only current old_corner/young_corner solids; mesh sampled at 1mm tessellation then new material cut against both BReps",
+        "u_trim_end_mm": [
+          10.0,
+          10.0
+        ],
+        "sampled_nominal_combination_depth_mm": [
+          -3.3606406384162852,
+          158.4632388181972
+        ],
+        "sampled_u_below_F_count": 48,
+        "max_sampled_U_below_F_mm": 3.3606406384162852,
+        "z_split_mm": -114.58126451141158,
+        "split_rule": "z_split=0.5*(min_u F(u,0)+min_u U(u)); lower菱角木, upper扁担木; both share horizontal interface",
+        "top_material_contact": "new stock cut by old_corner+young_corner; lower boundary conforms to actual corner top mesh, with 0.2mm stock allowance before BRep cut",
+        "pocket_fit_sample_grid": {
+          "u_stations": 33,
+          "width_stations": 7
+        },
+        "probe_reference_grid": {
+          "u_stations": 129,
+          "width_stations": 9
+        },
+        "back_join_parameter_interpretation": "弦向分位；从B点沿接背弦量到老/嫩戗接背控制站位，不是面积比",
+        "historical_height_rule_status": "book p128 states combined height >= 2/3 of the flying-corner horizontal level, but the datum is unresolved; current t=0.7 does not prove that criterion",
+        "assumptions": [
+          "接背上轮廓由动态端点与back_join_fraction处弦偏共同确定为圆弧",
+          "组合木宽度按嫩戗梢部宽度比例",
+          "水平拆分为两件",
+          "组合侧轮廓与BRep切配为几何拟合，不等同传统榫接验证"
+        ]
+      }
+    }
+  ],
+  "cad_operation_wall_counters": [
+    {
+      "operation": "Shape.cut",
+      "calls": 7,
+      "wall_seconds": 73.597245,
+      "failures": 0
+    },
+    {
+      "operation": "Shape.fuse",
+      "calls": 8,
+      "wall_seconds": 4.960752,
+      "failures": 0
+    },
+    {
+      "operation": "Shape.intersect",
+      "calls": 3,
+      "wall_seconds": 0.143073,
+      "failures": 0
+    },
+    {
+      "operation": "Shape.clean",
+      "calls": 115,
+      "wall_seconds": 3.837427,
+      "failures": 0
+    },
+    {
+      "operation": "Shape.tessellate",
+      "calls": 20,
+      "wall_seconds": 0.734378,
+      "failures": 0
+    },
+    {
+      "operation": "Solid.makeLoft",
+      "calls": 118,
+      "wall_seconds": 1.909335,
+      "failures": 1
+    },
+    {
+      "operation": "Solid.makeSolid",
+      "calls": 7,
+      "wall_seconds": 0.045152,
+      "failures": 0
+    },
+    {
+      "operation": "Face.makeRuledSurface",
+      "calls": 112,
+      "wall_seconds": 0.009335,
+      "failures": 0
+    },
+    {
+      "operation": "Wire.makePolygon",
+      "calls": 2899,
+      "wall_seconds": 0.148774,
+      "failures": 0
+    }
+  ],
+  "cprofile_top_by_cumulative": [
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method OCP.OCP.BRepGProp.VolumeProperties_s>",
+      "primitive_calls": 208,
+      "calls": 208,
+      "self_seconds": 1.654325,
+      "cumulative_seconds": 1.654325
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage04_core.py",
+      "line": 94,
+      "function": "z_range",
+      "primitive_calls": 9864,
+      "calls": 9864,
+      "self_seconds": 0.280628,
+      "cumulative_seconds": 0.409828
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 275,
+      "function": "_build_flyer_masterboard",
+      "primitive_calls": 1,
+      "calls": 1,
+      "self_seconds": 0.004642,
+      "cumulative_seconds": 0.405615
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 2082,
+      "function": "fan_upper_surface_at_q",
+      "primitive_calls": 1683,
+      "calls": 1683,
+      "self_seconds": 0.003927,
+      "cumulative_seconds": 0.284225
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 2029,
+      "function": "fan_upper_z_at_q",
+      "primitive_calls": 1749,
+      "calls": 1749,
+      "self_seconds": 0.097145,
+      "cumulative_seconds": 0.26758
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 110,
+      "function": "board_top_at",
+      "primitive_calls": 4517,
+      "calls": 4517,
+      "self_seconds": 0.005419,
+      "cumulative_seconds": 0.19605
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 708,
+      "function": "find_tail_endpoint",
+      "primitive_calls": 102,
+      "calls": 102,
+      "self_seconds": 0.001755,
+      "cumulative_seconds": 0.193737
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 713,
+      "function": "gap_at",
+      "primitive_calls": 4313,
+      "calls": 4313,
+      "self_seconds": 0.002208,
+      "cumulative_seconds": 0.191931
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\cadquery\\occ_impl\\shapes.py",
+      "line": 1577,
+      "function": "mesh",
+      "primitive_calls": 20,
+      "calls": 20,
+      "self_seconds": 0.186362,
+      "cumulative_seconds": 0.186473
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage04_core.py",
+      "line": 439,
+      "function": "correct_fan_pose",
+      "primitive_calls": 1,
+      "calls": 1,
+      "self_seconds": 0.0041,
+      "cumulative_seconds": 0.18515
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage04_core.py",
+      "line": 388,
+      "function": "board_section",
+      "primitive_calls": 265,
+      "calls": 265,
+      "self_seconds": 0.015407,
+      "cumulative_seconds": 0.177316
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 2094,
+      "function": "_vertical_offset_from_tangents",
+      "primitive_calls": 1947,
+      "calls": 1947,
+      "self_seconds": 0.010588,
+      "cumulative_seconds": 0.140906
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 177,
+      "function": "_line_polyline_intersections",
+      "primitive_calls": 306,
+      "calls": 306,
+      "self_seconds": 0.060743,
+      "cumulative_seconds": 0.139026
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\numeric.py",
+      "line": 1563,
+      "function": "cross",
+      "primitive_calls": 1981,
+      "calls": 1981,
+      "self_seconds": 0.038028,
+      "cumulative_seconds": 0.117302
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 1993,
+      "function": "_width_linear_extrapolate",
+      "primitive_calls": 6996,
+      "calls": 6996,
+      "self_seconds": 0.040131,
+      "cumulative_seconds": 0.102857
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 2798,
+      "function": "F",
+      "primitive_calls": 824,
+      "calls": 824,
+      "self_seconds": 0.002154,
+      "cumulative_seconds": 0.084818
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method numpy.asarray>",
+      "primitive_calls": 153230,
+      "calls": 153230,
+      "self_seconds": 0.080607,
+      "cumulative_seconds": 0.080607
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\numeric.py",
+      "line": 1489,
+      "function": "moveaxis",
+      "primitive_calls": 5947,
+      "calls": 5947,
+      "self_seconds": 0.018976,
+      "cumulative_seconds": 0.071155
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\numeric.py",
+      "line": 675,
+      "function": "flatnonzero",
+      "primitive_calls": 19543,
+      "calls": 19543,
+      "self_seconds": 0.017831,
+      "cumulative_seconds": 0.061343
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method OCP.OCP.BRepBndLib.AddOptimal_s>",
+      "primitive_calls": 50,
+      "calls": 50,
+      "self_seconds": 0.057108,
+      "cumulative_seconds": 0.057108
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 664,
+      "function": "top_motherline",
+      "primitive_calls": 38426,
+      "calls": 38426,
+      "self_seconds": 0.045999,
+      "cumulative_seconds": 0.056391
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.print>",
+      "primitive_calls": 48,
+      "calls": 48,
+      "self_seconds": 0.055308,
+      "cumulative_seconds": 0.055308
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 102,
+      "function": "xy_at_q",
+      "primitive_calls": 10246,
+      "calls": 10246,
+      "self_seconds": 0.040024,
+      "cumulative_seconds": 0.054256
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 173,
+      "function": "_cross2",
+      "primitive_calls": 113526,
+      "calls": 113526,
+      "self_seconds": 0.051627,
+      "cumulative_seconds": 0.051627
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\numeric.py",
+      "line": 1427,
+      "function": "normalize_axis_tuple",
+      "primitive_calls": 11894,
+      "calls": 11894,
+      "self_seconds": 0.027427,
+      "cumulative_seconds": 0.042365
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method OCP.OCP.BRepLib.OrientClosedSolid_s>",
+      "primitive_calls": 7,
+      "calls": 7,
+      "self_seconds": 0.041454,
+      "cumulative_seconds": 0.041454
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage04_core.py",
+      "line": 232,
+      "function": "find_path_station",
+      "primitive_calls": 321,
+      "calls": 321,
+      "self_seconds": 0.027205,
+      "cumulative_seconds": 0.041329
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\fromnumeric.py",
+      "line": 48,
+      "function": "_wrapfunc",
+      "primitive_calls": 26308,
+      "calls": 26308,
+      "self_seconds": 0.010908,
+      "cumulative_seconds": 0.039309
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage02_core.py",
+      "line": 29,
+      "function": "vector",
+      "primitive_calls": 10642,
+      "calls": 10642,
+      "self_seconds": 0.010899,
+      "cumulative_seconds": 0.030021
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\cadquery\\occ_impl\\geom.py",
+      "line": 887,
+      "function": "__init__",
+      "primitive_calls": 44,
+      "calls": 44,
+      "self_seconds": 0.028917,
+      "cumulative_seconds": 0.028917
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\fromnumeric.py",
+      "line": 66,
+      "function": "_wrapreduction",
+      "primitive_calls": 19358,
+      "calls": 19358,
+      "self_seconds": 0.013891,
+      "cumulative_seconds": 0.027783
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\fromnumeric.py",
+      "line": 1459,
+      "function": "searchsorted",
+      "primitive_calls": 6732,
+      "calls": 6732,
+      "self_seconds": 0.004466,
+      "cumulative_seconds": 0.026933
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'get' of 'dict' objects>",
+      "primitive_calls": 186031,
+      "calls": 186031,
+      "self_seconds": 0.025973,
+      "cumulative_seconds": 0.025973
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\linalg\\_linalg.py",
+      "line": 2615,
+      "function": "norm",
+      "primitive_calls": 4528,
+      "calls": 4528,
+      "self_seconds": 0.009325,
+      "cumulative_seconds": 0.024313
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\fromnumeric.py",
+      "line": 2031,
+      "function": "nonzero",
+      "primitive_calls": 19547,
+      "calls": 19547,
+      "self_seconds": 0.005138,
+      "cumulative_seconds": 0.021599
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\performance_20261029\\profile_probe.py",
+      "line": 36,
+      "function": "atomic_json",
+      "primitive_calls": 5,
+      "calls": 5,
+      "self_seconds": 0.000249,
+      "cumulative_seconds": 0.020915
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\fromnumeric.py",
+      "line": 2474,
+      "function": "any",
+      "primitive_calls": 9753,
+      "calls": 9753,
+      "self_seconds": 0.004814,
+      "cumulative_seconds": 0.020853
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\fromnumeric.py",
+      "line": 3187,
+      "function": "min",
+      "primitive_calls": 9679,
+      "calls": 9679,
+      "self_seconds": 0.004879,
+      "cumulative_seconds": 0.019783
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage02_core.py",
+      "line": 479,
+      "function": "fan_top_z",
+      "primitive_calls": 669,
+      "calls": 669,
+      "self_seconds": 0.011319,
+      "cumulative_seconds": 0.019782
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\fromnumeric.py",
+      "line": 1917,
+      "function": "ravel",
+      "primitive_calls": 19543,
+      "calls": 19543,
+      "self_seconds": 0.009997,
+      "cumulative_seconds": 0.018956
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'reduce' of 'numpy.ufunc' objects>",
+      "primitive_calls": 29157,
+      "calls": 29157,
+      "self_seconds": 0.017703,
+      "cumulative_seconds": 0.017703
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\fromnumeric.py",
+      "line": 3049,
+      "function": "max",
+      "primitive_calls": 9679,
+      "calls": 9679,
+      "self_seconds": 0.004528,
+      "cumulative_seconds": 0.017405
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage02_core.py",
+      "line": 110,
+      "function": "cylinder_x",
+      "primitive_calls": 1,
+      "calls": 1,
+      "self_seconds": 5e-06,
+      "cumulative_seconds": 0.016782
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\cadquery\\occ_impl\\shapes.py",
+      "line": 4235,
+      "function": "makeCylinder",
+      "primitive_calls": 1,
+      "calls": 1,
+      "self_seconds": 4e-06,
+      "cumulative_seconds": 0.016765
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\cadquery\\occ_impl\\shapes.py",
+      "line": 434,
+      "function": "__init__",
+      "primitive_calls": 1,
+      "calls": 77,
+      "self_seconds": 0.000316,
+      "cumulative_seconds": 0.016761
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'searchsorted' of 'numpy.ndarray' objects>",
+      "primitive_calls": 6732,
+      "calls": 6732,
+      "self_seconds": 0.016396,
+      "cumulative_seconds": 0.016396
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.len>",
+      "primitive_calls": 158029,
+      "calls": 158029,
+      "self_seconds": 0.016299,
+      "cumulative_seconds": 0.016299
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\fromnumeric.py",
+      "line": 86,
+      "function": "_wrapreduction_any_all",
+      "primitive_calls": 9777,
+      "calls": 9777,
+      "self_seconds": 0.008446,
+      "cumulative_seconds": 0.016089
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.min>",
+      "primitive_calls": 63703,
+      "calls": 63703,
+      "self_seconds": 0.011907,
+      "cumulative_seconds": 0.015014
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'append' of 'list' objects>",
+      "primitive_calls": 102193,
+      "calls": 102193,
+      "self_seconds": 0.014601,
+      "cumulative_seconds": 0.014601
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\cadquery\\occ_impl\\shapes.py",
+      "line": 404,
+      "function": "downcast",
+      "primitive_calls": 1,
+      "calls": 487,
+      "self_seconds": 0.063398,
+      "cumulative_seconds": 0.013418
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.max>",
+      "primitive_calls": 61612,
+      "calls": 61612,
+      "self_seconds": 0.011433,
+      "cumulative_seconds": 0.012263
+    },
+    {
+      "file": "C:\\Users\\24408\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\json\\__init__.py",
+      "line": 183,
+      "function": "dumps",
+      "primitive_calls": 5,
+      "calls": 5,
+      "self_seconds": 9.8e-05,
+      "cumulative_seconds": 0.01177
+    },
+    {
+      "file": "C:\\Users\\24408\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\json\\encoder.py",
+      "line": 183,
+      "function": "encode",
+      "primitive_calls": 5,
+      "calls": 5,
+      "self_seconds": 0.001198,
+      "cumulative_seconds": 0.011666
+    },
+    {
+      "file": "C:\\Users\\24408\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\json\\encoder.py",
+      "line": 414,
+      "function": "_iterencode",
+      "primitive_calls": 6667,
+      "calls": 6667,
+      "self_seconds": 0.001193,
+      "cumulative_seconds": 0.01021
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 2581,
+      "function": "boundary_sample",
+      "primitive_calls": 66,
+      "calls": 66,
+      "self_seconds": 0.00084,
+      "cumulative_seconds": 0.010173
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 2731,
+      "function": "local_xy",
+      "primitive_calls": 1055,
+      "calls": 1055,
+      "self_seconds": 0.006854,
+      "cumulative_seconds": 0.01015
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'dot' of 'numpy.ndarray' objects>",
+      "primitive_calls": 4527,
+      "calls": 4527,
+      "self_seconds": 0.009102,
+      "cumulative_seconds": 0.009102
+    },
+    {
+      "file": "C:\\Users\\24408\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\json\\encoder.py",
+      "line": 334,
+      "function": "_iterencode_dict",
+      "primitive_calls": 6667,
+      "calls": 19474,
+      "self_seconds": 0.004656,
+      "cumulative_seconds": 0.009014
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method math.atan2>",
+      "primitive_calls": 112969,
+      "calls": 112969,
+      "self_seconds": 0.008145,
+      "cumulative_seconds": 0.008145
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\numpy\\_core\\numeric.py",
+      "line": 1476,
+      "function": "<genexpr>",
+      "primitive_calls": 23788,
+      "calls": 23788,
+      "self_seconds": 0.005461,
+      "cumulative_seconds": 0.007819
+    },
+    {
+      "file": "C:\\Users\\24408\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\json\\encoder.py",
+      "line": 278,
+      "function": "_iterencode_list",
+      "primitive_calls": 6577,
+      "calls": 12181,
+      "self_seconds": 0.002892,
+      "cumulative_seconds": 0.007734
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.isinstance>",
+      "primitive_calls": 64330,
+      "calls": 64330,
+      "self_seconds": 0.007554,
+      "cumulative_seconds": 0.007567
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.abs>",
+      "primitive_calls": 55133,
+      "calls": 55133,
+      "self_seconds": 0.007273,
+      "cumulative_seconds": 0.007273
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'nonzero' of 'numpy.ndarray' objects>",
+      "primitive_calls": 19547,
+      "calls": 19547,
+      "self_seconds": 0.007272,
+      "cumulative_seconds": 0.007272
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method OCP.OCP.BRepFill.Face_s>",
+      "primitive_calls": 112,
+      "calls": 112,
+      "self_seconds": 0.007122,
+      "cumulative_seconds": 0.007122
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\scipy\\interpolate\\_bsplines.py",
+      "line": 681,
+      "function": "c",
+      "primitive_calls": 3968,
+      "calls": 3968,
+      "self_seconds": 0.000976,
+      "cumulative_seconds": 0.006978
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'ravel' of 'numpy.ndarray' objects>",
+      "primitive_calls": 24070,
+      "calls": 24070,
+      "self_seconds": 0.006403,
+      "cumulative_seconds": 0.006403
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\cadquery\\occ_impl\\shapes.py",
+      "line": 877,
+      "function": "_entities",
+      "primitive_calls": 439,
+      "calls": 439,
+      "self_seconds": 0.004489,
+      "cumulative_seconds": 0.006363
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 677,
+      "function": "bottom_outer_line",
+      "primitive_calls": 1680,
+      "calls": 1680,
+      "self_seconds": 0.001362,
+      "cumulative_seconds": 0.006334
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\scipy\\_external\\array_api_compat\\numpy\\_aliases.py",
+      "line": 70,
+      "function": "asarray",
+      "primitive_calls": 3988,
+      "calls": 3988,
+      "self_seconds": 0.001909,
+      "cumulative_seconds": 0.006071
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.sorted>",
+      "primitive_calls": 15838,
+      "calls": 15838,
+      "self_seconds": 0.005808,
+      "cumulative_seconds": 0.005859
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage02_core.py",
+      "line": 30,
+      "function": "<genexpr>",
+      "primitive_calls": 42568,
+      "calls": 42568,
+      "self_seconds": 0.005607,
+      "cumulative_seconds": 0.005607
+    },
+    {
+      "file": "C:\\Users\\24408\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\pathlib.py",
+      "line": 1039,
+      "function": "write_text",
+      "primitive_calls": 5,
+      "calls": 5,
+      "self_seconds": 4.4e-05,
+      "cumulative_seconds": 0.005606
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage05_core.py",
+      "line": 1234,
+      "function": "append_motherboard_section",
+      "primitive_calls": 150,
+      "calls": 150,
+      "self_seconds": 0.004871,
+      "cumulative_seconds": 0.005378
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\scipy\\interpolate\\_bsplines.py",
+      "line": 1636,
+      "function": "make_interp_spline",
+      "primitive_calls": 4,
+      "calls": 4,
+      "self_seconds": 0.003117,
+      "cumulative_seconds": 0.004675
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\资料整理\\tmp\\model_deps\\cadquery\\occ_impl\\geom.py",
+      "line": 105,
+      "function": "x",
+      "primitive_calls": 5714,
+      "calls": 5714,
+      "self_seconds": 0.004522,
+      "cumulative_seconds": 0.004522
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.getattr>",
+      "primitive_calls": 26432,
+      "calls": 26432,
+      "self_seconds": 0.004422,
+      "cumulative_seconds": 0.004422
+    },
+    {
+      "file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\engine\\stage04_core.py",
+      "line": 73,
+      "function": "__init__",
+      "primitive_calls": 3,
+      "calls": 3,
+      "self_seconds": 0.002509,
+      "cumulative_seconds": 0.004352
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'transpose' of 'numpy.ndarray' objects>",
+      "primitive_calls": 5947,
+      "calls": 5947,
+      "self_seconds": 0.004312,
+      "cumulative_seconds": 0.004312
+    }
+  ],
+  "cprofile_total_calls": 2021785,
+  "cprofile_primitive_calls": 1967067,
+  "error": null,
+  "probe_script_as_run": "diagnostics/performance_20261029/profile_probe_executed.py",
+  "current_probe_script_sha256": "91c22afe608b11061c21fb34f97ba2c2794a811919948d592967d85e46dc2b3d",
+  "production_source_identity_sha256": "ef5340fed7c096b557a9258a71b94c618365dc62a33b29de8c8fdef0a1daa33d",
+  "production_source_file_count": 14,
+  "cprofile_profiled_seconds": 4.937418,
+  "cprofile_note": "Observed cProfile total time was 4.937418s versus 177.796117s geometry wall time. It records selected OCP built-ins, including VolumeProperties_s (208 calls, 1.654s), but omits most native CAD wall time; use stage timers and direct perf_counter measurements for the main CAD costs.",
+  "cad_timer_note": "The as-run timer wrapped Shape methods and selected constructors, but not Compound.cut/fuse/intersect overrides. The two likou Boolean times are read from stage05 internal timers; Shape-level operation counters are incomplete and are not total CAD Boolean counts. profile_probe.py was updated afterward to add Compound wrappers; no second CAD probe was run.",
+  "timeout_status": "completed within the 360s supervisor limit; exit code 0",
+  "source_anchors": {
+    "generation_stage_order": "generate.py:1295-1316",
+    "flyer_masterboard": "engine/stage05_core.py:275-360",
+    "flyer_solid_band_lofts_and_serial_fuse_clean": "engine/stage05_core.py:1202-1309",
+    "likou_mirror_candidate_guard": "engine/stage05_core.py:1673-1775",
+    "bbox_comparison_implementation": "engine/stage05_core.py:691-705",
+    "angle_aware_reflection": "engine/stage02_core.py:50-68, 178",
+    "combination_boolean_and_split": "engine/stage05_core.py:2780-2873"
+  },
+  "interpretation_notes": [
+    "Measured stages in this geometry-only run: stage04 2.403810s; fly construction 68.633284s; likou cut/mirror 30.930998s; upper board 0.611933s; combination 75.174337s; total 177.796117s. Final 54 parts; 6 selected fly records (2 fan, 4 straight).",
+    "The combination blank Boolean cut consumed 73.415745s by Shape.cut wrapper delta, 97.66% of its 75.174337s stage; subsequent clean and split work account for most remaining time. The native boolean is not represented in cProfile cumulative time.",
+    "Fly construction uses 17 width fibers (16 adjacent bands) and 25 longitudinal sections per band (13 R-I plus 12 I-E, sharing I). The run made 96 band loft calls and 90 clean calls in this stage: 15 serial fusions/cleans for each of 6 records. A batch union or sewn shared-field shell is a candidate to investigate while keeping the same boundary surfaces and all validity guards.",
+    "镜像BBox守卫：stage05_core.py:1749-50比较镜像前X侧cut_x的全局AABB与镜像后Y候选candidate_y的全局AABB。两者处于同一全局坐标系，但属于镜像两侧，不应把前者原始范围直接当成后者的期望范围。candidate_y在1743通过s2.mirror_shape(ctx[\"case\"], cut_x).clean()按当前角度构造；不是漏传case或默认90度。候选与独立Y侧Boolean结果的精确几何等价尚未直接验证。",
+    "The likou cut timing fields are nested: mirror_pair_check_seconds covers the mirror-pair path including x/y booleans; do not sum it with x_boolean_seconds, y_mirror_seconds, and y_boolean_seconds."
+  ],
+  "mirror_bbox_guard_analysis": {
+    "expression": "reflected_bbox_error_mm(exact_brep_bbox_mm(cut_x), exact_brep_bbox_mm(candidate_y))",
+    "location": "engine/stage05_core.py:1749-1750",
+    "first_argument": {
+      "entity": "cut_x",
+      "meaning": "未镜像的X侧切后实体；其AABB仍对应X侧几何位置。"
+    },
+    "second_argument": {
+      "entity": "candidate_y",
+      "meaning": "在stage05_core.py:1743由s2.mirror_shape(ctx[\"case\"], cut_x).clean()生成的当前角度Y侧镜像候选；其AABB对应Y侧位置。"
+    },
+    "coordinate_frame": "两个AABB均由exact_brep_bbox_mm报告在同一全局坐标系；直接比较AABB本身对于同一侧的候选与期望实体可以成立，但这里传入的是镜像前X实体和镜像后Y候选，原始X侧AABB未变换为Y侧期望范围。",
+    "helper_behavior": "reflected_bbox_error_mm在engine/stage05_core.py:703-705仅逐项比较两组包围盒数值；它不接收case，也不执行角度变换。",
+    "minimum_root_cause": "守卫把未镜像cut_x的AABB当作镜像后candidate_y的期望AABB，故其数值差不能用于判定镜像候选无效。candidate_y使用ctx[\"case\"]，stage02_core.py:178按当前角度构造mirror_plane_normal；没有漏传case或默认90度的证据。",
+    "observed_evidence": {
+      "corner_angle_deg": 120.0,
+      "source_symmetry_verified": true,
+      "source_bbox_max_abs_error_mm": 0.0,
+      "candidate_volume_error_mm3": 5.587935447692871e-09,
+      "reported_raw_bbox_difference_mm": 2556.4187693057306,
+      "fallback_y_boolean_seconds": 17.832532099913806
+    },
+    "not_yet_verified": "尚未直接比较镜像候选candidate_y与独立Y侧Boolean结果cut_y的精确几何等价；当前证据说明这项BBox检查比较基准不匹配，并足以解释fallback，但不单独证明候选等价。"
+  }
+}

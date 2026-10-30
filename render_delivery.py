@@ -223,6 +223,69 @@ def render_case(case_dir: Path):
     return report
 
 
+def render_preview_case(case_dir: Path):
+    """Render a labeled, offline preview without creating any layout deliverable."""
+    case_dir = Path(case_dir).resolve()
+    model_path = case_dir / "model_mesh.json"
+    model = read_json(model_path)
+    validation = read_json(case_dir / "validation.json")
+    resolved = read_json(case_dir / "parameters_resolved.json")
+    if (validation.get("mode") != "preview" or
+            validation.get("status") != "preview_ready" or
+            validation.get("exact_acceptance") != "not_run"):
+        raise ValueError("预览查看器拒绝缺少preview状态或未隔离精确验收的数据")
+    angle = float(resolved["corner_angle_deg"])
+    if not math.isfinite(angle) or not 0.0 < angle < 180.0:
+        raise ValueError("预览结果的建筑平面内角无效")
+    if not model.get("parts"):
+        raise ValueError("三维构件为空，无法生成预览查看器")
+    metadata = model.setdefault("metadata", {})
+    if metadata.get("mode") != "preview" or metadata.get("preview_status") != "preview_only":
+        raise ValueError("模型网格缺少明确的preview模式标记")
+    metadata["corner_angle_deg"] = angle
+    metadata["case_id"] = metadata.get("case_id") or case_dir.name
+    metadata["viewer_source_sha256"] = hash_file(model_path)
+    (case_dir / "vendor").mkdir(exist_ok=True)
+    shutil.copyfile(HERE / "viewer.css", case_dir / "viewer.css")
+    for name in ("viewer-runtime.js", "LICENSE-three.txt"):
+        shutil.copyfile(HERE / "vendor" / name, case_dir / "vendor" / name)
+    template = (HERE / "viewer.template.html").read_text(encoding="utf-8")
+    marker = "__MODEL_DATA__"
+    if template.count(marker) != 1:
+        raise ValueError("viewer.template.html 数据占位符不唯一")
+    (case_dir / "model.html").write_text(
+        template.replace(marker, embedded(model)), encoding="utf-8")
+    case_id = html.escape(str(metadata["case_id"]))
+    index = (
+        '<!doctype html><html lang="zh-CN"><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        f'<title>{case_id} · 预览模型</title>'
+        '<style>body{max-width:1000px;margin:36px auto;padding:0 22px;background:#f4f3ed;'
+        'color:#2e483b;font:15px/1.75 "Microsoft YaHei",sans-serif}h1{font-weight:500}'
+        '.preview{padding:14px 17px;border:1px solid #d3b47e;border-radius:6px;'
+        'background:#fff2d8;color:#754b14}a{color:#356753}li{margin:7px 0}</style>'
+        f'<h1>{case_id} · 预览模型（非精确生成）</h1>'
+        '<p class="preview">此结果仅用于快速查看整体参数形态。不能作为精确实体、排料、放样 CSV 或 STEP 加工文件。'
+        '需要这些结果时，请在工作台明确点击“精确生成”。</p>'
+        f'<p>建筑平面内角 {angle:g}°，左右对称；{len(model["parts"])} 个构件。</p>'
+        '<ul><li><a href="model.html">打开预览模型查看器</a></li>'
+        '<li><a href="model.obj">下载预览 OBJ</a></li>'
+        '<li><a href="config.json">下载配置 JSON</a></li>'
+        '<li><a href="validation.json">查看预览范围记录</a></li></ul>'
+        '<p>预览使用飞椽中心纵剖等宽挤出，保留里口原坯和组合木原坯；槽、上层卷戗板及组合木切配留待精确生成。</p>'
+        '<p><a href="../../README.md">生成器使用说明</a></p></html>')
+    (case_dir / "index.html").write_text(index, encoding="utf-8")
+    report = {"mode": "preview", "status": "preview_ready",
+              "scope": "快速三维预览；精确实体与加工输出未生成",
+              "exact_acceptance": "not_run", "model_mesh_sha256": hash_file(model_path),
+              "corner_angle_deg": angle, "parts": len(model["parts"]),
+              "artifacts": {name: hash_file(case_dir / name)
+                            for name in ("index.html", "model.html")}}
+    (case_dir / "delivery.json").write_text(
+        json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    return report
+
+
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")

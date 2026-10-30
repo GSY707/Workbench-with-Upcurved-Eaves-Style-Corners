@@ -272,7 +272,7 @@ class WorkbenchHTTPTests(unittest.TestCase):
                             source_fingerprint_provider=seed_source_fingerprint)
         status, bootstrap, _ = self.request("/api/bootstrap")
         self.assertEqual(status, 200)
-        self.assertEqual(API_VERSION, "0.3.0")
+        self.assertEqual(API_VERSION, "0.4.0")
         self.assertEqual(bootstrap["version"], API_VERSION)
         self.assertEqual(bootstrap["app_id"], APP_ID)
         self.assertEqual(Path(bootstrap["workspace"]).resolve(), ROOT.parents[1].resolve())
@@ -304,6 +304,39 @@ class WorkbenchHTTPTests(unittest.TestCase):
         ui_status, ui_body, _ = self.request("/ui/app.js")
         self.assertEqual(ui_status, 200)
         self.assertGreater(len(ui_body), 1000)
+
+    def test_validate_mode_is_a_separate_calculation_identity(self):
+        config = default_config(ROOT)
+        status, exact_default, _ = self.request("/api/validate", {"config": config})
+        self.assertEqual(status, 200)
+        status, exact_explicit, _ = self.request("/api/validate", {"config": config, "mode": "exact"})
+        self.assertEqual(status, 200)
+        status, preview, _ = self.request("/api/validate", {"config": config, "mode": "preview"})
+        self.assertEqual(status, 200)
+        self.assertEqual(exact_default["mode"], "exact")
+        self.assertEqual(exact_default["calculation_key"], exact_explicit["calculation_key"])
+        self.assertEqual(preview["mode"], "preview")
+        self.assertNotEqual(preview["calculation_key"], exact_default["calculation_key"])
+        status, invalid, _ = self.request("/api/validate", {"config": config, "mode": "approx"})
+        self.assertEqual(status, 400)
+        self.assertIn("preview", invalid["error"])
+
+    def test_cached_case_requires_matching_mode_and_source_fingerprint(self):
+        config = default_config(ROOT)
+        _, normalized, key, fingerprint = self.backend.validate(config, mode="preview")
+        self.backend.state["cases"] = [{
+            "id": "wrong-mode", "mode": "exact", "validated": True,
+            "calculation_key": key, "source_fingerprint": fingerprint,
+            "output_rel": "unused",
+        }]
+        self.assertIsNone(self.backend._find_cached_case(key, fingerprint, mode="preview"))
+
+        self.backend.state["cases"] = [{
+            "id": "wrong-source", "mode": "preview", "validated": True,
+            "calculation_key": key, "source_fingerprint": "different-source",
+            "output_rel": "unused",
+        }]
+        self.assertIsNone(self.backend._find_cached_case(key, fingerprint, mode="preview"))
 
     def test_invalid_config_csrf_and_path_traversal_are_rejected(self):
         config = self.get_default_config()
@@ -354,7 +387,7 @@ class WorkbenchHTTPTests(unittest.TestCase):
         succeeded = self.wait_job(submitted["job"]["id"], {"succeeded", "failed"})
         self.assertEqual(succeeded["status"], "succeeded", succeeded)
         self.assertTrue(succeeded["result"]["validated"])
-        self.assertEqual(succeeded["stage"], "生成完成")
+        self.assertEqual(succeeded["stage"], "精确生成完成")
         self.assertIn("offline viewer rendering complete", succeeded["log_tail"])
 
         failed_config = copy.deepcopy(config)
@@ -487,6 +520,31 @@ class WorkbenchHTTPTests(unittest.TestCase):
         self.assertEqual(job["stage"], "服务已重启，生成任务中断")
         self.assertIn("未自动重启 CAD", job["error"])
         self.assertEqual(self.backend.bootstrap()["active_job"], None)
+
+    def test_reference_runtime_is_mode_scoped_and_uses_only_valid_samples(self):
+        cases = [
+            {"mode": "preview", "validated": True, "elapsed_seconds": 12},
+            {"mode": "preview", "validated": True, "elapsed_seconds": 20},
+            {"mode": "preview", "validated": False, "elapsed_seconds": 100},
+            {"mode": "exact", "validated": True, "elapsed_seconds": 300},
+            # Legacy records without a mode are exact, never preview.
+            {"validated": True, "elapsed_seconds": 500},
+            {"mode": "exact", "validated": True, "elapsed_seconds": float("nan")},
+            {"mode": "exact", "validated": True, "elapsed_seconds": -5},
+        ]
+
+        self.assertEqual(
+            WorkbenchBackend._reference_runtime_seconds_by_mode(cases),
+            {"preview": 16.0, "exact": 400.0},
+        )
+        self.assertEqual(
+            WorkbenchBackend._reference_runtime_seconds_by_mode([]),
+            {"preview": None, "exact": None},
+        )
+        self.assertEqual(
+            self.backend.bootstrap()["reference_runtime_seconds"],
+            {"preview": None, "exact": None},
+        )
 
 
 if __name__ == "__main__":

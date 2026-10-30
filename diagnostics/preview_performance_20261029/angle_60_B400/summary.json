@@ -1,0 +1,4013 @@
+{
+  "status": "completed",
+  "started_utc": "2026-10-30T01:59:54+00:00",
+  "case_started_utc": "2026-10-30T01:59:55+00:00",
+  "finished_utc": "2026-10-30T02:00:30+00:00",
+  "python_process_cold_start_to_mesh_ready_seconds": 36.606726,
+  "case_work_to_mesh_ready_seconds": 35.903851,
+  "mesh_ready_wall_seconds_from_process_entry": 36.606726,
+  "total_process_wall_seconds": 36.641707,
+  "config": {
+    "path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\angle_60.json",
+    "sha256": "adc80ead09b6cceae061582ca9351eb5bb453013849b21439650560d073ab8e2",
+    "normalized": {
+      "case_id": "angle_60_B400",
+      "corner_angle_deg": 60.0,
+      "parameters": {
+        "D": 1200.0,
+        "e": 600.0,
+        "p": 300.0,
+        "t": 0.5,
+        "B": 400.0,
+        "L_n": 900.0,
+        "U_n": 480.0,
+        "a": 110.0,
+        "w_fly": 60.0,
+        "k_c": 0.9,
+        "old_tail_scale": 0.8,
+        "old_ridge_h": 41.25,
+        "young_root_scale": 0.8,
+        "young_tip_scale": 0.8,
+        "setback": 82.5,
+        "likou_width": 55.0,
+        "likou_h_regular": 70.0,
+        "likou_h_corner_ratio": 2.25,
+        "likou_extension_pitches": 1.5,
+        "board_lower_t": 20.0,
+        "board_upper_t": 13.75,
+        "fly_tip_t": 40.0,
+        "fly_corner_root_ratio": 0.65,
+        "back_join_fraction": 0.7
+      },
+      "advanced": {
+        "purlin_radius_mm": 90.0,
+        "qiangshan_width_mm": 90.0,
+        "qiangshan_clearance_mm": 20.0,
+        "fan_rafter_width_mm": 70.0,
+        "fan_rafter_height_mm": 60.0,
+        "rafter_seat_relief_mm": 12.0,
+        "straight_rafter_width_mm": 70.0,
+        "straight_rafter_height_mm": 60.0,
+        "old_seat_relief_mm": 25.0,
+        "board_surface_overlap_mm": 0.2,
+        "likou_surface_overlap_mm": 0.2,
+        "fan_station_count": 129,
+        "flyer_width_fiber_stations": 17,
+        "flyer_edge_inboard_bias_mm": 0.05,
+        "flyer_tail_search_step_mm": 5.0,
+        "flyer_front_edge_search_span_mm": 160.0,
+        "flyer_front_edge_coarse_step_mm": 4.0,
+        "flyer_tail_root_max_search_mm": 2200.0,
+        "flyer_edge_fit_clearance_mm": 0.01,
+        "flyer_root_fit_clearance_mm": 0.01,
+        "flyer_outer_tip_offset_mm": -3.5,
+        "flyer_tip_transition_power": 3.0,
+        "flyer_contact_tail_gap_mm": 1.0,
+        "flyer_seat_delta_mm": 3.0,
+        "upper_board_surface_overlap_mm": 0.2,
+        "combination_back_u_ratio_D": -0.559,
+        "combination_front_u_ratio_D": 0.41478875,
+        "combination_sagitta_ratio_chord": 0.11794,
+        "combination_width_ratio_young_tip": 0.75,
+        "combination_cross_width_stations": 7,
+        "combination_u_stations": 33,
+        "combination_end_trim_mm": 10.0,
+        "mesh_tessellation_mm": 2.0,
+        "mesh_angular_tolerance_rad": 0.35
+      },
+      "derived": {
+        "corner_angle_deg": 60.0,
+        "young_plan_run_mm": 761.3146524269712,
+        "young_rise_angle_deg": 32.230952635502106,
+        "old_young_control_included_angle_deg": 133.73280389657143,
+        "old_corner_fan_coefficient_mm": 270.0,
+        "fan_count_rule": "n为满足弧长/n < B的最小奇数等分区间数；内部i/n分点生成n-1根摔网椽，弧端点只作边界",
+        "fan_division_count_n": 9,
+        "fan_plan_sagitta_mm": 71.60128742218512,
+        "young_sagitta_mm": 15.844654953802639,
+        "young_sagitta_rule": "派生为min(根车背,梢车背)×0.75",
+        "fly_tail_ratio": null,
+        "fly_tail_rule": "尖尾由本次生成的下层板上表面触底求得；不强制1.5比值",
+        "included_angle_source": "由嫩戗升角asin(U_n/L_n)和老戗方向atan(t*sin(corner_angle_deg/2))按实轴方向派生；不作为输入",
+        "fan_count": 8,
+        "fan_spacing_mm": 388.502752215763,
+        "fan_spacing_rule": "n为满足弧长/n < B的最小奇数等分区间数；摔网取内部i/n分点，弧端边界椽归正身",
+        "fan_plan_sagitta_reference_mm": 55.0
+      }
+    }
+  },
+  "production_source_identity_sha256": "ef5340fed7c096b557a9258a71b94c618365dc62a33b29de8c8fdef0a1daa33d",
+  "production_source_file_count": 14,
+  "geometry_source_identity_sha256": "4d69011cf266ac6a6e5d59c6dbcb70ef58b1b5dc183be0b538ddcaffe342dd70",
+  "probe_source_sha256": "39f9b21bf1e781e84abdb7b169cc0d28579abe4583fd34be72b976e19c2a463e",
+  "probe_source_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\preview_probe.py",
+  "preview_scope": {
+    "stage04_recomputed_from_current_config": true,
+    "missing_fan_guard": "passed",
+    "expected_fan_rafter_count_per_side": 8,
+    "actual_fan_rafter_count_per_side": 8,
+    "selected_preview_rafter_count_per_side": 12,
+    "selected_preview_rafter_count_both_sides": 24,
+    "stage04_base_and_raw_likou_preserved": true,
+    "likou_notches_cut": false,
+    "flyer_model": "one center-fiber R/I/E side profile rigidly extruded along the actual 3D width direction; exact A/B face profile is identical by construction",
+    "full_width_flyer_fit_preserved": false,
+    "upper_rollboard": {
+      "status": "included_from_control_data",
+      "parts_before": 86,
+      "parts_after": 88,
+      "brep_face_counts": {
+        "upper_board_x_continuous": 6,
+        "upper_board_y_continuous": 6
+      },
+      "piece_record_count": 1,
+      "part_ids": [
+        "upper_board_x_continuous",
+        "upper_board_y_continuous"
+      ],
+      "parts": [
+        {
+          "id": "upper_board_x_continuous",
+          "group": "upper_board",
+          "volume_mm3": 15992838.520753559,
+          "valid_single_solid": true
+        },
+        {
+          "id": "upper_board_y_continuous",
+          "group": "upper_board",
+          "volume_mm3": 15992838.520753564,
+          "valid_single_solid": true
+        }
+      ],
+      "construction_input": "17-fiber control/root records from this run; no exact flyer solids were built"
+    },
+    "combination_blank": {
+      "status": "included_uncut_single_blank",
+      "part_id": "combination_preview_blank",
+      "brep_face_count": 450,
+      "volume_mm3": 1212895.9518670398,
+      "valid_single_solid": true,
+      "old_young_boolean_cuts_run": false,
+      "horizontal_split_run": false,
+      "bypassed_production_calls": {
+        "cut_calls_bypassed": 1,
+        "intersect_calls_bypassed": 2,
+        "pre_boolean_blank_captured": true
+      },
+      "geometry_source": "The existing make_combination_blank(ctx) sampling, arc and loft formula was reused; local Shape.cut/intersect no-ops captured the lofted blank and skipped all subtraction and split Booleans."
+    },
+    "combination_split_into_lingjiao_biandan": false,
+    "combination_old_young_cut": false,
+    "not_an_exact_geometry_acceptance": true
+  },
+  "phases": [
+    {
+      "name": "stage04_base_and_preflight",
+      "wall_seconds": 4.994313
+    },
+    {
+      "name": "shared_flyer_control_field",
+      "wall_seconds": 0.606992
+    },
+    {
+      "name": "preview_flyer_extrusion",
+      "wall_seconds": 0.135128
+    },
+    {
+      "name": "upper_rollboard_from_controls",
+      "wall_seconds": 0.418748
+    },
+    {
+      "name": "combination_uncut_blank_loft",
+      "wall_seconds": 0.799196
+    },
+    {
+      "name": "absolute_mesh_export",
+      "wall_seconds": 27.414554
+    }
+  ],
+  "base_stage": {
+    "parts": 62,
+    "parts_by_group": {
+      "eave_purlins": 2,
+      "step_purlins": 2,
+      "old_corner": 1,
+      "qiangshan": 2,
+      "fan_rafters": 16,
+      "eave_rafters": 8,
+      "young_corner": 1,
+      "likou": 2,
+      "lower_board": 28
+    },
+    "chosen_fly_records_per_side": 12,
+    "chosen_by_family_per_side": {
+      "fan": 8,
+      "straight": 4
+    },
+    "expected_fan_rafter_count_per_side": 8,
+    "actual_fan_rafter_count_per_side": 8,
+    "raw_likou_ids_preserved": [
+      "likou_x",
+      "likou_y"
+    ],
+    "lower_board_ids_preserved": [
+      "lower_board_fan_x_01",
+      "lower_board_fan_x_02",
+      "lower_board_fan_x_03",
+      "lower_board_fan_x_04",
+      "lower_board_fan_x_05",
+      "lower_board_fan_x_06",
+      "lower_board_fan_x_07",
+      "lower_board_fan_x_08",
+      "lower_board_fan_x_09",
+      "lower_board_fan_x_10",
+      "lower_board_fan_y_01",
+      "lower_board_fan_y_02",
+      "lower_board_fan_y_03",
+      "lower_board_fan_y_04",
+      "lower_board_fan_y_05",
+      "lower_board_fan_y_06",
+      "lower_board_fan_y_07",
+      "lower_board_fan_y_08",
+      "lower_board_fan_y_09",
+      "lower_board_fan_y_10",
+      "lower_board_straight_x_01",
+      "lower_board_straight_x_02",
+      "lower_board_straight_x_03",
+      "lower_board_straight_x_04",
+      "lower_board_straight_y_01",
+      "lower_board_straight_y_02",
+      "lower_board_straight_y_03",
+      "lower_board_straight_y_04"
+    ]
+  },
+  "flyers": [
+    {
+      "source_rafter_id": "eave_rafter_01",
+      "family": "straight",
+      "index": 1,
+      "part_ids": [
+        "straight_flying_x_01",
+        "straight_flying_y_01"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            -3278.4609690826533,
+            360.976611328125,
+            -54.32627376782263
+          ],
+          [
+            -3278.4609690826533,
+            544.95,
+            -112.74936101848655
+          ],
+          [
+            -3278.4609690826533,
+            900.0,
+            -225.5
+          ],
+          [
+            -3278.4609690826533,
+            900.0,
+            -185.5
+          ],
+          [
+            -3278.4609690826533,
+            544.95,
+            -72.74936101848655
+          ],
+          [
+            -3278.4609690826533,
+            360.976611328125,
+            -14.326273767822627
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            -3248.4609690826533,
+            360.976611328125,
+            -54.32627376782263
+          ],
+          [
+            -3248.4609690826533,
+            544.95,
+            -112.74936101848655
+          ],
+          [
+            -3248.4609690826533,
+            900.0,
+            -225.5
+          ],
+          [
+            -3248.4609690826533,
+            900.0,
+            -185.5
+          ],
+          [
+            -3248.4609690826533,
+            544.95,
+            -72.74936101848655
+          ],
+          [
+            -3248.4609690826533,
+            360.976611328125,
+            -14.326273767822627
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -60.0,
+          0.0,
+          0.0
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -239.023388671875,
+            "bottom_z_mm": -54.32627376782263,
+            "top_z_mm": -14.326273767822627
+          },
+          {
+            "label": "I",
+            "q_mm": -55.05,
+            "bottom_z_mm": -112.74936101848655,
+            "top_z_mm": -72.74936101848655
+          },
+          {
+            "label": "E",
+            "q_mm": 300.0,
+            "bottom_z_mm": -225.5,
+            "top_z_mm": -185.5
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1293656.1328125
+      },
+      "part_face_counts": {
+        "straight_flying_x_01": 8,
+        "straight_flying_y_01": 8
+      },
+      "part_volumes_mm3": {
+        "straight_flying_x_01": 1293656.1328125,
+        "straight_flying_y_01": 1293656.1328125002
+      },
+      "valid_single_solid": {
+        "straight_flying_x_01": true,
+        "straight_flying_y_01": true
+      }
+    },
+    {
+      "source_rafter_id": "eave_rafter_02",
+      "family": "straight",
+      "index": 2,
+      "part_ids": [
+        "straight_flying_x_02",
+        "straight_flying_y_02"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            -2878.4609690826533,
+            360.976611328125,
+            -54.32627376782263
+          ],
+          [
+            -2878.4609690826533,
+            544.95,
+            -112.74936101848655
+          ],
+          [
+            -2878.4609690826533,
+            900.0,
+            -225.5
+          ],
+          [
+            -2878.4609690826533,
+            900.0,
+            -185.5
+          ],
+          [
+            -2878.4609690826533,
+            544.95,
+            -72.74936101848655
+          ],
+          [
+            -2878.4609690826533,
+            360.976611328125,
+            -14.326273767822627
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            -2848.4609690826533,
+            360.976611328125,
+            -54.32627376782263
+          ],
+          [
+            -2848.4609690826533,
+            544.95,
+            -112.74936101848655
+          ],
+          [
+            -2848.4609690826533,
+            900.0,
+            -225.5
+          ],
+          [
+            -2848.4609690826533,
+            900.0,
+            -185.5
+          ],
+          [
+            -2848.4609690826533,
+            544.95,
+            -72.74936101848655
+          ],
+          [
+            -2848.4609690826533,
+            360.976611328125,
+            -14.326273767822627
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -60.0,
+          0.0,
+          0.0
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -239.023388671875,
+            "bottom_z_mm": -54.32627376782263,
+            "top_z_mm": -14.326273767822627
+          },
+          {
+            "label": "I",
+            "q_mm": -55.05,
+            "bottom_z_mm": -112.74936101848655,
+            "top_z_mm": -72.74936101848655
+          },
+          {
+            "label": "E",
+            "q_mm": 300.0,
+            "bottom_z_mm": -225.5,
+            "top_z_mm": -185.5
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1293656.1328125
+      },
+      "part_face_counts": {
+        "straight_flying_x_02": 8,
+        "straight_flying_y_02": 8
+      },
+      "part_volumes_mm3": {
+        "straight_flying_x_02": 1293656.1328125,
+        "straight_flying_y_02": 1293656.1328125014
+      },
+      "valid_single_solid": {
+        "straight_flying_x_02": true,
+        "straight_flying_y_02": true
+      }
+    },
+    {
+      "source_rafter_id": "eave_rafter_03",
+      "family": "straight",
+      "index": 3,
+      "part_ids": [
+        "straight_flying_x_03",
+        "straight_flying_y_03"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            -2478.4609690826533,
+            360.971728515625,
+            -54.32435638543993
+          ],
+          [
+            -2478.4609690826533,
+            544.95,
+            -112.74936101848655
+          ],
+          [
+            -2478.4609690826533,
+            900.0,
+            -225.5007078356836
+          ],
+          [
+            -2478.4609690826533,
+            900.0,
+            -185.5
+          ],
+          [
+            -2478.4609690826533,
+            544.95,
+            -72.74865318280295
+          ],
+          [
+            -2478.4609690826533,
+            360.971728515625,
+            -14.323648549756328
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            -2448.4609690826533,
+            360.971728515625,
+            -54.145882612599706
+          ],
+          [
+            -2448.4609690826533,
+            544.95,
+            -112.57088724564633
+          ],
+          [
+            -2448.4609690826533,
+            900.0,
+            -225.3222340628434
+          ],
+          [
+            -2448.4609690826533,
+            900.0,
+            -185.32152622715978
+          ],
+          [
+            -2448.4609690826533,
+            544.95,
+            -72.57017940996273
+          ],
+          [
+            -2448.4609690826533,
+            360.971728515625,
+            -14.145174776916107
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -60.0,
+          0.0,
+          -0.3569475456804412
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -239.028271484375,
+            "bottom_z_mm": -54.32435638543993,
+            "top_z_mm": -14.323648549756328
+          },
+          {
+            "label": "I",
+            "q_mm": -55.05,
+            "bottom_z_mm": -112.74936101848655,
+            "top_z_mm": -72.74865318280295
+          },
+          {
+            "label": "E",
+            "q_mm": 300.0,
+            "bottom_z_mm": -225.5007078356836,
+            "top_z_mm": -185.5
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1293690.7441692022
+      },
+      "part_face_counts": {
+        "straight_flying_x_03": 8,
+        "straight_flying_y_03": 8
+      },
+      "part_volumes_mm3": {
+        "straight_flying_x_03": 1293690.7441692022,
+        "straight_flying_y_03": 1293690.7441692017
+      },
+      "valid_single_solid": {
+        "straight_flying_x_03": true,
+        "straight_flying_y_03": true
+      }
+    },
+    {
+      "source_rafter_id": "eave_rafter_04",
+      "family": "straight",
+      "index": 4,
+      "part_ids": [
+        "straight_flying_x_04",
+        "straight_flying_y_04"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            -2078.4609690826533,
+            360.97663897108714,
+            -54.32629167043022
+          ],
+          [
+            -2078.4609690826533,
+            544.9500276429621,
+            -112.74937580691338
+          ],
+          [
+            -2078.4609690826533,
+            900.0,
+            -225.5
+          ],
+          [
+            -2078.4609690826533,
+            900.0,
+            -185.5
+          ],
+          [
+            -2078.4609690826533,
+            544.9500276429621,
+            -72.74937580691338
+          ],
+          [
+            -2078.4609690826533,
+            360.97663897108714,
+            -14.326291670430223
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            -2048.4609690826533,
+            360.97663897108714,
+            -54.32629167043022
+          ],
+          [
+            -2048.4609690826533,
+            544.9500276429621,
+            -112.74937580691338
+          ],
+          [
+            -2048.4609690826533,
+            900.0,
+            -225.5
+          ],
+          [
+            -2048.4609690826533,
+            900.0,
+            -185.5
+          ],
+          [
+            -2048.4609690826533,
+            544.9500276429621,
+            -72.74937580691338
+          ],
+          [
+            -2048.4609690826533,
+            360.97663897108714,
+            -14.326291670430223
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -60.0,
+          0.0,
+          0.0
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -239.02336102891286,
+            "bottom_z_mm": -54.32629167043022,
+            "top_z_mm": -14.326291670430223
+          },
+          {
+            "label": "I",
+            "q_mm": -55.049972357037866,
+            "bottom_z_mm": -112.74937580691338,
+            "top_z_mm": -72.74937580691338
+          },
+          {
+            "label": "E",
+            "q_mm": 300.0,
+            "bottom_z_mm": -225.5,
+            "top_z_mm": -185.5
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1293656.0664693909
+      },
+      "part_face_counts": {
+        "straight_flying_x_04": 8,
+        "straight_flying_y_04": 8
+      },
+      "part_volumes_mm3": {
+        "straight_flying_x_04": 1293656.0664693909,
+        "straight_flying_y_04": 1293656.0664693918
+      },
+      "valid_single_solid": {
+        "straight_flying_x_04": true,
+        "straight_flying_y_04": true
+      }
+    },
+    {
+      "source_rafter_id": "fan_rafter_01",
+      "family": "fan",
+      "index": 1,
+      "part_ids": [
+        "flying_fan_x_01",
+        "flying_fan_y_01"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            -1738.2383041331957,
+            391.33224983830746,
+            -78.55101196419889
+          ],
+          [
+            -1702.5456507974302,
+            548.2844283374636,
+            -123.35548133272746
+          ],
+          [
+            -1621.6446752756112,
+            904.0322689759405,
+            -224.9093009816375
+          ],
+          [
+            -1621.6446752756112,
+            904.0322689759405,
+            -184.90883811759986
+          ],
+          [
+            -1702.5456507974302,
+            548.2844283374636,
+            -83.35501846868982
+          ],
+          [
+            -1738.2383041331957,
+            391.33224983830746,
+            -38.55054910016125
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            -1708.9851929166198,
+            384.6797702892488,
+            -78.69533452725162
+          ],
+          [
+            -1673.2925395808543,
+            541.631948788405,
+            -123.49980389578019
+          ],
+          [
+            -1592.3915640590353,
+            897.3797894268819,
+            -225.05362354469023
+          ],
+          [
+            -1592.3915640590353,
+            897.3797894268819,
+            -185.05316068065258
+          ],
+          [
+            -1673.2925395808543,
+            541.631948788405,
+            -83.49934103174255
+          ],
+          [
+            -1708.9851929166198,
+            384.6797702892488,
+            -38.69487166321398
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -58.50622243315171,
+          13.304959098117317,
+          0.28864512610546456
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -217.6626494171271,
+            "bottom_z_mm": -78.55101196419889,
+            "top_z_mm": -38.55054910016125
+          },
+          {
+            "label": "I",
+            "q_mm": -56.7031767608771,
+            "bottom_z_mm": -123.35548133272746,
+            "top_z_mm": -83.35501846868982
+          },
+          {
+            "label": "E",
+            "q_mm": 308.1275976528518,
+            "bottom_z_mm": -224.9093009816375,
+            "top_z_mm": -184.90883811759986
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1261911.1951317515
+      },
+      "part_face_counts": {
+        "flying_fan_x_01": 8,
+        "flying_fan_y_01": 8
+      },
+      "part_volumes_mm3": {
+        "flying_fan_x_01": 1261911.1951317515,
+        "flying_fan_y_01": 1261911.1951317505
+      },
+      "valid_single_solid": {
+        "flying_fan_x_01": true,
+        "flying_fan_y_01": true
+      }
+    },
+    {
+      "source_rafter_id": "fan_rafter_02",
+      "family": "fan",
+      "index": 2,
+      "part_ids": [
+        "flying_fan_x_02",
+        "flying_fan_y_02"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            -1387.390894937382,
+            424.38623295579885,
+            -101.3391947426075
+          ],
+          [
+            -1326.9260034156384,
+            558.1762584448946,
+            -133.83397194757012
+          ],
+          [
+            -1165.1578487365484,
+            916.1189420939086,
+            -220.77070519656021
+          ],
+          [
+            -1165.1578487365484,
+            916.1189420939086,
+            -180.77070494079882
+          ],
+          [
+            -1326.9260034156384,
+            558.1762584448946,
+            -93.68232739524069
+          ],
+          [
+            -1387.390894937382,
+            424.38623295579885,
+            -61.13086934379092
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            -1360.0531189723354,
+            412.0312337536573,
+            -101.33580221213572
+          ],
+          [
+            -1299.5882274505918,
+            545.8212592427531,
+            -133.83057941709833
+          ],
+          [
+            -1137.8200727715018,
+            903.763942891767,
+            -220.76731266608843
+          ],
+          [
+            -1137.8200727715018,
+            903.763942891767,
+            -180.76731241032704
+          ],
+          [
+            -1299.5882274505918,
+            545.8212592427531,
+            -93.6789348647689
+          ],
+          [
+            -1360.0531189723354,
+            412.0312337536573,
+            -61.127476813319134
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -54.67555193009328,
+          24.709998404283095,
+          -0.0067850609435708975
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -208.25884177752175,
+            "bottom_z_mm": -101.3391947426075,
+            "top_z_mm": -61.13086934379092
+          },
+          {
+            "label": "I",
+            "q_mm": -61.43999412127174,
+            "bottom_z_mm": -133.83397194757012,
+            "top_z_mm": -93.68232739524069
+          },
+          {
+            "label": "E",
+            "q_mm": 331.3600830759407,
+            "bottom_z_mm": -220.77070519656021,
+            "top_z_mm": -180.77070494079882
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1298457.9136205919
+      },
+      "part_face_counts": {
+        "flying_fan_x_02": 8,
+        "flying_fan_y_02": 8
+      },
+      "part_volumes_mm3": {
+        "flying_fan_x_02": 1298457.9136205919,
+        "flying_fan_y_02": 1298457.9136205919
+      },
+      "valid_single_solid": {
+        "flying_fan_x_02": true,
+        "flying_fan_y_02": true
+      }
+    },
+    {
+      "source_rafter_id": "fan_rafter_03",
+      "family": "fan",
+      "index": 3,
+      "part_ids": [
+        "flying_fan_x_03",
+        "flying_fan_y_03"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            -1026.7422730459732,
+            463.0736414272018,
+            -124.0616758030541
+          ],
+          [
+            -951.8668778577178,
+            574.6913745651143,
+            -144.08940155358164
+          ],
+          [
+            -709.3354118452147,
+            936.236210260038,
+            -208.96189638261328
+          ],
+          [
+            -709.3354118452147,
+            936.236210260038,
+            -168.96176699029746
+          ],
+          [
+            -951.8668778577178,
+            574.6913745651143,
+            -103.5454627364224
+          ],
+          [
+            -1026.7422730459732,
+            463.0736414272018,
+            -83.3498497164131
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            -1001.8286232607924,
+            446.3610696807183,
+            -123.98536942305213
+          ],
+          [
+            -926.953228072537,
+            557.9788028186308,
+            -144.01309517357967
+          ],
+          [
+            -684.4217620600339,
+            919.5236385135545,
+            -208.8855900026113
+          ],
+          [
+            -684.4217620600339,
+            919.5236385135545,
+            -168.8854606102955
+          ],
+          [
+            -926.953228072537,
+            557.9788028186308,
+            -103.46915635642043
+          ],
+          [
+            -1001.8286232607924,
+            446.3610696807183,
+            -83.27354333641114
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -49.82729957036171,
+          33.42514349296696,
+          -0.1526127600039473
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -203.2320146727829,
+            "bottom_z_mm": -124.0616758030541,
+            "top_z_mm": -83.3498497164131
+          },
+          {
+            "label": "I",
+            "q_mm": -68.82649709465788,
+            "bottom_z_mm": -144.08940155358164,
+            "top_z_mm": -103.5454627364224
+          },
+          {
+            "label": "E",
+            "q_mm": 366.5310343939375,
+            "bottom_z_mm": -208.96189638261328,
+            "top_z_mm": -168.96176699029746
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1379600.6954948346
+      },
+      "part_face_counts": {
+        "flying_fan_x_03": 8,
+        "flying_fan_y_03": 8
+      },
+      "part_volumes_mm3": {
+        "flying_fan_x_03": 1379600.6954948346,
+        "flying_fan_y_03": 1379600.6954948336
+      },
+      "valid_single_solid": {
+        "flying_fan_x_03": true,
+        "flying_fan_y_03": true
+      }
+    },
+    {
+      "source_rafter_id": "fan_rafter_04",
+      "family": "fan",
+      "index": 4,
+      "part_ids": [
+        "flying_fan_x_04",
+        "flying_fan_y_04"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            -657.8972396212895,
+            506.7579787246989,
+            -146.27303204724788
+          ],
+          [
+            -577.7093902496221,
+            597.7235091141644,
+            -154.2984219884778
+          ],
+          [
+            -254.52722011065572,
+            964.3431123267287,
+            -186.64325923927612
+          ],
+          [
+            -254.52722011065572,
+            964.3431123267287,
+            -146.64314383065215
+          ],
+          [
+            -577.7093902496221,
+            597.7235091141644,
+            -113.21541383195489
+          ],
+          [
+            -657.8972396212895,
+            506.7579787246989,
+            -104.92133691298467
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            -635.3927965037676,
+            486.9198830507129,
+            -146.2009668297629
+          ],
+          [
+            -555.2049471321002,
+            577.8854134401784,
+            -154.22635677099282
+          ],
+          [
+            -232.02277699313385,
+            944.5050166527427,
+            -186.57119402179114
+          ],
+          [
+            -232.02277699313385,
+            944.5050166527427,
+            -146.57107861316717
+          ],
+          [
+            -555.2049471321002,
+            577.8854134401784,
+            -113.14334861446991
+          ],
+          [
+            -635.3927965037676,
+            486.9198830507129,
+            -104.84927169549971
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -45.00888623504373,
+          39.676191347972036,
+          -0.14413043496993794
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -199.7706782038311,
+            "bottom_z_mm": -146.27303204724788,
+            "top_z_mm": -104.92133691298467
+          },
+          {
+            "label": "I",
+            "q_mm": -78.50725046945608,
+            "bottom_z_mm": -154.2984219884778,
+            "top_z_mm": -113.21541383195489
+          },
+          {
+            "label": "E",
+            "q_mm": 410.22237678417173,
+            "bottom_z_mm": -186.64325923927612,
+            "top_z_mm": -146.64314383065215
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1488721.1832558287
+      },
+      "part_face_counts": {
+        "flying_fan_x_04": 8,
+        "flying_fan_y_04": 8
+      },
+      "part_volumes_mm3": {
+        "flying_fan_x_04": 1488721.1832558287,
+        "flying_fan_y_04": 1488721.1832558285
+      },
+      "valid_single_solid": {
+        "flying_fan_x_04": true,
+        "flying_fan_y_04": true
+      }
+    },
+    {
+      "source_rafter_id": "fan_rafter_05",
+      "family": "fan",
+      "index": 5,
+      "part_ids": [
+        "flying_fan_x_05",
+        "flying_fan_y_05"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            -283.457744426132,
+            554.513012161661,
+            -167.11164699152016
+          ],
+          [
+            -204.8068726278927,
+            627.2156537861983,
+            -164.3230589051344
+          ],
+          [
+            198.88692429618226,
+            1000.3787831041979,
+            -150.0099853572894
+          ],
+          [
+            198.88692429618226,
+            1000.3787831041979,
+            -110.0099579471747
+          ],
+          [
+            -204.8068726278927,
+            627.2156537861983,
+            -122.64782572876216
+          ],
+          [
+            -283.457744426132,
+            554.513012161661,
+            -125.1100367566905
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            -263.0939450556595,
+            532.483130745749,
+            -167.07652640520533
+          ],
+          [
+            -184.44307325742017,
+            605.1857723702864,
+            -164.28793831881956
+          ],
+          [
+            219.25072366665478,
+            978.3489016882859,
+            -149.97486477097456
+          ],
+          [
+            219.25072366665478,
+            978.3489016882859,
+            -109.97483736085987
+          ],
+          [
+            -184.44307325742017,
+            605.1857723702864,
+            -122.61270514244733
+          ],
+          [
+            -263.0939450556595,
+            532.483130745749,
+            -125.07491617037567
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -40.72759874094506,
+          44.05976283182389,
+          -0.07024117262966456
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -197.27413452253978,
+            "bottom_z_mm": -167.11164699152016,
+            "top_z_mm": -125.1100367566905
+          },
+          {
+            "label": "I",
+            "q_mm": -90.16842163191478,
+            "bottom_z_mm": -164.3230589051344,
+            "top_z_mm": -122.64782572876216
+          },
+          {
+            "label": "E",
+            "q_mm": 459.57643078362025,
+            "bottom_z_mm": -150.0099853572894,
+            "top_z_mm": -110.0099579471747
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1615884.6612933774
+      },
+      "part_face_counts": {
+        "flying_fan_x_05": 8,
+        "flying_fan_y_05": 8
+      },
+      "part_volumes_mm3": {
+        "flying_fan_x_05": 1615884.6612933774,
+        "flying_fan_y_05": 1615884.661293377
+      },
+      "valid_single_solid": {
+        "flying_fan_x_05": true,
+        "flying_fan_y_05": true
+      }
+    },
+    {
+      "source_rafter_id": "fan_rafter_06",
+      "family": "fan",
+      "index": 6,
+      "part_ids": [
+        "flying_fan_x_06",
+        "flying_fan_y_06"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            93.55748377748054,
+            605.6833309694294,
+            -186.0570226172195
+          ],
+          [
+            166.55371326007509,
+            663.166383120099,
+            -174.1899414043595
+          ],
+          [
+            650.4936120575073,
+            1044.2592510331688,
+            -95.51527393346308
+          ],
+          [
+            650.4936120575073,
+            1044.2592510331688,
+            -55.51523804546437
+          ],
+          [
+            166.55371326007509,
+            663.166383120099,
+            -131.96404688737735
+          ],
+          [
+            93.55748377748054,
+            605.6833309694294,
+            -143.49538540226834
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            112.1178470438291,
+            582.1140094810798,
+            -186.09720919043048
+          ],
+          [
+            185.11407652642364,
+            639.5970616317494,
+            -174.23012797757048
+          ],
+          [
+            669.0539753238559,
+            1020.6899295448192,
+            -95.55546050667404
+          ],
+          [
+            669.0539753238559,
+            1020.6899295448192,
+            -55.55542461867533
+          ],
+          [
+            185.11407652642364,
+            639.5970616317494,
+            -132.0042334605883
+          ],
+          [
+            112.1178470438291,
+            582.1140094810798,
+            -143.5355719754793
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -37.120726532697105,
+          47.138642976699245,
+          0.08037314642191973
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -196.4993189659503,
+            "bottom_z_mm": -186.0570226172195,
+            "top_z_mm": -143.49538540226834
+          },
+          {
+            "label": "I",
+            "q_mm": -103.58672130970031,
+            "bottom_z_mm": -174.1899414043595,
+            "top_z_mm": -131.96404688737735
+          },
+          {
+            "label": "E",
+            "q_mm": 512.3918494395405,
+            "bottom_z_mm": -95.51527393346308,
+            "top_z_mm": -55.51523804546437
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1755817.2273438699
+      },
+      "part_face_counts": {
+        "flying_fan_x_06": 8,
+        "flying_fan_y_06": 8
+      },
+      "part_volumes_mm3": {
+        "flying_fan_x_06": 1755817.2273438699,
+        "flying_fan_y_06": 1755817.2273438699
+      },
+      "valid_single_solid": {
+        "flying_fan_x_06": true,
+        "flying_fan_y_06": true
+      }
+    },
+    {
+      "source_rafter_id": "fan_rafter_07",
+      "family": "fan",
+      "index": 7,
+      "part_ids": [
+        "flying_fan_x_07",
+        "flying_fan_y_07"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            470.39614733682424,
+            660.0569009779609,
+            -202.9312253498282
+          ],
+          [
+            535.8589813471237,
+            705.3824796131772,
+            -183.86576946919624
+          ],
+          [
+            1099.8368506060506,
+            1095.8731091144195,
+            -19.612337020531427
+          ],
+          [
+            1099.8368506060506,
+            1095.8731091144195,
+            20.387987168880187
+          ],
+          [
+            535.8589813471237,
+            705.3824796131772,
+            -141.22600722985752
+          ],
+          [
+            470.39614733682424,
+            660.0569009779609,
+            -159.98509453760576
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            487.47375968353765,
+            635.3920442677471,
+            -203.05200855495494
+          ],
+          [
+            552.9365936938372,
+            680.7176229029634,
+            -183.98655267432298
+          ],
+          [
+            1116.9144629527639,
+            1071.2082524042057,
+            -19.73312022565817
+          ],
+          [
+            1116.9144629527639,
+            1071.2082524042057,
+            20.267203963753445
+          ],
+          [
+            552.9365936938372,
+            680.7176229029634,
+            -141.34679043498426
+          ],
+          [
+            487.47375968353765,
+            635.3920442677471,
+            -160.1058777427325
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -34.15522469342679,
+          49.329713420427744,
+          0.24156641025348335
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -198.6446203439276,
+            "bottom_z_mm": -202.9312253498282,
+            "top_z_mm": -159.98509453760576
+          },
+          {
+            "label": "I",
+            "q_mm": -119.02181760955263,
+            "bottom_z_mm": -183.86576946919624,
+            "top_z_mm": -141.22600722985752
+          },
+          {
+            "label": "E",
+            "q_mm": 566.9475466787628,
+            "bottom_z_mm": -19.612337020531427,
+            "top_z_mm": 20.387987168880187
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 1905094.6869465346
+      },
+      "part_face_counts": {
+        "flying_fan_x_07": 8,
+        "flying_fan_y_07": 8
+      },
+      "part_volumes_mm3": {
+        "flying_fan_x_07": 1905094.6869465346,
+        "flying_fan_y_07": 1905094.6869465346
+      },
+      "valid_single_solid": {
+        "flying_fan_x_07": true,
+        "flying_fan_y_07": true
+      }
+    },
+    {
+      "source_rafter_id": "fan_rafter_08",
+      "family": "fan",
+      "index": 8,
+      "part_ids": [
+        "flying_fan_x_08",
+        "flying_fan_y_08"
+      ],
+      "width_mm": 60.0,
+      "center_fiber_v_mm": 0.0,
+      "preview_only_profile_rule": "one shared R-I-E center-fiber side profile extruded along the actual 3D width direction",
+      "ab_side_same_geometry_guaranteed_by_rigid_extrusion": true,
+      "side_profile": {
+        "center_profile_rie_bottom_then_top_mm": [
+          [
+            845.2330356027505,
+            717.9592247959786,
+            -217.67760254670097
+          ],
+          [
+            902.7072082135162,
+            753.7899133320523,
+            -193.17451370157283
+          ],
+          [
+            1546.384243768833,
+            1155.07261704314,
+            81.24571495651341
+          ],
+          [
+            1546.384243768833,
+            1155.07261704314,
+            121.24668899025909
+          ],
+          [
+            902.7072082135162,
+            753.7899133320523,
+            -150.35672496149832
+          ],
+          [
+            845.2330356027505,
+            717.9592247959786,
+            -174.6082993270017
+          ]
+        ],
+        "a_side_profile_mm": [
+          [
+            861.1041132564922,
+            692.5012418808122,
+            -217.88696360378432
+          ],
+          [
+            918.5782858672578,
+            728.3319304168859,
+            -193.3838747586562
+          ],
+          [
+            1562.2553214225745,
+            1129.6146341279737,
+            81.03635389943005
+          ],
+          [
+            1562.2553214225745,
+            1129.6146341279737,
+            121.03732793317573
+          ],
+          [
+            918.5782858672578,
+            728.3319304168859,
+            -150.56608601858167
+          ],
+          [
+            861.1041132564922,
+            692.5012418808122,
+            -174.81766038408506
+          ]
+        ],
+        "width_vector_3d_mm": [
+          -31.742155307483262,
+          50.915965830332745,
+          0.41872211416671234
+        ],
+        "full_width_mm": 60.0,
+        "same_a_b_side_profile": true,
+        "same_profile_reason": "The B-side section is the same six-vertex center profile translated by the full rigid extrusion vector.",
+        "station_rows": [
+          {
+            "label": "R",
+            "q_mm": -204.35631253795054,
+            "bottom_z_mm": -217.67760254670097,
+            "top_z_mm": -174.6082993270017
+          },
+          {
+            "label": "I",
+            "q_mm": -136.62804105357554,
+            "bottom_z_mm": -193.17451370157283,
+            "top_z_mm": -150.35672496149832
+          },
+          {
+            "label": "E",
+            "q_mm": 621.8888898048999,
+            "bottom_z_mm": 81.24571495651341,
+            "top_z_mm": 121.24668899025909
+          }
+        ],
+        "brep_face_count": 8,
+        "volume_mm3": 2059092.5411384802
+      },
+      "part_face_counts": {
+        "flying_fan_x_08": 8,
+        "flying_fan_y_08": 8
+      },
+      "part_volumes_mm3": {
+        "flying_fan_x_08": 2059092.5411384802,
+        "flying_fan_y_08": 2059092.5411384774
+      },
+      "valid_single_solid": {
+        "flying_fan_x_08": true,
+        "flying_fan_y_08": true
+      }
+    }
+  ],
+  "parts_before_mesh": [
+    {
+      "id": "eave_purlin_x",
+      "name": "廊桁第一翼（X基准翼）",
+      "group": "eave_purlins",
+      "brep_face_count": 6,
+      "mesh_triangle_count": 194,
+      "mesh_wall_seconds": 0.017666,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.017666,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 194,
+          "face_count": 6,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "eave_purlin_y",
+      "name": "廊桁第二翼（关于建筑角平分面镜像）",
+      "group": "eave_purlins",
+      "brep_face_count": 7,
+      "mesh_triangle_count": 214,
+      "mesh_wall_seconds": 0.016715,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.016715,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 214,
+          "face_count": 7,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "step_purlin_x",
+      "name": "步桁第一翼（X基准翼）",
+      "group": "step_purlins",
+      "brep_face_count": 6,
+      "mesh_triangle_count": 194,
+      "mesh_wall_seconds": 0.018434,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.018434,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 194,
+          "face_count": 6,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "step_purlin_y",
+      "name": "步桁第二翼（关于建筑角平分面镜像）",
+      "group": "step_purlins",
+      "brep_face_count": 7,
+      "mesh_triangle_count": 214,
+      "mesh_wall_seconds": 0.01534,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.01534,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 214,
+          "face_count": 7,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "old_corner",
+      "name": "老戗（宽1.5a，近直斜主材）",
+      "group": "old_corner",
+      "brep_face_count": 82,
+      "mesh_triangle_count": 166,
+      "mesh_wall_seconds": 0.152835,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.152835,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 166,
+          "face_count": 82,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "qiangshan_x",
+      "name": "戗山木第一翼（上承面由共同椽底导出）",
+      "group": "qiangshan",
+      "brep_face_count": 98,
+      "mesh_triangle_count": 276,
+      "mesh_wall_seconds": 0.178291,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.178291,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 276,
+          "face_count": 98,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "qiangshan_y",
+      "name": "戗山木第二翼镜像（上承面由共同椽底导出）",
+      "group": "qiangshan",
+      "brep_face_count": 98,
+      "mesh_triangle_count": 276,
+      "mesh_wall_seconds": 0.169078,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.169078,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 276,
+          "face_count": 98,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_01",
+      "name": "摔网椽基准翼01（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "brep_face_count": 62,
+      "mesh_triangle_count": 132,
+      "mesh_wall_seconds": 0.105862,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.105862,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 132,
+          "face_count": 62,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_02",
+      "name": "摔网椽基准翼02（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "brep_face_count": 62,
+      "mesh_triangle_count": 132,
+      "mesh_wall_seconds": 0.103161,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.103161,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 132,
+          "face_count": 62,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_03",
+      "name": "摔网椽基准翼03（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "brep_face_count": 62,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.105564,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.105564,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 62,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_04",
+      "name": "摔网椽基准翼04（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "brep_face_count": 62,
+      "mesh_triangle_count": 144,
+      "mesh_wall_seconds": 0.104674,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.104674,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 144,
+          "face_count": 62,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_05",
+      "name": "摔网椽基准翼05（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "brep_face_count": 61,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.100089,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.100089,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 61,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_06",
+      "name": "摔网椽基准翼06（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "brep_face_count": 61,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.10417,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.10417,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 61,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_07",
+      "name": "摔网椽基准翼07（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "brep_face_count": 60,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.103029,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.103029,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 60,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_08",
+      "name": "摔网椽基准翼08（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "brep_face_count": 59,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.105354,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.105354,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 59,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_mirror_01",
+      "name": "摔网椽镜像翼01",
+      "group": "fan_rafters",
+      "brep_face_count": 62,
+      "mesh_triangle_count": 132,
+      "mesh_wall_seconds": 0.110584,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.110584,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 132,
+          "face_count": 62,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_mirror_02",
+      "name": "摔网椽镜像翼02",
+      "group": "fan_rafters",
+      "brep_face_count": 62,
+      "mesh_triangle_count": 132,
+      "mesh_wall_seconds": 0.103829,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.103829,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 132,
+          "face_count": 62,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_mirror_03",
+      "name": "摔网椽镜像翼03",
+      "group": "fan_rafters",
+      "brep_face_count": 62,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.103518,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.103518,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 62,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_mirror_04",
+      "name": "摔网椽镜像翼04",
+      "group": "fan_rafters",
+      "brep_face_count": 62,
+      "mesh_triangle_count": 144,
+      "mesh_wall_seconds": 0.103561,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.103561,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 144,
+          "face_count": 62,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_mirror_05",
+      "name": "摔网椽镜像翼05",
+      "group": "fan_rafters",
+      "brep_face_count": 61,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.100051,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.100051,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 61,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_mirror_06",
+      "name": "摔网椽镜像翼06",
+      "group": "fan_rafters",
+      "brep_face_count": 61,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.099279,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.099279,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 61,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_mirror_07",
+      "name": "摔网椽镜像翼07",
+      "group": "fan_rafters",
+      "brep_face_count": 60,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.102305,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.102305,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 60,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "fan_rafter_mirror_08",
+      "name": "摔网椽镜像翼08",
+      "group": "fan_rafters",
+      "brep_face_count": 59,
+      "mesh_triangle_count": 140,
+      "mesh_wall_seconds": 0.099455,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.099455,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 140,
+          "face_count": 59,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "eave_rafter_01",
+      "name": "正身出檐椽01（x=-3278.5）",
+      "group": "eave_rafters",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 84,
+      "mesh_wall_seconds": 0.070468,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.070468,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 84,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "eave_rafter_02",
+      "name": "正身出檐椽02（x=-2878.5）",
+      "group": "eave_rafters",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 84,
+      "mesh_wall_seconds": 0.068946,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.068946,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 84,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "eave_rafter_03",
+      "name": "正身出檐椽03（x=-2478.5）",
+      "group": "eave_rafters",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 84,
+      "mesh_wall_seconds": 0.06884,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.06884,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 84,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "eave_rafter_04",
+      "name": "正身边界出檐椽04（x=-2078.5）",
+      "group": "eave_rafters",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 84,
+      "mesh_wall_seconds": 0.075125,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.075125,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 84,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "eave_rafter_mirror_01",
+      "name": "正身出檐椽镜像翼01",
+      "group": "eave_rafters",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 84,
+      "mesh_wall_seconds": 0.07402,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.07402,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 84,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "eave_rafter_mirror_02",
+      "name": "正身出檐椽镜像翼02",
+      "group": "eave_rafters",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 84,
+      "mesh_wall_seconds": 0.072943,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.072943,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 84,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "eave_rafter_mirror_03",
+      "name": "正身出檐椽镜像翼03",
+      "group": "eave_rafters",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 84,
+      "mesh_wall_seconds": 0.068901,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.068901,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 84,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "eave_rafter_mirror_04",
+      "name": "正身出檐椽镜像翼04",
+      "group": "eave_rafters",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 84,
+      "mesh_wall_seconds": 0.067434,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.067434,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 84,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "young_corner",
+      "name": "嫩戗（沿stage03原体）",
+      "group": "young_corner",
+      "brep_face_count": 165,
+      "mesh_triangle_count": 338,
+      "mesh_wall_seconds": 0.335582,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.335582,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 338,
+          "face_count": 165,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "likou_x",
+      "name": "弯里口木X向（沿stage03原体）",
+      "group": "likou",
+      "brep_face_count": 208,
+      "mesh_triangle_count": 440,
+      "mesh_wall_seconds": 0.523044,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.523044,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 440,
+          "face_count": 208,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "likou_y",
+      "name": "弯里口木Y向（沿stage03原体）",
+      "group": "likou",
+      "brep_face_count": 223,
+      "mesh_triangle_count": 468,
+      "mesh_wall_seconds": 0.569365,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.569365,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 468,
+          "face_count": 223,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_straight_x_01",
+      "name": "下层望板正身基准翼01（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 112,
+      "mesh_wall_seconds": 0.21081,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.105846,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 88,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.104964,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 112,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_straight_y_01",
+      "name": "下层望板正身镜像翼01（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 112,
+      "mesh_wall_seconds": 0.207443,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.104609,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 88,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.102835,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 112,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_straight_x_02",
+      "name": "下层望板正身基准翼02（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 5002,
+      "mesh_wall_seconds": 0.798664,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.108252,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 228,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.111795,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 408,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.5,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.1151,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 664,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.25,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.128517,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 1348,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.125,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.14531,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 2310,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.0625,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.18969,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 5002,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_straight_y_02",
+      "name": "下层望板正身镜像翼02（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 4928,
+      "mesh_wall_seconds": 0.795791,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.105213,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 228,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.109909,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 402,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.5,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.112968,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 662,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.25,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.125756,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 1336,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.125,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.14889,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 2270,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.0625,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.193056,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 4928,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_straight_x_03",
+      "name": "下层望板正身基准翼03（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 2320,
+      "mesh_wall_seconds": 0.601436,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.106059,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 220,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.107823,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 400,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.5,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.113124,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 652,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.25,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.12429,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 1288,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.125,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.150141,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 2320,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_straight_y_03",
+      "name": "下层望板正身镜像翼03（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 2300,
+      "mesh_wall_seconds": 0.610937,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.107569,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 220,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.11297,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 396,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.5,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.123624,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 646,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.25,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.124182,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 1294,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.125,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.142593,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 2300,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_straight_x_04",
+      "name": "下层望板正身基准翼04（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 1620,
+      "mesh_wall_seconds": 0.577108,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.109134,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 194,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.113558,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 244,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.5,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.110898,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 480,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.25,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.113224,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 716,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.125,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.130295,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 1620,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_straight_y_04",
+      "name": "下层望板正身镜像翼04（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 42,
+      "mesh_triangle_count": 1620,
+      "mesh_wall_seconds": 0.573922,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.105268,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 194,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.109953,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 248,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.5,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.11374,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 470,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.25,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.115351,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 714,
+          "face_count": 42,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.125,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.12961,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 1620,
+          "face_count": 42,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_01",
+      "name": "下层望板摔网基准翼01（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.0133,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.0133,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_02",
+      "name": "下层望板摔网基准翼02（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013328,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013328,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_03",
+      "name": "下层望板摔网基准翼03（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013633,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013633,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_04",
+      "name": "下层望板摔网基准翼04（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013381,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013381,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_05",
+      "name": "下层望板摔网基准翼05（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013051,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013051,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_06",
+      "name": "下层望板摔网基准翼06（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.012963,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.012963,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_07",
+      "name": "下层望板摔网基准翼07（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013451,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013451,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_08",
+      "name": "下层望板摔网基准翼08（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013303,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013303,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_09",
+      "name": "下层望板摔网基准翼09（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013393,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013393,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_x_10",
+      "name": "下层望板摔网基准翼10（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013271,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013271,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_01",
+      "name": "下层望板摔网镜像翼01（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013133,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013133,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_02",
+      "name": "下层望板摔网镜像翼02（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013566,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013566,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_03",
+      "name": "下层望板摔网镜像翼03（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013237,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013237,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_04",
+      "name": "下层望板摔网镜像翼04（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013174,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013174,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_05",
+      "name": "下层望板摔网镜像翼05（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013056,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013056,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_06",
+      "name": "下层望板摔网镜像翼06（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.014345,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.014345,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_07",
+      "name": "下层望板摔网镜像翼07（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.012799,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.012799,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_08",
+      "name": "下层望板摔网镜像翼08（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013649,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013649,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_09",
+      "name": "下层望板摔网镜像翼09（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.012999,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.012999,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "lower_board_fan_y_10",
+      "name": "下层望板摔网镜像翼10（20厚）",
+      "group": "lower_board",
+      "brep_face_count": 5,
+      "mesh_triangle_count": 8,
+      "mesh_wall_seconds": 0.013764,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.013764,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 8,
+          "face_count": 5,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "straight_flying_x_01",
+      "name": "预览正身飞椽基准翼-01（中心纵剖等宽挤出）",
+      "group": "straight_flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020936,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020936,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "straight_flying_y_01",
+      "name": "预览正身飞椽镜像翼-01（中心纵剖等宽挤出）",
+      "group": "straight_flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.022328,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.022328,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "straight_flying_x_02",
+      "name": "预览正身飞椽基准翼-02（中心纵剖等宽挤出）",
+      "group": "straight_flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.021715,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.021715,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "straight_flying_y_02",
+      "name": "预览正身飞椽镜像翼-02（中心纵剖等宽挤出）",
+      "group": "straight_flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.021564,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.021564,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "straight_flying_x_03",
+      "name": "预览正身飞椽基准翼-03（中心纵剖等宽挤出）",
+      "group": "straight_flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.021128,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.021128,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "straight_flying_y_03",
+      "name": "预览正身飞椽镜像翼-03（中心纵剖等宽挤出）",
+      "group": "straight_flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020753,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020753,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "straight_flying_x_04",
+      "name": "预览正身飞椽基准翼-04（中心纵剖等宽挤出）",
+      "group": "straight_flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.021851,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.021851,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "straight_flying_y_04",
+      "name": "预览正身飞椽镜像翼-04（中心纵剖等宽挤出）",
+      "group": "straight_flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020555,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020555,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_x_01",
+      "name": "预览立脚飞椽基准翼-01（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020517,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020517,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_y_01",
+      "name": "预览立脚飞椽镜像翼-01（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020731,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020731,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_x_02",
+      "name": "预览立脚飞椽基准翼-02（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.021584,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.021584,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_y_02",
+      "name": "预览立脚飞椽镜像翼-02（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020887,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020887,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_x_03",
+      "name": "预览立脚飞椽基准翼-03（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020597,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020597,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_y_03",
+      "name": "预览立脚飞椽镜像翼-03（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.021466,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.021466,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_x_04",
+      "name": "预览立脚飞椽基准翼-04（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020237,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020237,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_y_04",
+      "name": "预览立脚飞椽镜像翼-04（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020784,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020784,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_x_05",
+      "name": "预览立脚飞椽基准翼-05（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.021453,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.021453,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_y_05",
+      "name": "预览立脚飞椽镜像翼-05（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020982,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020982,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_x_06",
+      "name": "预览立脚飞椽基准翼-06（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.022378,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.022378,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_y_06",
+      "name": "预览立脚飞椽镜像翼-06（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.022095,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.022095,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_x_07",
+      "name": "预览立脚飞椽基准翼-07（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.021474,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.021474,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_y_07",
+      "name": "预览立脚飞椽镜像翼-07（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.021325,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.021325,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_x_08",
+      "name": "预览立脚飞椽基准翼-08（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.02057,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.02057,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "flying_fan_y_08",
+      "name": "预览立脚飞椽镜像翼-08（中心纵剖等宽挤出）",
+      "group": "flying_rafters",
+      "brep_face_count": 8,
+      "mesh_triangle_count": 20,
+      "mesh_wall_seconds": 0.020211,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.020211,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 20,
+          "face_count": 8,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "upper_board_x_continuous",
+      "name": "卷戗板基准翼（全宽连续曲面）",
+      "group": "upper_board",
+      "brep_face_count": 6,
+      "mesh_triangle_count": 104818,
+      "mesh_wall_seconds": 8.454492,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.266623,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 6090,
+          "face_count": 6,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.41951,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 9736,
+          "face_count": 6,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.5,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 1.050352,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 23808,
+          "face_count": 6,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.25,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 2.020105,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 46484,
+          "face_count": 6,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.125,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 4.697901,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 104818,
+          "face_count": 6,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "upper_board_y_continuous",
+      "name": "卷戗板镜像翼（全宽连续曲面）",
+      "group": "upper_board",
+      "brep_face_count": 6,
+      "mesh_triangle_count": 46596,
+      "mesh_wall_seconds": 3.778646,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.273017,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 6128,
+          "face_count": 6,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.398559,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 9532,
+          "face_count": 6,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.5,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 0.947103,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 23768,
+          "face_count": 6,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.25,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 2.159967,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 46596,
+          "face_count": 6,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    },
+    {
+      "id": "combination_preview_blank",
+      "name": "预览组合木料坯（未切老戗/嫩戗，未分菱角木/扁担木）",
+      "group": "combination_preview_blank",
+      "brep_face_count": 450,
+      "mesh_triangle_count": 1854,
+      "mesh_wall_seconds": 4.450363,
+      "mesh_attempts": [
+        {
+          "tolerance_mm": 2.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 1.109689,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 992,
+          "face_count": 450,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 1.0,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 1.09959,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 1112,
+          "face_count": 450,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.5,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 1.100458,
+          "accepted": false,
+          "error": null,
+          "triangle_count": 1286,
+          "face_count": 450,
+          "all_faces_within_linear_limit": false
+        },
+        {
+          "tolerance_mm": 0.25,
+          "requested_upper_limit_mm": 2.0,
+          "wall_seconds": 1.140626,
+          "accepted": true,
+          "error": null,
+          "triangle_count": 1854,
+          "face_count": 450,
+          "all_faces_within_linear_limit": true
+        }
+      ]
+    }
+  ],
+  "mesh_export": {
+    "used_original_generate_export_mesh": true,
+    "absolute_face_mesh_guard_preserved": true,
+    "mesh_tessellation_mm": 2.0,
+    "mesh_angular_tolerance_rad": 0.35,
+    "mesh_ready": true,
+    "model_mesh_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_60_B400\\model_mesh.json",
+    "model_obj_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_60_B400\\model.obj",
+    "diagnostics_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_60_B400\\mesh_export_diagnostics.json",
+    "part_count": 89,
+    "brep_face_count_total": 3304,
+    "triangle_count_total": 177590,
+    "triangle_count_by_group": {
+      "eave_purlins": 408,
+      "step_purlins": 408,
+      "old_corner": 166,
+      "qiangshan": 552,
+      "fan_rafters": 2216,
+      "eave_rafters": 672,
+      "young_corner": 338,
+      "likou": 908,
+      "lower_board": 18174,
+      "straight_flying_rafters": 160,
+      "flying_rafters": 320,
+      "upper_board": 151414,
+      "combination_preview_blank": 1854
+    },
+    "mesh_wall_seconds_by_group": {
+      "combination_preview_blank": 4.450363,
+      "eave_purlins": 0.034381,
+      "eave_rafters": 0.566678,
+      "fan_rafters": 1.654484,
+      "flying_rafters": 0.337293,
+      "likou": 1.092409,
+      "lower_board": 4.642906,
+      "old_corner": 0.152835,
+      "qiangshan": 0.347369,
+      "step_purlins": 0.033774,
+      "straight_flying_rafters": 0.17083,
+      "upper_board": 12.233138,
+      "young_corner": 0.335582
+    },
+    "export_mesh_wall_seconds": 27.414554,
+    "native_mesh_guard_summary": {
+      "parts": 89,
+      "mesher_not_done_count": 0,
+      "nonzero_mesher_status_attempt_count": 0,
+      "triangulation_guard_false_attempt_count": 38,
+      "mesher_target_not_met_but_within_requested_limit_attempt_count": 11,
+      "parts_requiring_finer_deflection": 11,
+      "parts_with_missing_degenerate_edge_polygons": 0,
+      "parts_with_missing_nondegenerate_edge_polygons": 0,
+      "accepted_tolerance_mm_by_part": {
+        "eave_purlin_x": 2.0,
+        "eave_purlin_y": 2.0,
+        "step_purlin_x": 2.0,
+        "step_purlin_y": 2.0,
+        "old_corner": 2.0,
+        "qiangshan_x": 2.0,
+        "qiangshan_y": 2.0,
+        "fan_rafter_01": 2.0,
+        "fan_rafter_02": 2.0,
+        "fan_rafter_03": 2.0,
+        "fan_rafter_04": 2.0,
+        "fan_rafter_05": 2.0,
+        "fan_rafter_06": 2.0,
+        "fan_rafter_07": 2.0,
+        "fan_rafter_08": 2.0,
+        "fan_rafter_mirror_01": 2.0,
+        "fan_rafter_mirror_02": 2.0,
+        "fan_rafter_mirror_03": 2.0,
+        "fan_rafter_mirror_04": 2.0,
+        "fan_rafter_mirror_05": 2.0,
+        "fan_rafter_mirror_06": 2.0,
+        "fan_rafter_mirror_07": 2.0,
+        "fan_rafter_mirror_08": 2.0,
+        "eave_rafter_01": 2.0,
+        "eave_rafter_02": 2.0,
+        "eave_rafter_03": 2.0,
+        "eave_rafter_04": 2.0,
+        "eave_rafter_mirror_01": 2.0,
+        "eave_rafter_mirror_02": 2.0,
+        "eave_rafter_mirror_03": 2.0,
+        "eave_rafter_mirror_04": 2.0,
+        "young_corner": 2.0,
+        "likou_x": 2.0,
+        "likou_y": 2.0,
+        "lower_board_straight_x_01": 1.0,
+        "lower_board_straight_y_01": 1.0,
+        "lower_board_straight_x_02": 0.0625,
+        "lower_board_straight_y_02": 0.0625,
+        "lower_board_straight_x_03": 0.125,
+        "lower_board_straight_y_03": 0.125,
+        "lower_board_straight_x_04": 0.125,
+        "lower_board_straight_y_04": 0.125,
+        "lower_board_fan_x_01": 2.0,
+        "lower_board_fan_x_02": 2.0,
+        "lower_board_fan_x_03": 2.0,
+        "lower_board_fan_x_04": 2.0,
+        "lower_board_fan_x_05": 2.0,
+        "lower_board_fan_x_06": 2.0,
+        "lower_board_fan_x_07": 2.0,
+        "lower_board_fan_x_08": 2.0,
+        "lower_board_fan_x_09": 2.0,
+        "lower_board_fan_x_10": 2.0,
+        "lower_board_fan_y_01": 2.0,
+        "lower_board_fan_y_02": 2.0,
+        "lower_board_fan_y_03": 2.0,
+        "lower_board_fan_y_04": 2.0,
+        "lower_board_fan_y_05": 2.0,
+        "lower_board_fan_y_06": 2.0,
+        "lower_board_fan_y_07": 2.0,
+        "lower_board_fan_y_08": 2.0,
+        "lower_board_fan_y_09": 2.0,
+        "lower_board_fan_y_10": 2.0,
+        "straight_flying_x_01": 2.0,
+        "straight_flying_y_01": 2.0,
+        "straight_flying_x_02": 2.0,
+        "straight_flying_y_02": 2.0,
+        "straight_flying_x_03": 2.0,
+        "straight_flying_y_03": 2.0,
+        "straight_flying_x_04": 2.0,
+        "straight_flying_y_04": 2.0,
+        "flying_fan_x_01": 2.0,
+        "flying_fan_y_01": 2.0,
+        "flying_fan_x_02": 2.0,
+        "flying_fan_y_02": 2.0,
+        "flying_fan_x_03": 2.0,
+        "flying_fan_y_03": 2.0,
+        "flying_fan_x_04": 2.0,
+        "flying_fan_y_04": 2.0,
+        "flying_fan_x_05": 2.0,
+        "flying_fan_y_05": 2.0,
+        "flying_fan_x_06": 2.0,
+        "flying_fan_y_06": 2.0,
+        "flying_fan_x_07": 2.0,
+        "flying_fan_y_07": 2.0,
+        "flying_fan_x_08": 2.0,
+        "flying_fan_y_08": 2.0,
+        "upper_board_x_continuous": 0.125,
+        "upper_board_y_continuous": 0.25,
+        "combination_preview_blank": 0.25
+      },
+      "triangle_count": 177590
+    }
+  },
+  "limitations": [
+    "The preview intentionally uses one v=0 profile for both A/B sides and therefore loses the full-width curvature and fit.",
+    "Likou notches and old/young combination cuts are omitted; the combination member is the uncut stock blank and remains one BRep.",
+    "The control-derived upper rollboard is included when its builder accepts the freshly computed rails; it does not validate contact with the simplified flyers.",
+    "This diagnostic measures geometry and original mesh export only, not viewer page generation, startup UI, rendering, or product integration."
+  ],
+  "error": null
+}

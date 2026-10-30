@@ -1,0 +1,255 @@
+{
+  "checked_at": "2026-10-30T16:55:26.232418+00:00",
+  "status": "passed",
+  "scope": "Real HTTP bootstrap, mode-separated identities, cached reuse and mode-specific result downloads; no CAD rerun",
+  "url": "http://127.0.0.1:8765",
+  "cases": [
+    {
+      "example": "case-v04-preview-120-cachefix",
+      "result_id": "case-v04-preview-120-cachefix",
+      "mode": "preview",
+      "metrics": {
+        "templates_per_side": 2,
+        "parts_count": 51,
+        "board_width_mm": null,
+        "board_height_mm": null,
+        "board_thickness_mm": null,
+        "utilization_percent": null,
+        "translation_max_error_mm": null
+      }
+    },
+    {
+      "example": "case-v04-exact-120-cachefix",
+      "result_id": "case-v04-exact-120-cachefix",
+      "mode": "exact",
+      "metrics": {
+        "templates_per_side": 2,
+        "parts_count": 54,
+        "board_width_mm": 79.13409210270302,
+        "board_height_mm": 562.3809525640794,
+        "board_thickness_mm": 60.0,
+        "utilization_percent": 87.12085890543649,
+        "translation_max_error_mm": 5.550560893646491
+      }
+    },
+    {
+      "example": "case-v04-preview-90-B400",
+      "result_id": "case-v04-preview-90-B400",
+      "mode": "preview",
+      "metrics": {
+        "templates_per_side": 4,
+        "parts_count": 63,
+        "board_width_mm": null,
+        "board_height_mm": null,
+        "board_thickness_mm": null,
+        "utilization_percent": null,
+        "translation_max_error_mm": null
+      }
+    }
+  ],
+  "requests": [
+    {
+      "path": "/api/bootstrap",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 86559,
+      "seconds": 0.5827
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "mime": "text/html",
+      "bytes": 11907,
+      "seconds": 0.0842
+    },
+    {
+      "path": "/api/cases",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 58127,
+      "seconds": 0.551
+    },
+    {
+      "path": "/api/validate",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 3373,
+      "seconds": 0.0052
+    },
+    {
+      "path": "/api/validate",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 3371,
+      "seconds": 0.0041
+    },
+    {
+      "path": "/api/jobs",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 3959,
+      "seconds": 0.0232
+    },
+    {
+      "path": "/results/case-v04-preview-120-cachefix/model.html",
+      "status": 200,
+      "mime": "text/html",
+      "bytes": 813836,
+      "seconds": 0.0118
+    },
+    {
+      "path": "/results/case-v04-preview-120-cachefix/index.html",
+      "status": 200,
+      "mime": "text/html",
+      "bytes": 1259,
+      "seconds": 0.0148
+    },
+    {
+      "path": "/results/case-v04-preview-120-cachefix/model.obj",
+      "status": 200,
+      "mime": "application/octet-stream",
+      "bytes": 776237,
+      "seconds": 0.0022
+    },
+    {
+      "path": "/results/case-v04-preview-120-cachefix/config.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 1978,
+      "seconds": 0.012
+    },
+    {
+      "path": "/results/case-v04-preview-120-cachefix/validation.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 37457,
+      "seconds": 0.0157
+    },
+    {
+      "path": "/api/validate",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 3371,
+      "seconds": 0.0169
+    },
+    {
+      "path": "/api/validate",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 3373,
+      "seconds": 0.0152
+    },
+    {
+      "path": "/api/jobs",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 4142,
+      "seconds": 0.0512
+    },
+    {
+      "path": "/results/case-v04-exact-120-cachefix/model.html",
+      "status": 200,
+      "mime": "text/html",
+      "bytes": 2766717,
+      "seconds": 0.006
+    },
+    {
+      "path": "/results/case-v04-exact-120-cachefix/layout.html",
+      "status": 200,
+      "mime": "text/html",
+      "bytes": 11880,
+      "seconds": 0.0122
+    },
+    {
+      "path": "/results/case-v04-exact-120-cachefix/model.obj",
+      "status": 200,
+      "mime": "application/octet-stream",
+      "bytes": 2574590,
+      "seconds": 0.0182
+    },
+    {
+      "path": "/results/case-v04-exact-120-cachefix/marking_points.csv",
+      "status": 200,
+      "mime": "application/vnd.ms-excel",
+      "bytes": 334,
+      "seconds": 0.0188
+    },
+    {
+      "path": "/results/case-v04-exact-120-cachefix/layout.svg",
+      "status": 200,
+      "mime": "image/svg+xml",
+      "bytes": 31615,
+      "seconds": 0.0228
+    },
+    {
+      "path": "/results/case-v04-exact-120-cachefix/config.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 1978,
+      "seconds": 0.0017
+    },
+    {
+      "path": "/results/case-v04-exact-120-cachefix/validation.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 384054,
+      "seconds": 0.0137
+    },
+    {
+      "path": "/api/validate",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 3370,
+      "seconds": 0.0045
+    },
+    {
+      "path": "/api/validate",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 3368,
+      "seconds": 0.0261
+    },
+    {
+      "path": "/api/jobs",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 3921,
+      "seconds": 0.027
+    },
+    {
+      "path": "/results/case-v04-preview-90-B400/model.html",
+      "status": 200,
+      "mime": "text/html",
+      "bytes": 954935,
+      "seconds": 0.0147
+    },
+    {
+      "path": "/results/case-v04-preview-90-B400/index.html",
+      "status": 200,
+      "mime": "text/html",
+      "bytes": 1256,
+      "seconds": 0.0146
+    },
+    {
+      "path": "/results/case-v04-preview-90-B400/model.obj",
+      "status": 200,
+      "mime": "application/octet-stream",
+      "bytes": 963743,
+      "seconds": 0.0235
+    },
+    {
+      "path": "/results/case-v04-preview-90-B400/config.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 1976,
+      "seconds": 0.0013
+    },
+    {
+      "path": "/results/case-v04-preview-90-B400/validation.json",
+      "status": 200,
+      "mime": "application/json",
+      "bytes": 43721,
+      "seconds": 0.0138
+    }
+  ]
+}

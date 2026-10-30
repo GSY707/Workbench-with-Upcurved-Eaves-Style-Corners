@@ -64,6 +64,7 @@
     activeTab: 'model',
     job: null,
     jobConfig: null,
+    jobMode: 'preview',
     jobReused: false,
     jobFinalizingId: null,
     pollTimer: null,
@@ -512,12 +513,25 @@
     return Boolean(state.job && ACTIVE_STATUSES.has(state.job.status));
   }
 
+  function jobResultMatchesCurrentCase() {
+    const result = state.job && state.job.result;
+    const currentCase = state.currentCase;
+    if (!asPlainObject(result) || !asPlainObject(currentCase)) return false;
+    const resultId = result.id || result.case_id;
+    const currentId = currentCase.id || currentCase.case_id;
+    if (!resultId || resultId !== currentId) return false;
+    if ((result.mode || 'exact') !== (currentCase.mode || 'exact')) return false;
+    return typeof result.calculation_key === 'string' &&
+      result.calculation_key === currentCase.calculation_key;
+  }
+
   function updateAllState() {
     if (!state.schema || !state.draft) {
       byId('draft-indicator').className = 'state-pill state-neutral';
       byId('draft-indicator').textContent = '连接中';
       byId('validate-button').disabled = true;
       byId('generate-button').disabled = true;
+      byId('exact-generate-button').disabled = true;
       byId('export-config-button').disabled = true;
       byId('import-button').disabled = true;
       byId('case-picker').disabled = true;
@@ -570,6 +584,7 @@
     const valid = result.errors.length === 0;
     byId('validate-button').disabled = !state.initialised || !valid || state.validationInFlight || state.generating;
     byId('generate-button').disabled = !state.initialised || !valid || isActiveJob() || state.generating || state.validationInFlight;
+    byId('exact-generate-button').disabled = !state.initialised || !valid || isActiveJob() || state.generating || state.validationInFlight;
     byId('export-config-button').disabled = !state.initialised || !valid;
     byId('import-button').disabled = !state.initialised || state.generating;
     byId('case-picker').disabled = !state.initialised || (!state.cases.length && !state.examples.length);
@@ -594,11 +609,22 @@
     const nameChanged = local.config && resultConfig && String(local.config.case_id) !== String(resultConfig.case_id || '');
     if (isActiveJob()) {
       if (!matches) pill.classList.add('is-stale');
-      setResultStatePill('已登记结果 · 后台仍在生成');
+      setResultStatePill((state.currentCase.mode === 'preview' ? '当前预览 · 后台仍在生成' : '已登记结果 · 后台仍在生成'));
       const jobName = state.jobConfig && state.jobConfig.case_id;
       const taskLabel = jobName ? `后台任务“${String(jobName)}”` : '后台任务';
       const draftState = matches ? '草稿参数与当前显示结果一致。' : '草稿参数与当前显示结果不同。';
       setText(byId('result-subtitle'), `${draftState}${taskLabel}仍按已提交参数运行；当前显示结果不代表本次生成成功。`);
+      return;
+    }
+    if (state.currentCase.mode === 'preview') {
+      if (matches) {
+        setResultStatePill('预览模型 · 非精确');
+        setText(byId('result-subtitle'), '草稿参数与当前预览一致。此结果不含精确槽口、上层卷戗板和组合木切配；精确生成后可用排料与加工文件。');
+      } else {
+        pill.classList.add('is-stale');
+        setResultStatePill('显示上次预览 · 非精确');
+        setText(byId('result-subtitle'), '草稿已有改动；当前预览保持不变，重新生成预览或明确点击精确生成。');
+      }
       return;
     }
     if (matches) {
@@ -708,7 +734,7 @@
   }
 
   function caseOptionLabel(caseValue) {
-    const title = String(caseValue.title || caseValue.id);
+    const title = `${caseValue.mode === 'preview' ? '预览 · ' : ''}${String(caseValue.title || caseValue.id)}`;
     const parts = [];
     if (Number.isFinite(caseValue.config?.corner_angle_deg)) parts.push(`${formatNumber(caseValue.config.corner_angle_deg)}°`);
     if (caseValue.metrics && caseValue.metrics.parts_count != null && Number.isFinite(Number(caseValue.metrics.parts_count))) parts.push(`${formatNumber(caseValue.metrics.parts_count, 0)} 件`);
@@ -869,15 +895,24 @@
       return;
     }
     const metrics = asPlainObject(caseValue.metrics) ? caseValue.metrics : {};
-    container.append(
-      renderMetric('立脚飞椽 · 单侧', metrics.templates_per_side, ' 根'),
-      renderMetric('三维构件', metrics.parts_count, ' 件'),
-      renderMetric('排料板宽', metrics.board_width_mm, ' mm'),
-      renderMetric('排料板高', metrics.board_height_mm, ' mm'),
-      renderMetric('板厚', metrics.board_thickness_mm, ' mm'),
-      renderMetric('面积利用率', metrics.utilization_percent, '%'),
-      renderMetric('c/d 平移最大误差', metrics.translation_max_error_mm, ' mm')
-    );
+    if (caseValue.mode === 'preview') {
+      container.append(renderMetric('立脚飞椽 · 单侧', metrics.templates_per_side, ' 根'),
+        renderMetric('预览三维构件', metrics.parts_count, ' 件'));
+      setText(byId('result-validation'), '预览完成 · 非精确');
+      setText(byId('result-footnote'), '此模型为快速预览，不含精确槽口、上层卷戗板及组合木切配。排料、放样 CSV 与 STEP 精确生成后可用。');
+    } else {
+      container.append(
+        renderMetric('立脚飞椽 · 单侧', metrics.templates_per_side, ' 根'),
+        renderMetric('三维构件', metrics.parts_count, ' 件'),
+        renderMetric('排料板宽', metrics.board_width_mm, ' mm'),
+        renderMetric('排料板高', metrics.board_height_mm, ' mm'),
+        renderMetric('板厚', metrics.board_thickness_mm, ' mm'),
+        renderMetric('面积利用率', metrics.utilization_percent, '%'),
+        renderMetric('c/d 平移最大误差', metrics.translation_max_error_mm, ' mm')
+      );
+      setText(byId('result-validation'), '精确生成完成');
+      setText(byId('result-footnote'), '排料图为单侧模板，按左右对称制作两套；正身飞椽不计入该排料。曲线平移误差只作诊断，模型保持原角点。');
+    }
     byId('result-validation').hidden = !caseValue.validated;
   }
 
@@ -898,10 +933,18 @@
     if (!caseValue || !asPlainObject(caseValue.urls)) return;
     const urls = caseValue.urls;
     addDownloadLink(container, urls, 'obj', '下载 OBJ', `${caseValue.id || 'model'}.obj`);
-    addDownloadLink(container, urls, 'svg', '排料 SVG', `${caseValue.id || 'layout'}.svg`);
-    addDownloadLink(container, urls, 'points', '尺寸表 CSV', `${caseValue.id || 'points'}.csv`);
+    if (caseValue.mode !== 'preview') {
+      addDownloadLink(container, urls, 'svg', '排料 SVG', `${caseValue.id || 'layout'}.svg`);
+      addDownloadLink(container, urls, 'points', '尺寸表 CSV', `${caseValue.id || 'points'}.csv`);
+    }
     addDownloadLink(container, urls, 'config', '结果配置 JSON', `${caseValue.id || 'config'}.json`);
     addDownloadLink(container, urls, 'validation', '生成记录 JSON', `${caseValue.id || 'validation'}.json`);
+    if (caseValue.mode === 'preview') {
+      const unavailable = document.createElement('span');
+      unavailable.className = 'field-note';
+      unavailable.textContent = '排料、放样 CSV 与 STEP：精确生成后可用';
+      container.append(unavailable);
+    }
     if (!container.childElementCount) {
       const unavailable = document.createElement('span');
       unavailable.className = 'field-note';
@@ -911,7 +954,12 @@
   }
 
   function setActiveTab(tab) {
-    state.activeTab = tab === 'layout' ? 'layout' : 'model';
+    const preview = state.currentCase && state.currentCase.mode === 'preview';
+    const canShowLayout = Boolean(state.currentCase && state.currentCase.mode !== 'preview' &&
+      state.currentCase.urls && state.currentCase.urls.layout);
+    byId('layout-tab').disabled = !canShowLayout;
+    byId('layout-disabled-note').hidden = canShowLayout;
+    state.activeTab = tab === 'layout' && !preview && canShowLayout ? 'layout' : 'model';
     const isModel = state.activeTab === 'model';
     byId('model-tab').classList.toggle('active', isModel);
     byId('model-tab').setAttribute('aria-selected', isModel ? 'true' : 'false');
@@ -923,6 +971,7 @@
 
   function displayCase(caseValue, persist = true) {
     state.currentCase = caseValue || null;
+    updateJobCard();
     const displayedAngle = caseValue?.config?.corner_angle_deg;
     setText(byId('displayed-angle'), Number.isFinite(displayedAngle) ? `${formatNumber(displayedAngle)}°` : '—');
     byId('viewer-empty').hidden = Boolean(caseValue);
@@ -937,7 +986,7 @@
       if (persist) persistState();
       return;
     }
-    const title = String(caseValue.title || caseValue.id || '已生成结果');
+    const title = `${caseValue.mode === 'preview' ? '预览 · ' : ''}${String(caseValue.title || caseValue.id || '已生成结果')}`;
     setText(byId('result-title'), title);
     setText(byId('viewer-case-label'), title);
     const urls = asPlainObject(caseValue.urls) ? caseValue.urls : {};
@@ -958,16 +1007,23 @@
       card.classList.remove('is-running', 'job-failed', 'job-cancelled', 'job-interrupted');
       return;
     }
-    card.hidden = false;
-    card.classList.remove('is-running', 'job-failed', 'job-cancelled', 'job-interrupted');
     const status = state.job.status;
     const active = ACTIVE_STATUSES.has(status);
+    if (!active && !jobResultMatchesCurrentCase()) {
+      card.hidden = true;
+      card.classList.remove('is-running', 'job-failed', 'job-cancelled', 'job-interrupted');
+      return;
+    }
+    card.hidden = false;
+    card.classList.remove('is-running', 'job-failed', 'job-cancelled', 'job-interrupted');
     if (active) card.classList.add('is-running');
     if (status === 'failed') card.classList.add('job-failed');
     if (status === 'cancelled') card.classList.add('job-cancelled');
     if (status === 'interrupted') card.classList.add('job-interrupted');
     const statusLabels = {
-      queued: '等待执行', running: '正在完整生成', succeeded: '生成成功', failed: '生成失败', cancelled: '任务已取消', interrupted: '服务重启后任务中断'
+      queued: '等待执行', running: state.job.mode === 'preview' ? '正在生成预览' : '正在精确生成',
+      succeeded: state.job.mode === 'preview' ? '预览完成 · 非精确' : '精确生成成功',
+      failed: '生成失败', cancelled: '任务已取消', interrupted: '服务重启后任务中断'
     };
     setText(byId('job-title'), statusLabels[status] || '任务状态');
     const elapsed = Number(state.job.elapsed_seconds);
@@ -977,7 +1033,9 @@
     let message = '';
     if (state.job.error) message = String(state.job.error);
     else if (state.jobReused && status === 'succeeded') message = '命中相同参数的已生成结果，已复用现有计算。';
-    else if (active) message = '精确建模仍在后台运行；下方显示的是已登记结果，不代表本次任务已经成功。刷新页面可恢复任务观察。';
+    else if (active) message = state.job.mode === 'preview'
+      ? '快速预览仍在后台运行；当前有效结果保持显示，刷新页面可恢复任务观察。'
+      : '精确建模仍在后台运行；当前有效结果保持显示，刷新页面可恢复任务观察。';
     else if (status === 'failed') message = '原有有效结果已保留。请查看日志或调整参数后再提交。';
     else if (status === 'cancelled') message = '原有有效结果已保留。草稿仍可继续编辑。';
     else if (status === 'interrupted') message = '服务重启后没有自动重启 CAD；原有有效结果已保留。';
@@ -991,6 +1049,7 @@
     updateJobCard();
     renderResultState();
     byId('generate-button').disabled = !state.initialised || state.localErrors.length > 0 || isActiveJob() || state.generating || state.validationInFlight;
+    byId('exact-generate-button').disabled = !state.initialised || state.localErrors.length > 0 || isActiveJob() || state.generating || state.validationInFlight;
     byId('cancel-button').hidden = !isActiveJob();
     byId('cancel-button').disabled = !isActiveJob();
   }
@@ -1048,11 +1107,11 @@
     container.hidden = false;
   }
 
-  async function requestServerValidation(config) {
-    return apiRequest('/api/validate', { method: 'POST', body: { config } });
+  async function requestServerValidation(config, mode = 'exact') {
+    return apiRequest('/api/validate', { method: 'POST', body: { config, mode } });
   }
 
-  async function validateDraft() {
+  async function validateDraft(mode = 'exact') {
     state.validationAttempted = true;
     const local = localValidate();
     state.localErrors = local.errors;
@@ -1071,7 +1130,7 @@
     byId('validation-indicator').textContent = '校验中';
     byId('validation-indicator').className = 'state-pill state-neutral';
     try {
-      const result = await requestServerValidation(local.config);
+      const result = await requestServerValidation(local.config, mode);
       if (result.valid !== true) {
         state.serverValidation = null;
         renderServerValidation(result);
@@ -1086,7 +1145,7 @@
         showToast('校验期间草稿已变化；请重新校验当前参数。', true, 6000);
         return null;
       }
-      state.serverValidation = { config: local.config, result };
+      state.serverValidation = { config: local.config, result, mode };
       state.serverValidationCurrent = true;
       renderServerValidation(result);
       showToast('快速参数校验通过；这不代表完整实体已经生成。');
@@ -1104,8 +1163,9 @@
     }
   }
 
-  async function startGeneration() {
+  async function startGeneration(mode = 'preview') {
     if (isActiveJob() || state.generating) return;
+    if (mode !== 'preview' && mode !== 'exact') return;
     state.validationAttempted = true;
     const local = localValidate();
     state.localErrors = local.errors;
@@ -1116,11 +1176,13 @@
     }
 
     state.generating = true;
+    state.jobMode = mode;
     updateAllState();
-    const button = byId('generate-button');
-    button.textContent = '校验并提交…';
+    const button = byId(mode === 'preview' ? 'generate-button' : 'exact-generate-button');
+    const idleLabel = mode === 'preview' ? '生成预览' : '精确生成';
+    button.textContent = mode === 'preview' ? '校验并提交预览…' : '校验并提交精确生成…';
     try {
-      const validation = await requestServerValidation(local.config);
+      const validation = await requestServerValidation(local.config, mode);
       if (validation.valid !== true) {
         state.serverValidation = null;
         renderServerValidation(validation);
@@ -1130,7 +1192,8 @@
       const config = validation.normalized_config || local.config;
       state.jobConfig = clone(config);
       const draftAtResponse = localValidate().config;
-      state.serverValidation = sameDraftConfig(config, draftAtResponse) ? { config, result: validation } : null;
+      state.serverValidation = sameDraftConfig(config, draftAtResponse)
+        ? { config, result: validation, mode } : null;
       state.serverValidationCurrent = Boolean(state.serverValidation);
       renderServerValidation(validation);
       if (!state.serverValidation) {
@@ -1138,9 +1201,10 @@
         snapshotNote.textContent = '提交任务所用的参数已通过快速校验；之后改动的草稿尚未校验。';
         byId('validation-result').append(snapshotNote);
       }
-      button.textContent = '提交完整计算…';
-      const response = await apiRequest('/api/jobs', { method: 'POST', body: { config } });
+      button.textContent = mode === 'preview' ? '提交预览…' : '提交精确生成…';
+      const response = await apiRequest('/api/jobs', { method: 'POST', body: { config, mode } });
       state.job = response.job || null;
+      state.jobMode = state.job?.mode || mode;
       state.jobReused = Boolean(response.reused);
       state.jobFinalizingId = null;
       if (!state.job || !state.job.id) throw new Error('服务没有返回可观察的任务编号。');
@@ -1150,14 +1214,17 @@
         await handleTerminalJob(state.job);
       } else {
         schedulePoll(0);
-        showToast(response.reused ? '已复用相同参数的结果，正在载入。' : '完整计算已提交；当前有效结果仍在右侧显示。', false, 6000);
+        const message = mode === 'preview'
+          ? (response.reused ? '已复用相同参数的预览，正在载入。' : '预览已提交；当前有效结果仍在右侧显示。')
+          : (response.reused ? '已复用相同参数的精确结果，正在载入。' : '精确生成已提交；当前有效结果仍在右侧显示。');
+        showToast(message, false, 6000);
       }
     } catch (error) {
       if (error.status === 409) showToast(`当前已有生成任务：${error.message}`, true, 6500);
       else showToast(error.message, true, 6500);
     } finally {
       state.generating = false;
-      button.textContent = '更新模型';
+      button.textContent = idleLabel;
       updateAllState();
     }
   }
@@ -1223,9 +1290,16 @@
       displayCase(result);
       setActiveTab('model');
       const sameDraft = sameCalculation(configForCase(result), localValidate().config);
-      showToast(state.jobReused
-        ? `已载入已生成结果“${String(result.title || result.id)}”。`
-        : `生成成功，已切换到“${String(result.title || result.id)}”。`, false, 6500);
+      const resultName = String(result.title || result.id);
+      if (result.mode === 'preview') {
+        showToast(state.jobReused
+          ? `已载入预览“${resultName}”（非精确结果）。`
+          : `预览已生成并载入“${resultName}”；精确生成仍需单独点击。`, false, 7000);
+      } else {
+        showToast(state.jobReused
+          ? `已载入精确结果“${resultName}”。`
+          : `精确生成完成，已切换到“${resultName}”。`, false, 6500);
+      }
       if (!sameDraft) setText(byId('result-subtitle'), '新结果已载入；生成期间修改的草稿仍保留，可继续调整。');
     } else {
       setText(byId('job-message'), '任务报告成功，但服务没有提供完整的已生成结果；原有显示结果已保留。');
@@ -1389,8 +1463,9 @@
     byId('import-button').addEventListener('click', () => byId('config-file').click());
     byId('config-file').addEventListener('change', event => importConfigFile(event.currentTarget.files && event.currentTarget.files[0]));
     byId('export-config-button').addEventListener('click', exportDraft);
-    byId('validate-button').addEventListener('click', validateDraft);
-    byId('generate-button').addEventListener('click', startGeneration);
+    byId('validate-button').addEventListener('click', () => validateDraft('exact'));
+    byId('generate-button').addEventListener('click', () => startGeneration('preview'));
+    byId('exact-generate-button').addEventListener('click', () => startGeneration('exact'));
     byId('cancel-button').addEventListener('click', cancelJob);
     byId('load-case-button').addEventListener('click', loadSelectedConfigToDraft);
     byId('view-case-button').addEventListener('click', viewSelectedCaseResult);

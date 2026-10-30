@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>戗角工作台 v0.3</title>
+  <title>戗角工作台 v0.4</title>
   <link rel="stylesheet" href="/ui/styles.css">
   <script src="/ui/app.js" defer></script>
 </head>
@@ -20,13 +20,13 @@
           </svg>
         </div>
         <div>
-          <div class="brand-kicker">木作参数 · 精确建模</div>
-          <h1>戗角工作台 <span class="version-tag">v0.3</span></h1>
+          <div class="brand-kicker">木作参数 · 三维生成</div>
+          <h1>戗角工作台 <span class="version-tag">v0.4</span></h1>
         </div>
       </div>
       <div class="header-badges" aria-label="工作台信息">
         <span class="badge angle-badge"><span id="displayed-angle" class="angle-mark">—</span> 当前模型 · 左右对称</span>
-        <span class="badge runtime-badge"><span class="badge-dot"></span> 精确实体 · 后台生成</span>
+        <span class="badge runtime-badge"><span class="badge-dot"></span> 预览 / 精确生成</span>
       </div>
     </header>
 
@@ -121,9 +121,11 @@
             <button id="validate-button" class="button button-secondary button-grow" type="button" disabled>校验参数</button>
             <button id="generate-button" class="button button-primary button-grow" type="button" disabled>
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4.5 8 5.5-8 5.5z" fill="currentColor" stroke="none"/></svg>
-              更新模型
+              生成预览
             </button>
           </div>
+          <button id="exact-generate-button" class="button button-secondary exact-generate-button" type="button" disabled>精确生成</button>
+          <p class="runtime-note">预览用于快速查看整体形态；排料、放样 CSV 与 STEP 需要单独点击精确生成。</p>
           <button id="cancel-button" class="button button-cancel" type="button" hidden>取消当前任务</button>
           <p class="runtime-note">不会因每次按键启动计算。提交后可离开页面刷新，工作台会恢复任务状态。</p>
         </section>
@@ -165,6 +167,7 @@
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 16.5V4.2h14v12.3zM3 13.7l3-1.2 2.5-4.1 2.4 2 3.5-4 2.6 1.1"/><circle cx="6" cy="12.5" r=".9" fill="currentColor"/><circle cx="11" cy="10.4" r=".9" fill="currentColor"/></svg>
               立脚飞椽排料
             </button>
+            <span id="layout-disabled-note" class="field-note" hidden>精确生成后可用</span>
           </div>
           <span id="viewer-case-label" class="viewer-case-label">默认结果</span>
         </div>
@@ -186,7 +189,7 @@
                 <p class="eyebrow">RESULT SUMMARY</p>
                 <h3>当前显示结果</h3>
               </div>
-              <span id="result-validation" class="validated-tag" hidden><span></span> 生成完成</span>
+              <span id="result-validation" class="validated-tag" hidden><span></span> 精确生成完成</span>
             </div>
             <div id="result-metrics" class="metrics-grid">
               <div class="metric-card metric-placeholder"><span>结果统计</span><strong>载入中</strong></div>
@@ -195,13 +198,13 @@
               <span class="downloads-label">导出</span>
               <div id="result-downloads" class="download-links"></div>
             </div>
-            <p class="result-footnote">排料图为单侧模板，按左右对称制作两套；正身飞椽不计入该排料。曲线平移误差只作诊断，模型保持原角点。</p>
+            <p id="result-footnote" class="result-footnote">排料图为单侧模板，按左右对称制作两套；正身飞椽不计入该排料。曲线平移误差只作诊断，模型保持原角点。</p>
           </div>
           <aside class="result-hint" aria-label="工作方式说明">
             <div class="hint-icon" aria-hidden="true">↗</div>
             <p class="eyebrow">WORKFLOW</p>
             <h3>草稿与结果分开</h3>
-            <p>输入改动只保存在草稿里。只有完整任务成功后，右侧模型和排料才会切换；失败或取消会保留这份有效结果。</p>
+            <p>输入改动只保存在草稿里。预览或精确生成成功后才切换右侧模型；失败或取消会保留这份有效结果。</p>
           </aside>
         </div>
       </section>

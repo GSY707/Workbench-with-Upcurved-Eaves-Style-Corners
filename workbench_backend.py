@@ -10,9 +10,11 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import math
 import mimetypes
 import os
 import re
+import statistics
 import subprocess
 import sys
 import threading
@@ -30,7 +32,7 @@ OUTPUTS_DIR = GENERATOR_DIR / "outputs"
 UI_DIR = GENERATOR_DIR / "ui"
 STATE_DIR = GENERATOR_DIR / "ui_state"
 APP_ID = "mu-gouzao-corner-workbench"
-API_VERSION = "0.3.0"
+API_VERSION = "0.4.0"
 MAX_BODY_BYTES = 1024 * 1024
 MAX_LOG_CHARS = 16000
 MAX_JOBS = 100
@@ -48,6 +50,12 @@ REQUIRED_ARTIFACTS = {
     "marking_points.csv", "layout.svg", "parameters_resolved.json",
     "validation.json", "model_mesh.json", "profiles.json", "layout.json",
 }
+PREVIEW_REQUIRED_ARTIFACTS = {
+    "index.html", "model.html", "model.obj", "config.json",
+    "parameters_resolved.json", "validation.json", "model_mesh.json",
+}
+EXACT_ONLY_ARTIFACTS = {"layout.html", "layout.json", "layout.png", "layout.svg",
+                        "marking_points.csv", "profiles.json", "model.step"}
 SEED_CASES = (
     ("default", "默认参数", "default.json"),
     ("size_variant_valid64", "尺寸与间距变化示例", "size_variant_valid64.json"),
@@ -136,6 +144,52 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _source_identity_section_digest(section: Any) -> str | None:
+    if not isinstance(section, dict):
+        return None
+    files = section.get("files")
+    if not isinstance(files, list) or not files:
+        return None
+    digest = hashlib.sha256()
+    seen: set[str] = set()
+    for entry in files:
+        if not isinstance(entry, dict):
+            return None
+        path, file_hash = entry.get("path"), entry.get("sha256")
+        if (not isinstance(path, str) or not path or path in seen or
+                not isinstance(file_hash, str) or not SHA256_RE.fullmatch(file_hash)):
+            return None
+        seen.add(path)
+        relative_bytes = path.encode("utf-8")
+        digest.update(len(relative_bytes).to_bytes(4, "big"))
+        digest.update(relative_bytes)
+        digest.update(bytes.fromhex(file_hash))
+    result = digest.hexdigest()
+    return result if section.get("sha256") == result else None
+
+
+def verify_output_source_identity(documents: list[dict[str, Any] | None],
+                                 expected_fingerprint: str) -> dict[str, Any]:
+    identities = []
+    for document in documents:
+        if document is None:
+            continue
+        identity = document.get("source_identity")
+        if not isinstance(identity, dict):
+            raise ValueError("新生成输出缺少持久source identity，不能登记为当前源码结果")
+        production, geometry = identity.get("production"), identity.get("geometry")
+        production_digest = _source_identity_section_digest(production)
+        geometry_digest = _source_identity_section_digest(geometry)
+        if production_digest is None or geometry_digest is None:
+            raise ValueError("新生成输出source identity文件清单或摘要无效")
+        identities.append({"production": production, "geometry": geometry})
+    if not identities or any(item != identities[0] for item in identities[1:]):
+        raise ValueError("新生成输出的resolved、mesh、validation与manifest来源身份不一致")
+    if identities[0]["production"]["sha256"] != expected_fingerprint:
+        raise ValueError("输出保存的production source identity与本次计算身份不一致")
+    return identities[0]
+
+
 def _stable_json(value: Any) -> bytes:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"),
                       allow_nan=False).encode("utf-8")
@@ -176,18 +230,29 @@ def normalize_identity_config(normalized: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def calculation_key(normalized: dict[str, Any], fingerprint: str) -> str:
+def calculation_key(normalized: dict[str, Any], fingerprint: str, mode: str = "exact") -> str:
+    if mode not in ("preview", "exact"):
+        raise ValueError("生成模式必须是preview或exact")
+    identity = {"config": normalize_identity_config(normalized),
+                "source_fingerprint": fingerprint, "mode": mode}
+    return hashlib.sha256(_stable_json(identity)).hexdigest()
+
+
+def legacy_exact_calculation_key(normalized: dict[str, Any], fingerprint: str) -> str:
+    """Validate a fixed historical seed key without promoting its source to current."""
     identity = {"config": normalize_identity_config(normalized),
                 "source_fingerprint": fingerprint}
     return hashlib.sha256(_stable_json(identity)).hexdigest()
 
 
-def _json_file_hashes(output_dir: Path) -> dict[str, str]:
+def _json_file_hashes(output_dir: Path, *, mode="exact") -> dict[str, str]:
     manifest = load_json(output_dir / "manifest.json")
     if not isinstance(manifest, dict) or not isinstance(manifest.get("files"), list):
         raise ValueError("manifest.json格式无效")
     if manifest.get("file_count") != len(manifest["files"]):
         raise ValueError("manifest文件数量与清单不匹配")
+    if manifest.get("mode", "exact") != mode:
+        raise ValueError("manifest生成模式与案例登记模式不一致")
     hashes: dict[str, str] = {}
     output_root = output_dir.resolve()
     for entry in manifest["files"]:
@@ -215,9 +280,12 @@ def _json_file_hashes(output_dir: Path) -> dict[str, str]:
         if name in hashes:
             raise ValueError(f"manifest文件重复：{name}")
         hashes[name] = actual
-    if not REQUIRED_ARTIFACTS.issubset(hashes):
-        missing = sorted(REQUIRED_ARTIFACTS - set(hashes))
+    required = PREVIEW_REQUIRED_ARTIFACTS if mode == "preview" else REQUIRED_ARTIFACTS
+    if not required.issubset(hashes):
+        missing = sorted(required - set(hashes))
         raise ValueError("输出缺少必需文件：" + ", ".join(missing))
+    if mode == "preview" and EXACT_ONLY_ARTIFACTS.intersection(hashes):
+        raise ValueError("预览清单包含只允许精确生成的文件")
     return hashes
 
 
@@ -239,7 +307,7 @@ class WorkbenchBackend:
                  workspace_root: Path | None = None, outputs_dir: Path | None = None,
                  ui_dir: Path | None = None, state_dir: Path | None = None,
                  source_fingerprint_provider: Callable[[], str] | None = None,
-                 command_builder: Callable[[Path, Path], list[str]] | None = None,
+                 command_builder: Callable[..., list[str]] | None = None,
                  seed_existing: bool = True):
         self.generator_dir = Path(generator_dir).resolve()
         self.workspace_root = Path(workspace_root or self.generator_dir.parents[1]).resolve()
@@ -250,6 +318,7 @@ class WorkbenchBackend:
         self.job_config_dir = self.state_dir / "job_configs"
         self.source_fingerprint_provider = source_fingerprint_provider or (
             lambda: source_fingerprint(self.generator_dir))
+        self._using_default_command_builder = command_builder is None
         self.command_builder = command_builder or self._build_generator_command
         self.lock = threading.RLock()
         self.math_lock = threading.Lock()
@@ -317,8 +386,10 @@ class WorkbenchBackend:
             module.update_resolved_geometry_derivations(normalized, arc, young_sagitta, division_count_n)
             return normalized["derived"]
 
-    def validate(self, config: Any) -> tuple[dict[str, Any], dict[str, Any], str, str]:
+    def validate(self, config: Any, mode: str = "exact") -> tuple[dict[str, Any], dict[str, Any], str, str]:
         try:
+            if mode not in ("preview", "exact"):
+                raise ValueError("生成模式必须是preview或exact")
             normalized = self._config_module.resolve_config(config)
             derived = self._derive_geometry(normalized)
             fingerprint = self.source_fingerprint_provider()
@@ -328,9 +399,10 @@ class WorkbenchBackend:
                 "parameters": normalized["parameters"],
                 "advanced": normalized["advanced"],
             }
-            key = calculation_key(normalized, fingerprint)
+            key = calculation_key(normalized, fingerprint, mode)
             response = {"valid": True, "normalized_config": normalized_config,
-                        "calculation_key": key, "derived": dict(derived), "warnings": []}
+                        "calculation_key": key, "mode": mode,
+                        "derived": dict(derived), "warnings": []}
             return response, normalized, key, fingerprint
         except (ValueError, TypeError, KeyError, ArithmeticError) as exc:
             raise WorkbenchError(400, str(exc), [str(exc)]) from exc
@@ -354,11 +426,26 @@ class WorkbenchBackend:
         with self.lock:
             active = self._active_job_locked()
             active_public = self._public_job(active) if active is not None else None
+        cases = self.list_cases()
         return {"version": API_VERSION, "app_id": APP_ID,
                 "workspace": str(self.workspace_root), "schema": schema,
                 "defaults": defaults["normalized_config"], "examples": examples,
-                "cases": self.list_cases(), "active_job": active_public,
-                "reference_runtime_seconds": [780, 960]}
+                "cases": cases, "active_job": active_public,
+                "reference_runtime_seconds": self._reference_runtime_seconds_by_mode(cases)}
+
+    @staticmethod
+    def _reference_runtime_seconds_by_mode(cases: list[dict[str, Any]]) -> dict[str, float | None]:
+        result: dict[str, float | None] = {}
+        for mode in ("preview", "exact"):
+            values = []
+            for case in cases:
+                if case.get("mode", "exact") != mode or case.get("validated") is not True:
+                    continue
+                seconds = case.get("elapsed_seconds")
+                if isinstance(seconds, (int, float)) and math.isfinite(seconds) and seconds > 0:
+                    values.append(float(seconds))
+            result[mode] = round(statistics.median(values), 1) if values else None
+        return result
 
     def list_cases(self) -> list[dict[str, Any]]:
         with self.lock:
@@ -419,9 +506,13 @@ class WorkbenchBackend:
                     continue
                 raw = load_json(self.generator_dir / "configs" / config_file)
                 _, normalized, _, _ = self.validate(raw)
-                key = calculation_key(normalized, fingerprint)
-                if key != expected_key:
+                allowed_seed_keys = {legacy_exact_calculation_key(normalized, fingerprint),
+                                     calculation_key(normalized, fingerprint, mode="exact")}
+                if expected_key not in allowed_seed_keys:
                     continue
+                # Keep the catalog's recorded identity. Never rewrite a historical
+                # fingerprint or key to the current source identity.
+                key = expected_key
                 record = self._case_record_from_output(
                     case_id=case_id, title=title, raw_config=raw, normalized=normalized,
                     key=key, fingerprint=fingerprint, output_rel=case_id,
@@ -501,15 +592,24 @@ class WorkbenchBackend:
     def _case_record_from_output(self, *, case_id: str, title: str,
                                  raw_config: dict[str, Any], normalized: dict[str, Any],
                                  key: str, fingerprint: str, output_rel: str,
-                                 elapsed_seconds: float | None) -> dict[str, Any]:
+                                 elapsed_seconds: float | None, mode="exact",
+                                 require_current_source=False) -> dict[str, Any]:
+        if mode not in ("preview", "exact"):
+            raise ValueError("案例生成模式无效")
         output_dir = _safe_output_dir(self.outputs_dir, output_rel)
-        hashes = _json_file_hashes(output_dir)
+        hashes = _json_file_hashes(output_dir, mode=mode)
         manifest = load_json(output_dir / "manifest.json")
         resolved = load_json(output_dir / "parameters_resolved.json")
         validation = load_json(output_dir / "validation.json")
         mesh = load_json(output_dir / "model_mesh.json")
-        profiles_doc = load_json(output_dir / "profiles.json")
-        layout_doc = load_json(output_dir / "layout.json")
+        recorded_modes = (manifest.get("mode", "exact"), resolved.get("mode", "exact"),
+                          validation.get("mode", "exact"), mesh.get("metadata", {}).get("mode", "exact"))
+        if any(value != mode for value in recorded_modes):
+            raise ValueError("manifest、参数、验证或网格的生成模式不一致")
+        if require_current_source:
+            verify_output_source_identity(
+                [resolved, {"source_identity": mesh.get("metadata", {}).get("source_identity")},
+                 validation, manifest], fingerprint)
         if manifest.get("case_id") != normalized["case_id"]:
             raise ValueError("manifest案例标识与配置不一致")
         if resolved.get("case_id") != normalized["case_id"]:
@@ -520,14 +620,41 @@ class WorkbenchBackend:
             raise ValueError("模型网格的建筑平面内角与本次配置不一致")
         if resolved.get("parameters") != normalized["parameters"] or resolved.get("advanced") != normalized["advanced"]:
             raise ValueError("保存的解析参数与本次配置不一致")
+        parts = mesh.get("parts")
+        if not isinstance(parts, list) or not parts:
+            raise ValueError("模型网格没有可用构件")
+        if mode == "preview":
+            if (validation.get("status") != "preview_ready" or
+                    validation.get("exact_acceptance") != "not_run" or
+                    validation.get("passed") is not False or
+                    mesh.get("metadata", {}).get("preview_status") != "preview_only"):
+                raise ValueError("预览状态不完整，或被错误标记为精确验收通过")
+            expected = validation.get("input_geometry", {}).get("fan_count_expected_per_side")
+            actual = validation.get("input_geometry", {}).get("fan_count_actual_per_side")
+            if not isinstance(expected, int) or expected != actual:
+                raise ValueError("预览飞椽根数与stage04预期不一致")
+            metrics = {"templates_per_side": actual, "parts_count": len(parts),
+                       "board_width_mm": None, "board_height_mm": None,
+                       "board_thickness_mm": None, "utilization_percent": None,
+                       "translation_max_error_mm": None}
+            return {
+                "id": case_id, "title": str(title), "config": raw_config,
+                "calculation_key": key, "mode": mode, "status": "preview_ready",
+                "validated": True, "created_at": utc_now(),
+                "elapsed_seconds": elapsed_seconds, "metrics": metrics,
+                "urls": self._case_urls(case_id, mode=mode),
+                "source_fingerprint": fingerprint,
+                "output_rel": PurePosixPath(output_rel).as_posix(), "artifact_hashes": hashes,
+            }
         if validation.get("passed") is not True:
-            raise ValueError("几何验证未通过")
+            raise ValueError("精确生成验证未通过")
+        profiles_doc = load_json(output_dir / "profiles.json")
+        layout_doc = load_json(output_dir / "layout.json")
         expected = validation.get("input_geometry", {}).get("fan_count_expected_per_side")
         actual = validation.get("input_geometry", {}).get("fan_count_actual_per_side")
         division_count_n = validation.get("input_geometry", {}).get("fan_division_count_n")
         resolved_division_count_n = resolved.get("derived", {}).get("fan_division_count_n")
         profiles = profiles_doc.get("profiles")
-        parts = mesh.get("parts")
         pieces = layout_doc.get("layout", {}).get("pieces")
         if not isinstance(profiles, list) or not isinstance(parts, list) or not isinstance(pieces, list):
             raise ValueError("模型、排料或验证数据结构不完整")
@@ -556,15 +683,21 @@ class WorkbenchBackend:
         }
         return {
             "id": case_id, "title": str(title), "config": raw_config,
-            "calculation_key": key, "validated": True, "created_at": utc_now(),
+            "calculation_key": key, "mode": mode, "status": "exact_ready",
+            "validated": True, "created_at": utc_now(),
             "elapsed_seconds": elapsed_seconds, "metrics": metrics,
-            "urls": self._case_urls(case_id), "source_fingerprint": fingerprint,
+            "urls": self._case_urls(case_id, mode=mode), "source_fingerprint": fingerprint,
             "output_rel": PurePosixPath(output_rel).as_posix(), "artifact_hashes": hashes,
         }
 
     @staticmethod
-    def _case_urls(case_id: str) -> dict[str, str]:
+    def _case_urls(case_id: str, *, mode="exact") -> dict[str, str | None]:
         base = f"/results/{case_id}"
+        if mode == "preview":
+            return {"model": f"{base}/model.html", "layout": None,
+                    "index": f"{base}/index.html", "obj": f"{base}/model.obj",
+                    "points": None, "svg": None, "config": f"{base}/config.json",
+                    "validation": f"{base}/validation.json"}
         return {"model": f"{base}/model.html", "layout": f"{base}/layout.html",
                 "index": f"{base}/index.html", "obj": f"{base}/model.obj",
                 "points": f"{base}/marking_points.csv", "svg": f"{base}/layout.svg",
@@ -572,9 +705,12 @@ class WorkbenchBackend:
 
     @staticmethod
     def _public_case(record: dict[str, Any]) -> dict[str, Any]:
-        keys = ("id", "title", "config", "calculation_key", "validated",
+        keys = ("id", "title", "config", "calculation_key", "mode", "status", "validated",
                 "created_at", "elapsed_seconds", "metrics", "urls")
-        return {key: record.get(key) for key in keys}
+        public = {key: record.get(key) for key in keys}
+        public["mode"] = record.get("mode", "exact")
+        public["status"] = record.get("status", "exact_ready")
+        return public
 
     def _verify_case_record(self, record: dict[str, Any], *, check_hashes: bool) -> Path:
         case_id = record.get("id")
@@ -584,20 +720,30 @@ class WorkbenchBackend:
         if not isinstance(output_rel, str):
             raise ValueError("案例未登记输出目录")
         output_dir = _safe_output_dir(self.outputs_dir, output_rel)
+        mode = record.get("mode", "exact")
+        if mode not in ("preview", "exact"):
+            raise ValueError("案例登记模式无效")
         if check_hashes:
-            hashes = _json_file_hashes(output_dir)
+            hashes = _json_file_hashes(output_dir, mode=mode)
             if hashes != record.get("artifact_hashes"):
                 raise ValueError("案例输出文件与登记哈希不一致")
         validation = load_json(output_dir / "validation.json")
-        if validation.get("passed") is not True or not record.get("validated"):
-            raise ValueError("案例验证状态不再有效")
+        if validation.get("mode", "exact") != mode or not record.get("validated"):
+            raise ValueError("案例生成模式或交付状态不再有效")
+        if mode == "preview":
+            if validation.get("status") != "preview_ready" or validation.get("exact_acceptance") != "not_run":
+                raise ValueError("预览交付状态无效")
+        elif validation.get("passed") is not True:
+            raise ValueError("精确案例验证状态不再有效")
         return output_dir
 
-    def _find_cached_case(self, key: str, fingerprint: str) -> dict[str, Any] | None:
+    def _find_cached_case(self, key: str, fingerprint: str, mode="exact") -> dict[str, Any] | None:
         with self.lock:
             candidates = list(reversed(self.state["cases"]))
         for record in candidates:
-            if record.get("calculation_key") != key or record.get("source_fingerprint") != fingerprint:
+            if (record.get("calculation_key") != key or
+                    record.get("source_fingerprint") != fingerprint or
+                    record.get("mode", "exact") != mode):
                 continue
             try:
                 self._verify_case_record(record, check_hashes=True)
@@ -606,19 +752,20 @@ class WorkbenchBackend:
                 continue
         return None
 
-    def submit_job(self, config: Any) -> tuple[dict[str, Any], bool]:
-        validated, normalized, key, fingerprint = self.validate(config)
-        cached = self._find_cached_case(key, fingerprint)
+    def submit_job(self, config: Any, mode: str = "exact") -> tuple[dict[str, Any], bool]:
+        validated, normalized, key, fingerprint = self.validate(config, mode=mode)
+        cached = self._find_cached_case(key, fingerprint, mode=mode)
         if cached is not None:
             now = utc_now()
             job = {"id": "job-" + uuid.uuid4().hex, "status": "succeeded",
-                   "stage": "载入已验证的缓存结果", "started_at": now,
+                   "stage": "载入预览缓存结果" if mode == "preview" else "载入精确生成缓存结果",
+                   "mode": mode, "started_at": now,
                    "finished_at": now, "elapsed_seconds": 0.0,
                    "case_id": cached["id"], "result": self._public_case(cached),
-                   "log_tail": "参数和生成核心指纹匹配，已检查文件完整性并复用缓存结果。",
+                   "log_tail": "模式、参数和生成核心指纹匹配，已检查文件完整性并复用缓存结果。",
                    "error": None, "_started_epoch": time.time(),
                    "_finished_epoch": time.time(), "_calculation_key": key,
-                   "_source_fingerprint": fingerprint}
+                   "_source_fingerprint": fingerprint, "_mode": mode}
             with self.lock:
                 self.state["jobs"].append(job)
                 self._save_state()
@@ -636,29 +783,30 @@ class WorkbenchBackend:
             config_path.write_bytes(json_bytes(config))
             now_epoch = time.time()
             job = {"id": job_id, "status": "queued", "stage": "排队等待启动",
+                   "mode": mode,
                    "started_at": None, "finished_at": None,
                    "elapsed_seconds": None, "case_id": case_id, "result": None,
                    "log_tail": "", "error": None, "_started_epoch": None,
                    "_finished_epoch": None, "_created_epoch": now_epoch,
-                   "_calculation_key": key, "_source_fingerprint": fingerprint,
+                   "_calculation_key": key, "_source_fingerprint": fingerprint, "_mode": mode,
                    "_output_rel": output_rel, "_config_path": str(config_path),
                    "_normalized_config": validated["normalized_config"],
                    "_raw_config": config}
             self.state["jobs"].append(job)
             thread = threading.Thread(target=self._run_job,
-                                      args=(job_id, output_dir, config_path, normalized, key, fingerprint),
+                                      args=(job_id, output_dir, config_path, normalized, key, fingerprint, mode),
                                       name=f"workbench-{job_id[-8:]}", daemon=True)
             self._threads[job_id] = thread
             self._save_state()
             thread.start()
             return {"job": self._public_job(job), "reused": False}, False
 
-    def _build_generator_command(self, config_path: Path, output_path: Path) -> list[str]:
+    def _build_generator_command(self, config_path: Path, output_path: Path, mode="exact") -> list[str]:
         return [sys.executable, "-X", "utf8", "-u", str(self.generator_dir / "generate.py"),
-                "--config", str(config_path), "--output", str(output_path)]
+                "--config", str(config_path), "--output", str(output_path), "--mode", mode]
 
     def _run_job(self, job_id: str, output_dir: Path, config_path: Path,
-                 normalized: dict[str, Any], key: str, fingerprint: str) -> None:
+                 normalized: dict[str, Any], key: str, fingerprint: str, mode="exact") -> None:
         process: subprocess.Popen[str] | None = None
         skip_start = False
         with self.lock:
@@ -685,8 +833,11 @@ class WorkbenchBackend:
             env = os.environ.copy()
             env["PYTHONUTF8"] = "1"
             env["PYTHONIOENCODING"] = "utf-8"
+            command = (self._build_generator_command(config_path, output_dir, mode)
+                       if self._using_default_command_builder
+                       else self.command_builder(config_path, output_dir))
             process = subprocess.Popen(
-                self.command_builder(config_path, output_dir), cwd=str(self.generator_dir),
+                command, cwd=str(self.generator_dir),
                 stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                 text=True, encoding="utf-8", errors="replace", bufsize=1, env=env,
                 creationflags=getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0))
@@ -728,7 +879,8 @@ class WorkbenchBackend:
             record = self._case_record_from_output(
                 case_id=case_id, title=title, raw_config=raw_config,
                 normalized=normalized, key=key, fingerprint=fingerprint,
-                output_rel=output_rel, elapsed_seconds=elapsed)
+                output_rel=output_rel, elapsed_seconds=elapsed, mode=mode,
+                require_current_source=self._using_default_command_builder)
             with self.lock:
                 job = self._find_job_locked(job_id)
                 if job is None or job.get("status") in ("interrupted", "cancelled"):
@@ -737,7 +889,8 @@ class WorkbenchBackend:
                 # cases are immutable and are never replaced on failure or cancel.
                 self.state["cases"].append(record)
                 job["result"] = self._public_case(record)
-                self._finish_job_locked(job, "succeeded", "生成完成")
+                self._finish_job_locked(job, "succeeded",
+                                        "预览已生成" if mode == "preview" else "精确生成完成")
         except Exception as exc:
             with self.lock:
                 job = self._find_job_locked(job_id)
@@ -909,9 +1062,10 @@ class WorkbenchBackend:
 
     @staticmethod
     def _public_job(job: dict[str, Any]) -> dict[str, Any]:
-        keys = ("id", "status", "stage", "started_at", "finished_at",
+        keys = ("id", "status", "stage", "mode", "started_at", "finished_at",
                 "elapsed_seconds", "case_id", "result", "log_tail", "error")
         public = {key: job.get(key) for key in keys}
+        public["mode"] = job.get("mode", job.get("_mode", "exact"))
         if public["status"] in ("queued", "running"):
             started = job.get("_started_epoch")
             if isinstance(started, (int, float)):
@@ -1161,19 +1315,19 @@ def create_server(backend: WorkbenchBackend, host: str = "127.0.0.1", port: int 
             try:
                 body = self._read_json_body()
                 if path == "/api/validate":
-                    if set(body) != {"config"}:
-                        raise WorkbenchError(400, "校验请求只允许config字段")
                     if "config" not in body:
                         raise WorkbenchError(400, "请求缺少config字段")
-                    response, _, _, _ = backend.validate(body["config"])
+                    if set(body) not in ({"config"}, {"config", "mode"}):
+                        raise WorkbenchError(400, "校验请求只允许config和可选mode字段")
+                    response, _, _, _ = backend.validate(body["config"], mode=body.get("mode", "exact"))
                     self._json_response(200, response)
                     return
                 if path == "/api/jobs":
-                    if set(body) != {"config"}:
-                        raise WorkbenchError(400, "生成请求只允许config字段")
                     if "config" not in body:
                         raise WorkbenchError(400, "请求缺少config字段")
-                    response, _ = backend.submit_job(body["config"])
+                    if set(body) not in ({"config"}, {"config", "mode"}):
+                        raise WorkbenchError(400, "生成请求只允许config和可选mode字段")
+                    response, _ = backend.submit_job(body["config"], mode=body.get("mode", "exact"))
                     status = 200 if response["reused"] else 202
                     self._json_response(status, response)
                     return

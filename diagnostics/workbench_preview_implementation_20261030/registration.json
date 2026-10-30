@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "state_backup": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\workbench_preview_implementation_20261030\\workbench_state.before_registration.76bb4233612f.json",
+  "state_before_sha256": "76bb4233612f2b0bd6ff8dc033a92a814abd6da7997e891fb1f5a976fa3fc5f1",
+  "original_cases_preserved": 13,
+  "cases": [
+    {
+      "id": "case-v04-preview-120-cachefix",
+      "mode": "preview",
+      "title": "v0.4 120° B=400 预览",
+      "output_rel": "workbench_preview_implementation_20261030/preview_120_cachefix",
+      "source_fingerprint": "a21524e6e9fa7b3862fddcbe90ae187cc1702ad46b065fe74e996075dd121ecb",
+      "already_registered": false
+    },
+    {
+      "id": "case-v04-exact-120-cachefix",
+      "mode": "exact",
+      "title": "v0.4 120° B=400 精确",
+      "output_rel": "workbench_preview_implementation_20261030/exact_120_cachefix",
+      "source_fingerprint": "a21524e6e9fa7b3862fddcbe90ae187cc1702ad46b065fe74e996075dd121ecb",
+      "already_registered": false
+    },
+    {
+      "id": "case-v04-preview-90-B400",
+      "mode": "preview",
+      "title": "v0.4 90° B=400 预览",
+      "output_rel": "workbench_preview_implementation_20261030/preview_90_B400",
+      "source_fingerprint": "a21524e6e9fa7b3862fddcbe90ae187cc1702ad46b065fe74e996075dd121ecb",
+      "already_registered": false
+    }
+  ],
+  "cad_started": false,
+  "outputs_modified": false
+}

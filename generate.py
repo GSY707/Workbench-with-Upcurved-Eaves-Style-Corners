@@ -4,14 +4,17 @@ from __future__ import annotations
 
 import argparse
 import ast
+import gzip
 import hashlib
 import importlib.util
 import json
 import math
+import os
 import shutil
 import sys
+import tempfile
 import time
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -38,48 +41,32 @@ def _geometry_pipeline_source(source_text):
                           node.name == "generate"), None)
     if generate_node is None:
         raise RuntimeError("无法读取generate()中的几何构造入口")
-
-    def target_names(statement):
-        names = set()
-        if isinstance(statement, (ast.Assign, ast.AnnAssign)):
-            targets = statement.targets if isinstance(statement, ast.Assign) else [statement.target]
-            for target in targets:
-                for node in ast.walk(target):
-                    if isinstance(node, ast.Name):
-                        names.add(node.id)
-        return names
-
-    def is_stage05_loader(statement):
-        if "stage05" not in target_names(statement):
-            return False
-        value = getattr(statement, "value", None)
-        return (isinstance(value, ast.Call) and isinstance(value.func, ast.Name) and
-                value.func.id == "load_stage05")
-
-    def find_block(statements):
-        for index, statement in enumerate(statements):
-            if is_stage05_loader(statement):
-                for end in range(index + 1, len(statements)):
-                    if "combination_info" in target_names(statements[end]):
-                        selected = statements[index:end + 1]
-                        return "\n".join(ast.get_source_segment(source_text, item) or ""
-                                           for item in selected)
-            nested_lists = []
-            if isinstance(statement, ast.If):
-                nested_lists.extend((statement.body, statement.orelse))
-            elif isinstance(statement, (ast.Try, getattr(ast, "TryStar", ast.Try))):
-                nested_lists.extend((statement.body, statement.orelse, statement.finalbody))
-                nested_lists.extend(handler.body for handler in statement.handlers)
-            for nested in nested_lists:
-                found = find_block(nested)
-                if found:
-                    return found
-        return None
-
-    block = find_block(generate_node.body)
-    if not block:
+    loader_nodes = []
+    combination_nodes = []
+    for node in ast.walk(generate_node):
+        if isinstance(node, (ast.Assign, ast.AnnAssign)):
+            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+            target_names = {target.id for target in targets
+                            if isinstance(target, ast.Name)}
+            value = getattr(node, "value", None)
+            if ("stage05" in target_names and isinstance(value, ast.Call) and
+                    isinstance(value.func, ast.Name) and value.func.id == "load_stage05"):
+                loader_nodes.append(node)
+            if "combination_info" in target_names:
+                combination_nodes.append(node)
+    loader_nodes.sort(key=lambda node: (node.lineno, node.col_offset))
+    geometry_ends = [node for node in combination_nodes
+                     if loader_nodes and node.lineno > loader_nodes[0].lineno]
+    if not loader_nodes or not geometry_ends:
         raise RuntimeError("无法提取stage05几何构造分支，拒绝建立不完整的几何身份")
-    return block
+    source_lines = source_text.splitlines()
+    start_line = loader_nodes[0].lineno
+    end_line = max(node.end_lineno for node in geometry_ends)
+    # The stage05 load is inside the geometry-rebuild branch, while preview and
+    # exact now assign combination_info in separate arms of a nested mode test.
+    # Hash the complete source span so both production geometry paths are part
+    # of checkpoint identity.
+    return "\n".join(source_lines[start_line - 1:end_line])
 
 
 def _identity_digest(entries):
@@ -155,6 +142,117 @@ def geometry_config_identity(config):
 def json_dump(data, path: Path) -> None:
     Path(path).write_text(json.dumps(data, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
                           encoding="utf-8")
+
+
+def checked_generation_mode(mode):
+    if mode not in ("preview", "exact"):
+        raise ValueError("生成模式必须是 preview 或 exact")
+    return mode
+
+
+def write_resolved_mode(config, output_path, mode, source_identity=None):
+    write_resolved(config, output_path)
+    resolved_path = Path(output_path)
+    resolved = json.loads(resolved_path.read_text(encoding="utf-8"))
+    resolved["mode"] = checked_generation_mode(mode)
+    if source_identity is not None:
+        resolved["source_identity"] = source_identity
+    json_dump(resolved, resolved_path)
+
+
+DISPLAY_ONLY_SOURCE_FILES = frozenset({
+    "render_delivery.py", "viewer.js", "viewer.css", "viewer.template.html",
+    "layout.js", "layout.template.html", "vendor/viewer-runtime.js",
+})
+
+
+def current_source_identity_record():
+    production = production_source_identity()
+    geometry = geometry_source_identity()
+    return {"production": production, "geometry": geometry}
+
+
+def _verified_identity_section(section, label):
+    if not isinstance(section, dict):
+        raise ValueError(f"保存的{label}source identity缺失")
+    digest, files = section.get("sha256"), section.get("files")
+    if (not isinstance(digest, str) or len(digest) != 64 or
+            any(ch not in "0123456789abcdef" for ch in digest) or
+            not isinstance(files, list) or not files):
+        raise ValueError(f"保存的{label}source identity格式无效")
+    normalized = []
+    seen = set()
+    for entry in files:
+        if not isinstance(entry, dict):
+            raise ValueError(f"保存的{label}source identity含无效文件记录")
+        path, file_hash = entry.get("path"), entry.get("sha256")
+        if (not isinstance(path, str) or not path or path in seen or
+                not isinstance(file_hash, str) or len(file_hash) != 64 or
+                any(ch not in "0123456789abcdef" for ch in file_hash)):
+            raise ValueError(f"保存的{label}source identity含无效路径或哈希")
+        seen.add(path)
+        normalized.append({"path": path, "sha256": file_hash})
+    if _identity_digest(normalized) != digest:
+        raise ValueError(f"保存的{label}source identity摘要不匹配其文件清单")
+    return {"sha256": digest, "files": normalized}
+
+
+def _verified_source_identity(record):
+    if not isinstance(record, dict):
+        raise ValueError("输出没有保存的source identity，不能补写当前源码身份")
+    return {"production": _verified_identity_section(record.get("production"), "production "),
+            "geometry": _verified_identity_section(record.get("geometry"), "geometry ")}
+
+
+def _verify_source_identity_chain(documents, current_identity):
+    saved = [_verified_source_identity(document.get("source_identity"))
+             for document in documents if document is not None]
+    if not saved:
+        raise ValueError("输出没有可信source identity，拒绝finalize-existing")
+    identity = saved[0]
+    if any(item != identity for item in saved[1:]):
+        raise ValueError("resolved、mesh、validation或manifest中的source identity不一致")
+    if identity["geometry"]["sha256"] != current_identity["geometry"]["sha256"]:
+        raise ValueError("输出geometry source identity与当前几何源码不一致，拒绝finalize-existing")
+    if identity["production"]["sha256"] != current_identity["production"]["sha256"]:
+        old_files = {item["path"]: item["sha256"] for item in identity["production"]["files"]}
+        new_files = {item["path"]: item["sha256"] for item in current_identity["production"]["files"]}
+        changed = {path for path in old_files.keys() | new_files.keys()
+                   if old_files.get(path) != new_files.get(path)}
+        if not changed or not changed.issubset(DISPLAY_ONLY_SOURCE_FILES):
+            raise ValueError("输出production source与当前源码差异不局限于展示文件，拒绝finalize-existing")
+    return identity
+
+
+def verify_saved_manifest(output_dir, manifest, case_id, mode):
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("files"), list):
+        raise ValueError("已有manifest.json格式无效，拒绝finalize-existing")
+    if manifest.get("case_id") != case_id or manifest.get("mode", "exact") != mode:
+        raise ValueError("已有manifest案例或生成模式不匹配，拒绝finalize-existing")
+    if (not manifest["files"] or
+            manifest.get("file_count") != len(manifest["files"])):
+        raise ValueError("已有manifest文件计数不匹配，拒绝finalize-existing")
+    root = Path(output_dir).resolve()
+    seen = set()
+    for entry in manifest["files"]:
+        if not isinstance(entry, dict):
+            raise ValueError("已有manifest含无效文件记录")
+        name, expected_hash = entry.get("path"), entry.get("sha256")
+        if not isinstance(name, str) or not name or "\\" in name:
+            raise ValueError("已有manifest含无效相对路径")
+        rel = PurePosixPath(name)
+        if rel.is_absolute() or any(part in ("", ".", "..") for part in rel.parts) or name in seen:
+            raise ValueError("已有manifest含越界或重复相对路径")
+        seen.add(name)
+        target = root.joinpath(*rel.parts).resolve()
+        try:
+            target.relative_to(root)
+        except ValueError as exc:
+            raise ValueError("已有manifest路径解析到输出目录之外") from exc
+        if (not target.is_file() or entry.get("bytes") != target.stat().st_size or
+                not isinstance(expected_hash, str) or sha256(target) != expected_hash):
+            raise ValueError(f"已有manifest文件内容或哈希不匹配：{name}")
+    return manifest
 
 
 def load_stage05():
@@ -495,7 +593,7 @@ def checkpoint_fly_records(fly_records):
 
 def save_geometry_checkpoint(parts, control, config, fly_records, notch_records,
                              board_records, combination_info, ctx, phase_timings,
-                             runtime_seconds_before_checkpoint, output_dir):
+                             runtime_seconds_before_checkpoint, output_dir, *, mode="exact"):
     """Persist the completed geometry only as a same-job mesh-failure recovery point."""
     from OCP.BRepTools import BRepTools
 
@@ -541,6 +639,7 @@ def save_geometry_checkpoint(parts, control, config, fly_records, notch_records,
         document = {
             "schema": "v02_mesh_failure_geometry_checkpoint_v2",
             "state": "complete_geometry_before_mesh_export",
+            "mode": mode,
             "created_unix_seconds": time.time(),
             "config_identity": geometry_config_identity(config),
             "config_identity_sha256": canonical_json_sha256(geometry_config_identity(config)),
@@ -574,7 +673,7 @@ def save_geometry_checkpoint(parts, control, config, fly_records, notch_records,
     return checkpoint_dir, float(time.perf_counter() - checkpoint_started)
 
 
-def restore_geometry_checkpoint(checkpoint_path, config):
+def restore_geometry_checkpoint(checkpoint_path, config, *, mode="exact"):
     """Load a checkpoint only when both normalized inputs and geometry sources match."""
     import cadquery as cq
     from OCP.BRep import BRep_Builder
@@ -588,6 +687,8 @@ def restore_geometry_checkpoint(checkpoint_path, config):
         raise ValueError(f"不支持的几何检查点schema：{document.get('schema')}")
     if document.get("state") != "complete_geometry_before_mesh_export":
         raise ValueError("几何检查点尚未完成，拒绝恢复")
+    if document.get("mode", "exact") != mode:
+        raise ValueError("几何检查点生成模式与本次请求不一致，拒绝恢复")
     if document.get("config_identity") != geometry_config_identity(config):
         raise ValueError("几何检查点参数或重算后的derived与本次配置不一致，拒绝恢复")
     checkpoint_config = document.get("resolved_config")
@@ -650,7 +751,7 @@ def restore_geometry_checkpoint(checkpoint_path, config):
             "checkpoint_path": str(checkpoint_path.resolve())}
 
 
-def find_geometry_checkpoint(config, output_dir):
+def find_geometry_checkpoint(config, output_dir, *, mode="exact"):
     """Find a completed mesh-failure checkpoint with identical geometry inputs/sources."""
     output_dir = Path(output_dir).resolve()
     workbench_dir = HERE / "outputs" / "workbench"
@@ -673,18 +774,20 @@ def find_geometry_checkpoint(config, output_dir):
             continue
         if (document.get("schema") != "v02_mesh_failure_geometry_checkpoint_v2" or
                 document.get("state") != "complete_geometry_before_mesh_export" or
+                document.get("mode", "exact") != mode or
                 document.get("config_identity") != expected_config):
             continue
         if document.get("geometry_source_identity") != expected_sources:
             print(f"generator: matching-config mesh checkpoint has a different geometry source; rebuilding CAD",
                   flush=True)
             continue
-        return restore_geometry_checkpoint(document_path.parent, config)
+        return restore_geometry_checkpoint(document_path.parent, config, mode=mode)
     return None
 
 
-def absolute_face_mesh(shape, tolerance, angular, requested_upper_limit=None):
-    """Remesh in absolute mode, then check each face against the original upper limit."""
+def absolute_face_mesh(shape, tolerance, angular, requested_upper_limit=None,
+                       *, clean_before_mesh=True):
+    """Mesh in absolute mode; reject known failures before copying mesh arrays."""
     from OCP.BRep import BRep_Tool
     from OCP.BRepMesh import BRepMesh_IncrementalMesh
     from OCP.BRepTools import BRepTools
@@ -692,7 +795,8 @@ def absolute_face_mesh(shape, tolerance, angular, requested_upper_limit=None):
     from OCP.TopLoc import TopLoc_Location
 
     request_limit = float(tolerance if requested_upper_limit is None else requested_upper_limit)
-    BRepTools.Clean_s(shape.wrapped)
+    if clean_before_mesh:
+        BRepTools.Clean_s(shape.wrapped)
     mesher = BRepMesh_IncrementalMesh(shape.wrapped, tolerance, False, angular)
     try:
         target_guard_passed = bool(BRepTools.Triangulation_s(shape.wrapped, tolerance))
@@ -711,13 +815,80 @@ def absolute_face_mesh(shape, tolerance, angular, requested_upper_limit=None):
             request_guard_passed = False
             request_guard_error = f"{type(exc).__name__}: {exc}"
 
+    faces = list(shape.Faces())
+    quick_face_rows = []
+    quick_nodes = quick_triangles = 0
+    quick_failure_reasons = []
+    for face_index, face in enumerate(faces, start=1):
+        location = TopLoc_Location()
+        triangulation = BRep_Tool.Triangulation_s(face.wrapped, location)
+        info = {"face_index": face_index, "triangulation_present": triangulation is not None,
+                "node_count": 0, "triangle_count": 0, "deflection_mm": None,
+                "within_linear_limit": False, "boundary_edge_count": len(face.Edges()),
+                "boundary_edge_diagnostic": "not_needed_for_early_mesh_rejection"}
+        if triangulation is None:
+            quick_failure_reasons.append("one_or_more_faces_have_no_usable_triangulation")
+        else:
+            node_count = int(triangulation.NbNodes())
+            triangle_count_face = int(triangulation.NbTriangles())
+            deflection = float(triangulation.Deflection())
+            within_limit = math.isfinite(deflection) and deflection <= request_limit + 1e-9
+            info.update({"node_count": node_count, "triangle_count": triangle_count_face,
+                         "deflection_mm": deflection, "within_linear_limit": within_limit})
+            quick_nodes += node_count
+            quick_triangles += triangle_count_face
+            if node_count < 3 or triangle_count_face < 1:
+                quick_failure_reasons.append("one_or_more_faces_have_no_positive_triangle_count")
+            if not within_limit:
+                quick_failure_reasons.append("one_or_more_faces_exceed_requested_linear_deflection")
+        quick_face_rows.append(info)
+    if not faces:
+        quick_failure_reasons.append("shape_has_no_faces")
+    # A false global guard can be explained by degenerate edges, so that case
+    # still reaches the full edge classification below. Face completeness and
+    # the explicit absolute upper limit, however, cannot be recovered by more
+    # node extraction at this target.
+    quick_failure_reasons = list(dict.fromkeys(quick_failure_reasons))
+    if quick_failure_reasons:
+        report = {"requested_linear_deflection_mm": request_limit,
+                  "requested_linear_deflection_upper_limit_mm": request_limit,
+                  "linear_deflection_interpretation": (
+                      "OCCT triangulation.Deflection kernel report; not an independent distance measurement"),
+                  "mesher_linear_deflection_target_mm": float(tolerance),
+                  "angular_tolerance_rad": float(angular),
+                  "mesher_is_done": bool(mesher.IsDone()),
+                  "mesher_status_flags": int(mesher.GetStatusFlags()),
+                  "triangulation_guard_passed": request_guard_passed,
+                  "triangulation_guard_at_requested_upper_limit_passed": request_guard_passed,
+                  "triangulation_guard_at_mesher_target_passed": target_guard_passed,
+                  "triangulation_guard_error": request_guard_error,
+                  "triangulation_guard_at_mesher_target_error": target_guard_error,
+                  "face_count": len(faces),
+                  "all_faces_complete": all(row["triangulation_present"] for row in quick_face_rows),
+                  "all_faces_have_positive_triangles": all(
+                      row["node_count"] >= 3 and row["triangle_count"] > 0 for row in quick_face_rows),
+                  "all_faces_within_linear_limit": all(row["within_linear_limit"] for row in quick_face_rows),
+                  "all_faces_within_mesher_target": None,
+                  "all_triangle_indices_valid": None,
+                  "triangle_index_validation_performed": False,
+                  "face_node_count_total": quick_nodes,
+                  "face_triangle_count_total": quick_triangles,
+                  "extracted_vertex_count": 0, "extracted_triangle_count": 0,
+                  "mesh_extraction_performed": False,
+                  "mesh_ready": False, "rejection_reasons": quick_failure_reasons,
+                  "missing_nondegenerate_edge_polygons": [],
+                  "missing_degenerate_edge_polygons": [],
+                  "missing_unclassified_edge_polygons": [],
+                  "faces": quick_face_rows}
+        return [], [], report, False
+
     vertex_rows, triangle_rows = [], []
     face_rows = []
     missing_nondegenerate, missing_degenerate, missing_unknown = [], [], []
     all_faces_complete = True
     all_faces_within_limit = True
     all_indices_valid = True
-    for face_index, face in enumerate(shape.Faces(), start=1):
+    for face_index, face in enumerate(faces, start=1):
         location = TopLoc_Location()
         triangulation = BRep_Tool.Triangulation_s(face.wrapped, location)
         face_info = {"face_index": face_index, "triangulation_present": triangulation is not None,
@@ -829,6 +1000,8 @@ def absolute_face_mesh(shape, tolerance, angular, requested_upper_limit=None):
             "upper limit remains the acceptance threshold")
     report = {"requested_linear_deflection_mm": request_limit,
               "requested_linear_deflection_upper_limit_mm": request_limit,
+              "linear_deflection_interpretation": (
+                  "OCCT triangulation.Deflection kernel report; not an independent distance measurement"),
               "mesher_linear_deflection_target_mm": float(tolerance),
               "angular_tolerance_rad": float(angular),
               "mesher_is_done": bool(mesher.IsDone()),
@@ -840,9 +1013,16 @@ def absolute_face_mesh(shape, tolerance, angular, requested_upper_limit=None):
               "triangulation_guard_at_mesher_target_error": target_guard_error,
               "face_count": len(face_rows),
               "all_faces_complete": all_faces_complete,
+              "all_faces_have_positive_triangles": all_faces_have_positive_triangles,
               "all_faces_within_linear_limit": all_faces_within_limit,
               "all_faces_within_mesher_target": all_faces_within_target,
               "all_triangle_indices_valid": all_indices_valid,
+              "triangle_index_validation_performed": True,
+              "face_node_count_total": sum(int(face["node_count"]) for face in face_rows),
+              "face_triangle_count_total": sum(int(face["triangle_count"]) for face in face_rows),
+              "extracted_vertex_count": len(vertex_rows),
+              "extracted_triangle_count": len(triangle_rows),
+              "mesh_extraction_performed": True,
               "mesh_ready": bool(accepted),
               "rejection_reasons": rejection_reasons,
               "triangulation_guard_false_explanation": guard_false_explanation,
@@ -853,47 +1033,279 @@ def absolute_face_mesh(shape, tolerance, angular, requested_upper_limit=None):
     return vertex_rows, triangle_rows, report, accepted
 
 
-def export_mesh(parts, control, config, output_dir):
+MESH_CACHE_SCHEMA = "absolute_face_mesh_cache_v1"
+MESH_CACHE_ALGORITHM = "occt_absolute_face_mesh_two_phase_incremental_v2_cached_fine_start"
+
+
+def _stable_json_bytes(value):
+    return json.dumps(value, ensure_ascii=False, sort_keys=True,
+                      separators=(",", ":"), allow_nan=False).encode("utf-8")
+
+
+def _mesh_environment_identity():
+    from importlib.metadata import PackageNotFoundError, version
+    import OCP
+    versions = {}
+    for package in ("cadquery", "cadquery-ocp"):
+        try:
+            versions[package] = version(package)
+        except PackageNotFoundError:
+            versions[package] = "unknown"
+    return {"python": sys.version.split()[0], "packages": versions,
+            "ocp_module_version": str(getattr(OCP, "__version__", "unknown"))}
+
+
+def _mesh_cache_source_sha256():
+    # This source file contains the meshing checks and OBJ triangle indexing.
+    return hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+
+
+def _shape_brep_sha256(shape, cache_dir):
+    """Hash a cleaned BRep serialization; never use names or bounding boxes as identity."""
+    from OCP.BRepTools import BRepTools
+    from OCP.TopTools import TopTools_FormatVersion
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    handle, temp_name = tempfile.mkstemp(prefix="brep-", suffix=".brep", dir=cache_dir)
+    os.close(handle)
+    temp_path = Path(temp_name)
+    try:
+        if not BRepTools.Write_s(shape.wrapped, str(temp_path), False, False,
+                                 TopTools_FormatVersion.TopTools_FormatVersion_VERSION_1):
+            raise OSError("OCCT could not serialize the BRep for mesh-cache identity")
+        return sha256(temp_path)
+    finally:
+        temp_path.unlink(missing_ok=True)
+
+
+def _mesh_cache_key(identity):
+    return hashlib.sha256(_stable_json_bytes(identity)).hexdigest()
+
+
+def _load_mesh_cache(path, cache_key, identity):
+    try:
+        with gzip.open(path, "rt", encoding="utf-8") as stream:
+            document = json.load(stream)
+        payload = document["payload"]
+        if (document.get("schema") != MESH_CACHE_SCHEMA or
+                document.get("cache_key") != cache_key or
+                document.get("identity") != identity or
+                document.get("payload_sha256") != hashlib.sha256(_stable_json_bytes(payload)).hexdigest()):
+            return None
+        vertices, triangles, report = payload["vertices"], payload["triangles"], payload["report"]
+        if (not isinstance(vertices, list) or not vertices or
+                not isinstance(triangles, list) or not triangles or
+                not isinstance(report, dict) or report.get("mesh_ready") is not True or
+                report.get("mesh_extraction_performed") is not True):
+            return None
+        if any(not isinstance(row, list) or len(row) != 3 or
+               any(not isinstance(value, (int, float)) or not math.isfinite(value) for value in row)
+               for row in vertices):
+            return None
+        vertex_count = len(vertices)
+        if any(not isinstance(row, list) or len(row) != 3 or
+               any(type(index) is not int or index < 0 or index >= vertex_count for index in row)
+               for row in triangles):
+            return None
+        if (report.get("triangle_index_validation_performed") is not True or
+                report.get("all_triangle_indices_valid") is not True or
+                report.get("all_faces_complete") is not True or
+                report.get("all_faces_have_positive_triangles") is not True or
+                report.get("all_faces_within_linear_limit") is not True or
+                report.get("missing_nondegenerate_edge_polygons") != [] or
+                report.get("missing_unclassified_edge_polygons") != [] or
+                report.get("rejection_reasons") != []):
+            return None
+        faces = report.get("faces")
+        if (not isinstance(faces, list) or not faces or
+                len(faces) != report.get("face_count") or
+                sum(int(face.get("node_count", -1)) for face in faces) != len(vertices) or
+                sum(int(face.get("triangle_count", -1)) for face in faces) != len(triangles)):
+            return None
+        return vertices, [tuple(row) for row in triangles], report
+    except (OSError, EOFError, ValueError, TypeError, KeyError, json.JSONDecodeError):
+        return None
+
+
+def _write_mesh_cache(path, cache_key, identity, vertices, triangles, report):
+    payload = {"vertices": vertices,
+               "triangles": [list(map(int, row)) for row in triangles],
+               "report": report}
+    document = {"schema": MESH_CACHE_SCHEMA, "cache_key": cache_key,
+                "identity": identity,
+                "payload_sha256": hashlib.sha256(_stable_json_bytes(payload)).hexdigest(),
+                "payload": payload}
+    path.parent.mkdir(parents=True, exist_ok=True)
+    handle, temp_name = tempfile.mkstemp(prefix=path.stem + ".", suffix=".tmp.gz", dir=path.parent)
+    os.close(handle)
+    temp_path = Path(temp_name)
+    try:
+        with gzip.open(temp_path, "wt", encoding="utf-8", compresslevel=6) as stream:
+            json.dump(document, stream, ensure_ascii=False, allow_nan=False, separators=(",", ":"))
+        os.replace(temp_path, path)
+    finally:
+        temp_path.unlink(missing_ok=True)
+
+
+def export_mesh(parts, control, config, output_dir, *, mode="exact", mesh_cache_dir=None):
     mesh_parts, obj_lines = [], ["# Parametric timber construction; units mm"]
     obj_offset = 1
     triangle_count = 0
     tolerance = float(config["advanced"]["mesh_tessellation_mm"])
     angular = float(config["advanced"]["mesh_angular_tolerance_rad"])
     remesh_seconds = 0.0
+    cache_dir = (Path(mesh_cache_dir) if mesh_cache_dir is not None else HERE / "outputs" / ".mesh_cache")
+    try:
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        cache_available = True
+    except OSError:
+        cache_available = False
+    source_sha = _mesh_cache_source_sha256()
+    environment = _mesh_environment_identity()
+    cache_hits = cache_misses = cache_invalid = cache_writes = cache_unavailable = 0
     # Mesher targets may need to be smaller than the requested upper bound on
     # strongly trimmed/ruled faces. Keep retries bounded and acceptance fixed;
     # a B400 lower-board BRep required 1/32 of its 2 mm limit to meet it.
     retry_targets = [tolerance / factor for factor in (1, 2, 4, 8, 16, 32)]
-    diagnostics = {"schema": "v02_absolute_mesh_export_diagnostics_v2",
-                   "case_id": config["case_id"], "requested_linear_deflection_mm": tolerance,
+    diagnostics = {"schema": "absolute_mesh_export_diagnostics_v3",
+                   "case_id": config["case_id"], "mode": mode,
+                   "requested_linear_deflection_mm": tolerance,
                    "requested_linear_deflection_upper_limit_mm": tolerance,
                    "mesher_attempt_targets_mm": retry_targets,
                    "angular_tolerance_rad": angular,
                    "retry_tolerances_mm": retry_targets,
+                   "mesh_cache": {"schema": MESH_CACHE_SCHEMA, "algorithm": MESH_CACHE_ALGORITHM,
+                                  "source_sha256": source_sha, "environment": environment,
+                                  "directory": str(cache_dir.resolve()),
+                                  "cache_available": cache_available},
                    "parts": []}
     effective_targets = {}
     for part in parts:
         shape = part["shape"]
         mesh_started = time.perf_counter()
         part_report = {"id": part["id"], "name": part["name"], "group": part["group"],
-                       "attempts": [], "accepted_tolerance_mm": None}
+                       "attempts": [], "accepted_tolerance_mm": None,
+                       "brep_geometry_sha256": None, "mesh_cache": "unavailable",
+                       "mesh_cache_candidate_scan_count": 0,
+                       "mesh_cache_start_tolerance_mm": None,
+                       "skipped_coarser_retry_tolerances_mm": [],
+                       "invalid_mesh_cache_candidate_tolerances_mm": []}
         chosen_vertices = chosen_triangles = None
         last_report = None
-        for attempt_tolerance in diagnostics["retry_tolerances_mm"]:
+        brep_sha = None
+        cleaned_once = False
+        try:
+            from OCP.BRepTools import BRepTools
+            # One explicit clean per part. OCCT receives the existing mesh
+            # on progressively finer retries and incrementally refines it.
+            BRepTools.Clean_s(shape.wrapped)
+            cleaned_once = True
+        except Exception as exc:
+            part_report["mesh_clean_error"] = f"{type(exc).__name__}: {exc}"
+        if cache_available and cleaned_once:
             try:
-                vertices, triangles, report, accepted = absolute_face_mesh(
-                    shape, float(attempt_tolerance), angular,
-                    requested_upper_limit=tolerance)
+                brep_sha = _shape_brep_sha256(shape, cache_dir)
+                part_report["brep_geometry_sha256"] = brep_sha
+                part_report["mesh_cache"] = "miss"
             except Exception as exc:
-                report = {"requested_linear_deflection_mm": float(attempt_tolerance),
-                          "requested_linear_deflection_upper_limit_mm": tolerance,
-                          "mesher_linear_deflection_target_mm": float(attempt_tolerance),
-                          "angular_tolerance_rad": angular,
-                          "error": f"{type(exc).__name__}: {exc}", "mesh_ready": False,
-                          "mesher_is_done": None, "mesher_status_flags": None,
-                          "faces": []}
-                accepted = False
-                vertices, triangles = [], []
+                cache_unavailable += 1
+                part_report["mesh_cache"] = "identity_unavailable"
+                part_report["mesh_cache_error"] = f"{type(exc).__name__}: {exc}"
+        else:
+            cache_unavailable += 1
+
+        def cache_identity_for(target):
+            return {"brep_sha256": brep_sha,
+                    "requested_linear_deflection_mm": tolerance,
+                    "mesher_target_mm": float(target),
+                    "angular_tolerance_rad": angular,
+                    "algorithm": MESH_CACHE_ALGORITHM,
+                    "algorithm_source_sha256": source_sha, "environment": environment}
+
+        invalid_cache_paths = set()
+        cached_start = None
+        if brep_sha is not None:
+            # A successful finer mesh is sufficient for this unchanged BRep
+            # and request. Find the coarsest previously validated target before
+            # asking OCCT to repeat known-failing coarser attempts.
+            for target_index, candidate_tolerance in enumerate(diagnostics["retry_tolerances_mm"]):
+                candidate_identity = cache_identity_for(candidate_tolerance)
+                candidate_key = _mesh_cache_key(candidate_identity)
+                candidate_path = cache_dir / f"{candidate_key}.json.gz"
+                if not candidate_path.is_file():
+                    continue
+                part_report["mesh_cache_candidate_scan_count"] += 1
+                candidate_mesh = _load_mesh_cache(candidate_path, candidate_key,
+                                                   candidate_identity)
+                if candidate_mesh is None:
+                    invalid_cache_paths.add(candidate_path)
+                    part_report["invalid_mesh_cache_candidate_tolerances_mm"].append(
+                        float(candidate_tolerance))
+                    cache_invalid += 1
+                    continue
+                cached_start = (target_index, float(candidate_tolerance), candidate_key,
+                                candidate_identity, candidate_path, candidate_mesh)
+                break
+
+        if cached_start is not None:
+            start_index = cached_start[0]
+            part_report["mesh_cache_start_tolerance_mm"] = cached_start[1]
+            part_report["skipped_coarser_retry_tolerances_mm"] = [
+                float(target) for target in diagnostics["retry_tolerances_mm"][:start_index]]
+        else:
+            start_index = 0
+
+        for target_index, attempt_tolerance in enumerate(
+                diagnostics["retry_tolerances_mm"][start_index:], start=start_index):
+            identity = {"brep_sha256": brep_sha, "requested_linear_deflection_mm": tolerance,
+                        "mesher_target_mm": float(attempt_tolerance),
+                        "angular_tolerance_rad": angular,
+                        "algorithm": MESH_CACHE_ALGORITHM,
+                        "algorithm_source_sha256": source_sha, "environment": environment}
+            cache_key = _mesh_cache_key(identity) if brep_sha else None
+            cache_path = cache_dir / f"{cache_key}.json.gz" if cache_key else None
+            if cached_start is not None and target_index == cached_start[0]:
+                cached = cached_start[5]
+            else:
+                cached = _load_mesh_cache(cache_path, cache_key, identity) if cache_path else None
+            if cached is not None:
+                vertices, triangles, report = cached
+                report = {**report, "mesh_cache_hit": True}
+                accepted = True
+                cache_hits += 1
+                part_report["mesh_cache"] = "hit"
+            else:
+                if cache_path and cache_path.exists():
+                    if cache_path not in invalid_cache_paths:
+                        cache_invalid += 1
+                elif cache_path:
+                    cache_misses += 1
+                mesh_started = time.perf_counter()
+                try:
+                    vertices, triangles, report, accepted = absolute_face_mesh(
+                        shape, float(attempt_tolerance), angular,
+                        requested_upper_limit=tolerance, clean_before_mesh=not cleaned_once)
+                except Exception as exc:
+                    report = {"requested_linear_deflection_mm": float(attempt_tolerance),
+                              "requested_linear_deflection_upper_limit_mm": tolerance,
+                              "mesher_linear_deflection_target_mm": float(attempt_tolerance),
+                              "angular_tolerance_rad": angular,
+                              "error": f"{type(exc).__name__}: {exc}", "mesh_ready": False,
+                              "mesher_is_done": None, "mesher_status_flags": None,
+                              "mesh_extraction_performed": False, "faces": []}
+                    accepted = False
+                    vertices, triangles = [], []
+                remesh_seconds += time.perf_counter() - mesh_started
+                if accepted and cache_path:
+                    try:
+                        _write_mesh_cache(cache_path, cache_key, identity,
+                                          vertices, triangles, report)
+                        cache_writes += 1
+                        part_report["mesh_cache"] = "written"
+                    except OSError as exc:
+                        cache_unavailable += 1
+                        part_report["mesh_cache_error"] = f"{type(exc).__name__}: {exc}"
+                elif not cache_path:
+                    report = {**report, "mesh_cache_hit": False}
             part_report["attempts"].append(report)
             last_report = report
             if accepted:
@@ -910,7 +1322,6 @@ def export_mesh(parts, control, config, output_dir):
             json_dump(diagnostics, output_dir / "mesh_export_diagnostics.json")
             raise ValueError(
                 f"构件{part['id']}绝对网格在{diagnostics['retry_tolerances_mm']}mm内无法满足逐面三角网和边界离散要求")
-        remesh_seconds += time.perf_counter() - mesh_started
         effective_targets[part["id"]] = part_report["accepted_tolerance_mm"]
         vertex_rows = chosen_vertices
         tri_rows = chosen_triangles
@@ -924,6 +1335,21 @@ def export_mesh(parts, control, config, output_dir):
         triangle_count += len(tri_rows)
     diagnostics["summary"] = {
         "parts": len(parts),
+        "mesh_cache_hit_attempt_count": cache_hits,
+        "mesh_cache_miss_attempt_count": cache_misses,
+        "mesh_cache_invalid_entry_count": cache_invalid,
+        "mesh_cache_written_attempt_count": cache_writes,
+        "mesh_cache_unavailable_part_count": cache_unavailable,
+        "parts_with_cached_fine_start": sum(
+            part.get("mesh_cache_start_tolerance_mm") is not None
+            for part in diagnostics["parts"]),
+        "skipped_coarser_retry_attempt_count": sum(
+            len(part.get("skipped_coarser_retry_tolerances_mm", []))
+            for part in diagnostics["parts"]),
+        "mesh_cache_candidate_scan_count": sum(
+            part.get("mesh_cache_candidate_scan_count", 0)
+            for part in diagnostics["parts"]),
+        "parts_cleaned_once_before_mesh": len(parts) if cache_available else 0,
         "mesher_not_done_count": sum(
             any(attempt.get("mesher_is_done") is False for attempt in part["attempts"])
             for part in diagnostics["parts"]),
@@ -956,6 +1382,8 @@ def export_mesh(parts, control, config, output_dir):
          for attempt in part["attempts"][-1:] for face in attempt.get("faces", [])
          if face.get("deflection_mm") is not None), default=0.0)
     mesh = {"metadata": {"units": "mm", "up_axis": "Z", "case_id": config["case_id"],
+                         "mode": mode,
+                         "preview_status": "preview_only" if mode == "preview" else None,
                          "stage": 5, "stage_name": "symmetric parametric corner construction",
                          "corner_angle_deg": float(config["corner_angle_deg"]),
                          "mesh_tessellation_mm": tolerance,
@@ -965,12 +1393,15 @@ def export_mesh(parts, control, config, output_dir):
                          "mesh_effective_min_part_target_mm": float(min(effective_targets.values())),
                          "mesh_effective_target_mm_by_part": effective_targets,
                          "mesh_retry_tolerances_mm": diagnostics["retry_tolerances_mm"],
+                         "mesh_deflection_check_basis": (
+                             "OCCT triangulation.Deflection kernel report; not an independent distance measurement"),
                          "mesh_diagnostic_summary": diagnostics["summary"],
                          "mesh_relative_mode": False,
                          "mesh_angular_tolerance_rad": angular,
-                         "mesh_cache_rule": "BRepTools.Clean_s then BRepMesh_IncrementalMesh(relative=False); triangles are read directly from each face, without CadQuery tessellate() or its relative-default remesh",
+                         "mesh_cache_rule": "geometry BRep SHA256 + requested/attempt deflection + angular tolerance + generator source + OCCT/Python environment; absolute validated meshes only; reuse the coarsest cached accepted target before remeshing; otherwise one Clean_s per part then incremental finer attempts; direct face node/triangle extraction",
                          "mesh_absolute_remesh_seconds": float(remesh_seconds),
-                         "mesh_cache_clean_part_count": int(len(parts)),
+                         "mesh_cache_clean_part_count": int(len(parts) if cache_available else 0),
+                         "mesh_cache_summary": diagnostics["summary"],
                          "mesh_diagnostics_file": "mesh_export_diagnostics.json",
                          "scope": "参数重建第五版范围；角部左右镜像；排料仅含立脚飞椽单侧模板×2；正身飞椽仅进3D"},
             "parts": mesh_parts, "control_lines": control}
@@ -1045,13 +1476,20 @@ def generation_record(config, parts, mesh, profiles, layout, fly_records, fan_di
     }
 
 
-def build_manifest(case_dir, case_id):
+def build_manifest(case_dir, case_id, *, mode="exact", source_identity=None,
+                   presentation_source_identity=None):
     files = []
     for path in sorted(case_dir.rglob("*")):
         if path.is_file() and path.name != "manifest.json":
             files.append({"path": str(path.relative_to(case_dir)).replace("\\", "/"),
                           "bytes": path.stat().st_size, "sha256": sha256(path)})
-    return {"case_id": case_id, "case_dir": str(case_dir), "file_count": len(files), "files": files}
+    manifest = {"case_id": case_id, "mode": checked_generation_mode(mode),
+                "file_count": len(files), "files": files}
+    if source_identity is not None:
+        manifest["source_identity"] = source_identity
+    if presentation_source_identity is not None:
+        manifest["presentation_source_identity"] = presentation_source_identity
+    return manifest
 
 
 def remove_stale_step(case_dir: Path) -> None:
@@ -1077,6 +1515,26 @@ def finalize_existing_case(config_path: Path, output_path: Path, make_viewer=Tru
     if missing:
         raise ValueError(f"无法从现有导出恢复；缺少文件：{', '.join(missing)}")
     resolved_existing = json.loads((output_dir / "parameters_resolved.json").read_text(encoding="utf-8"))
+    mesh = json.loads((output_dir / "model_mesh.json").read_text(encoding="utf-8"))
+    validation_path = output_dir / "validation.json"
+    manifest_path = output_dir / "manifest.json"
+    validation_existing = (json.loads(validation_path.read_text(encoding="utf-8"))
+                           if validation_path.is_file() else None)
+    manifest_existing = (json.loads(manifest_path.read_text(encoding="utf-8"))
+                         if manifest_path.is_file() else None)
+    mesh_metadata = mesh.get("metadata", {})
+    recorded_modes = [resolved_existing.get("mode", "exact"),
+                      mesh_metadata.get("mode", "exact")]
+    if validation_existing is not None:
+        recorded_modes.append(validation_existing.get("mode", "exact"))
+    if manifest_existing is not None:
+        recorded_modes.append(manifest_existing.get("mode", "exact"))
+    if any(recorded_mode != "exact" for recorded_mode in recorded_modes):
+        raise ValueError("恢复拒绝：已有参数、网格、验证或manifest不是同一exact模式")
+    current_identity = current_source_identity_record()
+    saved_source_identity = _verify_source_identity_chain(
+        [resolved_existing, {"source_identity": mesh_metadata.get("source_identity")},
+         validation_existing, manifest_existing], current_identity)
     same_inputs = (resolved_existing.get("case_id") == config["case_id"] and
                    resolved_existing.get("corner_angle_deg") == config["corner_angle_deg"] and
                    resolved_existing.get("parameters") == config["parameters"] and
@@ -1084,7 +1542,16 @@ def finalize_existing_case(config_path: Path, output_path: Path, make_viewer=Tru
     if not same_inputs:
         raise ValueError("恢复拒绝：parameters_resolved.json与所给配置的case_id、参数或advanced不完全一致；"
                          "为避免把不同配置与旧网格混配，请先检查输出目录身份")
-    mesh = json.loads((output_dir / "model_mesh.json").read_text(encoding="utf-8"))
+    if manifest_existing is not None:
+        verify_saved_manifest(output_dir, manifest_existing, config["case_id"], "exact")
+    if validation_existing is not None:
+        validation_input = validation_existing.get("input", {})
+        if (validation_existing.get("mode", "exact") != "exact" or
+                validation_input.get("case_id", config["case_id"]) != config["case_id"] or
+                validation_input.get("corner_angle_deg", config["corner_angle_deg"]) != config["corner_angle_deg"] or
+                validation_input.get("parameters", config["parameters"]) != config["parameters"] or
+                validation_input.get("advanced", config["advanced"]) != config["advanced"]):
+            raise ValueError("恢复拒绝：已有validation的模式或参数与本次配置不一致")
     profile_doc = json.loads((output_dir / "profiles.json").read_text(encoding="utf-8"))
     layout = json.loads((output_dir / "layout.json").read_text(encoding="utf-8"))
     if (mesh.get("metadata", {}).get("case_id") != config["case_id"] or
@@ -1124,27 +1591,21 @@ def finalize_existing_case(config_path: Path, output_path: Path, make_viewer=Tru
                     "mirrored_count": len(profiles),
                     "total_count": 2 * len(profiles),
                     "n_definition": "n为最小奇数等分区间数，A=L弧/n<B；内部i/n分点生成n-1根摔网椽，端点只作边界"}
-    try:
-        stage05 = load_stage05()
-        geometric_case, arc, young_sagitta = derived_geometry_values(config, stage05)
-        expected_fan_division_count_n = int(geometric_case["fan_surface"]["n"])
-        expected_fan_count = expected_fan_division_count_n - 1
-        update_resolved_geometry_derivations(config, arc, young_sagitta, expected_fan_division_count_n)
-        if len(profiles) != expected_fan_count:
-            raise ValueError(f"恢复输出的立脚模板数{len(profiles)}与当前分档规则n−1={expected_fan_count}不一致")
-        write_resolved(config, output_dir / "parameters_resolved.json")
-        fan_geometry.update({"fan_division_count_n": expected_fan_division_count_n,
-                             "fan_rafter_count": expected_fan_count,
-                             "expected_fan_rafter_count": expected_fan_count,
-                             "fan_count_matches_spacing_rule": len(profiles) == expected_fan_count,
-                             "arc_length_mm": float(arc["arc_length_mm"]),
-                             "arc_length_over_n_mm": float(arc["arc_length_mm"] / expected_fan_division_count_n),
-                             "derived_sagitta_mm": float(arc["derived_sagitta_mm"]),
-                             "spacing_limit_B_mm": float(config["parameters"]["B"])})
-    except Exception as exc:
-        fan_geometry["geometry_diagnostic_unavailable"] = f"{type(exc).__name__}: {exc}"
-    if expected_fan_count is not None and len(profiles) != expected_fan_count:
+    stage05 = load_stage05()
+    geometric_case, arc, young_sagitta = derived_geometry_values(config, stage05)
+    expected_fan_division_count_n = int(geometric_case["fan_surface"]["n"])
+    expected_fan_count = expected_fan_division_count_n - 1
+    update_resolved_geometry_derivations(config, arc, young_sagitta, expected_fan_division_count_n)
+    if len(profiles) != expected_fan_count:
         raise ValueError(f"恢复输出的立脚模板数{len(profiles)}与当前分档规则n−1={expected_fan_count}不一致")
+    fan_geometry.update({"fan_division_count_n": expected_fan_division_count_n,
+                         "fan_rafter_count": expected_fan_count,
+                         "expected_fan_rafter_count": expected_fan_count,
+                         "fan_count_matches_spacing_rule": len(profiles) == expected_fan_count,
+                         "arc_length_mm": float(arc["arc_length_mm"]),
+                         "arc_length_over_n_mm": float(arc["arc_length_mm"] / expected_fan_division_count_n),
+                         "derived_sagitta_mm": float(arc["derived_sagitta_mm"]),
+                         "spacing_limit_B_mm": float(config["parameters"]["B"])})
 
     entities = {"count": len(mesh_parts), "geometry_assessment": "not_run",
                 "items": [{"id": part["id"], "group": part.get("group")}
@@ -1162,7 +1623,9 @@ def finalize_existing_case(config_path: Path, output_path: Path, make_viewer=Tru
                     "translation_available": bool(translation.get("available", False)),
                     "translation_error_max_mm": translation.get("max_abs_error_mm"),
                     "translation_error_rms_mm": translation.get("rms_error_mm")}
-    validation = {"schema": "v02_generation_record_v1",
+    validation = {"schema": "v02_generation_record_v1", "mode": "exact",
+                  "source_identity": saved_source_identity,
+                  "validation_scope": "exact_generation_delivery",
                   "assessment_basis": "generation_complete_visual_review_pending",
                   "model_geometry_checks_run": False,
                   "visual_review": {"status": "pending", "required": True,
@@ -1191,7 +1654,11 @@ def finalize_existing_case(config_path: Path, output_path: Path, make_viewer=Tru
                                 "reason": "保留现有网格、OBJ、中心截面与排料文件；补写生成状态/展示输出，不重建CAD几何。"},
                   # Legacy backend completion flag: this records delivery completion only.
                   "passed": True}
-    json_dump(validation, output_dir / "validation.json")
+    # All mode, input, source, manifest, linkage, and count checks are complete.
+    # Only now may recovery rewrite derived records or remove a stale STEP.
+    write_resolved_mode(config, output_dir / "parameters_resolved.json", "exact",
+                        source_identity=saved_source_identity)
+    json_dump(validation, validation_path)
     render_report = None
     if make_viewer:
         try:
@@ -1204,7 +1671,12 @@ def finalize_existing_case(config_path: Path, output_path: Path, make_viewer=Tru
         except Exception as exc:
             render_report = {"available": False, "error": f"{type(exc).__name__}: {exc}"}
     remove_stale_step(output_dir)
-    json_dump(build_manifest(output_dir, config["case_id"]), output_dir / "manifest.json")
+    presentation_identity = (current_identity["production"]
+                             if current_identity["production"]["sha256"] !=
+                             saved_source_identity["production"]["sha256"] else None)
+    json_dump(build_manifest(output_dir, config["case_id"], mode="exact",
+                             source_identity=saved_source_identity,
+                             presentation_source_identity=presentation_identity), manifest_path)
     return {"case_id": config["case_id"], "output_dir": str(output_dir),
             "parts": len(mesh_parts), "fan_templates_per_side": len(profiles),
             "layout_board_mm": [layout["layout"]["board_width_x_mm"],
@@ -1219,11 +1691,16 @@ def finalize_existing_case(config_path: Path, output_path: Path, make_viewer=Tru
             "fan_count_actual_per_side": len(profiles)}
 
 
-def generate(config_path: Path, output_path: Path, make_viewer=True, export_step=False):
+def generate(config_path: Path, output_path: Path, make_viewer=True, export_step=False, *,
+             mode="exact", mesh_cache_dir=None):
+    mode = checked_generation_mode(mode)
+    if mode == "preview" and export_step:
+        raise ValueError("预览模式不生成STEP；请使用精确生成")
     start = time.perf_counter()
     phase_timings = {}
     phase_started = time.perf_counter()
     config = load_config(config_path)
+    source_identity = current_source_identity_record()
     phase_timings["config_validation_and_initial_write"] = time.perf_counter() - phase_started
     print(f"generator: validated case={config['case_id']} angle={config['corner_angle_deg']:g}deg; starting geometry", flush=True)
     phase_started = time.perf_counter()
@@ -1244,10 +1721,17 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
     except ValueError as exc:
         raise ValueError(f"输出路径必须位于生成器outputs目录内，避免覆盖旧模型或研究探针：{output_dir}") from exc
     output_dir.mkdir(parents=True, exist_ok=True)
-    write_resolved(config, output_dir / "parameters_resolved.json")
+    if mode == "preview":
+        exact_only_artifacts = ("layout.html", "layout.json", "layout.png", "layout.svg",
+                                "marking_points.csv", "profiles.json", "model.step")
+        present = [name for name in exact_only_artifacts if (output_dir / name).exists()]
+        if present:
+            raise ValueError("预览输出目录包含先前精确生成文件；请指定新的独立输出目录：" + ", ".join(present))
+    write_resolved_mode(config, output_dir / "parameters_resolved.json", mode,
+                        source_identity=source_identity)
 
     recovery_started = time.perf_counter()
-    geometry_recovery = find_geometry_checkpoint(config, output_dir)
+    geometry_recovery = find_geometry_checkpoint(config, output_dir, mode=mode)
     if geometry_recovery is not None:
         previous_phase_timings = geometry_recovery.get("geometry_phase_timings_seconds", {})
         for name in ("stage04_base_and_preflight", "stage05_flyer_build",
@@ -1267,7 +1751,8 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
         notch_records = geometry_recovery["notch_records"]
         board_records = geometry_recovery["board_records"]
         combination_info = geometry_recovery["combination_info"]
-        write_resolved(config, output_dir / "parameters_resolved.json")
+        write_resolved_mode(config, output_dir / "parameters_resolved.json", mode,
+                            source_identity=source_identity)
         recovered_checkpoint = geometry_recovery
         geometry_recovery = {
             "mode": "exact geometry-source and normalized-config checkpoint",
@@ -1297,49 +1782,63 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
             config, ctx["case"]["fan_geometry"]["arc"],
             ctx["young_info"]["effective_carback_sagitta_mm"],
             ctx["case"]["fan_geometry"]["n"])
-        write_resolved(config, output_dir / "parameters_resolved.json")
+        write_resolved_mode(config, output_dir / "parameters_resolved.json", mode,
+                            source_identity=source_identity)
         phase_timings["stage04_base_and_preflight"] = time.perf_counter() - phase_started
-        print("generator: standing/straight flyer solids start", flush=True)
+        print(f"generator: {mode} flyer geometry start", flush=True)
         phase_started = time.perf_counter()
-        fly_records = stage05.add_contact_flyers(ctx)
+        fly_records = (stage05.add_preview_contact_flyers(ctx) if mode == "preview"
+                       else stage05.add_contact_flyers(ctx))
         phase_timings["stage05_flyer_build"] = time.perf_counter() - phase_started
-        print("generator: likou seat refit start", flush=True)
-        phase_started = time.perf_counter()
-        notch_records = stage05.cut_contact_likou_notches(ctx)
-        phase_timings["stage05_likou_cut_and_mirror"] = time.perf_counter() - phase_started
-        print("generator: upper roll-board rebuild start", flush=True)
-        phase_started = time.perf_counter()
-        board_records = stage05.add_upper_rollboards(ctx)
-        phase_timings["stage05_upper_board_rebuild"] = time.perf_counter() - phase_started
-        print("generator: combination timber rebuild start", flush=True)
-        phase_started = time.perf_counter()
-        combination_info = stage05.add_combination(ctx)
-        phase_timings["stage05_combination_rebuild"] = time.perf_counter() - phase_started
+        if mode == "preview":
+            notch_records = []
+            board_records = []
+            phase_timings["stage05_likou_cut_and_mirror"] = 0.0
+            phase_timings["stage05_upper_board_rebuild"] = 0.0
+            print("generator: preview combination stock blank start", flush=True)
+            phase_started = time.perf_counter()
+            combination_info = stage05.add_preview_combination_blank(ctx)
+            phase_timings["stage05_combination_rebuild"] = time.perf_counter() - phase_started
+        else:
+            print("generator: likou seat refit start", flush=True)
+            phase_started = time.perf_counter()
+            notch_records = stage05.cut_contact_likou_notches(ctx)
+            phase_timings["stage05_likou_cut_and_mirror"] = time.perf_counter() - phase_started
+            print("generator: upper roll-board rebuild start", flush=True)
+            phase_started = time.perf_counter()
+            board_records = stage05.add_upper_rollboards(ctx)
+            phase_timings["stage05_upper_board_rebuild"] = time.perf_counter() - phase_started
+            print("generator: combination timber rebuild start", flush=True)
+            phase_started = time.perf_counter()
+            combination_info = stage05.add_combination(ctx)
+            phase_timings["stage05_combination_rebuild"] = time.perf_counter() - phase_started
         phase_timings["geometry_total_after_stage04"] = sum(
             phase_timings[name] for name in ("stage05_flyer_build", "stage05_likou_cut_and_mirror",
                                              "stage05_upper_board_rebuild", "stage05_combination_rebuild"))
-        print(f"generator: geometry complete ({len(ctx['parts'])} parts); saving mesh-failure checkpoint",
-              flush=True)
+        print(f"generator: geometry complete ({len(ctx['parts'])} parts)", flush=True)
         if not fly_records:
             raise ValueError("当前参数下没有生成飞椽")
-        checkpoint_path, checkpoint_seconds = save_geometry_checkpoint(
-            ctx["parts"], ctx["control"], config, fly_records, notch_records,
-            board_records, combination_info, ctx, phase_timings,
-            time.perf_counter() - start, output_dir)
-        phase_timings["geometry_checkpoint_write"] = checkpoint_seconds
+        if mode == "exact":
+            print("generator: saving mesh-failure checkpoint", flush=True)
+            checkpoint_path, checkpoint_seconds = save_geometry_checkpoint(
+                ctx["parts"], ctx["control"], config, fly_records, notch_records,
+                board_records, combination_info, ctx, phase_timings,
+                time.perf_counter() - start, output_dir, mode=mode)
+            phase_timings["geometry_checkpoint_write"] = checkpoint_seconds
+            print(f"generator: mesh-failure checkpoint ready ({checkpoint_path}; {checkpoint_seconds:.3f}s)",
+                  flush=True)
         geometry_recovery = None
-        print(f"generator: mesh-failure checkpoint ready ({checkpoint_path}; {checkpoint_seconds:.3f}s)",
-              flush=True)
     print(f"generator: geometry complete ({len(ctx['parts'])} parts); exporting mesh", flush=True)
     if not fly_records:
         raise ValueError("当前参数下没有生成飞椽")
 
     phase_started = time.perf_counter()
     try:
-        mesh, triangles = export_mesh(ctx["parts"], ctx["control"], config, output_dir)
+        mesh, triangles = export_mesh(ctx["parts"], ctx["control"], config, output_dir,
+                                      mode=mode, mesh_cache_dir=mesh_cache_dir)
     except Exception:
         diagnostics_path = output_dir / "mesh_export_diagnostics.json"
-        if diagnostics_path.is_file():
+        if diagnostics_path.is_file() and mode == "exact":
             diagnostics = json.loads(diagnostics_path.read_text(encoding="utf-8"))
             checkpoint_source = (geometry_recovery["source_checkpoint"]
                                  if geometry_recovery is not None
@@ -1383,11 +1882,100 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
         raise
     phase_timings["mesh_remesh_and_export"] = time.perf_counter() - phase_started
     phase_timings["mesh_absolute_remesh_only"] = float(mesh["metadata"]["mesh_absolute_remesh_seconds"])
+    mesh["metadata"]["source_identity"] = source_identity
+    json_dump(mesh, output_dir / "model_mesh.json")
     local_checkpoint = output_dir / "geometry_checkpoint"
-    if local_checkpoint.is_dir():
+    if mode == "exact" and local_checkpoint.is_dir():
         shutil.rmtree(local_checkpoint)
     mesh_path = output_dir / "model_mesh.json"
     mesh_hash = sha256(mesh_path)
+    if mode == "preview":
+        mesh_parts = mesh.get("parts", [])
+        triangle_total = sum(len(part.get("triangles", [])) // 3 for part in mesh_parts)
+        flyer_records = list(ctx.get("contact_fly_records", []))
+        fan_count = sum(record.get("family") == "fan" for record in ctx.get("chosen", []))
+        expected_fans = int(ctx["case"]["fan_geometry"]["fan_rafter_count"])
+        if fan_count != expected_fans:
+            raise ValueError(f"preview flyer count mismatch: expected={expected_fans}, actual={fan_count}")
+        entity_items = []
+        for part in ctx["parts"]:
+            shape = part["shape"]
+            entity_items.append({"id": part["id"], "group": part["group"],
+                                 "brep_face_count": len(shape.Faces()),
+                                 "solid_count": len(shape.Solids()),
+                                 "is_valid": bool(shape.isValid()),
+                                 "volume_mm3": float(shape.Volume())})
+        validation = {
+            "schema": "workbench_generation_record_v1", "mode": "preview",
+            "source_identity": source_identity,
+            "status": "preview_ready", "validation_scope": "preview_geometry_and_mesh_delivery",
+            "exact_acceptance": "not_run", "passed": False,
+            "assessment_basis": "preview_delivery_complete_exact_geometry_not_run",
+            "model_geometry_checks_run": False,
+            "input": {"case_id": config["case_id"],
+                      "corner_angle_deg": config["corner_angle_deg"],
+                      "parameters": config["parameters"], "advanced": config["advanced"],
+                      "derived": config["derived"]},
+            "input_geometry": {"fan_count_expected_per_side": expected_fans,
+                               "fan_count_actual_per_side": fan_count,
+                               "fan_count_both_sides": 2 * fan_count},
+            "entities": {"count": len(entity_items),
+                         "geometry_assessment": "preview_validity_checked_exact_acceptance_not_run",
+                         "items": entity_items},
+            "mesh_export": {"completed": True, "part_count": len(mesh_parts),
+                            "triangle_count": triangle_total,
+                            "linear_deflection_mm": mesh["metadata"]["mesh_linear_deflection_mm"],
+                            "relative_mode": False,
+                            "cache": mesh["metadata"]["mesh_cache_summary"]},
+            "preview": {
+                "status": "preview_ready", "exact_generation_available": False,
+                "likou_notches_cut": False, "upper_rollboard_generated": False,
+                "flyers": flyer_records,
+                "flyer_geometry_rule": "Each flyer uses the v=0 center R/I/E profile rigidly extruded along its true 3D width vector; A/B match by construction.",
+                "combination": combination_info,
+                "combination_old_young_boolean_cuts_run": False,
+                "combination_horizontal_split_run": False,
+                "layout_generated": False, "step_generated": False,
+                "warnings": [
+                    "预览飞椽未保留全宽扭曲与两侧独立轮廓。",
+                    "里口保留原坯，未切槽；未生成上层卷戗板。",
+                    "组合木为未与老戗/嫩戗布尔切配、未上下拆分的原坯。",
+                    "排料、放样 CSV 与 STEP 未生成；精确实体验收未运行。"],
+            },
+            "phase_timings_seconds": phase_timings,
+            "runtime_seconds_before_render": float(time.perf_counter() - start),
+            "runtime_seconds_including_render": None,
+            "collision_checks": {"status": "not_run"},
+        }
+        json_dump(validation, output_dir / "validation.json")
+        config_source = Path(config_path)
+        json_dump(json.loads(config_source.read_text(encoding="utf-8-sig")),
+                  output_dir / "config.json")
+        render_report = None
+        if make_viewer:
+            print("generator: offline preview viewer rendering start", flush=True)
+            phase_started = time.perf_counter()
+            renderer_spec = importlib.util.spec_from_file_location(
+                "parametric_preview_delivery_renderer", HERE / "render_delivery.py")
+            if renderer_spec is None or renderer_spec.loader is None:
+                raise RuntimeError("无法加载render_delivery.py")
+            renderer = importlib.util.module_from_spec(renderer_spec)
+            renderer_spec.loader.exec_module(renderer)
+            render_report = renderer.render_preview_case(output_dir)
+            phase_timings["rendering"] = time.perf_counter() - phase_started
+        validation["runtime_seconds_including_render"] = float(time.perf_counter() - start)
+        validation["phase_timings_seconds"] = phase_timings
+        validation["render"] = render_report
+        json_dump(validation, output_dir / "validation.json")
+        json_dump(build_manifest(output_dir, config["case_id"], mode=mode,
+                                 source_identity=source_identity),
+                  output_dir / "manifest.json")
+        print(f"generator: preview ready ({len(mesh_parts)} parts, {triangle_total} triangles)", flush=True)
+        return {"case_id": config["case_id"], "mode": mode, "status": "preview_ready",
+                "output_dir": str(output_dir), "parts": len(mesh_parts),
+                "flyer_templates_per_side": fan_count, "mesh_triangles": triangle_total,
+                "render": render_report, "phase_timings_seconds": phase_timings,
+                "elapsed_seconds": float(time.perf_counter() - start)}
     print(f"generator: mesh/OBJ complete ({triangles} triangles); extracting profiles", flush=True)
     phase_started = time.perf_counter()
     profiles = make_profiles(fly_records)
@@ -1410,6 +1998,10 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
     validation = generation_record(
         config, ctx["parts"], mesh, profiles, layout, fly_records,
         ctx["case"]["fan_geometry"]["n"])
+    validation["mode"] = "exact"
+    validation["source_identity"] = source_identity
+    validation["validation_scope"] = "exact_generation_delivery"
+    validation["exact_acceptance"] = "generation_complete_visual_review_pending"
     validation["input"] = {"case_id": config["case_id"], "corner_angle_deg": config["corner_angle_deg"],
                             "parameters": config["parameters"], "advanced": config["advanced"],
                             "derived": config["derived"]}
@@ -1504,8 +2096,10 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
     validation["runtime_seconds_including_render"] = float(time.perf_counter() - start)
     validation["render"] = render_report
     json_dump(validation, output_dir / "validation.json")
-    json_dump(build_manifest(output_dir, config["case_id"]), output_dir / "manifest.json")
-    return {"case_id": config["case_id"], "output_dir": str(output_dir),
+    json_dump(build_manifest(output_dir, config["case_id"], mode=mode,
+                             source_identity=source_identity), output_dir / "manifest.json")
+    return {"case_id": config["case_id"], "mode": mode, "status": "exact_ready",
+            "output_dir": str(output_dir),
             "parts": len(ctx["parts"]), "fan_templates_per_side": len(profiles),
             "standing_flyer_3d_count_both_sides": 2 * len(profiles),
             "layout_board_mm": [layout["layout"]["board_width_x_mm"],
@@ -1527,6 +2121,10 @@ def main(argv=None):
                         help="配置JSON；相对路径以本生成器目录为基准")
     parser.add_argument("--output", type=Path, default=Path("outputs/default"),
                         help="独立输出目录；相对路径以本生成器目录为基准，且必须在outputs/内")
+    parser.add_argument("--mode", choices=("preview", "exact"), default="exact",
+                        help="几何生成模式；preview为快速预览，exact为精确生成（默认）")
+    parser.add_argument("--mesh-cache-dir", type=Path,
+                        help="绝对网格缓存目录；只复用BRep哈希、精度、源码与内核版本完全匹配的网格")
     parser.add_argument("--no-render", action="store_true", help="只生成几何与计算数据，不生成HTML和PNG")
     parser.add_argument("--step", action="store_true", help="额外导出STEP（不执行STEP回读）")
     parser.add_argument("--finalize-existing", action="store_true",
@@ -1535,9 +2133,13 @@ def main(argv=None):
     config_path = args.config if args.config.is_absolute() else HERE / args.config
     try:
         if args.finalize_existing:
+            if args.mode != "exact":
+                raise ValueError("--finalize-existing仅支持exact模式")
             result = finalize_existing_case(config_path, args.output, make_viewer=not args.no_render)
         else:
-            result = generate(config_path, args.output, make_viewer=not args.no_render, export_step=args.step)
+            result = generate(config_path, args.output, make_viewer=not args.no_render,
+                              export_step=args.step, mode=args.mode,
+                              mesh_cache_dir=args.mesh_cache_dir)
     except Exception as exc:
         parser.exit(2, f"生成失败：{type(exc).__name__}: {exc}\n")
     print(json.dumps(result, ensure_ascii=False, allow_nan=False), flush=True)

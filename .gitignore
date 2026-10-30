@@ -9,11 +9,33 @@
 /diagnostics/**/*_geometry_snapshot/
 /diagnostics/**/*.brep
 
+# 性能探针的构件网格缓存、中间模型与原始剖析文件。
+# 保留脚本、summary、mesh_export_diagnostics、验收 JSON 和截图。
+/diagnostics/**/mesh_cache/
+/diagnostics/**/model_mesh.json
+/diagnostics/**/*.obj
+/diagnostics/**/*.step
+/diagnostics/**/*.stp
+/diagnostics/**/*.prof
+
+# 探针运行日志、进度快照与本机工作台状态备份。
+/diagnostics/**/*.log
+/diagnostics/**/progress.json
+/diagnostics/**/*.progress.json
+/diagnostics/**/workbench_state.before_registration.*.json
+
 # Python 与 pytest 的缓存。
 __pycache__/
 *.py[cod]
 **/.pytest_cache/
 .coverage
+
+# 独立使用生成器时的本地开发环境与依赖。
+.venv/
+venv/
+node_modules/
+Thumbs.db
+Desktop.ini
 
 # 临时测试结果，不匹配测试源码或固定配置。
 /tests/.tmp/

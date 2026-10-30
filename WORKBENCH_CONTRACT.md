@@ -1,6 +1,13 @@
-# 本地工作台 v0.3 实施接口
+# 本地工作台 v0.4 实施接口
 
-目标：在同一页编辑建筑平面内角及其他参数、异步生成精确三维模型、查看立脚飞椽排料和下载结果。本版新增范围见 [非直角升级](NON_RIGHT_ANGLE.md)，此前构造约定见 [v0.2 升级约定](UPGRADE_V02.md)，性能记录见 [速度说明](PERFORMANCE.md)。默认不在每次按键时启动计算。
+目标：在同一页编辑建筑平面内角及其他参数，先生成简化预览，再按需精确生成三维模型及立脚飞椽排料。预览和精确生成是两个独立入口，不在每次按键或预览完成时自动启动精确计算。非直角范围见 [非直角升级](NON_RIGHT_ANGLE.md)，此前构造约定见 [v0.2 升级约定](UPGRADE_V02.md)，性能记录见 [速度说明](PERFORMANCE.md)。
+
+## 生成模式
+
+- `preview`：保留基础梁戗与下层望板；飞椽由中心纵剖沿真实宽向刚性挤出，A/B 同形；里口不开槽；组合木保留未扣削、未上下分割的原坯；不生成上层卷戗板。老戗、嫩戗与组合木的重叠在预览中保留。
+- `exact`：沿用完整几何、里口承口、卷戗板和组合木扣削/分割流程，生成原有截面及排料交付。
+- 模式是任务选项，不是尺寸配置字段。CLI `--mode preview|exact`，缺省 `exact`。预览和精确结果、检查点及整模缓存分别识别；历史缺少模式的记录按 `exact` 解释，保留原始源码身份。
+- 预览只供看构件位置和总体形态。预览通过表示简化实体和显示网格满足其检查，不代表精确构造通过；不生成加工排料、放样 CSV 或 STEP。预览模型、离线查看器、历史卡片及下载入口均保留预览标识。
 
 ## 服务与路径
 
@@ -11,23 +18,24 @@
 
 ## API
 
-`GET /api/bootstrap` 返回 `{app_id:"mu-gouzao-corner-workbench", workspace, version:"0.3.0", schema, defaults, examples:[{id,title,config}], cases:[Case], active_job:Job|null, reference_runtime_seconds}`。workspace 为当前项目绝对路径；启动器匹配服务身份、工作区和版本后才复用端口。参考耗时以本机已完成任务为依据。
+`GET /api/bootstrap` 返回 `{app_id:"mu-gouzao-corner-workbench", workspace, version:"0.4.0", schema, defaults, examples:[{id,title,config}], cases:[Case], active_job:Job|null, reference_runtime_seconds:{preview:number|null,exact:number|null}}`。workspace 为当前项目绝对路径；启动器匹配服务身份、工作区和版本后才复用端口。参考耗时为各模式已完成、交付通过案例的耗时中位数，无案例时为null；不能将精确生成的历史耗时当作预览估计，也不能将跨参数中位数当作本次预测。
 
-`POST /api/validate` 输入 `{config}`，返回 `{valid:true, normalized_config, calculation_key, derived, warnings:[]}`。仅配置与可快速推导的数据检查，不进行完整 CAD 或宣称实体已通过。未知字段和非有限数拒绝。错误返回 400。
+`POST /api/validate` 输入 `{config,mode?}`，返回 `{valid:true, normalized_config, calculation_key, derived, warnings:[]}`。模式缺省 `exact`，计算 key 对应所选模式。仅配置与可快速推导的数据检查，不进行完整 CAD 或宣称实体已通过。未知字段、模式和非有限数拒绝。错误返回 400。
 
-`GET /api/cases` 返回 `{cases:[Case]}`。只列完整验证通过的结果，不把失败候选当示例。
+`GET /api/cases` 返回 `{cases:[Case]}`。只列通过各自模式检查且交付完整的结果，不把失败候选当示例；预览与精确结果有明确区分。
 
-`POST /api/jobs` 输入 `{config}`，先校验；如果相同计算身份的成功结果可复用，返回 `{job:Job, reused:true}`；否则启动独立输出的单个子进程并返回 `{job:Job,reused:false}`。同时最多一个运行任务，忙碌 409。不覆盖旧输出。
+`POST /api/jobs` 输入 `{config,mode?}`，模式缺省 `exact`。先校验；如果相同模式和计算身份的成功结果可复用，返回 `{job:Job, reused:true}`；否则启动独立输出的单个子进程并返回 `{job:Job,reused:false}`。同时最多一个运行任务，忙碌 409。不覆盖旧输出。
 
 `GET /api/jobs/<id>` 返回 `{job:Job}`；`POST /api/jobs/<id>/cancel` 输入 `{}`，返回 `{job:Job}`。刷新页面仍可恢复观察。服务重启时将遗留运行记录标为 interrupted，不自动重启 CAD。
 
-Case 字段：`id,title,config,calculation_key,validated,created_at,elapsed_seconds,metrics,urls`。
+Case 字段：`id,title,mode,config,calculation_key,validated,created_at,elapsed_seconds,metrics,urls`。
 
 - `config` 为可重新编辑的原始格式（case_id、corner_angle_deg、parameters、advanced），不含 resolved 派生字段。
 - `metrics` 字段可空：`templates_per_side,parts_count,board_width_mm,board_height_mm,board_thickness_mm,utilization_percent,translation_max_error_mm`。
-- `urls`：`model,layout,index,obj,points,svg,config,validation`，均为服务内的可用 URL。
+- `validated` 表示本模式的交付检查通过，必须结合 `mode` 解释；不能把预览描述为精确构造验收。
+- `urls`：精确结果提供 `model,layout,index,obj,points,svg,config,validation`；预览只提供实际生成的模型、入口、OBJ、配置和验证记录，不提供排料、SVG 或放样点。链接均为服务内的可用 URL。
 
-Job 字段：`id,status,stage,started_at,finished_at,elapsed_seconds,case_id,result:Case|null,log_tail,error`。
+Job 字段：`id,mode,status,stage,started_at,finished_at,elapsed_seconds,case_id,result:Case|null,log_tail,error`。
 
 - status 为 queued/running/succeeded/failed/cancelled/interrupted。
 - stage 是实际日志映射出的中文阶段，不制造百分比；log_tail 为有长度上限的字符串。
@@ -36,22 +44,28 @@ Job 字段：`id,status,stage,started_at,finished_at,elapsed_seconds,case_id,res
 
 ## 计算身份与初始结果
 
-身份包含规范化参数和实际生成核心源码的指纹，不以案例名称为几何身份。相同参数改名允许复用并明确显示所载入结果名称。缓存命中仍需检查 validation、文件完整性与核心来源；代码改变不能静默复用旧代码缓存。
+身份包含模式、规范化参数和实际生成核心源码的指纹，不以案例名称为几何身份。相同模式和参数改名允许复用并明确显示所载入结果名称。缓存命中仍需检查 validation、模式、文件完整性与核心来源；代码改变不能静默复用旧代码缓存。
+
+构件网格缓存与整模结果缓存分开。只有真实几何、绝对毫米精度、角精度及导出算法身份匹配且缓存完整性检查通过，才复用已验网格；不能只按名称、包围盒或体积判断相同。预览与精确生成之间仅可共享真实几何相同的构件，简化件不能冒充精确件。损坏或过期条目回退到重新网格化。首次网格化清理未知来源的旧三角缓存；重试可使用 OCCT 增量处理，但最终保留原始请求精度、面、三角索引及非退化边多边形检查。
 
 内置 default、size_variant_valid64，以及 60°、120° 参数示例。参数示例只回填草稿；已经生成的结果另列历史。原有两个历史种子的源指纹、计算 key 和逐文件哈希固定在 `configs/seed_catalog.json`。新建本地状态时，只对与目录记录一致且满足登记条件的旧产物登记原始身份；缺少目录记录、哈希不符或计数语义不符时跳过，绝不能套用当前源码指纹。已有持久历史保留；只有匹配当前核心的结果可以用于缓存。
 
 完整成功结果缓存与网格导出前的实体检查点分开处理。后者由生成子进程管理：相同几何配置、派生量及几何源码身份，并通过 BRep 哈希、单实体与体积复核时，可在新任务中恢复几何；案例名可变，网格精度参数因参与内部几何采样仍属于几何身份。检查点记录全部生产源码指纹供追溯，但允许显示和导出代码修复后重做导出。恢复任务仍须经过当前截面、排料、网格及完整结果验证，不能直接登记失败输出。
 
+`--finalize-existing` 的已有网格收尾与实体检查点恢复也分开。收尾必须在任何写入或删除前核对模式、配置、持久化来源和已有清单；缺失来源证明的旧输出不允许重新收尾为当前结果。几何来源须与当前实现一致，生产来源变化仅允许可证明的展示层变更。历史结果仍可按原身份浏览，不能通过收尾改写其源码来源来命中新缓存。
+
 ## 页面行为
 
-左侧可编辑建筑平面内角，范围为有限 `0 < α < 180`；主参数默认展开，高级参数折叠，右侧模型/排料标签页。模型和排料复用已有离线 HTML，iframe 与服务同源。页头角度始终取当前显示结果，草稿角度修改不改旧模型的标签。初始加载已有结果；示例切换、历史、导入/下载配置、校验、生成、取消、导出均有明确入口。
+左侧可编辑建筑平面内角，范围为有限 `0 < α < 180`；主参数默认展开，高级参数折叠，右侧模型/排料标签页。模型和排料复用离线 HTML，iframe 与服务同源。页头角度及模式始终取当前显示结果，草稿修改不改旧模型的标签。初始加载已有结果；示例切换、历史、导入/下载配置、校验、生成预览、精确生成、取消、导出均有明确入口。预览显示时禁用排料标签和加工下载，并说明精确生成后可用；切到精确历史结果时恢复对应功能。
 
 区分“正在编辑参数”与“当前显示结果”：修改后提示尚未生成；校验成功也不能表示模型更新。点击“查看此结果”时同步回填该结果的主参数、高级参数和案例名，并更新名称、统计和状态；不提交任务。独立的“载入参数到草稿”保留。后台任务不因查看历史而改变，页面须明确显示这一状态。输出链接只指向所显示结果。文件上传仅前端读取 JSON，不要求用户手工编辑文件。
 
 ## 验收
 
-后端覆盖角度与配置拒绝、不同角度缓存区分、结果角度核对、缓存命中、单任务忙碌、失败不升级为成功、取消、重启恢复及路径保护；使用可控短进程测试任务生命周期，不重复 CAD。模型实际生成与外形观察分别留证。
+后端覆盖角度与配置拒绝、不同角度和模式的缓存区分、保存结果模式与角度核对、缓存命中、单任务忙碌、失败不升级为成功、取消、重启恢复及路径保护；使用可控短进程测试任务生命周期，不重复 CAD。导出检查覆盖不合格轮提前停止数据提取、损坏缓存回退和精度守卫。模型实际生成与外形观察分别留证。
+
+任何会调用生成、收尾恢复或写入文件的自动测试，必须先将需要的旧数据复制到临时测试目录；不得直接对既有 `outputs/` 案例运行写操作。历史失败候选同样作为诊断证据保留，不能当可丢弃的测试输出。
 
 前端完成参数组与所有有效字段、同页双查看器、草稿状态、任务状态、错误显示和结果下载。界面适配普通桌面窗口与窄窗口；本地资源离线可用。集成验证用真实 HTTP 服务联通已完成结果，并以 `check_workbench.py --case-id <已登记ID>` 核对当前源码下的同参数复用。
 
-新参数的完整生成仍调用 generate.py；角度参与缓存身份，登记时核对保存配置与网格中的角度。排料保留中心截面近似。模型形态的验收仍遵循 [视觉验收](VISUAL_ACCEPTANCE.md)，成功登记不等于模型外形已获用户认可。
+两种模式均调用 generate.py；模式和角度参与缓存身份，登记时核对保存配置、验证和网格中的对应字段。预览以 60°、90°、120° 实际生成检查数量、简化范围及飞椽面数；精确生成保留一次完整代表案例回归。排料保留中心截面近似。模型形态的验收仍遵循 [视觉验收](VISUAL_ACCEPTANCE.md)，成功登记不等于模型外形已获用户认可。

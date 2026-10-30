@@ -25,7 +25,7 @@ New-Item -ItemType Directory -Path $stateDir -Force | Out-Null
 function Test-WorkbenchIdentity {
     try {
         $payload = Invoke-RestMethod -Uri "$baseUrl/api/bootstrap" -Method Get -TimeoutSec 2
-        if ($payload.version -ne '0.3.0' -or $payload.app_id -ne 'mu-gouzao-corner-workbench') {
+        if ($payload.version -ne '0.4.0' -or $payload.app_id -ne 'mu-gouzao-corner-workbench') {
             return $false
         }
         $reportedRoot = [System.IO.Path]::GetFullPath([string]$payload.workspace)

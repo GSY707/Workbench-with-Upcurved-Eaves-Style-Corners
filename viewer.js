@@ -17,6 +17,14 @@ function init(){
   document.title=el('model-title').textContent;
   el('stage-label').textContent=`${cornerAngle}° 对称角部 · 参数生成`;
   el('scope-note').textContent='排料页仅包含立脚飞椽，采用本次生成结果的中心截面梯形。曲线拟合只作比较，不改变三维模型。';
+  if(data.metadata?.mode==='preview'){
+    el('stage-label').textContent=`${cornerAngle}° 对称角部 · 预览（非精确）`;
+    el('scope-note').textContent='预览几何：飞椽采用v=0中心纵剖等宽挤出；里口不开槽，不生成上层卷戗板，组合木为未切坯。不能用于排料或加工验收。';
+    el('preview-banner').hidden=false;
+    const layoutLink=el('layout-footer-link');
+    layoutLink.removeAttribute('href');
+    layoutLink.textContent='排料、放样 CSV 与 STEP：精确生成后可用';
+  }
   if(data.metadata?.visual_review_label){el('stage-label').textContent=data.metadata.visual_review_label;el('scope-note').textContent='视觉检查副本：几何沿用所选结果，仅使用当前查看器显示。请打开阴影和三角面网格检查。';}
   if(stageNumber>=2)el('show-skeleton').checked=false;
   el('board-controls').hidden=!data.parts.some(p=>/board/.test(p.group));

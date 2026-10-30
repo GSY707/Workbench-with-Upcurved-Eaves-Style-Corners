@@ -1,0 +1,249 @@
+{
+  "case_id": "exact_120_cachefix",
+  "mode": "exact",
+  "started_at": "2026-10-30T11:55:28Z",
+  "wall_seconds_startup_to_exit": 253.11210559983738,
+  "return_code": 0,
+  "timed_out": false,
+  "output_dir": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\outputs\\workbench_preview_implementation_20261030\\exact_120_cachefix",
+  "cache_dir": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\workbench_preview_implementation_20261030\\mesh_cache\\preview_120_cachefix",
+  "stdout_log": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\workbench_preview_implementation_20261030\\exact_120_cachefix.stdout.log",
+  "stderr_log": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\workbench_preview_implementation_20261030\\exact_120_cachefix.stderr.log",
+  "cache_entry_count": 71,
+  "result_status": "exact",
+  "validated": true,
+  "exact_acceptance": "generation_complete_visual_review_pending",
+  "validation_scope": "exact_generation_delivery",
+  "parts": 54,
+  "triangle_count": 29122,
+  "mesh_deflection_requested_mm": 2.0,
+  "mesh_deflection_reported_max_mm": 1.6868401562605446,
+  "mesh_wall_seconds": 26.121583700180054,
+  "mesh_export_phase_seconds": 29.33052399987355,
+  "startup_to_mesh_delivery_seconds": 249.60969249997288,
+  "generator_runtime_including_render_seconds": 251.20751450001262,
+  "render_seconds": 1.5798362998757511,
+  "phase_timings_seconds": {
+    "config_validation_and_initial_write": 0.04815949988551438,
+    "lightweight_geometry_identity_derivation": 1.2266902001574636,
+    "stage04_base_and_preflight": 3.3850559000857174,
+    "stage05_flyer_build": 106.25132179982029,
+    "stage05_likou_cut_and_mirror": 31.368759700097144,
+    "stage05_upper_board_rebuild": 0.31213230011053383,
+    "stage05_combination_rebuild": 73.06501569994725,
+    "geometry_total_after_stage04": 210.99722949997522,
+    "geometry_checkpoint_write": 3.312879800098017,
+    "mesh_remesh_and_export": 29.33052399987355,
+    "mesh_absolute_remesh_only": 26.121583700180054,
+    "profiles": 0.0016316999681293964,
+    "layout_and_json": 1.04340839991346,
+    "generation_record": 7.589999586343765e-05,
+    "rendering": 1.5798362998757511
+  },
+  "cache_summary": {
+    "parts": 54,
+    "mesh_cache_hit_attempt_count": 34,
+    "mesh_cache_miss_attempt_count": 28,
+    "mesh_cache_invalid_entry_count": 0,
+    "mesh_cache_written_attempt_count": 20,
+    "mesh_cache_unavailable_part_count": 0,
+    "parts_with_cached_fine_start": 34,
+    "skipped_coarser_retry_attempt_count": 10,
+    "mesh_cache_candidate_scan_count": 34,
+    "parts_cleaned_once_before_mesh": 54,
+    "mesher_not_done_count": 0,
+    "nonzero_mesher_status_attempt_count": 12,
+    "triangulation_guard_false_attempt_count": 8,
+    "mesher_target_not_met_but_within_requested_limit_attempt_count": 10,
+    "parts_requiring_finer_deflection": 6,
+    "parts_with_missing_degenerate_edge_polygons": 0,
+    "parts_with_missing_nondegenerate_edge_polygons": 0,
+    "accepted_tolerance_mm_by_part": {
+      "eave_purlin_x": 2.0,
+      "eave_purlin_y": 2.0,
+      "step_purlin_x": 2.0,
+      "step_purlin_y": 2.0,
+      "old_corner": 2.0,
+      "qiangshan_x": 2.0,
+      "qiangshan_y": 2.0,
+      "fan_rafter_01": 2.0,
+      "fan_rafter_02": 2.0,
+      "fan_rafter_mirror_01": 2.0,
+      "fan_rafter_mirror_02": 2.0,
+      "eave_rafter_01": 2.0,
+      "eave_rafter_02": 2.0,
+      "eave_rafter_03": 2.0,
+      "eave_rafter_04": 2.0,
+      "eave_rafter_mirror_01": 2.0,
+      "eave_rafter_mirror_02": 2.0,
+      "eave_rafter_mirror_03": 2.0,
+      "eave_rafter_mirror_04": 2.0,
+      "young_corner": 2.0,
+      "likou_x": 1.0,
+      "likou_y": 1.0,
+      "lower_board_straight_x_01": 2.0,
+      "lower_board_straight_y_01": 2.0,
+      "lower_board_straight_x_02": 2.0,
+      "lower_board_straight_y_02": 2.0,
+      "lower_board_straight_x_03": 0.25,
+      "lower_board_straight_y_03": 0.25,
+      "lower_board_straight_x_04": 0.5,
+      "lower_board_straight_y_04": 0.5,
+      "lower_board_fan_x_01": 2.0,
+      "lower_board_fan_x_02": 2.0,
+      "lower_board_fan_x_03": 2.0,
+      "lower_board_fan_x_04": 2.0,
+      "lower_board_fan_y_01": 2.0,
+      "lower_board_fan_y_02": 2.0,
+      "lower_board_fan_y_03": 2.0,
+      "lower_board_fan_y_04": 2.0,
+      "flying_fan_x_01": 2.0,
+      "flying_fan_y_01": 2.0,
+      "flying_fan_x_02": 2.0,
+      "flying_fan_y_02": 2.0,
+      "straight_flying_x_01": 2.0,
+      "straight_flying_y_01": 2.0,
+      "straight_flying_x_02": 2.0,
+      "straight_flying_y_02": 2.0,
+      "straight_flying_x_03": 2.0,
+      "straight_flying_y_03": 2.0,
+      "straight_flying_x_04": 2.0,
+      "straight_flying_y_04": 2.0,
+      "upper_board_x_continuous": 1.0,
+      "upper_board_y_continuous": 1.0,
+      "lingjiao_main": 0.5,
+      "biandan_main": 0.5
+    },
+    "triangle_count": 29122
+  },
+  "source_identity": {
+    "production": {
+      "sha256": "a21524e6e9fa7b3862fddcbe90ae187cc1702ad46b065fe74e996075dd121ecb",
+      "files": [
+        {
+          "path": "generate.py",
+          "sha256": "c6e2cfdf0eedff06161422d806eb1e5bdec17d64204ace8e02f76e4a9d0ad5c3"
+        },
+        {
+          "path": "parameter_schema.json",
+          "sha256": "1e2e69bd6f9615fb650fffbe56816283dbb7baf63d93919746067c1f47f918b6"
+        },
+        {
+          "path": "render_delivery.py",
+          "sha256": "698a889f49b512394478aae880ebedba1eb4f2f005194dac583fb76dc1c48dac"
+        },
+        {
+          "path": "viewer.js",
+          "sha256": "0278de3f54d7d575a7fc53d42eec25e18533826d40f9b05ad58bbb9af42a2e3b"
+        },
+        {
+          "path": "viewer.css",
+          "sha256": "3c85db73a9071024cf39c11842c43a1446d43dbcfda4f77e99c5403c5f5dccdf"
+        },
+        {
+          "path": "viewer.template.html",
+          "sha256": "57b31ec1414d2b9a0bb39fe247c32a8c8331c726248d2c28a7f880eb15505d5c"
+        },
+        {
+          "path": "layout.js",
+          "sha256": "29a1586a77d440bbcf56a52c3cac9537445d205026a5a1211d555b7e993ff82c"
+        },
+        {
+          "path": "layout.template.html",
+          "sha256": "132bdbb204368e75fb8fa5bb38e1316eb9ac5fb92599749a781956cef6c3fdf6"
+        },
+        {
+          "path": "vendor/viewer-runtime.js",
+          "sha256": "c4c18fe994a6741cc945543075b68d24a39c3749255f34274452126ac8563c88"
+        },
+        {
+          "path": "engine/config.py",
+          "sha256": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+        },
+        {
+          "path": "engine/stage02_core.py",
+          "sha256": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219"
+        },
+        {
+          "path": "engine/stage03_core.py",
+          "sha256": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741"
+        },
+        {
+          "path": "engine/stage04_core.py",
+          "sha256": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f"
+        },
+        {
+          "path": "engine/stage05_core.py",
+          "sha256": "725b926070dc2258f26e1f45aa803e90c333f72ae2c9adc9d6a8d1a8310b9a54"
+        }
+      ]
+    },
+    "geometry": {
+      "sha256": "9f4f55b717380e133d7c03df79aa7d7db84e0beea4034a95ee93f739590a69f8",
+      "files": [
+        {
+          "path": "engine/config.py",
+          "sha256": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+        },
+        {
+          "path": "engine/stage02_core.py",
+          "sha256": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219"
+        },
+        {
+          "path": "engine/stage03_core.py",
+          "sha256": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741"
+        },
+        {
+          "path": "engine/stage04_core.py",
+          "sha256": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f"
+        },
+        {
+          "path": "engine/stage05_core.py",
+          "sha256": "725b926070dc2258f26e1f45aa803e90c333f72ae2c9adc9d6a8d1a8310b9a54"
+        },
+        {
+          "path": "generate.py::derived_geometry_values",
+          "sha256": "3015225bfc93f2520172e870b33fe9f90052560854e030484dfbeb41f30b8dbc"
+        },
+        {
+          "path": "generate.py::load_stage05",
+          "sha256": "01c4f8112c8e9d9dbfd16bc4fa125105ff07ab0a9f6e4b723353ca32ecc7c2d9"
+        },
+        {
+          "path": "generate.py::stage05_geometry_pipeline",
+          "sha256": "1adb5aa40b8e49af7d8b2935734c51409d35593f246d4b8a1cf0f77e342af87e"
+        },
+        {
+          "path": "generate.py::update_resolved_geometry_derivations",
+          "sha256": "9041993179e9245e5f01c9c8388b66596124b2e0f3b70b1ada65867e6a632745"
+        }
+      ]
+    }
+  },
+  "flyer_face_counts": [
+    null,
+    null,
+    null,
+    null
+  ],
+  "flyer_face_count_values": [
+    null
+  ],
+  "manifest_mode": "exact",
+  "finished_at": "2026-10-30T11:59:41Z",
+  "command": [
+    "C:\\Users\\24408\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-X",
+    "utf8",
+    "-u",
+    "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\generate.py",
+    "--config",
+    "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\angle_120.json",
+    "--output",
+    "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\outputs\\workbench_preview_implementation_20261030\\exact_120_cachefix",
+    "--mode",
+    "exact",
+    "--mesh-cache-dir",
+    "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\workbench_preview_implementation_20261030\\mesh_cache\\preview_120_cachefix"
+  ]
+}

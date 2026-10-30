@@ -1,6 +1,8 @@
 param(
     [string]$Config = (Join-Path $PSScriptRoot 'configs/default.json'),
-    [string]$Output = (Join-Path $PSScriptRoot 'outputs/default')
+    [string]$Output = (Join-Path $PSScriptRoot 'outputs/default'),
+    [ValidateSet('preview', 'exact')]
+    [string]$Mode = 'exact'
 )
 $ErrorActionPreference = 'Stop'
 $generatorPython = Join-Path $env:USERPROFILE '.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
@@ -11,7 +13,7 @@ if (-not (Test-Path -LiteralPath $generatorPython)) {
     }
     $generatorPython = $generatorPythonCommand.Source
 }
-& $generatorPython (Join-Path $PSScriptRoot 'generate.py') --config $Config --output $Output
+& $generatorPython (Join-Path $PSScriptRoot 'generate.py') --config $Config --output $Output --mode $Mode
 if ($LASTEXITCODE -ne 0) {
     throw "生成失败，Python 退出码为 $LASTEXITCODE。请查看上方具体错误。"
 }

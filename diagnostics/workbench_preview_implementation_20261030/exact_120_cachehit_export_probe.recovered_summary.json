@@ -1,0 +1,197 @@
+{
+  "schema": "checkpoint_mesh_cache_probe_recovered_summary_v1",
+  "status": "export_completed_wrapper_failed_after_export",
+  "note": "The subprocess completed geometry restore and mesh export and wrote the diagnostics/model files, then its reporting wrapper raised KeyError while reading a summary field at the wrong nesting level. This summary is reconstructed only from the durable on-disk mesh_export_diagnostics.json, model_mesh.json, outer timing record, and raw stderr; no geometry/export rerun was performed.",
+  "wrapper": {
+    "wall_seconds": 36.18063069996424,
+    "timeout_seconds": 45,
+    "timed_out": false,
+    "return_code": 1,
+    "exception": "KeyError: accepted_tolerance_mm_by_part",
+    "raw_stderr": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\workbench_preview_implementation_20261030\\exact_120_cachehit_export_probe.stderr.log",
+    "corrected_reader": "diagnostic[\"summary\"][\"accepted_tolerance_mm_by_part\"]"
+  },
+  "checkpoint": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\workbench_preview_implementation_20261030\\exact_120_cachefix_geometry_checkpoint",
+  "source_identity": {
+    "production": {
+      "sha256": "a21524e6e9fa7b3862fddcbe90ae187cc1702ad46b065fe74e996075dd121ecb",
+      "files": [
+        {
+          "path": "generate.py",
+          "sha256": "c6e2cfdf0eedff06161422d806eb1e5bdec17d64204ace8e02f76e4a9d0ad5c3"
+        },
+        {
+          "path": "parameter_schema.json",
+          "sha256": "1e2e69bd6f9615fb650fffbe56816283dbb7baf63d93919746067c1f47f918b6"
+        },
+        {
+          "path": "render_delivery.py",
+          "sha256": "698a889f49b512394478aae880ebedba1eb4f2f005194dac583fb76dc1c48dac"
+        },
+        {
+          "path": "viewer.js",
+          "sha256": "0278de3f54d7d575a7fc53d42eec25e18533826d40f9b05ad58bbb9af42a2e3b"
+        },
+        {
+          "path": "viewer.css",
+          "sha256": "3c85db73a9071024cf39c11842c43a1446d43dbcfda4f77e99c5403c5f5dccdf"
+        },
+        {
+          "path": "viewer.template.html",
+          "sha256": "57b31ec1414d2b9a0bb39fe247c32a8c8331c726248d2c28a7f880eb15505d5c"
+        },
+        {
+          "path": "layout.js",
+          "sha256": "29a1586a77d440bbcf56a52c3cac9537445d205026a5a1211d555b7e993ff82c"
+        },
+        {
+          "path": "layout.template.html",
+          "sha256": "132bdbb204368e75fb8fa5bb38e1316eb9ac5fb92599749a781956cef6c3fdf6"
+        },
+        {
+          "path": "vendor/viewer-runtime.js",
+          "sha256": "c4c18fe994a6741cc945543075b68d24a39c3749255f34274452126ac8563c88"
+        },
+        {
+          "path": "engine/config.py",
+          "sha256": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+        },
+        {
+          "path": "engine/stage02_core.py",
+          "sha256": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219"
+        },
+        {
+          "path": "engine/stage03_core.py",
+          "sha256": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741"
+        },
+        {
+          "path": "engine/stage04_core.py",
+          "sha256": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f"
+        },
+        {
+          "path": "engine/stage05_core.py",
+          "sha256": "725b926070dc2258f26e1f45aa803e90c333f72ae2c9adc9d6a8d1a8310b9a54"
+        }
+      ]
+    },
+    "geometry": {
+      "sha256": "9f4f55b717380e133d7c03df79aa7d7db84e0beea4034a95ee93f739590a69f8",
+      "files": [
+        {
+          "path": "engine/config.py",
+          "sha256": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+        },
+        {
+          "path": "engine/stage02_core.py",
+          "sha256": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219"
+        },
+        {
+          "path": "engine/stage03_core.py",
+          "sha256": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741"
+        },
+        {
+          "path": "engine/stage04_core.py",
+          "sha256": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f"
+        },
+        {
+          "path": "engine/stage05_core.py",
+          "sha256": "725b926070dc2258f26e1f45aa803e90c333f72ae2c9adc9d6a8d1a8310b9a54"
+        },
+        {
+          "path": "generate.py::derived_geometry_values",
+          "sha256": "3015225bfc93f2520172e870b33fe9f90052560854e030484dfbeb41f30b8dbc"
+        },
+        {
+          "path": "generate.py::load_stage05",
+          "sha256": "01c4f8112c8e9d9dbfd16bc4fa125105ff07ab0a9f6e4b723353ca32ecc7c2d9"
+        },
+        {
+          "path": "generate.py::stage05_geometry_pipeline",
+          "sha256": "1adb5aa40b8e49af7d8b2935734c51409d35593f246d4b8a1cf0f77e342af87e"
+        },
+        {
+          "path": "generate.py::update_resolved_geometry_derivations",
+          "sha256": "9041993179e9245e5f01c9c8388b66596124b2e0f3b70b1ada65867e6a632745"
+        }
+      ]
+    }
+  },
+  "cache_used": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\workbench_preview_implementation_20261030\\mesh_cache\\preview_120_cachefix",
+  "export": {
+    "mode": "exact",
+    "parts": 54,
+    "triangle_count": 29122,
+    "cache_hit_attempt_count": 12,
+    "cache_miss_attempt_count": 53,
+    "cache_write_attempt_count": 42,
+    "invalid_cache_entry_count": 0,
+    "parts_with_cached_fine_start": 12,
+    "skipped_coarser_retry_attempt_count": 7,
+    "mesh_absolute_remesh_seconds": 29.78946609958075
+  },
+  "restored_shape_hash_comparison": {
+    "matched_part_hashes": 12,
+    "changed_part_hashes": 42,
+    "matched_ids": [
+      "eave_purlin_x",
+      "eave_rafter_01",
+      "eave_rafter_02",
+      "eave_rafter_03",
+      "eave_rafter_04",
+      "lower_board_straight_x_01",
+      "lower_board_straight_x_02",
+      "lower_board_straight_x_03",
+      "lower_board_straight_x_04",
+      "step_purlin_x",
+      "upper_board_x_continuous",
+      "upper_board_y_continuous"
+    ],
+    "changed_ids": [
+      "biandan_main",
+      "eave_purlin_y",
+      "eave_rafter_mirror_01",
+      "eave_rafter_mirror_02",
+      "eave_rafter_mirror_03",
+      "eave_rafter_mirror_04",
+      "fan_rafter_01",
+      "fan_rafter_02",
+      "fan_rafter_mirror_01",
+      "fan_rafter_mirror_02",
+      "flying_fan_x_01",
+      "flying_fan_x_02",
+      "flying_fan_y_01",
+      "flying_fan_y_02",
+      "likou_x",
+      "likou_y",
+      "lingjiao_main",
+      "lower_board_fan_x_01",
+      "lower_board_fan_x_02",
+      "lower_board_fan_x_03",
+      "lower_board_fan_x_04",
+      "lower_board_fan_y_01",
+      "lower_board_fan_y_02",
+      "lower_board_fan_y_03",
+      "lower_board_fan_y_04",
+      "lower_board_straight_y_01",
+      "lower_board_straight_y_02",
+      "lower_board_straight_y_03",
+      "lower_board_straight_y_04",
+      "old_corner",
+      "qiangshan_x",
+      "qiangshan_y",
+      "step_purlin_y",
+      "straight_flying_x_01",
+      "straight_flying_x_02",
+      "straight_flying_x_03",
+      "straight_flying_x_04",
+      "straight_flying_y_01",
+      "straight_flying_y_02",
+      "straight_flying_y_03",
+      "straight_flying_y_04",
+      "young_corner"
+    ],
+    "evidence_file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\outputs\\workbench_preview_implementation_20261030\\exact_120_cachehit_export_probe\\mesh_export_diagnostics.json",
+    "comparison_file": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\outputs\\workbench_preview_implementation_20261030\\exact_120_cachefix\\mesh_export_diagnostics.json",
+    "interpretation": "Safe cache reuse was limited to same-id BRep serialization hashes; 42 changed serialization hashes correctly caused rebuilds. No weaker identity was used."
+  }
+}

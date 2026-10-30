@@ -1,0 +1,84 @@
+{
+  "schema": "workbench_historical_output_test_incident_v1",
+  "occurred_local": "2026-10-30 15:17 Asia/Shanghai",
+  "trigger_command": "python.exe -X utf8 -m unittest discover -s tests -v",
+  "trigger_test": "tests.test_delivery.GeneratedDeliveryTests.test_cli_finalize_returns_nonzero_for_known_missing_fan",
+  "subprocess": "python.exe generate.py --config configs/size_variant.json --output outputs/size_variant --finalize-existing --no-render",
+  "confirmed_mutations": [
+    "outputs/size_variant/parameters_resolved.json was rewritten",
+    "outputs/size_variant/validation.json was rewritten",
+    "outputs/size_variant/manifest.json was rewritten",
+    "outputs/size_variant/model.step was created by the test and then removed by finalize_existing_case; whether a STEP existed before the test cannot be established"
+  ],
+  "current_observed_files": {
+    "parameters_resolved.json": {
+      "sha256": "c46e8f00efe0de392a05455901a2a44d565f18a2ad4347aa158a06183956aba6",
+      "bytes": 3175,
+      "mtime_local": "2026-10-30T15:17:21.897044",
+      "mode": "exact",
+      "fan_count": 14
+    },
+    "validation.json": {
+      "sha256": "870023252a934f463d0e99a614ed2a49202a09dac6e0db002a3a796ab373fa8f",
+      "bytes": 24060,
+      "mtime_local": "2026-10-30T15:17:18.717937",
+      "mode": "exact",
+      "passed": true,
+      "fan_count_expected_per_side": 14,
+      "fan_count_actual_per_side": 14
+    },
+    "manifest.json": {
+      "sha256": "5c3f53af0261030013522db025d03b68dcb1ff965b948ad8124d89665b959f6a",
+      "bytes": 3045,
+      "mtime_local": "2026-10-30T15:17:19.060407",
+      "mode": "exact",
+      "file_count": 19
+    },
+    "model.step": "absent"
+  },
+  "registration_check": {
+    "ui_state_case_count": 13,
+    "registered_id_or_output_rel_size_variant": false,
+    "seed_catalog_contains_size_variant": false,
+    "conclusion": "size_variant is an unregistered historical output candidate, not one of the 13 current workbench cases"
+  },
+  "backup_search": {
+    "scope": "named project diagnostics and retained source snapshot archive only",
+    "result_files_or_backups_found": false,
+    "retained_archive": "ui_state/source_snapshots/r6_before_boundary_reclassification_20261026.zip",
+    "archive_match": "contains configs/size_variant.json but no output validation, manifest, or resolved parameter artifacts"
+  },
+  "restoration": {
+    "original_bytes_available": false,
+    "restored_or_reconstructed": false,
+    "handling": "preserve current files; do not present them as original historical bytes or synthesize a restoration"
+  },
+  "why_current_finalizer_report_says_passed": {
+    "basis": "The finalizer recomputed the current fan interval count from the unchanged size_variant.json and checked the existing mesh/profile/layout consistency. The current rule gives n=15 odd intervals and n-1=14 standing flyers; the untouched model_mesh/profile artifacts contain 14, so this finalization reported 14 expected and 14 actual.",
+    "config_comparison": "configs/size_variant.json is byte-identical to the copy in the retained 2026-10-26 project snapshot (SHA256 632fc19508a34f3755ed016ed8669df51b3dee20ab0d4a5bc7abb6f403a3d038).",
+    "source_identity_limit": "finalize_existing_case validates exact config fields, current fan count, and model/profile/layout IDs; it does not compare an original generation-source fingerprint because these legacy artifacts do not contain one. It did not write a source fingerprint. Thus passed=true is a delivery consistency flag, not proof of original source identity or geometric acceptance.",
+    "classification": "The test's expected 15-versus-14 failure was stale relative to this config/current n-1 rule and surviving 14-flyer artifacts. The passed result is not evidence of an exact geometry regression or a source-identity check bypass; source provenance remains unavailable."
+  },
+  "test_failures_from_same_suite": [
+    {
+      "test": "test_delivery.GeneratedDeliveryTests.test_cli_finalize_returns_nonzero_for_known_missing_fan",
+      "observed": "expected return code 2, got 0; finalize reported expected and actual counts both 14",
+      "classification": "stale count assumption (expected 15 versus current n-1=14) combined with an unsafe mutable output fixture; replaced by a temporary valid output copy plus a synthetic missing-flyer fixture that must be rejected"
+    },
+    {
+      "test": "test_delivery.GeneratedDeliveryTests.test_normal_cli_returns_nonzero_for_pose_preflight_failure",
+      "observed": "expected pose preflight text, got RuntimeError: 无法提取stage05几何构造分支，拒绝建立不完整的几何身份",
+      "classification": "real source identity parser regression from preview/exact nested geometry branches; parser corrected to fingerprint the complete stage05 rebuild span"
+    },
+    {
+      "test": "test_preview_mesh_cache.PreviewIdentityAndMeshCacheTests.test_corrupt_cache_falls_back_and_failed_mesh_is_never_cached",
+      "observed": "cache reuse assertion saw zero hits after cache report validation became stricter",
+      "classification": "real cache report omission; added all_faces_have_positive_triangles to successful reports"
+    },
+    {
+      "test": "test_workbench_backend.WorkbenchHTTPTests.test_success_then_failure_keeps_only_valid_case",
+      "observed": "expected legacy stage label 生成完成, got 精确生成完成",
+      "classification": "intentional mode-specific exact stage label; updated assertion"
+    }
+  ]
+}

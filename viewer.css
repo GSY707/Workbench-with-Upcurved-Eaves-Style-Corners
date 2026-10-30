@@ -6,3 +6,5 @@
 .orbit-tools{position:absolute;right:20px;bottom:48px;z-index:3;display:flex;gap:4px}
 .orbit-tools button{background:#f4f3edee;border:1px solid #bbc6b8;border-radius:4px;padding:5px 9px;color:#304b3e;cursor:pointer}
 #part-picker{display:block;width:100%;margin:8px 0;padding:6px;border:1px solid #bbc6b8;border-radius:4px;color:#304b3e;background:#fff}
+
+.preview-banner{margin:-10px 0 14px;padding:10px 14px;border:1px solid #d3b47e;border-radius:6px;background:#fff2d8;color:#754b14;font-size:13px}

@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "started_utc": "2026-10-29T15:05:06.1161082Z",
+  "finished_utc": "2026-10-29T15:08:06.8786611Z",
+  "timeout_seconds": 360,
+  "process_id": 14932,
+  "process_exit_code": 0,
+  "stdout": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\performance_20261029\\probe_stdout.log",
+  "stderr": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\performance_20261029\\probe_stderr.log"
+}

@@ -1434,6 +1434,94 @@ def build_contact_flyer(record, board_sampler, case, end_curve=None, gamma=None,
     }
     return shape, details
 
+def _preview_contact_flyer(ctx, record, masterboard_record):
+    """Build a lightweight flyer from the shared center R/I/E profile."""
+    controls = masterboard_record["controls"]
+    roots = masterboard_record["roots"]
+    center_index = len(controls) // 2
+    control, root = controls[center_index], roots[center_index]
+    if abs(float(control["v_mm"])) > 1e-8:
+        raise ValueError(f"preview {record['source_rafter_id']} center control is not v=0")
+    q_r, q_i, q_e = (float(root["q_root_mm"]), float(control["q_front_mm"]),
+                     float(control["q_E_mm"]))
+    if not q_r < q_i < q_e:
+        raise ValueError(f"preview {record['source_rafter_id']} R/I/E order is invalid")
+    rows = [
+        (q_r, float(root["R_bottom_z_mm"]), float(root["R_top_z_mm"])),
+        (q_i, float(control["H_front_mm"]), float(control["I_upper_z_mm"])),
+        (q_e, float(control["E_bottom_z_mm"]), float(control["E_top_z_mm"])),
+    ]
+    points = []
+    for q, bottom, _ in rows:
+        x, y = xy_at_q(record, q, 0.0)
+        points.append([float(x), float(y), bottom])
+    for q, _, top in reversed(rows):
+        x, y = xy_at_q(record, q, 0.0)
+        points.append([float(x), float(y), top])
+
+    width = float(ctx["case"]["p"]["w_fly"])
+    width_axis = [float(value) for value in record["width_axis"]]
+    width_vec = [width_axis[0] * width, width_axis[1] * width,
+                 float(record.get("g", 0.0)) * width]
+    start_shift = [-0.5 * value for value in width_vec]
+    a_points = [[point[0] + start_shift[0], point[1] + start_shift[1],
+                 point[2] + start_shift[2]] for point in points]
+    wire_points = [cq.Vector(*point) for point in a_points]
+    wire = cq.Wire.makePolygon(wire_points + [wire_points[0]], close=False)
+    shape = cq.Solid.extrudeLinear(wire, [], cq.Vector(*width_vec))
+    if shape.isNull() or not shape.isValid() or len(shape.Solids()) != 1 or shape.Volume() <= 1e-5:
+        raise ValueError(f"preview flyer {record['source_rafter_id']} is not one valid solid")
+    if len(shape.Faces()) > 20:
+        raise ValueError(f"preview flyer {record['source_rafter_id']} has over 20 BRep faces")
+    return shape, {
+        "source_rafter_id": str(record["source_rafter_id"]),
+        "family": str(record["family"]), "index": int(record["index"]),
+        "center_fiber_v_mm": float(control["v_mm"]),
+        "width_mm": width, "width_vector_3d_mm": width_vec,
+        "center_profile_rie_bottom_then_top_mm": points,
+        "part_face_count": len(shape.Faces()), "volume_mm3": float(shape.Volume()),
+        "valid_single_solid": True,
+        "preview_geometry_rule": "v=0 R/I/E center profile rigidly extruded along the actual 3D width vector; A/B use identical geometry by construction",
+    }
+
+
+def add_preview_contact_flyers(ctx):
+    """Create one rigidly extruded center-profile solid for each selected flyer."""
+    parts, control = ctx["parts"], ctx["control"]
+    source_order, motherboard = _build_flyer_masterboard(ctx)
+    ctx["flyer_masterboard"] = motherboard
+    master_by_source = {item["record"]["source_rafter_id"]: item for item in source_order}
+    if set(master_by_source) != {record["source_rafter_id"] for record in ctx["chosen"]}:
+        raise ValueError("preview center controls do not cover every selected flyer exactly once")
+    preview_records = []
+    for record in ctx["chosen"]:
+        master = master_by_source[record["source_rafter_id"]]
+        shape, detail = _preview_contact_flyer(ctx, record, master)
+        family, index = str(record["family"]), int(record["index"])
+        if family == "fan":
+            pid_x, group = f"flying_fan_x_{index:02d}", s4.WING_GROUP
+            name_x = f"预览立脚飞椽基准翼-{index:02d}（中心纵剖等宽挤出）"
+        else:
+            pid_x, group = f"straight_flying_x_{index:02d}", s4.STRAIGHT_GROUP
+            name_x = f"预览正身飞椽基准翼-{index:02d}（中心纵剖等宽挤出）"
+        pid_y = pid_x.replace("_x_", "_y_")
+        add(parts, pid_x, name_x, group, shape)
+        mirrored = s2.mirror_shape(ctx["case"], shape)
+        add(parts, pid_y, name_x.replace("基准翼", "镜像翼"), group, mirrored)
+        detail["part_ids"] = [pid_x, pid_y]
+        detail["part_face_counts"] = {pid_x: len(shape.Faces()), pid_y: len(mirrored.Faces())}
+        detail["part_volumes_mm3"] = {pid_x: float(shape.Volume()), pid_y: float(mirrored.Volume())}
+        detail["mirrored_valid_single_solid"] = bool(mirrored.isValid() and len(mirrored.Solids()) == 1)
+        preview_records.append(detail)
+    ctx["contact_fly_records"] = preview_records
+    ctx["contact_fly_shapes_x"] = {
+        record["part_ids"][0]: next(part["shape"] for part in parts if part["id"] == record["part_ids"][0])
+        for record in preview_records}
+    ctx["flyer_masterboard"]["physical_member_part_ids_x"] = [r["part_ids"][0] for r in preview_records]
+    ctx["flyer_masterboard"]["physical_member_part_ids_y"] = [r["part_ids"][1] for r in preview_records]
+    return preview_records
+
+
 def add_contact_flyers(ctx):
     parts, control = ctx["parts"], ctx["control"]
     fly_records = []
@@ -2777,7 +2865,7 @@ def solid_mesh_sampler(shapes, groups, case):
     return s4.MeshSurface({"parts": pieces}, set(groups))
 
 
-def make_combination_blank(ctx):
+def _build_combination_stock(ctx):
     by = {p["id"]: p for p in ctx["parts"]}
     old = by["old_corner"]["shape"]
     young = by["young_corner"]["shape"]
@@ -2855,6 +2943,56 @@ def make_combination_blank(ctx):
     z_values_u = [circle_branch_z(float(u), circle, branch_sign)
                   for u in np.linspace(u_start, u_end, 129)]
     z_split = 0.5 * (min(z_values_f) + min(z_values_u))
+    info = {
+        "coordinate_frame": {"origin_xy_mm": root_xy, "u_axis": list(map(float, ctx["case"]["old_unit"])),
+                             "v_axis": list(map(float, ctx["case"]["old_normal"])), "u_direction": "toward eave"},
+        "width_mm": width, "width_ratio_to_young_tip": float(p["combination_width_ratio_young_tip"]),
+        "A_u_z_mm": [uA, fA0], "B_u_z_mm": [uB, fB0],
+        "back_join_fraction": fraction,
+        "back_join_point_u_z_mm": join.tolist(),
+        "circle_center_u_z_mm": [circle[0], circle[1]], "radius_mm": circle[2],
+        "derived_chord_sagitta_mm": float(p["combination_sagitta_ratio_chord"]) * chord_length,
+        "upper_profile": "circle through dynamically sampled old/young corner top at endpoints and the configured back_join_fraction station with chord-relative downward sagitta; cross-width top offsets interpolate from actual old/young top surfaces",
+        "lower_profile": "F(u,v)=highest surface of only current old_corner/young_corner solids; mesh sampled at 1mm tessellation then new material cut against both BReps",
+        "u_trim_end_mm": [u_start - uB, uA - u_end],
+        "sampled_nominal_combination_depth_mm": [float(min_depth), float(max_depth)],
+        "sampled_u_below_F_count": int(below_upper_count),
+        "max_sampled_U_below_F_mm": float(max_upper_deficit),
+        "z_split_mm": float(z_split),
+        "split_rule": "z_split=0.5*(min_u F(u,0)+min_u U(u)); lower菱角木, upper扁担木; both share horizontal interface",
+        "top_material_contact": "stock blank starts 0.2mm below the sampled old_corner/young_corner top before optional exact Boolean fitting",
+        "pocket_fit_sample_grid": {"u_stations": int(p["combination_u_stations"]), "width_stations": len(v_values)},
+        "probe_reference_grid": {"u_stations": 129, "width_stations": 9},
+        "back_join_parameter_interpretation": "弦向分位；从B点沿接背弦量到老/嫩戗接背控制站位，不是面积比",
+        "historical_height_rule_status": "book p128 states combined height >= 2/3 of the flying-corner horizontal level, but the datum is unresolved; current t=0.7 does not prove that criterion",
+        "assumptions": ["接背上轮廓由动态端点与back_join_fraction处弦偏共同确定为圆弧", "组合木宽度按嫩戗梢部宽度比例", "水平拆分为两件", "组合侧轮廓与BRep切配为几何拟合，不等同传统榫接验证"]
+    }
+    return blank, info
+
+
+def add_preview_combination_blank(ctx):
+    """Add the original stock blank without fitting or horizontal split Booleans."""
+    blank, info = _build_combination_stock(ctx)
+    if not blank.isValid() or len(blank.Solids()) != 1 or blank.Volume() <= 1e-4:
+        raise ValueError("preview combination stock is not one valid solid")
+    info.update({"status": "preview_uncut_stock_blank",
+                 "part_id": "combination_preview_blank",
+                 "old_young_boolean_cuts_run": False,
+                 "horizontal_split_run": False,
+                 "exact_fit_and_split_required": True})
+    add(ctx["parts"], "combination_preview_blank",
+        "预览组合木料坯（未切老戗/嫩戗，未分菱角木/扁担木）",
+        "combination_preview_blank", blank)
+    ctx["combination_info"] = info
+    return info
+
+
+def make_combination_blank(ctx):
+    """Build, fit, and split the combination timber for exact generation."""
+    blank, info = _build_combination_stock(ctx)
+    by = {part["id"]: part for part in ctx["parts"]}
+    old, young = by["old_corner"]["shape"], by["young_corner"]["shape"]
+    z_split = float(info["z_split_mm"])
     obstacles = cq.Compound.makeCompound([old, young])
     print("stage05: subtracting old/young BReps from combination stock", flush=True)
     cut = blank.cut(obstacles).clean()
@@ -2875,30 +3013,10 @@ def make_combination_blank(ctx):
     for name, shape in (("菱角木", lingjiao), ("扁担木", biandan)):
         if not shape.isValid() or len(shape.Solids()) != 1 or shape.Volume() <= 1e-4:
             raise ValueError(f"{name} split piece invalid/multisolid: valid={shape.isValid()} solids={len(shape.Solids())} volume={shape.Volume()}")
-    info = {
-        "coordinate_frame": {"origin_xy_mm": root_xy, "u_axis": list(map(float, ctx["case"]["old_unit"])),
-                             "v_axis": list(map(float, ctx["case"]["old_normal"])), "u_direction": "toward eave"},
-        "width_mm": width, "width_ratio_to_young_tip": float(p["combination_width_ratio_young_tip"]),
-        "A_u_z_mm": [uA, fA0], "B_u_z_mm": [uB, fB0],
-        "back_join_fraction": fraction,
-        "back_join_point_u_z_mm": join.tolist(),
-        "circle_center_u_z_mm": [circle[0], circle[1]], "radius_mm": circle[2],
-        "derived_chord_sagitta_mm": float(p["combination_sagitta_ratio_chord"]) * chord_length,
-        "upper_profile": "circle through dynamically sampled old/young corner top at endpoints and the configured back_join_fraction station with chord-relative downward sagitta; cross-width top offsets interpolate from actual old/young top surfaces",
-        "lower_profile": "F(u,v)=highest surface of only current old_corner/young_corner solids; mesh sampled at 1mm tessellation then new material cut against both BReps",
-        "u_trim_end_mm": [u_start - uB, uA - u_end],
-        "sampled_nominal_combination_depth_mm": [float(min_depth), float(max_depth)],
-        "sampled_u_below_F_count": int(below_upper_count),
-        "max_sampled_U_below_F_mm": float(max_upper_deficit),
-        "z_split_mm": float(z_split),
-        "split_rule": "z_split=0.5*(min_u F(u,0)+min_u U(u)); lower菱角木, upper扁担木; both share horizontal interface",
-        "top_material_contact": "new stock cut by old_corner+young_corner; lower boundary conforms to actual corner top mesh, with 0.2mm stock allowance before BRep cut",
-        "pocket_fit_sample_grid": {"u_stations": int(p["combination_u_stations"]), "width_stations": len(v_values)},
-        "probe_reference_grid": {"u_stations": 129, "width_stations": 9},
-        "back_join_parameter_interpretation": "弦向分位；从B点沿接背弦量到老/嫩戗接背控制站位，不是面积比",
-        "historical_height_rule_status": "book p128 states combined height >= 2/3 of the flying-corner horizontal level, but the datum is unresolved; current t=0.7 does not prove that criterion",
-        "assumptions": ["接背上轮廓由动态端点与back_join_fraction处弦偏共同确定为圆弧", "组合木宽度按嫩戗梢部宽度比例", "水平拆分为两件", "组合侧轮廓与BRep切配为几何拟合，不等同传统榫接验证"]
-    }
+    info.update({"status": "exact_fitted_and_split",
+                 "old_young_boolean_cuts_run": True,
+                 "horizontal_split_run": True,
+                 "top_material_contact": "new stock cut by old_corner+young_corner; lower boundary conforms to actual corner top mesh, with 0.2mm stock allowance before BRep cut"})
     return lingjiao, biandan, info
 
 

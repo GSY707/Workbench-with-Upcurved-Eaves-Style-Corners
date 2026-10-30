@@ -1,0 +1,64 @@
+{
+  "status": "completed_all_three",
+  "started_utc": "2026-10-30T01:59:07.3603130Z",
+  "updated_utc": "2026-10-30T02:00:31.5781357Z",
+  "wall_seconds": 84.198,
+  "budget_seconds": 180,
+  "order": [
+    "angle_120_B400",
+    "angle_90_B400",
+    "angle_60_B400"
+  ],
+  "probe_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\preview_probe.py",
+  "probe_sha256": "39f9b21bf1e781e84abdb7b169cc0d28579abe4583fd34be72b976e19c2a463e",
+  "cases": [
+    {
+      "case_id": "angle_120_B400",
+      "config_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\angle_120.json",
+      "config_sha256": "b7caaef9c3435f63db95677b83aec9e95e5f82f3d95c3b773b18f293d798e0ac",
+      "output_dir": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_120_B400",
+      "started_utc": "2026-10-30T01:59:07.4158905Z",
+      "finished_utc": "2026-10-30T01:59:24.0176910Z",
+      "process_id": 51108,
+      "wall_seconds": 16.601,
+      "timed_out": false,
+      "exit_code": 0,
+      "stdout_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_120_B400\\stdout.log",
+      "stderr_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_120_B400\\stderr.log",
+      "summary_present": true,
+      "progress_present": true
+    },
+    {
+      "case_id": "angle_90_B400",
+      "config_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_90_B400.json",
+      "config_sha256": "e380e69302ea75ddba7433f6a3b047702bdf4bb70036b4e8fadf99fd752c87e9",
+      "output_dir": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_90_B400",
+      "started_utc": "2026-10-30T01:59:24.0360731Z",
+      "finished_utc": "2026-10-30T01:59:54.1946519Z",
+      "process_id": 10968,
+      "wall_seconds": 30.158,
+      "timed_out": false,
+      "exit_code": 0,
+      "stdout_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_90_B400\\stdout.log",
+      "stderr_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_90_B400\\stderr.log",
+      "summary_present": true,
+      "progress_present": true
+    },
+    {
+      "case_id": "angle_60_B400",
+      "config_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\configs\\angle_60.json",
+      "config_sha256": "adc80ead09b6cceae061582ca9351eb5bb453013849b21439650560d073ab8e2",
+      "output_dir": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_60_B400",
+      "started_utc": "2026-10-30T01:59:54.2040439Z",
+      "finished_utc": "2026-10-30T02:00:31.5491209Z",
+      "process_id": 25636,
+      "wall_seconds": 37.344,
+      "timed_out": false,
+      "exit_code": 0,
+      "stdout_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_60_B400\\stdout.log",
+      "stderr_path": "C:\\Users\\24408\\Documents\\ChatGPT\\木构造\\生成器\\直角戗角\\diagnostics\\preview_performance_20261029\\angle_60_B400\\stderr.log",
+      "summary_present": true,
+      "progress_present": true
+    }
+  ]
+}

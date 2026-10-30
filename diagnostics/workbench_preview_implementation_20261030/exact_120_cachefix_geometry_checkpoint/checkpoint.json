@@ -1,0 +1,4187 @@
+{
+  "schema": "v02_mesh_failure_geometry_checkpoint_v2",
+  "state": "complete_geometry_before_mesh_export",
+  "mode": "exact",
+  "created_unix_seconds": 1793361547.8368976,
+  "config_identity": {
+    "corner_angle_deg": 120.0,
+    "parameters": {
+      "D": 1200.0,
+      "e": 600.0,
+      "p": 300.0,
+      "t": 0.5,
+      "B": 400.0,
+      "L_n": 900.0,
+      "U_n": 480.0,
+      "a": 110.0,
+      "w_fly": 60.0,
+      "k_c": 0.9,
+      "old_tail_scale": 0.8,
+      "old_ridge_h": 41.25,
+      "young_root_scale": 0.8,
+      "young_tip_scale": 0.8,
+      "setback": 82.5,
+      "likou_width": 55.0,
+      "likou_h_regular": 70.0,
+      "likou_h_corner_ratio": 2.25,
+      "likou_extension_pitches": 1.5,
+      "board_lower_t": 20.0,
+      "board_upper_t": 13.75,
+      "fly_tip_t": 40.0,
+      "fly_corner_root_ratio": 0.65,
+      "back_join_fraction": 0.7
+    },
+    "advanced": {
+      "purlin_radius_mm": 90.0,
+      "qiangshan_width_mm": 90.0,
+      "qiangshan_clearance_mm": 20.0,
+      "fan_rafter_width_mm": 70.0,
+      "fan_rafter_height_mm": 60.0,
+      "rafter_seat_relief_mm": 12.0,
+      "straight_rafter_width_mm": 70.0,
+      "straight_rafter_height_mm": 60.0,
+      "old_seat_relief_mm": 25.0,
+      "board_surface_overlap_mm": 0.2,
+      "likou_surface_overlap_mm": 0.2,
+      "fan_station_count": 129,
+      "flyer_width_fiber_stations": 17,
+      "flyer_edge_inboard_bias_mm": 0.05,
+      "flyer_tail_search_step_mm": 5.0,
+      "flyer_front_edge_search_span_mm": 160.0,
+      "flyer_front_edge_coarse_step_mm": 4.0,
+      "flyer_tail_root_max_search_mm": 2200.0,
+      "flyer_edge_fit_clearance_mm": 0.01,
+      "flyer_root_fit_clearance_mm": 0.01,
+      "flyer_outer_tip_offset_mm": -3.5,
+      "flyer_tip_transition_power": 3.0,
+      "flyer_contact_tail_gap_mm": 1.0,
+      "flyer_seat_delta_mm": 3.0,
+      "upper_board_surface_overlap_mm": 0.2,
+      "combination_back_u_ratio_D": -0.559,
+      "combination_front_u_ratio_D": 0.41478875,
+      "combination_sagitta_ratio_chord": 0.11794,
+      "combination_width_ratio_young_tip": 0.75,
+      "combination_cross_width_stations": 7,
+      "combination_u_stations": 33,
+      "combination_end_trim_mm": 10.0,
+      "mesh_tessellation_mm": 2.0,
+      "mesh_angular_tolerance_rad": 0.35
+    },
+    "derived": {
+      "corner_angle_deg": 120.0,
+      "young_plan_run_mm": 761.3146524269712,
+      "young_rise_angle_deg": 32.230952635502106,
+      "old_young_control_included_angle_deg": 124.35582291812737,
+      "old_corner_fan_coefficient_mm": 270.0,
+      "fan_count_rule": "n为满足弧长/n < B的最小奇数等分区间数；内部i/n分点生成n-1根摔网椽，弧端点只作边界",
+      "fan_division_count_n": 3,
+      "fan_plan_sagitta_mm": 58.52685823451202,
+      "young_sagitta_mm": 15.853827220197648,
+      "young_sagitta_rule": "派生为min(根车背,梢车背)×0.75",
+      "fly_tail_ratio": null,
+      "fly_tail_rule": "尖尾由本次生成的下层板上表面触底求得；不强制1.5比值",
+      "included_angle_source": "由嫩戗升角asin(U_n/L_n)和老戗方向atan(t*sin(corner_angle_deg/2))按实轴方向派生；不作为输入",
+      "fan_count": 2,
+      "fan_spacing_mm": 376.3247647103797,
+      "fan_spacing_rule": "n为满足弧长/n < B的最小奇数等分区间数；摔网取内部i/n分点，弧端边界椽归正身",
+      "fan_plan_sagitta_reference_mm": 55.0
+    }
+  },
+  "config_identity_sha256": "ce280ed61bea28a8da79a37c7ff7bf078f1251ea08063016743d03a581d2a7b3",
+  "checkpoint_case_id": "angle_120_B400",
+  "resolved_config": {
+    "case_id": "angle_120_B400",
+    "corner_angle_deg": 120.0,
+    "parameters": {
+      "D": 1200.0,
+      "e": 600.0,
+      "p": 300.0,
+      "t": 0.5,
+      "B": 400.0,
+      "L_n": 900.0,
+      "U_n": 480.0,
+      "a": 110.0,
+      "w_fly": 60.0,
+      "k_c": 0.9,
+      "old_tail_scale": 0.8,
+      "old_ridge_h": 41.25,
+      "young_root_scale": 0.8,
+      "young_tip_scale": 0.8,
+      "setback": 82.5,
+      "likou_width": 55.0,
+      "likou_h_regular": 70.0,
+      "likou_h_corner_ratio": 2.25,
+      "likou_extension_pitches": 1.5,
+      "board_lower_t": 20.0,
+      "board_upper_t": 13.75,
+      "fly_tip_t": 40.0,
+      "fly_corner_root_ratio": 0.65,
+      "back_join_fraction": 0.7
+    },
+    "advanced": {
+      "purlin_radius_mm": 90.0,
+      "qiangshan_width_mm": 90.0,
+      "qiangshan_clearance_mm": 20.0,
+      "fan_rafter_width_mm": 70.0,
+      "fan_rafter_height_mm": 60.0,
+      "rafter_seat_relief_mm": 12.0,
+      "straight_rafter_width_mm": 70.0,
+      "straight_rafter_height_mm": 60.0,
+      "old_seat_relief_mm": 25.0,
+      "board_surface_overlap_mm": 0.2,
+      "likou_surface_overlap_mm": 0.2,
+      "fan_station_count": 129,
+      "flyer_width_fiber_stations": 17,
+      "flyer_edge_inboard_bias_mm": 0.05,
+      "flyer_tail_search_step_mm": 5.0,
+      "flyer_front_edge_search_span_mm": 160.0,
+      "flyer_front_edge_coarse_step_mm": 4.0,
+      "flyer_tail_root_max_search_mm": 2200.0,
+      "flyer_edge_fit_clearance_mm": 0.01,
+      "flyer_root_fit_clearance_mm": 0.01,
+      "flyer_outer_tip_offset_mm": -3.5,
+      "flyer_tip_transition_power": 3.0,
+      "flyer_contact_tail_gap_mm": 1.0,
+      "flyer_seat_delta_mm": 3.0,
+      "upper_board_surface_overlap_mm": 0.2,
+      "combination_back_u_ratio_D": -0.559,
+      "combination_front_u_ratio_D": 0.41478875,
+      "combination_sagitta_ratio_chord": 0.11794,
+      "combination_width_ratio_young_tip": 0.75,
+      "combination_cross_width_stations": 7,
+      "combination_u_stations": 33,
+      "combination_end_trim_mm": 10.0,
+      "mesh_tessellation_mm": 2.0,
+      "mesh_angular_tolerance_rad": 0.35
+    },
+    "derived": {
+      "corner_angle_deg": 120.0,
+      "young_plan_run_mm": 761.3146524269712,
+      "young_rise_angle_deg": 32.230952635502106,
+      "old_young_control_included_angle_deg": 124.35582291812737,
+      "old_corner_fan_coefficient_mm": 270.0,
+      "fan_count_rule": "n为满足弧长/n < B的最小奇数等分区间数；内部i/n分点生成n-1根摔网椽，弧端点只作边界",
+      "fan_division_count_n": 3,
+      "fan_plan_sagitta_mm": 58.52685823451202,
+      "young_sagitta_mm": 15.853827220197648,
+      "young_sagitta_rule": "派生为min(根车背,梢车背)×0.75",
+      "fly_tail_ratio": null,
+      "fly_tail_rule": "尖尾由本次生成的下层板上表面触底求得；不强制1.5比值",
+      "included_angle_source": "由嫩戗升角asin(U_n/L_n)和老戗方向atan(t*sin(corner_angle_deg/2))按实轴方向派生；不作为输入",
+      "fan_count": 2,
+      "fan_spacing_mm": 376.3247647103797,
+      "fan_spacing_rule": "n为满足弧长/n < B的最小奇数等分区间数；摔网取内部i/n分点，弧端边界椽归正身",
+      "fan_plan_sagitta_reference_mm": 55.0
+    }
+  },
+  "production_source_identity": {
+    "sha256": "a21524e6e9fa7b3862fddcbe90ae187cc1702ad46b065fe74e996075dd121ecb",
+    "files": [
+      {
+        "path": "generate.py",
+        "sha256": "c6e2cfdf0eedff06161422d806eb1e5bdec17d64204ace8e02f76e4a9d0ad5c3"
+      },
+      {
+        "path": "parameter_schema.json",
+        "sha256": "1e2e69bd6f9615fb650fffbe56816283dbb7baf63d93919746067c1f47f918b6"
+      },
+      {
+        "path": "render_delivery.py",
+        "sha256": "698a889f49b512394478aae880ebedba1eb4f2f005194dac583fb76dc1c48dac"
+      },
+      {
+        "path": "viewer.js",
+        "sha256": "0278de3f54d7d575a7fc53d42eec25e18533826d40f9b05ad58bbb9af42a2e3b"
+      },
+      {
+        "path": "viewer.css",
+        "sha256": "3c85db73a9071024cf39c11842c43a1446d43dbcfda4f77e99c5403c5f5dccdf"
+      },
+      {
+        "path": "viewer.template.html",
+        "sha256": "57b31ec1414d2b9a0bb39fe247c32a8c8331c726248d2c28a7f880eb15505d5c"
+      },
+      {
+        "path": "layout.js",
+        "sha256": "29a1586a77d440bbcf56a52c3cac9537445d205026a5a1211d555b7e993ff82c"
+      },
+      {
+        "path": "layout.template.html",
+        "sha256": "132bdbb204368e75fb8fa5bb38e1316eb9ac5fb92599749a781956cef6c3fdf6"
+      },
+      {
+        "path": "vendor/viewer-runtime.js",
+        "sha256": "c4c18fe994a6741cc945543075b68d24a39c3749255f34274452126ac8563c88"
+      },
+      {
+        "path": "engine/config.py",
+        "sha256": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+      },
+      {
+        "path": "engine/stage02_core.py",
+        "sha256": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219"
+      },
+      {
+        "path": "engine/stage03_core.py",
+        "sha256": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741"
+      },
+      {
+        "path": "engine/stage04_core.py",
+        "sha256": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f"
+      },
+      {
+        "path": "engine/stage05_core.py",
+        "sha256": "725b926070dc2258f26e1f45aa803e90c333f72ae2c9adc9d6a8d1a8310b9a54"
+      }
+    ]
+  },
+  "geometry_source_identity": {
+    "sha256": "9f4f55b717380e133d7c03df79aa7d7db84e0beea4034a95ee93f739590a69f8",
+    "files": [
+      {
+        "path": "engine/config.py",
+        "sha256": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+      },
+      {
+        "path": "engine/stage02_core.py",
+        "sha256": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219"
+      },
+      {
+        "path": "engine/stage03_core.py",
+        "sha256": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741"
+      },
+      {
+        "path": "engine/stage04_core.py",
+        "sha256": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f"
+      },
+      {
+        "path": "engine/stage05_core.py",
+        "sha256": "725b926070dc2258f26e1f45aa803e90c333f72ae2c9adc9d6a8d1a8310b9a54"
+      },
+      {
+        "path": "generate.py::derived_geometry_values",
+        "sha256": "3015225bfc93f2520172e870b33fe9f90052560854e030484dfbeb41f30b8dbc"
+      },
+      {
+        "path": "generate.py::load_stage05",
+        "sha256": "01c4f8112c8e9d9dbfd16bc4fa125105ff07ab0a9f6e4b723353ca32ecc7c2d9"
+      },
+      {
+        "path": "generate.py::stage05_geometry_pipeline",
+        "sha256": "1adb5aa40b8e49af7d8b2935734c51409d35593f246d4b8a1cf0f77e342af87e"
+      },
+      {
+        "path": "generate.py::update_resolved_geometry_derivations",
+        "sha256": "9041993179e9245e5f01c9c8388b66596124b2e0f3b70b1ada65867e6a632745"
+      }
+    ]
+  },
+  "post_geometry_artifact_policy": "profiles.json and layout.json are regenerated from saved center-fiber records with the current make_profiles/make_layout implementations and current case config",
+  "geometry_runtime_seconds_before_checkpoint": 215.70935999997891,
+  "geometry_phase_timings_seconds": {
+    "config_validation_and_initial_write": 0.04815949988551438,
+    "lightweight_geometry_identity_derivation": 1.2266902001574636,
+    "stage04_base_and_preflight": 3.3850559000857174,
+    "stage05_flyer_build": 106.25132179982029,
+    "stage05_likou_cut_and_mirror": 31.368759700097144,
+    "stage05_upper_board_rebuild": 0.31213230011053383,
+    "stage05_combination_rebuild": 73.06501569994725,
+    "geometry_total_after_stage04": 210.99722949997522,
+    "geometry_checkpoint_write": 3.3045158002059907
+  },
+  "parts": [
+    {
+      "id": "eave_purlin_x",
+      "name": "廊桁第一翼（X基准翼）",
+      "group": "eave_purlins",
+      "volume_mm3": 51601741.98005624,
+      "brep": "part-0000.brep",
+      "sha256": "9313bf2d2746877b7fcede29b844f87db63fb33723bab9f474147979fcbf74ee"
+    },
+    {
+      "id": "eave_purlin_y",
+      "name": "廊桁第二翼（关于建筑角平分面镜像）",
+      "group": "eave_purlins",
+      "volume_mm3": 51613296.65694307,
+      "brep": "part-0001.brep",
+      "sha256": "6cf3f320d6f438e5026da5a102c1a58b949c6ebf41d06e202e85687016fac8e6"
+    },
+    {
+      "id": "step_purlin_x",
+      "name": "步桁第一翼（X基准翼）",
+      "group": "step_purlins",
+      "volume_mm3": 33971612.159718975,
+      "brep": "part-0002.brep",
+      "sha256": "56f4d9dc4b3ceb18083a8c52d27c40d4772ef63986babe6aefbc26b88d213024"
+    },
+    {
+      "id": "step_purlin_y",
+      "name": "步桁第二翼（关于建筑角平分面镜像）",
+      "group": "step_purlins",
+      "volume_mm3": 33983166.83661704,
+      "brep": "part-0003.brep",
+      "sha256": "c5dc29f5574e2ecdd8ad41fe7572730d86c4696ad86d56686fd01ca0fffda655"
+    },
+    {
+      "id": "old_corner",
+      "name": "老戗（宽1.5a，近直斜主材）",
+      "group": "old_corner",
+      "volume_mm3": 41977333.49363957,
+      "brep": "part-0004.brep",
+      "sha256": "ca802a3dbb511bffeb6b2c485c5761a8baef43a7927b38a32ce473e5b8851daf"
+    },
+    {
+      "id": "qiangshan_x",
+      "name": "戗山木第一翼（上承面由共同椽底导出）",
+      "group": "qiangshan",
+      "volume_mm3": 1036213.5129285859,
+      "brep": "part-0005.brep",
+      "sha256": "eae867b6511f94f3918e438849c0f83aacda56b8962f71b9874d45c56050082e"
+    },
+    {
+      "id": "qiangshan_y",
+      "name": "戗山木第二翼镜像（上承面由共同椽底导出）",
+      "group": "qiangshan",
+      "volume_mm3": 1036213.5129285858,
+      "brep": "part-0006.brep",
+      "sha256": "39a7fc477663447ed925bcd2fb8b07bcbfd0ee8e54dd8864fd93bd9e57517ee7"
+    },
+    {
+      "id": "fan_rafter_01",
+      "name": "摔网椽基准翼01（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "volume_mm3": 6424084.579262822,
+      "brep": "part-0007.brep",
+      "sha256": "843247db0efb284019974dc94df457048b87b082b379a7c0fd3d108870c3e5c3"
+    },
+    {
+      "id": "fan_rafter_02",
+      "name": "摔网椽基准翼02（70宽，扇区割角）",
+      "group": "fan_rafters",
+      "volume_mm3": 6955688.231419103,
+      "brep": "part-0008.brep",
+      "sha256": "92b1098bedc08b05c8ed97c698975ae9f843078552f1b4d41130b9d6dd754063"
+    },
+    {
+      "id": "fan_rafter_mirror_01",
+      "name": "摔网椽镜像翼01",
+      "group": "fan_rafters",
+      "volume_mm3": 6424084.579262822,
+      "brep": "part-0009.brep",
+      "sha256": "4d4af54ecce68568bd142beb7d15e024bb8d8fe945ab244ae81118554e354dd6"
+    },
+    {
+      "id": "fan_rafter_mirror_02",
+      "name": "摔网椽镜像翼02",
+      "group": "fan_rafters",
+      "volume_mm3": 6955688.231419102,
+      "brep": "part-0010.brep",
+      "sha256": "9a48abb460b4858cc7aed0ea9032814f74fd162940625a301e56fb312e8a727f"
+    },
+    {
+      "id": "eave_rafter_01",
+      "name": "正身出檐椽01（x=-1892.8）",
+      "group": "eave_rafters",
+      "volume_mm3": 10080000.0,
+      "brep": "part-0011.brep",
+      "sha256": "fbe08b5d8a7001b621ff50f87de33e3a9748caebca62b451fa49d5a360dfa3a9"
+    },
+    {
+      "id": "eave_rafter_02",
+      "name": "正身出檐椽02（x=-1492.8）",
+      "group": "eave_rafters",
+      "volume_mm3": 10080000.0,
+      "brep": "part-0012.brep",
+      "sha256": "843b45ef8da934ce99d629b17a9c027e4315d95b4579b98b33603bcf3ccaec3c"
+    },
+    {
+      "id": "eave_rafter_03",
+      "name": "正身出檐椽03（x=-1092.8）",
+      "group": "eave_rafters",
+      "volume_mm3": 10080000.0,
+      "brep": "part-0013.brep",
+      "sha256": "2b1aacc59b236518574e829031728ae062dd22e620f4a080c91806f5620cfeec"
+    },
+    {
+      "id": "eave_rafter_04",
+      "name": "正身边界出檐椽04（x=-692.8）",
+      "group": "eave_rafters",
+      "volume_mm3": 10080000.0,
+      "brep": "part-0014.brep",
+      "sha256": "42b281f2c24be12da8e68b32c6bf2495284cb1178a116d3542e090b433c3d939"
+    },
+    {
+      "id": "eave_rafter_mirror_01",
+      "name": "正身出檐椽镜像翼01",
+      "group": "eave_rafters",
+      "volume_mm3": 10080000.000000002,
+      "brep": "part-0015.brep",
+      "sha256": "98640c1ce7af00bea6c39ec05bbd8f5f783f93edf787bc7a45328113c8c2bb28"
+    },
+    {
+      "id": "eave_rafter_mirror_02",
+      "name": "正身出檐椽镜像翼02",
+      "group": "eave_rafters",
+      "volume_mm3": 10080000.000000002,
+      "brep": "part-0016.brep",
+      "sha256": "0cf807e68f4d9c83bb42fc4ccfe7bea9d8ab1415862a4695b3a540ab567983a5"
+    },
+    {
+      "id": "eave_rafter_mirror_03",
+      "name": "正身出檐椽镜像翼03",
+      "group": "eave_rafters",
+      "volume_mm3": 10080000.000000007,
+      "brep": "part-0017.brep",
+      "sha256": "c82c906c4b51907d7b16cc7bafacca55a456f75cdb9bce1601bc18f024f34146"
+    },
+    {
+      "id": "eave_rafter_mirror_04",
+      "name": "正身出檐椽镜像翼04",
+      "group": "eave_rafters",
+      "volume_mm3": 10080000.000000011,
+      "brep": "part-0018.brep",
+      "sha256": "a39772e977dfb5a0064074578f01f1094230dfe7f6b2044eead15f21d8f206b6"
+    },
+    {
+      "id": "young_corner",
+      "name": "嫩戗（沿stage03原体）",
+      "group": "young_corner",
+      "volume_mm3": 7076021.527832392,
+      "brep": "part-0019.brep",
+      "sha256": "8e8dd6e0542d2e0ebcc2d6cae47d1ee762cdf935b5b5264bec2eb0571e9794be"
+    },
+    {
+      "id": "likou_x",
+      "name": "弯里口木X向（沿stage03原体）",
+      "group": "likou",
+      "volume_mm3": 12578866.18988259,
+      "brep": "part-0020.brep",
+      "sha256": "cf7c37950ee66f711aec1c32de9423b7675fe8061b8eea0209bbe5f2ffc64d3a"
+    },
+    {
+      "id": "likou_y",
+      "name": "弯里口木Y向（沿stage03原体）",
+      "group": "likou",
+      "volume_mm3": 12578866.190170864,
+      "brep": "part-0021.brep",
+      "sha256": "e0b25e23c5e35d79cb315c8f673fb1f2c89b5d82ef294d59c8e2d7d4d7d706b4"
+    },
+    {
+      "id": "lower_board_straight_x_01",
+      "name": "下层望板正身基准翼01（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 18760000.0,
+      "brep": "part-0022.brep",
+      "sha256": "a3af4ccce5b31b0331e5b545e198737977c2498319b92012e0f72262fa65d13d"
+    },
+    {
+      "id": "lower_board_straight_y_01",
+      "name": "下层望板正身镜像翼01（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 18759999.999999993,
+      "brep": "part-0023.brep",
+      "sha256": "cca1dbd450a6dfc139b4ae9b89099d74510190d64f94b62175c846f4906e3f2d"
+    },
+    {
+      "id": "lower_board_straight_x_02",
+      "name": "下层望板正身基准翼02（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 18760000.0,
+      "brep": "part-0024.brep",
+      "sha256": "a16cb75e1827b17eebac70fcaba36388e21903959c1a4163a258932dfd9f749b"
+    },
+    {
+      "id": "lower_board_straight_y_02",
+      "name": "下层望板正身镜像翼02（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 18760000.0,
+      "brep": "part-0025.brep",
+      "sha256": "20e7f54b57d877cd6138c1ac87485fe861d45d98d7273e5ab117117642dfeeea"
+    },
+    {
+      "id": "lower_board_straight_x_03",
+      "name": "下层望板正身基准翼03（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 18364977.226556692,
+      "brep": "part-0026.brep",
+      "sha256": "d99c0f64677bafa523ba047f828d81ccc22c1bb586c9205637faa5761b75c369"
+    },
+    {
+      "id": "lower_board_straight_y_03",
+      "name": "下层望板正身镜像翼03（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 18364977.226556696,
+      "brep": "part-0027.brep",
+      "sha256": "140b429378ec36fbf52694c1dd3146a713c14cdedfa1688e0a3de75c1ed2a57b"
+    },
+    {
+      "id": "lower_board_straight_x_04",
+      "name": "下层望板正身基准翼04（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 7615729.471235691,
+      "brep": "part-0028.brep",
+      "sha256": "f28083a4a6b26ede31bd7783d2084b447c6a7401c82576c1014bc5a4ef2569f0"
+    },
+    {
+      "id": "lower_board_straight_y_04",
+      "name": "下层望板正身镜像翼04（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 7615729.471235684,
+      "brep": "part-0029.brep",
+      "sha256": "89b3e9635e51bccd3ded193eab35ea821cc2ebceb3e64d45fd3dfa3216c4af6f"
+    },
+    {
+      "id": "lower_board_fan_x_01",
+      "name": "下层望板摔网基准翼01（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 4540241.113899435,
+      "brep": "part-0030.brep",
+      "sha256": "94196c9dad1cda1c9b80350a644e4ba60b53878cf8d06ff279c7a2e116f03931"
+    },
+    {
+      "id": "lower_board_fan_x_02",
+      "name": "下层望板摔网基准翼02（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 4406480.155985221,
+      "brep": "part-0031.brep",
+      "sha256": "e33e5862a2ed61f94c26fefcb5d1ebd81c47766681dda7bf3bc3097a275dab3d"
+    },
+    {
+      "id": "lower_board_fan_x_03",
+      "name": "下层望板摔网基准翼03（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 4137568.5553058516,
+      "brep": "part-0032.brep",
+      "sha256": "2a741a73f2f359b9f7e4d4ef011975dfe224844174678b4f59170f64e1149118"
+    },
+    {
+      "id": "lower_board_fan_x_04",
+      "name": "下层望板摔网基准翼04（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 3736746.034985882,
+      "brep": "part-0033.brep",
+      "sha256": "6c9277a807bda69cac84f667dd2e7e01bc231e81267b27d1166895417ed8ccbd"
+    },
+    {
+      "id": "lower_board_fan_y_01",
+      "name": "下层望板摔网镜像翼01（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 4540241.113899434,
+      "brep": "part-0034.brep",
+      "sha256": "d19c9d810ce18d9b2468ca9319fac5f4092d556ca4239528ff2df37bbf1fe935"
+    },
+    {
+      "id": "lower_board_fan_y_02",
+      "name": "下层望板摔网镜像翼02（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 4406480.155985221,
+      "brep": "part-0035.brep",
+      "sha256": "d0f12b8749cca777a4f1da502e58a9c690ed4f004490aeb5dafa579e86f21c78"
+    },
+    {
+      "id": "lower_board_fan_y_03",
+      "name": "下层望板摔网镜像翼03（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 4137568.555305849,
+      "brep": "part-0036.brep",
+      "sha256": "6e5975a38e59fd6a27706aa2965a9340deb275c3267e39ee8cea7a8e432a009c"
+    },
+    {
+      "id": "lower_board_fan_y_04",
+      "name": "下层望板摔网镜像翼04（20厚）",
+      "group": "lower_board",
+      "volume_mm3": 3736746.0349858818,
+      "brep": "part-0037.brep",
+      "sha256": "c606c4c2c39bd105344aa148de9f6fa22590dcdcb60aabbd34d4b513b8ae7b5a"
+    },
+    {
+      "id": "flying_fan_x_01",
+      "name": "立脚飞椽基准翼-01（贴板尖尾）",
+      "group": "flying_rafters",
+      "volume_mm3": 1202243.8165681,
+      "brep": "part-0038.brep",
+      "sha256": "5f1d53a02316262fafad71720ed37b36152738a77dd2edc3b1fda50c67289ea2"
+    },
+    {
+      "id": "flying_fan_y_01",
+      "name": "立脚飞椽镜像翼-01（贴板尖尾）",
+      "group": "flying_rafters",
+      "volume_mm3": 1202243.8165680997,
+      "brep": "part-0039.brep",
+      "sha256": "6b21cedba0e1d141d8d33870529e3a166cff504981e80b73dfc4b9cf57566813"
+    },
+    {
+      "id": "flying_fan_x_02",
+      "name": "立脚飞椽基准翼-02（贴板尖尾）",
+      "group": "flying_rafters",
+      "volume_mm3": 1415157.3472200558,
+      "brep": "part-0040.brep",
+      "sha256": "0d1f2d4adb6a3099cb1d8d1e2bdfcbd815b45c16af4a0db0570bb0974c53cbe2"
+    },
+    {
+      "id": "flying_fan_y_02",
+      "name": "立脚飞椽镜像翼-02（贴板尖尾）",
+      "group": "flying_rafters",
+      "volume_mm3": 1415157.347220054,
+      "brep": "part-0041.brep",
+      "sha256": "29384b37da5940e25ed5c4d24a3bd8d3aa050b3fb1928065ae28ccf62882b80b"
+    },
+    {
+      "id": "straight_flying_x_01",
+      "name": "正身飞椽基准翼-01（贴板尖尾）",
+      "group": "straight_flying_rafters",
+      "volume_mm3": 1257691.2890625028,
+      "brep": "part-0042.brep",
+      "sha256": "4da32b1cb11dccf93e0df27816c09e6aea2ddce1627e4417377079c68d08cd3b"
+    },
+    {
+      "id": "straight_flying_y_01",
+      "name": "正身飞椽镜像翼-01（贴板尖尾）",
+      "group": "straight_flying_rafters",
+      "volume_mm3": 1257691.2890625023,
+      "brep": "part-0043.brep",
+      "sha256": "a3ce8347ecd3a698ea8dc5c683c5f401a80bd031259e7ce98837d34446e56980"
+    },
+    {
+      "id": "straight_flying_x_02",
+      "name": "正身飞椽基准翼-02（贴板尖尾）",
+      "group": "straight_flying_rafters",
+      "volume_mm3": 1257691.2890625028,
+      "brep": "part-0044.brep",
+      "sha256": "0bd820e97399929b47b3e03cdd4d7f1b403c9ae9b771d1183ad31d9ebb063685"
+    },
+    {
+      "id": "straight_flying_y_02",
+      "name": "正身飞椽镜像翼-02（贴板尖尾）",
+      "group": "straight_flying_rafters",
+      "volume_mm3": 1257691.289062503,
+      "brep": "part-0045.brep",
+      "sha256": "69c2c8d2bfced19e70eaa9f8f9988b1bc3d8225856a9c10b5c5428e30868a822"
+    },
+    {
+      "id": "straight_flying_x_03",
+      "name": "正身飞椽基准翼-03（贴板尖尾）",
+      "group": "straight_flying_rafters",
+      "volume_mm3": 1258600.9679940045,
+      "brep": "part-0046.brep",
+      "sha256": "77284272a2e84608c1072ae978df4913907e28c781de9815156147a3718a3639"
+    },
+    {
+      "id": "straight_flying_y_03",
+      "name": "正身飞椽镜像翼-03（贴板尖尾）",
+      "group": "straight_flying_rafters",
+      "volume_mm3": 1258600.9679940033,
+      "brep": "part-0047.brep",
+      "sha256": "6f57dfbc363299378d42577dc19b7c9c8f0d42f6b427a69afa551810ea6da27d"
+    },
+    {
+      "id": "straight_flying_x_04",
+      "name": "正身飞椽基准翼-04（贴板尖尾）",
+      "group": "straight_flying_rafters",
+      "volume_mm3": 1256060.159990492,
+      "brep": "part-0048.brep",
+      "sha256": "68670ab8a83160ff773d8cf7a8b31c58efc47e892d73ab80c315f049ef51a5f5"
+    },
+    {
+      "id": "straight_flying_y_04",
+      "name": "正身飞椽镜像翼-04（贴板尖尾）",
+      "group": "straight_flying_rafters",
+      "volume_mm3": 1256060.1599904932,
+      "brep": "part-0049.brep",
+      "sha256": "ebeec35ff84f047b0624b78b269a38727ee130e903b48df985cdbea0e27ae6ed"
+    },
+    {
+      "id": "upper_board_x_continuous",
+      "name": "卷戗板基准翼（全宽连续曲面）",
+      "group": "upper_board",
+      "volume_mm3": 4942433.546544516,
+      "brep": "part-0050.brep",
+      "sha256": "d44f08ce782d691a9a1ee1d81ce866b288eccf66f73644431a6fa58040a80be1"
+    },
+    {
+      "id": "upper_board_y_continuous",
+      "name": "卷戗板镜像翼（全宽连续曲面）",
+      "group": "upper_board",
+      "volume_mm3": 4942433.546544522,
+      "brep": "part-0051.brep",
+      "sha256": "b20cb92751fda5c392d5e70905f4ee8b48d77c8a114e3b1b77d58bf1c38815c6"
+    },
+    {
+      "id": "lingjiao_main",
+      "name": "菱角木（下部楔形拟合）",
+      "group": "lingjiao",
+      "volume_mm3": 611532.9439007941,
+      "brep": "part-0052.brep",
+      "sha256": "e7ba2c7f63487fd7c6e6e03a86871dc269eda6f6548d7335d6d4fa13fa09aea3"
+    },
+    {
+      "id": "biandan_main",
+      "name": "扁担木（上部后延弧背拟合）",
+      "group": "biandan",
+      "volume_mm3": 2406148.603407355,
+      "brep": "part-0053.brep",
+      "sha256": "c215f414cec1b0167238b32b347245bc1cda71ad03d6cac7d37f56af4b104d95"
+    }
+  ],
+  "control": [
+    {
+      "id": "axis_eave_x",
+      "name": "廊桁基准翼中心线",
+      "group": "eave_purlins",
+      "points": [
+        [
+          -2072.8203230275512,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "id": "axis_eave_y",
+      "name": "廊桁镜像翼中心线",
+      "group": "eave_purlins",
+      "points": [
+        [
+          1036.4101615137756,
+          -1795.115057222526,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "id": "axis_step_x",
+      "name": "步桁基准翼中心线",
+      "group": "step_purlins",
+      "points": [
+        [
+          -2072.8203230275512,
+          -1200.0,
+          600.0
+        ],
+        [
+          -692.8203230275511,
+          -1200.0,
+          600.0
+        ]
+      ]
+    },
+    {
+      "id": "axis_step_y",
+      "name": "步桁镜像翼中心线",
+      "group": "step_purlins",
+      "points": [
+        [
+          -2.820323027550785,
+          -2395.115057222526,
+          600.0
+        ],
+        [
+          -692.8203230275511,
+          -1200.0,
+          600.0
+        ]
+      ]
+    },
+    {
+      "id": "old_corner_axis",
+      "name": "老戗中心线",
+      "group": "old_corner",
+      "points": [
+        [
+          -692.8203230275511,
+          -1200.0,
+          720.0
+        ],
+        [
+          502.29473419497447,
+          870.0,
+          -326.0
+        ]
+      ]
+    },
+    {
+      "id": "fan_rafter_01_axis",
+      "name": "fan_rafter_01中心线",
+      "group": "fan_rafters",
+      "points": [
+        [
+          -692.8203230275511,
+          -1035.0,
+          715.4363777163511
+        ],
+        [
+          -317.7021703731389,
+          626.0673304611714,
+          -216.38748343982476
+        ]
+      ]
+    },
+    {
+      "id": "fan_rafter_02_axis",
+      "name": "fan_rafter_02中心线",
+      "group": "fan_rafters",
+      "points": [
+        [
+          -692.8203230275511,
+          -1035.0,
+          715.1566949530757
+        ],
+        [
+          50.20677713810426,
+          703.7588472884881,
+          -240.87848732311932
+        ]
+      ]
+    },
+    {
+      "id": "fan_arc",
+      "name": "摔网椽外端平面圆弧",
+      "group": "fan_rafters",
+      "points": [
+        [
+          -692.8203230275511,
+          600.0,
+          -162.0
+        ],
+        [
+          -317.7021703731389,
+          626.0673304611714,
+          -190.06612005636816
+        ],
+        [
+          50.20677713810429,
+          703.758847288488,
+          -218.1316818118443
+        ],
+        [
+          403.8371628620563,
+          831.581710896529,
+          -246.19963420390505
+        ]
+      ]
+    },
+    {
+      "id": "fan_O",
+      "name": "扇椽分射点O",
+      "group": "fan_rafters",
+      "points": [
+        [
+          -692.8203230275511,
+          -1035.0,
+          690.0
+        ],
+        [
+          -692.8203230275511,
+          -1035.0,
+          750.0
+        ]
+      ]
+    },
+    {
+      "id": "mirror_fan_rafter_01_axis",
+      "name": "镜像fan_rafter_01中心线",
+      "group": "fan_rafters",
+      "points": [
+        [
+          -549.9261314031187,
+          -1117.5,
+          715.4363777163511
+        ],
+        [
+          701.041297845451,
+          37.89551484999538,
+          -216.38748343982476
+        ]
+      ]
+    },
+    {
+      "id": "mirror_fan_rafter_02_axis",
+      "name": "镜像fan_rafter_02中心线",
+      "group": "fan_rafters",
+      "points": [
+        [
+          -549.9261314031187,
+          -1117.5,
+          715.1566949530757
+        ],
+        [
+          584.369651320832,
+          395.359768087986,
+          -240.87848732311932
+        ]
+      ]
+    },
+    {
+      "id": "mirror_fan_arc",
+      "name": "镜像摔网椽外端平面圆弧",
+      "group": "fan_rafters",
+      "points": [
+        [
+          866.0254037844387,
+          -300.00000000000045,
+          -162.0
+        ],
+        [
+          701.041297845451,
+          37.89551484999538,
+          -190.06612005636816
+        ],
+        [
+          584.3696513208318,
+          395.35976808798597,
+          -218.1316818118443
+        ],
+        [
+          518.252305527893,
+          765.5240974790387,
+          -246.19963420390505
+        ]
+      ]
+    },
+    {
+      "id": "mirror_fan_O",
+      "name": "镜像扇椽分射点O",
+      "group": "fan_rafters",
+      "points": [
+        [
+          -549.9261314031187,
+          -1117.5,
+          690.0
+        ],
+        [
+          -549.9261314031187,
+          -1117.5,
+          750.0
+        ]
+      ]
+    },
+    {
+      "id": "eave_rafter_01_axis",
+      "name": "eave_rafter_01中心线",
+      "group": "eave_rafters",
+      "points": [
+        [
+          -1892.8203230275512,
+          -1800.0,
+          1008.0
+        ],
+        [
+          -1892.8203230275512,
+          600.0,
+          -192.0
+        ]
+      ]
+    },
+    {
+      "id": "eave_rafter_02_axis",
+      "name": "eave_rafter_02中心线",
+      "group": "eave_rafters",
+      "points": [
+        [
+          -1492.8203230275512,
+          -1800.0,
+          1008.0
+        ],
+        [
+          -1492.8203230275512,
+          600.0,
+          -192.0
+        ]
+      ]
+    },
+    {
+      "id": "eave_rafter_03_axis",
+      "name": "eave_rafter_03中心线",
+      "group": "eave_rafters",
+      "points": [
+        [
+          -1092.8203230275512,
+          -1800.0,
+          1008.0
+        ],
+        [
+          -1092.8203230275512,
+          600.0,
+          -192.0
+        ]
+      ]
+    },
+    {
+      "id": "eave_rafter_04_axis",
+      "name": "eave_rafter_04中心线",
+      "group": "eave_rafters",
+      "points": [
+        [
+          -692.8203230275511,
+          -1800.0,
+          1008.0
+        ],
+        [
+          -692.8203230275511,
+          600.0,
+          -192.0
+        ]
+      ]
+    },
+    {
+      "id": "mirror_eave_rafter_01_axis",
+      "name": "镜像eave_rafter_01中心线",
+      "group": "eave_rafters",
+      "points": [
+        [
+          -612.4355652982144,
+          -2539.2304845413264,
+          1008.0
+        ],
+        [
+          1466.0254037844384,
+          -1339.230484541327,
+          -192.0
+        ]
+      ]
+    },
+    {
+      "id": "mirror_eave_rafter_02_axis",
+      "name": "镜像eave_rafter_02中心线",
+      "group": "eave_rafters",
+      "points": [
+        [
+          -812.4355652982147,
+          -2192.820323027551,
+          1008.0
+        ],
+        [
+          1266.0254037844384,
+          -992.8203230275515,
+          -192.0
+        ]
+      ]
+    },
+    {
+      "id": "mirror_eave_rafter_03_axis",
+      "name": "镜像eave_rafter_03中心线",
+      "group": "eave_rafters",
+      "points": [
+        [
+          -1012.4355652982143,
+          -1846.4101615137756,
+          1008.0
+        ],
+        [
+          1066.0254037844388,
+          -646.4101615137761,
+          -192.0
+        ]
+      ]
+    },
+    {
+      "id": "mirror_eave_rafter_04_axis",
+      "name": "镜像eave_rafter_04中心线",
+      "group": "eave_rafters",
+      "points": [
+        [
+          -1212.4355652982144,
+          -1499.9999999999998,
+          1008.0
+        ],
+        [
+          866.0254037844387,
+          -300.00000000000045,
+          -192.0
+        ]
+      ]
+    },
+    {
+      "id": "young_corner_axis",
+      "name": "嫩戗弧线中心",
+      "group": "young_corner",
+      "points": [
+        [
+          461.0447341949746,
+          798.5529041877838,
+          -246.199634203905
+        ],
+        [
+          472.940275639146,
+          819.15658635263,
+          -231.199634203905
+        ],
+        [
+          484.8358170833174,
+          839.7602685174761,
+          -216.199634203905
+        ],
+        [
+          496.73135852748885,
+          860.3639506823223,
+          -201.199634203905
+        ],
+        [
+          508.6268999716603,
+          880.9676328471685,
+          -186.199634203905
+        ],
+        [
+          520.5224414158317,
+          901.5713150120147,
+          -171.199634203905
+        ],
+        [
+          532.4179828600031,
+          922.1749971768609,
+          -156.199634203905
+        ],
+        [
+          544.3135243041745,
+          942.778679341707,
+          -141.199634203905
+        ],
+        [
+          556.209065748346,
+          963.3823615065531,
+          -126.19963420390499
+        ],
+        [
+          568.1046071925174,
+          983.9860436713993,
+          -111.19963420390499
+        ],
+        [
+          580.0001486366889,
+          1004.5897258362454,
+          -96.19963420390499
+        ],
+        [
+          591.8956900808603,
+          1025.1934080010917,
+          -81.19963420390499
+        ],
+        [
+          603.7912315250317,
+          1045.7970901659378,
+          -66.19963420390499
+        ],
+        [
+          615.6867729692032,
+          1066.400772330784,
+          -51.19963420390499
+        ],
+        [
+          627.5823144133745,
+          1087.0044544956302,
+          -36.19963420390499
+        ],
+        [
+          639.477855857546,
+          1107.6081366604762,
+          -21.199634203904992
+        ],
+        [
+          651.3733973017174,
+          1128.2118188253226,
+          -6.199634203904992
+        ],
+        [
+          663.2689387458888,
+          1148.8155009901686,
+          8.800365796095008
+        ],
+        [
+          675.1644801900602,
+          1169.4191831550147,
+          23.800365796095008
+        ],
+        [
+          687.0600216342317,
+          1190.022865319861,
+          38.80036579609501
+        ],
+        [
+          698.9555630784031,
+          1210.626547484707,
+          53.80036579609501
+        ],
+        [
+          710.8511045225746,
+          1231.2302296495532,
+          68.80036579609501
+        ],
+        [
+          722.746645966746,
+          1251.8339118143995,
+          83.80036579609501
+        ],
+        [
+          734.6421874109174,
+          1272.4375939792455,
+          98.80036579609501
+        ],
+        [
+          746.5377288550887,
+          1293.0412761440916,
+          113.80036579609501
+        ],
+        [
+          758.4332702992602,
+          1313.644958308938,
+          128.800365796095
+        ],
+        [
+          770.3288117434317,
+          1334.2486404737842,
+          143.800365796095
+        ],
+        [
+          782.2243531876031,
+          1354.85232263863,
+          158.800365796095
+        ],
+        [
+          794.1198946317745,
+          1375.4560048034764,
+          173.800365796095
+        ],
+        [
+          806.0154360759459,
+          1396.0596869683227,
+          188.800365796095
+        ],
+        [
+          817.9109775201174,
+          1416.6633691331685,
+          203.800365796095
+        ],
+        [
+          829.8065189642888,
+          1437.2670512980148,
+          218.800365796095
+        ],
+        [
+          841.7020604084603,
+          1457.8707334628612,
+          233.800365796095
+        ]
+      ]
+    },
+    {
+      "id": "likou_x_axis",
+      "name": "likou_x中心线",
+      "group": "likou",
+      "points": [
+        [
+          -1292.8203230275512,
+          600.0,
+          -127.19999999999999
+        ],
+        [
+          -992.8203230275512,
+          600.0,
+          -123.70555502511542
+        ],
+        [
+          -692.8203230275511,
+          600.0,
+          -115.05061122442811
+        ],
+        [
+          -595.8197822939873,
+          601.7350115593208,
+          -118.83769334192871
+        ],
+        [
+          -507.7418968187354,
+          606.3216889976884,
+          -122.13910595440724
+        ],
+        [
+          -411.08581782820914,
+          614.6713932973616,
+          -125.7010018096677
+        ],
+        [
+          -314.79016602602377,
+          626.4723513816493,
+          -129.27987643310635
+        ],
+        [
+          -227.66510604870945,
+          640.1827650757946,
+          -132.62619160132425
+        ],
+        [
+          -132.39911309267598,
+          658.5268582345116,
+          -136.49508052579344
+        ],
+        [
+          -37.850075416367645,
+          680.2661002221885,
+          -140.6508151183884
+        ],
+        [
+          47.37964121976404,
+          702.9519310828805,
+          -144.75573087920952
+        ],
+        [
+          140.22496178373092,
+          731.0919669231039,
+          -149.71668033610575
+        ],
+        [
+          232.00455499011775,
+          762.5343179577349,
+          -155.2343423610753
+        ],
+        [
+          314.41691424312285,
+          793.95015094158,
+          -160.8115567513635
+        ],
+        [
+          403.8371628620563,
+          831.581710896529,
+          -167.64963420390504
+        ]
+      ]
+    },
+    {
+      "id": "likou_y_axis",
+      "name": "likou_y中心线",
+      "group": "likou",
+      "points": [
+        [
+          1166.0254037844388,
+          -819.6152422706637,
+          -127.19999999999999
+        ],
+        [
+          1016.0254037844386,
+          -559.807621135332,
+          -123.70555502511542
+        ],
+        [
+          866.0254037844387,
+          -300.00000000000045,
+          -115.05061122442811
+        ],
+        [
+          819.0276975038884,
+          -215.1275617642466,
+          -118.83769334192871
+        ],
+        [
+          778.9609339468535,
+          -136.55653671187804,
+          -122.13910595440724
+        ],
+        [
+          737.8639504891955,
+          -48.67506472605032,
+          -125.7010018096677
+        ],
+        [
+          699.9360540780915,
+          40.619895050766786,
+          -129.27987643310635
+        ],
+        [
+          668.2470906449582,
+          122.92761714443645,
+          -132.62619160132425
+        ],
+        [
+          636.5005448517787,
+          214.60243374046934,
+          -136.49508052579344
+        ],
+        [
+          608.0527618339701,
+          307.3539232653629,
+          -140.6508151183884
+        ],
+        [
+          585.0844093472206,
+          392.5079384599481,
+          -144.75573087920952
+        ],
+        [
+          563.031734966275,
+          486.98436261096487,
+          -149.71668033610575
+        ],
+        [
+          544.37181311378,
+          582.1889973940131,
+          -155.2343423610753
+        ],
+        [
+          530.3725429323366,
+          669.2681105848475,
+          -160.8115567513635
+        ],
+        [
+          518.252305527893,
+          765.5240974790387,
+          -167.64963420390504
+        ]
+      ]
+    },
+    {
+      "id": "lower_board_straight_x_01_edge",
+      "name": "lower_board_straight_x_01边界",
+      "group": "lower_board",
+      "points": [
+        [
+          -2092.8203230275512,
+          -1800.0,
+          1176.7155963302753
+        ],
+        [
+          -1692.8203230275512,
+          -1800.0,
+          1176.7155963302753
+        ],
+        [
+          -1692.8203230275512,
+          545.0,
+          -131.32110091743118
+        ],
+        [
+          -2092.8203230275512,
+          545.0,
+          -131.32110091743118
+        ]
+      ]
+    },
+    {
+      "id": "lower_board_straight_y_01_edge",
+      "name": "lower_board_straight_y_01边界",
+      "group": "lower_board",
+      "points": [
+        [
+          -512.4355652982147,
+          -2712.435565298214,
+          1176.7155963302753
+        ],
+        [
+          -712.4355652982146,
+          -2366.025403784439,
+          1176.7155963302753
+        ],
+        [
+          1318.3940065762945,
+          -1193.5254037844393,
+          -131.32110091743118
+        ],
+        [
+          1518.3940065762945,
+          -1539.935565298215,
+          -131.32110091743118
+        ]
+      ]
+    },
+    {
+      "id": "lower_board_straight_x_02_edge",
+      "name": "lower_board_straight_x_02边界",
+      "group": "lower_board",
+      "points": [
+        [
+          -1692.8203230275512,
+          -1800.0,
+          1176.7155963302753
+        ],
+        [
+          -1292.8203230275512,
+          -1800.0,
+          1176.7155963302753
+        ],
+        [
+          -1292.8203230275512,
+          545.0,
+          -131.32110091743118
+        ],
+        [
+          -1692.8203230275512,
+          545.0,
+          -131.32110091743118
+        ]
+      ]
+    },
+    {
+      "id": "lower_board_straight_y_02_edge",
+      "name": "lower_board_straight_y_02边界",
+      "group": "lower_board",
+      "points": [
+        [
+          -712.4355652982146,
+          -2366.025403784439,
+          1176.7155963302753
+        ],
+        [
+          -912.4355652982144,
+          -2019.6152422706632,
+          1176.7155963302753
+        ],
+        [
+          1118.3940065762945,
+          -847.1152422706637,
+          -131.32110091743118
+        ],
+        [
+          1318.3940065762945,
+          -1193.5254037844393,
+          -131.32110091743118
+        ]
+      ]
+    },
+    {
+      "id": "lower_board_straight_x_03_edge",
+      "name": "lower_board_straight_x_03边界",
+      "group": "lower_board",
+      "points": [
+        [
+          -1292.8203230275512,
+          -1800.0,
+          1176.7155963302753
+        ],
+        [
+          -1039.2304845413266,
+          -1800.0,
+          1176.7155963302753
+        ],
+        [
+          -892.8203230275512,
+          545.0,
+          -131.32110091743118
+        ],
+        [
+          -1292.8203230275512,
+          545.0,
+          -131.32110091743118
+        ]
+      ]
+    },
+    {
+      "id": "lower_board_straight_y_03_edge",
+      "name": "lower_board_straight_y_03边界",
+      "group": "lower_board",
+      "points": [
+        [
+          -912.4355652982144,
+          -2019.6152422706632,
+          1176.7155963302753
+        ],
+        [
+          -1039.2304845413269,
+          -1799.9999999999998,
+          1176.7155963302753
+        ],
+        [
+          918.3940065762947,
+          -500.70508075688826,
+          -131.32110091743118
+        ],
+        [
+          1118.3940065762945,
+          -847.1152422706637,
+          -131.32110091743118
+        ]
+      ]
+    },
+    {
+      "id": "lower_board_straight_x_04_edge",
+      "name": "lower_board_straight_x_04边界",
+      "group": "lower_board",
+      "points": [
+        [
+          -892.8203230275512,
+          -1545.9101615137756,
+          1034.9847506425465
+        ],
+        [
+          -892.5316478929565,
+          -1545.9101615137756,
+          1034.9847506425465
+        ],
+        [
+          -692.8203230275511,
+          545.0,
+          -131.32110091743118
+        ],
+        [
+          -892.8203230275512,
+          545.0,
+          -131.32110091743118
+        ]
+      ]
+    },
+    {
+      "id": "lower_board_straight_y_04_edge",
+      "name": "lower_board_straight_y_04边界",
+      "group": "lower_board",
+      "points": [
+        [
+          -892.3873103256592,
+          -1546.1601615137756,
+          1034.9847506425465
+        ],
+        [
+          -892.5316478929565,
+          -1545.9101615137756,
+          1034.9847506425465
+        ],
+        [
+          818.3940065762946,
+          -327.50000000000045,
+          -131.32110091743118
+        ],
+        [
+          918.3940065762947,
+          -500.70508075688826,
+          -131.32110091743118
+        ]
+      ]
+    },
+    {
+      "id": "likou_extension_x_axis",
+      "name": "弯里口木基准翼正身延长中心线",
+      "group": "likou",
+      "points": [
+        [
+          -2092.8203230275512,
+          600.0,
+          -127.0
+        ],
+        [
+          -1292.8203230275512,
+          600.0,
+          -127.0
+        ]
+      ]
+    },
+    {
+      "id": "likou_extension_y_axis",
+      "name": "弯里口木镜像翼正身延长中心线",
+      "group": "likou",
+      "points": [
+        [
+          1566.0254037844388,
+          -1512.435565298215,
+          -127.0
+        ],
+        [
+          1166.0254037844388,
+          -819.6152422706637,
+          -127.0
+        ]
+      ]
+    },
+    {
+      "id": "flying_fan_x_01_contact_axis",
+      "name": "立脚飞椽基准翼-01（贴板尖尾）底线",
+      "group": "flying_rafters",
+      "points": [
+        [
+          -356.1531576975862,
+          455.80183299947544,
+          -112.46076169005457
+        ],
+        [
+          -352.50868801115075,
+          471.9399737163582,
+          -115.86421803212463
+        ],
+        [
+          -348.86421832471524,
+          488.07811443324107,
+          -119.2676743741947
+        ],
+        [
+          -345.2197486382798,
+          504.21625515012386,
+          -122.67113071626476
+        ],
+        [
+          -341.5752789518443,
+          520.3543958670067,
+          -126.07458705833481
+        ],
+        [
+          -337.9308092654088,
+          536.4925365838895,
+          -129.47804340040489
+        ],
+        [
+          -334.28633957897335,
+          552.6306773007723,
+          -132.88149974247494
+        ],
+        [
+          -330.6418698925379,
+          568.7688180176551,
+          -136.284956084545
+        ],
+        [
+          -330.6418698925379,
+          568.7688180176551,
+          -136.284956084545
+        ],
+        [
+          -318.5182918166712,
+          622.4534486536731,
+          -147.60678675979125
+        ],
+        [
+          -306.39471374080443,
+          676.1380792896911,
+          -158.92861743503747
+        ],
+        [
+          -294.27113566493773,
+          729.8227099257091,
+          -170.25044811028368
+        ],
+        [
+          -282.14755758907097,
+          783.507340561727,
+          -181.57227878552993
+        ],
+        [
+          -270.02397951320427,
+          837.191971197745,
+          -192.89410946077615
+        ],
+        [
+          -257.90040143733756,
+          890.8766018337631,
+          -204.21594013602237
+        ],
+        [
+          -245.77682336147083,
+          944.561232469781,
+          -215.53777081126862
+        ]
+      ]
+    },
+    {
+      "id": "flying_fan_y_01_contact_axis",
+      "name": "立脚飞椽镜像翼-01（贴板尖尾）底线",
+      "group": "flying_rafters",
+      "points": [
+        [
+          572.8125453178513,
+          -80.53676570441746,
+          -112.46076169005457
+        ],
+        [
+          584.966350305302,
+          -69.31149201420061,
+          -115.86421803212463
+        ],
+        [
+          597.1201552927527,
+          -58.0862183239837,
+          -119.2676743741947
+        ],
+        [
+          609.2739602802035,
+          -46.86094463376685,
+          -122.67113071626476
+        ],
+        [
+          621.4277652676543,
+          -35.63567094355005,
+          -126.07458705833481
+        ],
+        [
+          633.581570255105,
+          -24.410397253333144,
+          -129.47804340040489
+        ],
+        [
+          645.7353752425558,
+          -13.185123563116463,
+          -132.88149974247494
+        ],
+        [
+          657.8891802300067,
+          -1.9598498728995537,
+          -136.284956084545
+        ],
+        [
+          657.8891802300067,
+          -1.9598498728995537,
+          -136.284956084545
+        ],
+        [
+          698.3196451156491,
+          35.38179204357414,
+          -147.60678675979125
+        ],
+        [
+          738.7501100012917,
+          72.72343396004771,
+          -158.92861743503747
+        ],
+        [
+          779.1805748869342,
+          110.0650758765214,
+          -170.25044811028368
+        ],
+        [
+          819.6110397725769,
+          147.40671779299498,
+          -181.57227878552993
+        ],
+        [
+          860.0415046582195,
+          184.74835970946856,
+          -192.89410946077615
+        ],
+        [
+          900.471969543862,
+          222.09000162594225,
+          -204.21594013602237
+        ],
+        [
+          940.9024344295046,
+          259.4316435424158,
+          -215.53777081126862
+        ]
+      ]
+    },
+    {
+      "id": "flying_fan_x_02_contact_axis",
+      "name": "立脚飞椽基准翼-02（贴板尖尾）底线",
+      "group": "flying_rafters",
+      "points": [
+        [
+          -7.623185944739419,
+          568.4308627153234,
+          -164.17947228410998
+        ],
+        [
+          -3.31303069665595,
+          578.5170635673801,
+          -163.62050800737714
+        ],
+        [
+          0.9971245514275111,
+          588.6032644194368,
+          -163.06154373064433
+        ],
+        [
+          5.307279799510987,
+          598.6894652714935,
+          -162.5025794539115
+        ],
+        [
+          9.617435047594455,
+          608.7756661235502,
+          -161.94361517717866
+        ],
+        [
+          13.927590295677916,
+          618.8618669756069,
+          -161.38465090044582
+        ],
+        [
+          18.237745543761385,
+          628.9480678276635,
+          -160.825686623713
+        ],
+        [
+          22.547900791844857,
+          639.0342686797202,
+          -160.26672234698017
+        ],
+        [
+          22.547900791844857,
+          639.0342686797202,
+          -160.26672234698017
+        ],
+        [
+          50.08003868495161,
+          703.4622664414885,
+          -156.6962055886402
+        ],
+        [
+          77.61217657805835,
+          767.8902642032567,
+          -153.1256888303002
+        ],
+        [
+          105.1443144711651,
+          832.3182619650249,
+          -149.55517207196021
+        ],
+        [
+          132.67645236427188,
+          896.7462597267933,
+          -145.98465531362024
+        ],
+        [
+          160.2085902573786,
+          961.1742574885615,
+          -142.41413855528023
+        ],
+        [
+          187.74072815048538,
+          1025.6022552503298,
+          -138.84362179694025
+        ],
+        [
+          215.27286604359213,
+          1090.030253012098,
+          -135.27310503860025
+        ]
+      ]
+    },
+    {
+      "id": "flying_fan_y_02_contact_axis",
+      "name": "立脚飞椽镜像翼-02（贴板尖尾）底线",
+      "group": "flying_rafters",
+      "points": [
+        [
+          496.0871603789446,
+          277.6135586717448,
+          -164.17947228410998
+        ],
+        [
+          502.6669889204561,
+          286.38936303686825,
+          -163.62050800737714
+        ],
+        [
+          509.24681746196774,
+          295.16516740199165,
+          -163.06154373064433
+        ],
+        [
+          515.8266460034794,
+          303.9409717671152,
+          -162.5025794539115
+        ],
+        [
+          522.4064745449909,
+          312.7167761322386,
+          -161.94361517717866
+        ],
+        [
+          528.9863030865026,
+          321.492580497362,
+          -161.38465090044582
+        ],
+        [
+          535.5661316280142,
+          330.26838486248545,
+          -160.825686623713
+        ],
+        [
+          542.1459601695258,
+          339.0441892276089,
+          -160.26672234698017
+        ],
+        [
+          542.1459601695258,
+          339.0441892276089,
+          -160.26672234698017
+        ],
+        [
+          584.1761739996308,
+          395.10171894441964,
+          -156.6962055886402
+        ],
+        [
+          626.2063878297355,
+          451.1592486612304,
+          -153.1256888303002
+        ],
+        [
+          668.2366016598405,
+          507.21677837804106,
+          -149.55517207196021
+        ],
+        [
+          710.2668154899454,
+          563.2743080948519,
+          -145.98465531362024
+        ],
+        [
+          752.2970293200503,
+          619.3318378116626,
+          -142.41413855528023
+        ],
+        [
+          794.3272431501553,
+          675.3893675284733,
+          -138.84362179694025
+        ],
+        [
+          836.35745698026,
+          731.4468972452842,
+          -135.27310503860025
+        ]
+      ]
+    },
+    {
+      "id": "straight_flying_x_01_contact_axis",
+      "name": "正身飞椽基准翼-01（贴板尖尾）底线",
+      "group": "straight_flying_rafters",
+      "points": [
+        [
+          -1892.8203230275512,
+          375.961962890625,
+          -57.231040924109294
+        ],
+        [
+          -1892.8203230275512,
+          400.1031110491071,
+          -64.98277950769
+        ],
+        [
+          -1892.8203230275512,
+          424.24425920758927,
+          -72.73451809127073
+        ],
+        [
+          -1892.8203230275512,
+          448.38540736607143,
+          -80.48625667485145
+        ],
+        [
+          -1892.8203230275512,
+          472.52655552455354,
+          -88.23799525843216
+        ],
+        [
+          -1892.8203230275512,
+          496.6677036830357,
+          -95.98973384201287
+        ],
+        [
+          -1892.8203230275512,
+          520.8088518415178,
+          -103.74147242559359
+        ],
+        [
+          -1892.8203230275512,
+          544.95,
+          -111.4932110091743
+        ],
+        [
+          -1892.8203230275512,
+          544.95,
+          -111.4932110091743
+        ],
+        [
+          -1892.8203230275512,
+          595.6714285714286,
+          -127.77989515072083
+        ],
+        [
+          -1892.8203230275512,
+          646.3928571428571,
+          -144.06657929226736
+        ],
+        [
+          -1892.8203230275512,
+          697.1142857142858,
+          -160.35326343381388
+        ],
+        [
+          -1892.8203230275512,
+          747.8357142857143,
+          -176.63994757536042
+        ],
+        [
+          -1892.8203230275512,
+          798.5571428571428,
+          -192.9266317169069
+        ],
+        [
+          -1892.8203230275512,
+          849.2785714285715,
+          -209.21331585845348
+        ],
+        [
+          -1892.8203230275512,
+          900.0,
+          -225.5
+        ]
+      ]
+    },
+    {
+      "id": "straight_flying_y_01_contact_axis",
+      "name": "正身飞椽镜像翼-01（贴板尖尾）底线",
+      "group": "straight_flying_rafters",
+      "points": [
+        [
+          1272.0027722337195,
+          -1451.2495030960147,
+          -57.231040924109294
+        ],
+        [
+          1292.9096198154884,
+          -1439.1789290167735,
+          -64.98277950769
+        ],
+        [
+          1313.8164673972583,
+          -1427.1083549375326,
+          -72.73451809127073
+        ],
+        [
+          1334.7233149790272,
+          -1415.0377808582914,
+          -80.48625667485145
+        ],
+        [
+          1355.630162560797,
+          -1402.9672067790505,
+          -88.23799525843216
+        ],
+        [
+          1376.537010142566,
+          -1390.8966326998093,
+          -95.98973384201287
+        ],
+        [
+          1397.4438577243359,
+          -1378.8260586205683,
+          -103.74147242559359
+        ],
+        [
+          1418.3507053061053,
+          -1366.7554845413272,
+          -111.4932110091743
+        ],
+        [
+          1418.3507053061053,
+          -1366.7554845413272,
+          -111.4932110091743
+        ],
+        [
+          1462.2767509652003,
+          -1341.394770255613,
+          -127.77989515072083
+        ],
+        [
+          1506.2027966242954,
+          -1316.0340559698986,
+          -144.06657929226736
+        ],
+        [
+          1550.1288422833904,
+          -1290.6733416841844,
+          -160.35326343381388
+        ],
+        [
+          1594.0548879424855,
+          -1265.3126273984699,
+          -176.63994757536042
+        ],
+        [
+          1637.98093360158,
+          -1239.9519131127558,
+          -192.9266317169069
+        ],
+        [
+          1681.9069792606751,
+          -1214.5911988270414,
+          -209.21331585845348
+        ],
+        [
+          1725.8330249197707,
+          -1189.2304845413273,
+          -225.5
+        ]
+      ]
+    },
+    {
+      "id": "straight_flying_x_02_contact_axis",
+      "name": "正身飞椽基准翼-02（贴板尖尾）底线",
+      "group": "straight_flying_rafters",
+      "points": [
+        [
+          -1492.8203230275512,
+          375.961962890625,
+          -57.231040924109294
+        ],
+        [
+          -1492.8203230275512,
+          400.1031110491071,
+          -64.98277950769
+        ],
+        [
+          -1492.8203230275512,
+          424.24425920758927,
+          -72.73451809127073
+        ],
+        [
+          -1492.8203230275512,
+          448.38540736607143,
+          -80.48625667485145
+        ],
+        [
+          -1492.8203230275512,
+          472.52655552455354,
+          -88.23799525843216
+        ],
+        [
+          -1492.8203230275512,
+          496.6677036830357,
+          -95.98973384201287
+        ],
+        [
+          -1492.8203230275512,
+          520.8088518415178,
+          -103.74147242559359
+        ],
+        [
+          -1492.8203230275512,
+          544.95,
+          -111.4932110091743
+        ],
+        [
+          -1492.8203230275512,
+          544.95,
+          -111.4932110091743
+        ],
+        [
+          -1492.8203230275512,
+          595.6714285714286,
+          -127.77989515072083
+        ],
+        [
+          -1492.8203230275512,
+          646.3928571428571,
+          -144.06657929226736
+        ],
+        [
+          -1492.8203230275512,
+          697.1142857142858,
+          -160.35326343381388
+        ],
+        [
+          -1492.8203230275512,
+          747.8357142857143,
+          -176.63994757536042
+        ],
+        [
+          -1492.8203230275512,
+          798.5571428571428,
+          -192.9266317169069
+        ],
+        [
+          -1492.8203230275512,
+          849.2785714285715,
+          -209.21331585845348
+        ],
+        [
+          -1492.8203230275512,
+          900.0,
+          -225.5
+        ]
+      ]
+    },
+    {
+      "id": "straight_flying_y_02_contact_axis",
+      "name": "正身飞椽镜像翼-02（贴板尖尾）底线",
+      "group": "straight_flying_rafters",
+      "points": [
+        [
+          1072.002772233719,
+          -1104.8393415822388,
+          -57.231040924109294
+        ],
+        [
+          1092.9096198154884,
+          -1092.7687675029977,
+          -64.98277950769
+        ],
+        [
+          1113.8164673972578,
+          -1080.6981934237567,
+          -72.73451809127073
+        ],
+        [
+          1134.7233149790272,
+          -1068.6276193445156,
+          -80.48625667485145
+        ],
+        [
+          1155.6301625607966,
+          -1056.5570452652746,
+          -88.23799525843216
+        ],
+        [
+          1176.537010142566,
+          -1044.4864711860337,
+          -95.98973384201287
+        ],
+        [
+          1197.4438577243354,
+          -1032.4158971067927,
+          -103.74147242559359
+        ],
+        [
+          1218.3507053061053,
+          -1020.3453230275516,
+          -111.4932110091743
+        ],
+        [
+          1218.3507053061053,
+          -1020.3453230275516,
+          -111.4932110091743
+        ],
+        [
+          1262.2767509652003,
+          -994.9846087418373,
+          -127.77989515072083
+        ],
+        [
+          1306.202796624295,
+          -969.623894456123,
+          -144.06657929226736
+        ],
+        [
+          1350.12884228339,
+          -944.2631801704086,
+          -160.35326343381388
+        ],
+        [
+          1394.054887942485,
+          -918.9024658846944,
+          -176.63994757536042
+        ],
+        [
+          1437.98093360158,
+          -893.5417515989801,
+          -192.9266317169069
+        ],
+        [
+          1481.9069792606751,
+          -868.1810373132657,
+          -209.21331585845348
+        ],
+        [
+          1525.8330249197702,
+          -842.8203230275517,
+          -225.5
+        ]
+      ]
+    },
+    {
+      "id": "straight_flying_x_03_contact_axis",
+      "name": "正身飞椽基准翼-03（贴板尖尾）底线",
+      "group": "straight_flying_rafters",
+      "points": [
+        [
+          -1092.8203230275512,
+          375.842333984375,
+          -57.18345739651751
+        ],
+        [
+          -1092.8203230275512,
+          400.0005719866071,
+          -64.94199362689704
+        ],
+        [
+          -1092.8203230275512,
+          424.15880998883927,
+          -72.70052985727659
+        ],
+        [
+          -1092.8203230275512,
+          448.31704799107143,
+          -80.45906608765614
+        ],
+        [
+          -1092.8203230275512,
+          472.47528599330354,
+          -88.21760231803567
+        ],
+        [
+          -1092.8203230275512,
+          496.6335239955357,
+          -95.97613854841522
+        ],
+        [
+          -1092.8203230275512,
+          520.7917619977678,
+          -103.73467477879475
+        ],
+        [
+          -1092.8203230275512,
+          544.95,
+          -111.4932110091743
+        ],
+        [
+          -1092.8203230275512,
+          544.95,
+          -111.4932110091743
+        ],
+        [
+          -1092.8203230275512,
+          595.6714285714286,
+          -127.78264574326693
+        ],
+        [
+          -1092.8203230275512,
+          646.3928571428571,
+          -144.07208047735955
+        ],
+        [
+          -1092.8203230275512,
+          697.1142857142858,
+          -160.36151521145217
+        ],
+        [
+          -1092.8203230275512,
+          747.8357142857143,
+          -176.6509499455448
+        ],
+        [
+          -1092.8203230275512,
+          798.5571428571428,
+          -192.9403846796374
+        ],
+        [
+          -1092.8203230275512,
+          849.2785714285715,
+          -209.22981941373004
+        ],
+        [
+          -1092.8203230275512,
+          900.0,
+          -225.51925414782266
+        ]
+      ]
+    },
+    {
+      "id": "straight_flying_y_03_contact_axis",
+      "name": "正身飞椽镜像翼-03（贴板尖尾）底线",
+      "group": "straight_flying_rafters",
+      "points": [
+        [
+          871.8991705618798,
+          -758.4889945215884,
+          -57.18345739651751
+        ],
+        [
+          892.8208183824836,
+          -746.4098755204725,
+          -64.94199362689704
+        ],
+        [
+          913.7424662030869,
+          -734.3307565193563,
+          -72.70052985727659
+        ],
+        [
+          934.6641140236909,
+          -722.2516375182404,
+          -80.45906608765614
+        ],
+        [
+          955.5857618442942,
+          -710.1725185171242,
+          -88.21760231803567
+        ],
+        [
+          976.5074096648982,
+          -698.0933995160082,
+          -95.97613854841522
+        ],
+        [
+          997.4290574855017,
+          -686.014280514892,
+          -103.73467477879475
+        ],
+        [
+          1018.3507053061053,
+          -673.9351615137759,
+          -111.4932110091743
+        ],
+        [
+          1018.3507053061053,
+          -673.9351615137759,
+          -111.4932110091743
+        ],
+        [
+          1062.2767509652003,
+          -648.5744472280617,
+          -127.78264574326693
+        ],
+        [
+          1106.2027966242954,
+          -623.2137329423474,
+          -144.07208047735955
+        ],
+        [
+          1150.1288422833904,
+          -597.853018656633,
+          -160.36151521145217
+        ],
+        [
+          1194.0548879424855,
+          -572.492304370919,
+          -176.6509499455448
+        ],
+        [
+          1237.9809336015805,
+          -547.1315900852047,
+          -192.9403846796374
+        ],
+        [
+          1281.9069792606756,
+          -521.7708757994903,
+          -209.22981941373004
+        ],
+        [
+          1325.8330249197707,
+          -496.4101615137761,
+          -225.51925414782266
+        ]
+      ]
+    },
+    {
+      "id": "straight_flying_x_04_contact_axis",
+      "name": "正身飞椽基准翼-04（贴板尖尾）底线",
+      "group": "straight_flying_rafters",
+      "points": [
+        [
+          -692.8203230275511,
+          375.9620073479145,
+          -57.23107073075171
+        ],
+        [
+          -692.8203230275511,
+          400.10315550639666,
+          -64.98280859883987
+        ],
+        [
+          -692.8203230275511,
+          424.24430366487877,
+          -72.73454646692802
+        ],
+        [
+          -692.8203230275511,
+          448.38545182336094,
+          -80.4862843350162
+        ],
+        [
+          -692.8203230275511,
+          472.52659998184305,
+          -88.23802220310435
+        ],
+        [
+          -692.8203230275511,
+          496.6677481403252,
+          -95.9897600711925
+        ],
+        [
+          -692.8203230275511,
+          520.8088962988073,
+          -103.74149793928066
+        ],
+        [
+          -692.8203230275511,
+          544.9500444572896,
+          -111.49323580736882
+        ],
+        [
+          -692.8203230275511,
+          544.9500444572896,
+          -111.49323580736882
+        ],
+        [
+          -692.8203230275511,
+          595.6714666776767,
+          -127.77991640631613
+        ],
+        [
+          -692.8203230275511,
+          646.3928888980639,
+          -144.06659700526345
+        ],
+        [
+          -692.8203230275511,
+          697.1143111184512,
+          -160.35327760421075
+        ],
+        [
+          -692.8203230275511,
+          747.8357333388383,
+          -176.63995820315807
+        ],
+        [
+          -692.8203230275511,
+          798.5571555592255,
+          -192.92663880210534
+        ],
+        [
+          -692.8203230275511,
+          849.2785777796128,
+          -209.2133194010527
+        ],
+        [
+          -692.8203230275511,
+          900.0,
+          -225.5
+        ]
+      ]
+    },
+    {
+      "id": "straight_flying_y_04_contact_axis",
+      "name": "正身飞椽镜像翼-04（贴板尖尾）底线",
+      "group": "straight_flying_rafters",
+      "points": [
+        [
+          672.0028107348611,
+          -412.0189963260431,
+          -57.23107073075171
+        ],
+        [
+          692.9096583166305,
+          -399.948422246802,
+          -64.98280859883987
+        ],
+        [
+          713.8165058984001,
+          -387.87784816756107,
+          -72.73454646692802
+        ],
+        [
+          734.7233534801695,
+          -375.80727408831996,
+          -80.4862843350162
+        ],
+        [
+          755.6302010619391,
+          -363.7367000090789,
+          -88.23802220310435
+        ],
+        [
+          776.5370486437085,
+          -351.6661259298378,
+          -95.9897600711925
+        ],
+        [
+          797.4438962254779,
+          -339.59555185059673,
+          -103.74149793928066
+        ],
+        [
+          818.3507438072476,
+          -327.5249777713557,
+          -111.49323580736882
+        ],
+        [
+          818.3507438072476,
+          -327.5249777713557,
+          -111.49323580736882
+        ],
+        [
+          862.2767839661791,
+          -302.16426666116206,
+          -127.77991640631613
+        ],
+        [
+          906.2028241251111,
+          -276.80355555096844,
+          -144.06659700526345
+        ],
+        [
+          950.1288642840428,
+          -251.44284444077482,
+          -160.35327760421075
+        ],
+        [
+          994.0549044429746,
+          -226.0821333305812,
+          -176.63995820315807
+        ],
+        [
+          1037.9809446019067,
+          -200.7214222203877,
+          -192.92663880210534
+        ],
+        [
+          1081.9069847608384,
+          -175.3607111101942,
+          -209.2133194010527
+        ],
+        [
+          1125.8330249197702,
+          -150.00000000000045,
+          -225.5
+        ]
+      ]
+    }
+  ],
+  "fly_records": [
+    {
+      "family": "fan",
+      "index": 1,
+      "role": "fan",
+      "is_boundary": false,
+      "profile_basis": "shared_virtual_motherboard",
+      "source_rafter_id": "fan_rafter_01",
+      "tail_length_from_S_center_mm": 174.56339931368845,
+      "l_SE_mm": 326.5041467836927,
+      "width_mm": 60.0,
+      "E_bottom_center_mm": -215.53777081126862,
+      "E_depth_world_Z_mm": 40.00000003550852,
+      "dI_world_Z_mm": 40.00000003550853,
+      "q_R_center_mm": -174.56339931368845,
+      "side_contours": [
+        {
+          "side": "A",
+          "v_mm": -30.0,
+          "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+          "I": {
+            "q_mm": -47.487745354008716,
+            "lower_z_mm": -138.18423108615758,
+            "thickness_world_Z_mm": 40.00000003550853,
+            "upper_z_mm": -98.18423105064906
+          },
+          "R": {
+            "q_mm": -159.40913207275872,
+            "member_lower_z_mm": -116.50412052375754,
+            "board_top_reference_z_mm": -76.50498098382174,
+            "upper_z_mm": -76.50412048824901,
+            "root_gap_mm": 0.0008604955727236074,
+            "thickness_world_Z_mm": 40.00000003550853
+          },
+          "E": {
+            "q_mm": 340.1937058904571,
+            "xy_mm": [
+              -213.49817058708413,
+              951.306052972075
+            ],
+            "lower_z_mm": -213.28137714898102,
+            "upper_control_z_mm": -173.2813771134725,
+            "thickness_world_Z_mm": 40.00000003550852,
+            "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve; lower surface follows the same q-based thickness field",
+            "projected_end_curve_fraction": 0.2968749999999999
+          },
+          "q_S_likou_outer_intersection_mm": 11.545032721205024,
+          "straight_edge_slopes_z_per_q": {
+            "tail_lower_R_to_I": -0.19370838048031452,
+            "tail_upper_R_to_I": -0.19370838048031452,
+            "outer_lower_I_to_E": -0.19370838048031438,
+            "outer_upper_I_to_E": -0.19370838048031438
+          }
+        },
+        {
+          "side": "B",
+          "v_mm": 30.0,
+          "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+          "I": {
+            "q_mm": -69.63004398100969,
+            "lower_z_mm": -134.5981137228957,
+            "thickness_world_Z_mm": 40.00000003550853,
+            "upper_z_mm": -94.59811368738718
+          },
+          "R": {
+            "q_mm": -189.1625146841347,
+            "member_lower_z_mm": -108.72328467686714,
+            "board_top_reference_z_mm": -68.72443781522361,
+            "upper_z_mm": -68.72328464135862,
+            "root_gap_mm": 0.0011531738649921408,
+            "thickness_world_Z_mm": 40.00000003550853
+          },
+          "E": {
+            "q_mm": 313.336573569165,
+            "xy_mm": [
+              -277.9404918591689,
+              938.3255758780381
+            ],
+            "lower_z_mm": -217.49772837285474,
+            "upper_control_z_mm": -177.49772833734622,
+            "thickness_world_Z_mm": 40.00000003550852,
+            "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve; lower surface follows the same q-based thickness field",
+            "projected_end_curve_fraction": 0.2578124999999999
+          },
+          "q_S_likou_outer_intersection_mm": -11.103094915504453,
+          "straight_edge_slopes_z_per_q": {
+            "tail_lower_R_to_I": -0.2164669473811195,
+            "tail_upper_R_to_I": -0.2164669473811195,
+            "outer_lower_I_to_E": -0.21646694738111963,
+            "outer_upper_I_to_E": -0.21646694738111963
+          }
+        }
+      ],
+      "I_front_edge_fiber_records": [
+        {
+          "v_mm": 0.0,
+          "q_front_mm": -58.75163173556345,
+          "H_front_mm": -136.284956084545
+        }
+      ],
+      "root_fiber_records": [
+        {
+          "v_mm": 0.0,
+          "q_root_mm": -174.56339931368845
+        }
+      ]
+    },
+    {
+      "family": "fan",
+      "index": 2,
+      "role": "fan",
+      "is_boundary": false,
+      "profile_basis": "shared_virtual_motherboard",
+      "source_rafter_id": "fan_rafter_02",
+      "tail_length_from_S_center_mm": 147.17881004470217,
+      "l_SE_mm": 420.05004496000674,
+      "width_mm": 60.0,
+      "E_bottom_center_mm": -135.27310503860025,
+      "E_depth_world_Z_mm": 40.00636135457586,
+      "dI_world_Z_mm": 42.715591073519946,
+      "q_R_center_mm": -147.17881004470217,
+      "side_contours": [
+        {
+          "side": "A",
+          "v_mm": -30.0,
+          "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+          "I": {
+            "q_mm": -46.5305717688919,
+            "lower_z_mm": -162.96821801127507,
+            "thickness_world_Z_mm": 42.58374227104038,
+            "upper_z_mm": -120.38447574023469
+          },
+          "R": {
+            "q_mm": -118.9377983313919,
+            "member_lower_z_mm": -168.95848214057284,
+            "board_top_reference_z_mm": -125.97599469433966,
+            "upper_z_mm": -125.97476396555113,
+            "root_gap_mm": 0.0012307287885278129,
+            "thickness_world_Z_mm": 42.983718175021714
+          },
+          "E": {
+            "q_mm": 452.6029389472961,
+            "xy_mm": [
+              255.65144174082963,
+              1108.1758180793597
+            ],
+            "lower_z_mm": -121.6748042607453,
+            "upper_control_z_mm": -81.84826436623513,
+            "thickness_world_Z_mm": 39.82653989451018,
+            "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve; lower surface follows the same q-based thickness field",
+            "projected_end_curve_fraction": 0.6054687499999999
+          },
+          "q_S_likou_outer_intersection_mm": 24.708456067832937,
+          "straight_edge_slopes_z_per_q": {
+            "tail_lower_R_to_I": 0.08273019715963204,
+            "tail_upper_R_to_I": 0.07720621947163041,
+            "outer_lower_I_to_E": 0.0827301971596325,
+            "outer_upper_I_to_E": 0.07720621947163074
+          }
+        },
+        {
+          "side": "B",
+          "v_mm": 30.0,
+          "width_axis_mapping": "A=v=-w_fly/2; B=v=+w_fly/2",
+          "I": {
+            "q_mm": -93.6098812869656,
+            "lower_z_mm": -157.90118713735697,
+            "thickness_world_Z_mm": 42.84380732638474,
+            "upper_z_mm": -115.05737981097224
+          },
+          "R": {
+            "q_mm": -174.96486175571562,
+            "member_lower_z_mm": -159.62962836145718,
+            "board_top_reference_z_mm": -116.33763404577161,
+            "upper_z_mm": -116.33641793815525,
+            "root_gap_mm": 0.001216107616357931,
+            "thickness_world_Z_mm": 43.29321042330193
+          },
+          "E": {
+            "q_mm": 388.7354722504928,
+            "xy_mm": [
+              175.38089627529214,
+              1073.0233952193012
+            ],
+            "lower_z_mm": -147.65343600394505,
+            "upper_control_z_mm": -107.47409364841252,
+            "thickness_world_Z_mm": 40.179342355532526,
+            "upper_control_source": "shared outer end-curve intersection and fly_top_at control curve; lower surface follows the same q-based thickness field",
+            "projected_end_curve_fraction": 0.5507812499999998
+          },
+          "q_S_likou_outer_intersection_mm": -23.956033927246132,
+          "straight_edge_slopes_z_per_q": {
+            "tail_lower_R_to_I": 0.021245671920038574,
+            "tail_upper_R_to_I": 0.015721694232036808,
+            "outer_lower_I_to_E": 0.02124567192003871,
+            "outer_upper_I_to_E": 0.015721694232037016
+          }
+        }
+      ],
+      "I_front_edge_fiber_records": [
+        {
+          "v_mm": 0.0,
+          "q_front_mm": -70.39902488845217,
+          "H_front_mm": -160.26672234698017
+        }
+      ],
+      "root_fiber_records": [
+        {
+          "v_mm": 0.0,
+          "q_root_mm": -147.17881004470217
+        }
+      ]
+    }
+  ],
+  "notch_records": [
+    {
+      "likou_id": "likou_x",
+      "candidate_count": 6,
+      "bbox_overlap_cutter_count": 6,
+      "valid_single_solid": true,
+      "removed_volume_mm3": 1401677.4130457137,
+      "cut_method": "one exact compound cut of the x-side likou followed by clean",
+      "floor_rule": "fiberwise flyer seat floor; upper cutter limit is target BRep zmax + 5mm",
+      "boolean_seconds": 14.492012499831617
+    },
+    {
+      "likou_id": "likou_y",
+      "candidate_count": 6,
+      "bbox_overlap_cutter_count": 6,
+      "valid_single_solid": true,
+      "removed_volume_mm3": 1401677.4127574284,
+      "cut_method": "separate y-side compound Boolean after mirror check fallback",
+      "floor_rule": "exact reflection of the x-side fiberwise flyer seat floor",
+      "boolean_seconds": 15.395307899918407,
+      "mirror_seconds": 0.03858590009622276,
+      "fallback_reason": "mirrored cut candidate failed validity, solid-count, exact-BBox, or volume check: bbox_error=2556.4187693057306; volume_error=5.587935447692871e-09"
+    }
+  ],
+  "board_records": [
+    {
+      "piece_type": "continuous_wing",
+      "fan_indices": [
+        1,
+        2
+      ],
+      "support_source_rafter_ids": [
+        "eave_rafter_04",
+        "fan_rafter_01",
+        "fan_rafter_02"
+      ],
+      "boundary_support_source_rafter_ids": [
+        "eave_rafter_04"
+      ],
+      "part_ids": [
+        "upper_board_x_continuous",
+        "upper_board_y_continuous"
+      ],
+      "longitudinal_section_count": 33,
+      "width_control_point_count_per_section": 59,
+      "underface_vertical_gap_mm": 0.2,
+      "board_thickness_mm": 13.75,
+      "normal_offset_vertical_range_mm": [
+        13.75170463893402,
+        15.100618707256311
+      ],
+      "minimum_local_vertical_normal_cosine": 0.9105587172658497,
+      "clipped_to_old_xy_domain": false,
+      "construction": "全翼按内/外边界站位排序的真实摔网飞椽轨与正身边界飞椽轨及椽间插值点构造单一宽向B样条截面场；统一使用全翼纵向/横向切向求局部厚度偏置，内缘取实际里口外缘S轨、外缘取E轨及两端半档；上下共用参数的连续插值曲面直接封成每翼单一BRep。"
+    }
+  ],
+  "combination_info": {
+    "coordinate_frame": {
+      "origin_xy_mm": [
+        461.0447341949746,
+        798.5529041877838
+      ],
+      "u_axis": [
+        0.5000000000000001,
+        0.8660254037844386
+      ],
+      "v_axis": [
+        -0.8660254037844386,
+        0.5000000000000001
+      ],
+      "u_direction": "toward eave"
+    },
+    "width_mm": 63.41530888079059,
+    "width_ratio_to_young_tip": 0.75,
+    "A_u_z_mm": [
+      497.74649999999997,
+      160.84615438068235
+    ],
+    "B_u_z_mm": [
+      -670.8000000000001,
+      84.31312881749123
+    ],
+    "back_join_fraction": 0.7,
+    "back_join_point_u_z_mm": [
+      156.20885503492264,
+      0.06787250172502013
+    ],
+    "circle_center_u_z_mm": [
+      -150.149663992078,
+      1094.0077658388386
+    ],
+    "radius_mm": 1136.0281829315823,
+    "derived_chord_sagitta_mm": 138.11364325247186,
+    "upper_profile": "circle through dynamically sampled old/young corner top at endpoints and the configured back_join_fraction station with chord-relative downward sagitta; cross-width top offsets interpolate from actual old/young top surfaces",
+    "lower_profile": "F(u,v)=highest surface of only current old_corner/young_corner solids; mesh sampled at 1mm tessellation then new material cut against both BReps",
+    "u_trim_end_mm": [
+      10.0,
+      10.0
+    ],
+    "sampled_nominal_combination_depth_mm": [
+      -3.3606406384162852,
+      158.4632388181972
+    ],
+    "sampled_u_below_F_count": 48,
+    "max_sampled_U_below_F_mm": 3.3606406384162852,
+    "z_split_mm": -114.58126451141158,
+    "split_rule": "z_split=0.5*(min_u F(u,0)+min_u U(u)); lower菱角木, upper扁担木; both share horizontal interface",
+    "top_material_contact": "new stock cut by old_corner+young_corner; lower boundary conforms to actual corner top mesh, with 0.2mm stock allowance before BRep cut",
+    "pocket_fit_sample_grid": {
+      "u_stations": 33,
+      "width_stations": 7
+    },
+    "probe_reference_grid": {
+      "u_stations": 129,
+      "width_stations": 9
+    },
+    "back_join_parameter_interpretation": "弦向分位；从B点沿接背弦量到老/嫩戗接背控制站位，不是面积比",
+    "historical_height_rule_status": "book p128 states combined height >= 2/3 of the flying-corner horizontal level, but the datum is unresolved; current t=0.7 does not prove that criterion",
+    "assumptions": [
+      "接背上轮廓由动态端点与back_join_fraction处弦偏共同确定为圆弧",
+      "组合木宽度按嫩戗梢部宽度比例",
+      "水平拆分为两件",
+      "组合侧轮廓与BRep切配为几何拟合，不等同传统榫接验证"
+    ],
+    "status": "exact_fitted_and_split",
+    "old_young_boolean_cuts_run": true,
+    "horizontal_split_run": true
+  },
+  "context": {
+    "case": {
+      "fan_geometry": {
+        "A": [
+          -692.8203230275511,
+          600.0
+        ],
+        "B": [
+          403.8371628620563,
+          831.581710896529
+        ],
+        "O": [
+          -692.8203230275511,
+          -1035.0
+        ],
+        "arc": {
+          "construction": "A处以正身檐端线y=e为水平切线，圆弧向步桁侧内凹；半径由A切线及端点B唯一确定",
+          "chord_mm": 1120.8424198697505,
+          "radius_mm": 2712.4070491490347,
+          "center_mm": [
+            -692.8203230275511,
+            3312.4070491490347
+          ],
+          "central_angle_rad": 0.4162259844020584,
+          "arc_length_mm": 1128.9742941311392,
+          "derived_sagitta_mm": 58.52685823451202,
+          "nominal_f_plan_reference_mm": 55.0,
+          "tangent_at_A_plan": [
+            1.0,
+            0.0
+          ],
+          "bulge_side": "弦线内侧、向步桁方向（y更小）"
+        },
+        "n": 3,
+        "n_definition": "n为最小奇数等弧长区间数，A=L弧/n；每侧由内部i/n分点(i=1..n-1)生成n-1根摔网椽，弧端点仅作边界控制",
+        "arc_length_over_n_mm": 376.3247647103797,
+        "fan_division_count_n": 3,
+        "fan_rafter_count": 2,
+        "internal_arc_station_count": 2,
+        "arc_boundary_points": [
+          [
+            -692.8203230275511,
+            600.0,
+            -162.0
+          ],
+          [
+            -317.7021703731389,
+            626.0673304611714,
+            -190.06612005636816
+          ],
+          [
+            50.20677713810429,
+            703.758847288488,
+            -218.1316818118443
+          ],
+          [
+            403.8371628620563,
+            831.581710896529,
+            -246.19963420390505
+          ]
+        ],
+        "fan_rafters": [
+          {
+            "id": "fan_rafter_01",
+            "index": 1,
+            "role": "fan",
+            "is_boundary": false,
+            "centerline_plan_start": [
+              -692.8203230275511,
+              -1035.0
+            ],
+            "centerline_plan_end": [
+              -317.7021703731389,
+              626.0673304611714
+            ],
+            "centerline": [
+              [
+                -692.8203230275511,
+                -1035.0,
+                715.4363777163511
+              ],
+              [
+                -645.9305539457496,
+                -827.3665836923535,
+                604.0919430263245
+              ],
+              [
+                -599.040784863948,
+                -619.7331673847071,
+                486.0021012220785
+              ],
+              [
+                -552.1510157821465,
+                -412.0997510770608,
+                368.0822974571775
+              ],
+              [
+                -505.26124670034505,
+                -204.4663347694143,
+                250.14795884447932
+              ],
+              [
+                -470.9901493541489,
+                -52.709882094445675,
+                163.97871111010966
+              ],
+              [
+                -469.2490298489878,
+                -45.0,
+                159.6025706399869
+              ],
+              [
+                -467.5079103438267,
+                -37.290117905554325,
+                155.22657764889703
+              ],
+              [
+                -459.0866983408713,
+                0.0,
+                134.06366269689653
+              ],
+              [
+                -458.3714776185435,
+                3.167081538232196,
+                132.26646877569766
+              ],
+              [
+                -450.66548633791587,
+                37.290117905554325,
+                112.90631078114215
+              ],
+              [
+                -448.9243668327548,
+                45.0,
+                108.53259640251225
+              ],
+              [
+                -447.1832473275937,
+                52.709882094445675,
+                104.1591076463324
+              ],
+              [
+                -411.48170853674196,
+                210.80049784587845,
+                14.547100540627056
+              ],
+              [
+                -364.5919394549405,
+                418.43391415352494,
+                -102.8915434061353
+              ],
+              [
+                -317.7021703731389,
+                626.0673304611714,
+                -216.38748343982476
+              ]
+            ],
+            "arc_band_fraction": [
+              0.16666666666666666,
+              0.5
+            ],
+            "sector_miter": true,
+            "arc_station_fraction": 0.3333333333333333,
+            "trimmed_against_old_corner": true,
+            "purlin_seat_cuts": [],
+            "volume_mm3": 6424084.579262822
+          },
+          {
+            "id": "fan_rafter_02",
+            "index": 2,
+            "role": "fan",
+            "is_boundary": false,
+            "centerline_plan_start": [
+              -692.8203230275511,
+              -1035.0
+            ],
+            "centerline_plan_end": [
+              50.20677713810429,
+              703.758847288488
+            ],
+            "centerline": [
+              [
+                -692.8203230275511,
+                -1035.0,
+                715.1566949530757
+              ],
+              [
+                -599.9419355068442,
+                -817.655144088939,
+                600.4895397923688
+              ],
+              [
+                -507.0635479861373,
+                -600.310288177878,
+                479.7538772938741
+              ],
+              [
+                -414.1851604654304,
+                -382.96543226681695,
+                357.9944073071723
+              ],
+              [
+                -321.30677294472343,
+                -165.62057635575593,
+                236.167407481318
+              ],
+              [
+                -275.6390482447102,
+                -58.75346432178037,
+                176.28646275540638
+              ],
+              [
+                -269.7617543760517,
+                -45.0,
+                168.58294422416316
+              ],
+              [
+                -263.88446050739327,
+                -31.24653567821963,
+                160.87999111430045
+              ],
+              [
+                -250.53181943734717,
+                0.0,
+                143.38248992055816
+              ],
+              [
+                -237.17917836730118,
+                31.246535678219516,
+                125.89097326595734
+              ],
+              [
+                -231.30188449864266,
+                45.0,
+                118.19443392562872
+              ],
+              [
+                -228.42838542401648,
+                51.7242795553052,
+                114.43184347248955
+              ],
+              [
+                -225.4245906299842,
+                58.753464321780484,
+                110.498910734431
+              ],
+              [
+                -135.54999790330965,
+                269.0691354663661,
+                -6.989423920882587
+              ],
+              [
+                -42.671610382602694,
+                486.413991377427,
+                -127.8540921006317
+              ],
+              [
+                50.20677713810426,
+                703.7588472884881,
+                -240.87848732311932
+              ]
+            ],
+            "arc_band_fraction": [
+              0.5,
+              0.8333333333333334
+            ],
+            "sector_miter": true,
+            "arc_station_fraction": 0.6666666666666666,
+            "trimmed_against_old_corner": true,
+            "purlin_seat_cuts": [],
+            "volume_mm3": 6955688.231419103
+          }
+        ],
+        "construction": "基准翼由O向弧线内部i/n等分点放射；邻根按相邻分点之间的中界扇区割角，弧端点不另生摔网；第二翼由同一实体刚体镜像到建筑角平分面的另一侧，不以整宽共点插入老戗。",
+        "mirrored_count": 2,
+        "total_count": 4
+      },
+      "eave_rafters_geometry": {
+        "count": 4,
+        "x_centers_mm": [
+          -1892.8203230275512,
+          -1492.8203230275512,
+          -1092.8203230275512,
+          -692.8203230275511
+        ],
+        "y_extent_mm": [
+          -1800.0,
+          600.0
+        ],
+        "tail_extension_past_step_mm": 600.0,
+        "outer_end_coordinate_y_mm": 600.0,
+        "pitch_assumption_mm": 400.0,
+        "rafters": [
+          {
+            "id": "eave_rafter_01",
+            "index": 1,
+            "role": "regular",
+            "is_boundary": false,
+            "center_x_mm": -1892.8203230275512,
+            "y_extent_mm": [
+              -1800.0,
+              600.0
+            ],
+            "centerline": [
+              [
+                -1892.8203230275512,
+                -1800.0,
+                1008.0
+              ],
+              [
+                -1892.8203230275512,
+                -1500.0,
+                858.0
+              ],
+              [
+                -1892.8203230275512,
+                -1200.0,
+                708.0
+              ],
+              [
+                -1892.8203230275512,
+                -900.0,
+                558.0
+              ],
+              [
+                -1892.8203230275512,
+                -600.0,
+                408.0
+              ],
+              [
+                -1892.8203230275512,
+                -300.0,
+                258.0
+              ],
+              [
+                -1892.8203230275512,
+                -45.0,
+                130.5
+              ],
+              [
+                -1892.8203230275512,
+                0.0,
+                108.0
+              ],
+              [
+                -1892.8203230275512,
+                45.0,
+                85.5
+              ],
+              [
+                -1892.8203230275512,
+                300.0,
+                -42.0
+              ],
+              [
+                -1892.8203230275512,
+                600.0,
+                -192.0
+              ]
+            ],
+            "purlin_seat_cuts": [],
+            "volume_mm3": 10080000.0
+          },
+          {
+            "id": "eave_rafter_02",
+            "index": 2,
+            "role": "regular",
+            "is_boundary": false,
+            "center_x_mm": -1492.8203230275512,
+            "y_extent_mm": [
+              -1800.0,
+              600.0
+            ],
+            "centerline": [
+              [
+                -1492.8203230275512,
+                -1800.0,
+                1008.0
+              ],
+              [
+                -1492.8203230275512,
+                -1500.0,
+                858.0
+              ],
+              [
+                -1492.8203230275512,
+                -1200.0,
+                708.0
+              ],
+              [
+                -1492.8203230275512,
+                -900.0,
+                558.0
+              ],
+              [
+                -1492.8203230275512,
+                -600.0,
+                408.0
+              ],
+              [
+                -1492.8203230275512,
+                -300.0,
+                258.0
+              ],
+              [
+                -1492.8203230275512,
+                -45.0,
+                130.5
+              ],
+              [
+                -1492.8203230275512,
+                0.0,
+                108.0
+              ],
+              [
+                -1492.8203230275512,
+                45.0,
+                85.5
+              ],
+              [
+                -1492.8203230275512,
+                300.0,
+                -42.0
+              ],
+              [
+                -1492.8203230275512,
+                600.0,
+                -192.0
+              ]
+            ],
+            "purlin_seat_cuts": [],
+            "volume_mm3": 10080000.0
+          },
+          {
+            "id": "eave_rafter_03",
+            "index": 3,
+            "role": "regular",
+            "is_boundary": false,
+            "center_x_mm": -1092.8203230275512,
+            "y_extent_mm": [
+              -1800.0,
+              600.0
+            ],
+            "centerline": [
+              [
+                -1092.8203230275512,
+                -1800.0,
+                1008.0
+              ],
+              [
+                -1092.8203230275512,
+                -1500.0,
+                858.0
+              ],
+              [
+                -1092.8203230275512,
+                -1200.0,
+                708.0
+              ],
+              [
+                -1092.8203230275512,
+                -900.0,
+                558.0
+              ],
+              [
+                -1092.8203230275512,
+                -600.0,
+                408.0
+              ],
+              [
+                -1092.8203230275512,
+                -300.0,
+                258.0
+              ],
+              [
+                -1092.8203230275512,
+                -45.0,
+                130.5
+              ],
+              [
+                -1092.8203230275512,
+                0.0,
+                108.0
+              ],
+              [
+                -1092.8203230275512,
+                45.0,
+                85.5
+              ],
+              [
+                -1092.8203230275512,
+                300.0,
+                -42.0
+              ],
+              [
+                -1092.8203230275512,
+                600.0,
+                -192.0
+              ]
+            ],
+            "purlin_seat_cuts": [],
+            "volume_mm3": 10080000.0
+          },
+          {
+            "id": "eave_rafter_04",
+            "index": 4,
+            "role": "boundary",
+            "is_boundary": true,
+            "center_x_mm": -692.8203230275511,
+            "y_extent_mm": [
+              -1800.0,
+              600.0
+            ],
+            "centerline": [
+              [
+                -692.8203230275511,
+                -1800.0,
+                1008.0
+              ],
+              [
+                -692.8203230275511,
+                -1500.0,
+                858.0
+              ],
+              [
+                -692.8203230275511,
+                -1200.0,
+                708.0
+              ],
+              [
+                -692.8203230275511,
+                -900.0,
+                558.0
+              ],
+              [
+                -692.8203230275511,
+                -600.0,
+                408.0
+              ],
+              [
+                -692.8203230275511,
+                -300.0,
+                258.0
+              ],
+              [
+                -692.8203230275511,
+                -45.0,
+                130.5
+              ],
+              [
+                -692.8203230275511,
+                0.0,
+                108.0
+              ],
+              [
+                -692.8203230275511,
+                45.0,
+                85.5
+              ],
+              [
+                -692.8203230275511,
+                300.0,
+                -42.0
+              ],
+              [
+                -692.8203230275511,
+                600.0,
+                -192.0
+              ]
+            ],
+            "purlin_seat_cuts": [],
+            "volume_mm3": 10080000.0
+          }
+        ],
+        "boundary_rafter_id": "eave_rafter_04",
+        "regular_rafter_count": 3,
+        "boundary_rafter_count": 1,
+        "vertical_rule": "直椽底线z=90-0.5*y-12mm；沿全长保持原线性纵坡和放置基准，不在桁位切座或抬高。",
+        "nominal_purlin_seat_relief_mm": 12.0,
+        "rafter_centerline_offset_from_step_purlin_y_axis_mm": 125.0,
+        "construction": "边界普通出檐椽中心线位于old_start.x，与fan_surface.A端同轴并计一次；其余正身出檐椽由边界按B向外等档排列，保持既有有效尾端范围。",
+        "total_count_after_mirror": 8
+      }
+    },
+    "upper_board_domain": {
+      "support_source_rafter_ids": [
+        "eave_rafter_04",
+        "fan_rafter_01",
+        "fan_rafter_02"
+      ],
+      "boundary_support_source_rafter_ids": [
+        "eave_rafter_04"
+      ],
+      "inner_boundary_xy_samples_mm": [
+        [
+          -880.3805232170218,
+          586.9613581750306
+        ],
+        [
+          -722.8203230275511,
+          600.0
+        ],
+        [
+          -719.0703230275511,
+          600.0
+        ],
+        [
+          -715.3203230275511,
+          600.0
+        ],
+        [
+          -711.5703230275511,
+          600.0
+        ],
+        [
+          -707.8203230275511,
+          600.0
+        ],
+        [
+          -704.0703230275511,
+          600.0
+        ],
+        [
+          -700.3203230275511,
+          600.0
+        ],
+        [
+          -696.5703230275511,
+          600.0
+        ],
+        [
+          -692.8203230275511,
+          600.0
+        ],
+        [
+          -689.0703230275511,
+          600.0182913260145
+        ],
+        [
+          -685.3203230275511,
+          600.036582652029
+        ],
+        [
+          -681.5703230275511,
+          600.0548739780435
+        ],
+        [
+          -677.8203230275511,
+          600.0731653040581
+        ],
+        [
+          -674.0703230275511,
+          600.0914566300726
+        ],
+        [
+          -670.3203230275511,
+          600.1097479560871
+        ],
+        [
+          -666.5703230275511,
+          600.1280392821016
+        ],
+        [
+          -662.8203230275511,
+          600.1751118810882
+        ],
+        [
+          -584.4674480267258,
+          605.5951823677624
+        ],
+        [
+          -506.11457302590065,
+          611.0152528544364
+        ],
+        [
+          -427.7616980250755,
+          616.4353233411105
+        ],
+        [
+          -349.4088230242502,
+          621.8553938277846
+        ],
+        [
+          -345.45193042139715,
+          622.3533733521487
+        ],
+        [
+          -341.49503781854423,
+          622.8513528765126
+        ],
+        [
+          -337.53011997838627,
+          623.384869096214
+        ],
+        [
+          -333.56408051243096,
+          623.9233520069589
+        ],
+        [
+          -329.59804104647566,
+          624.4618349177039
+        ],
+        [
+          -325.63200158052035,
+          625.0003178284488
+        ],
+        [
+          -321.665962114565,
+          625.5388007391938
+        ],
+        [
+          -317.6999226486097,
+          626.0772836499387
+        ],
+        [
+          -313.7318395321555,
+          626.6248160856256
+        ],
+        [
+          -309.7581267440553,
+          627.1972773699596
+        ],
+        [
+          -305.7844139559552,
+          627.7697386542935
+        ],
+        [
+          -301.810701167855,
+          628.3421999386276
+        ],
+        [
+          -297.83698837975487,
+          628.9146612229615
+        ],
+        [
+          -293.8565390950118,
+          629.5169525072995
+        ],
+        [
+          -289.8751051357758,
+          630.1236040461863
+        ],
+        [
+          -285.8936711765398,
+          630.7302555850732
+        ],
+        [
+          -211.11744292870574,
+          646.4301767253238
+        ],
+        [
+          -136.3412146808717,
+          662.1300978655745
+        ],
+        [
+          -61.56498643303767,
+          677.8300190058252
+        ],
+        [
+          13.21124181479637,
+          693.5299401460758
+        ],
+        [
+          17.824311000701332,
+          694.781940197256
+        ],
+        [
+          22.43738018660635,
+          696.033940248436
+        ],
+        [
+          27.050449372511363,
+          697.2859402996161
+        ],
+        [
+          31.66891205101878,
+          698.550561671039
+        ],
+        [
+          36.301570934606026,
+          699.8484036035624
+        ],
+        [
+          40.93422981819322,
+          701.1462455360859
+        ],
+        [
+          45.566888701780464,
+          702.4440874686093
+        ],
+        [
+          50.21162870874358,
+          703.7702004563207
+        ],
+        [
+          54.864134961808624,
+          705.1144872483483
+        ],
+        [
+          59.51664121487367,
+          706.4587740403758
+        ],
+        [
+          64.16914746793866,
+          707.8030608324034
+        ],
+        [
+          68.8216537210037,
+          709.147347624431
+        ],
+        [
+          73.47766184196126,
+          710.4998291428403
+        ],
+        [
+          78.15433605806622,
+          711.9006714219385
+        ],
+        [
+          82.83101027417116,
+          713.3015137010367
+        ],
+        [
+          87.50768449027605,
+          714.7023559801348
+        ],
+        [
+          234.16740438742033,
+          742.6166588595121
+        ]
+      ],
+      "outer_boundary_xy_samples_mm": [
+        [
+          -916.3420728605912,
+          877.7193837651098
+        ],
+        [
+          -722.8203230275511,
+          900.0
+        ],
+        [
+          -719.0703230275511,
+          900.0
+        ],
+        [
+          -715.3203230275511,
+          900.0
+        ],
+        [
+          -711.5703230275511,
+          900.0
+        ],
+        [
+          -707.8203230275511,
+          900.0
+        ],
+        [
+          -704.0703230275511,
+          900.0
+        ],
+        [
+          -700.3203230275511,
+          900.0
+        ],
+        [
+          -696.5703230275511,
+          900.0
+        ],
+        [
+          -692.8203230275511,
+          900.0
+        ],
+        [
+          -689.0703230275511,
+          900.0052285169077
+        ],
+        [
+          -685.3203230275511,
+          900.0137604445383
+        ],
+        [
+          -681.5703230275511,
+          900.029446076575
+        ],
+        [
+          -677.8203230275511,
+          900.0517388211281
+        ],
+        [
+          -674.0703230275511,
+          900.0778818122415
+        ],
+        [
+          -670.3203230275511,
+          900.113936199841
+        ],
+        [
+          -666.5703230275511,
+          900.1532951754974
+        ],
+        [
+          -662.8203230275511,
+          900.2003542672237
+        ],
+        [
+          -566.6003652354556,
+          909.7316596699272
+        ],
+        [
+          -470.38040744336,
+          919.2629650726309
+        ],
+        [
+          -374.16044965126446,
+          928.7942704753345
+        ],
+        [
+          -277.94049185916884,
+          938.3255758780381
+        ],
+        [
+          -273.9259869332887,
+          939.0786695495988
+        ],
+        [
+          -269.9099582366744,
+          939.8385106573141
+        ],
+        [
+          -265.89268261475615,
+          940.6038732970356
+        ],
+        [
+          -261.8726988142249,
+          941.3812280704016
+        ],
+        [
+          -257.8514222503815,
+          942.1643073518692
+        ],
+        [
+          -253.8286889759523,
+          942.953837119262
+        ],
+        [
+          -249.80339333719675,
+          943.7547133374759
+        ],
+        [
+          -245.7768233614708,
+          944.5612324697811
+        ],
+        [
+          -241.7485707281129,
+          945.3752026081254
+        ],
+        [
+          -237.71795162739198,
+          946.1996517424806
+        ],
+        [
+          -233.68604163965804,
+          947.0298170764638
+        ],
+        [
+          -229.6522419754818,
+          947.8683501201441
+        ],
+        [
+          -225.61625213717383,
+          948.7165815126579
+        ],
+        [
+          -221.57895445704278,
+          949.5706041826938
+        ],
+        [
+          -217.53957953383974,
+          950.4338251295394
+        ],
+        [
+          -213.49817058708416,
+          951.306052972075
+        ],
+        [
+          -116.2784038714901,
+          981.7353885338815
+        ],
+        [
+          -19.058637155896008,
+          1012.1647240956881
+        ],
+        [
+          78.16112955969808,
+          1042.5940596574947
+        ],
+        [
+          175.38089627529214,
+          1073.0233952193012
+        ],
+        [
+          180.34171534959285,
+          1075.0891653132655
+        ],
+        [
+          185.31036579248553,
+          1077.1732616047836
+        ],
+        [
+          190.28606103724422,
+          1079.2738434478645
+        ],
+        [
+          195.26886238131578,
+          1081.391054284756
+        ],
+        [
+          200.25883198023706,
+          1083.5250395657245
+        ],
+        [
+          205.25603286342408,
+          1085.6759467860027
+        ],
+        [
+          210.2605289503101,
+          1087.8439255235533
+        ],
+        [
+          215.27286604359213,
+          1090.030253012098
+        ],
+        [
+          220.29348613061217,
+          1092.235963546888
+        ],
+        [
+          225.32158431940044,
+          1094.4591735990002
+        ],
+        [
+          230.357227908206,
+          1096.7000406531702
+        ],
+        [
+          235.4004851624979,
+          1098.9587244575252
+        ],
+        [
+          240.45142533315527,
+          1101.2353870661539
+        ],
+        [
+          245.51011867506864,
+          1103.5301928826316
+        ],
+        [
+          250.57663646616234,
+          1105.8433087045373
+        ],
+        [
+          255.65144174082963,
+          1108.1758180793597
+        ],
+        [
+          445.79771074612427,
+          1162.7647632832582
+        ]
+      ],
+      "domain_source": "实际里口外缘q_S至飞椽梢端q_E的全翼连续曲面边界；两端沿既有S/E轨外推半档，不再裁到旧中心线折线Ω。",
+      "old_centerline_surface_used_for_top_z": false,
+      "top_source": "stage05飞椽共享顶场的全宽轨与椽间线性插值",
+      "cross_width_interpolation": "shared plan-chord parameter tensor B-spline interpolation",
+      "longitudinal_interpolation": "shared uniform station parameter cubic B-spline interpolation",
+      "board_piece_count_per_wing": 1,
+      "underface_vertical_gap_mm": 0.2,
+      "thickness_source": "one continuous full-wing surface normal approximation, not per-flyer width-band offsets",
+      "longitudinal_section_count": 33,
+      "width_control_point_count_per_section": 59
+    },
+    "selection_rule": "Configured tip-transition power is shared. Fan rafter slope is max(m0,m_seat) for one full-member plane; tail end is trimmed at this case's board-surface contact.",
+    "likou_notch_performance": {
+      "cutter_build_seconds": 0.5584400000516325,
+      "x_boolean_seconds": 14.492012499831617,
+      "y_mirror_seconds": 0.03858590009622276,
+      "mirror_pair_check_seconds": 30.803598699858412,
+      "y_boolean_seconds": 15.395307899918407,
+      "y_cut_method": "separate y-side compound Boolean after mirror check fallback",
+      "y_fallback_reason": "mirrored cut candidate failed validity, solid-count, exact-BBox, or volume check: bbox_error=2556.4187693057306; volume_error=5.587935447692871e-09",
+      "source_symmetry": {
+        "rule": "stage03 creates likou_y by reflecting likou_x; stage04 extension is reflected from the same x extension",
+        "verification_basis": "BRepBndLib.AddOptimal_s(useTriangulation=False,useShapeTolerance=False) plus exact volume equality",
+        "verified": true,
+        "source_bbox_max_abs_error_mm": 0.0,
+        "ordinary_tessellation_bbox_diagnostic_max_abs_error_mm": 1.9473452526749497,
+        "source_volume_abs_error_mm3": 1.1175870895385742e-08,
+        "source_volume_tolerance_mm3": 0.013980543602928304,
+        "bbox_tolerance_mm": 1e-05,
+        "fallback_reason": null
+      },
+      "cut_symmetry": {
+        "mirrored_bbox_max_abs_error_mm": 2556.4187693057306,
+        "cut_volume_abs_error_mm3": 0.0002882741391658783,
+        "cut_volume_tolerance_mm3": 0.01257886618988259,
+        "mirrored_candidate_bbox_error_mm": 2556.4187693057306,
+        "mirrored_candidate_volume_error_mm3": 5.587935447692871e-09,
+        "matches": false
+      }
+    }
+  }
+}

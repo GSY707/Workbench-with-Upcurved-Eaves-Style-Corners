@@ -1,0 +1,31 @@
+{
+  "checked_on_local": "2026-10-31",
+  "timezone": "Asia/Shanghai",
+  "status": "passed",
+  "url": "http://127.0.0.1:8765/",
+  "version": "0.4.0",
+  "scope": "Workbench mode switching, cached submissions, result provenance labels, fabrication controls and responsive layout; no CAD rerun or fabrication geometry acceptance",
+  "checks": {
+    "history_count": 16,
+    "original_history_preserved": 13,
+    "preview_90": "63 parts; preview label in workbench and embedded viewer; layout disabled; no SVG or marking CSV download",
+    "draft_isolation": "Changing 90 to 91 preserves displayed preview and reports draft changes; reverting restores matching state",
+    "preview_120_cached_submission": "Preview button reuses preview case; no automatic exact job",
+    "exact_120_cached_submission": "Exact button reuses separate exact case; 54 parts; layout and fabrication downloads enabled",
+    "exact_layout": "2 templates; 79.134 x 562.381 mm layout visible with marking table",
+    "return_to_preview": "Switching from exact layout to historical preview restores the 3D view and disables layout",
+    "completed_job_banner": "Fixed stale exact-success banner; matching exact result keeps its banner, different preview case hides job-card, confirmed by visibility check and screenshot",
+    "narrow_viewport": {
+      "width": 520,
+      "height": 920,
+      "document_scroll_width": 505,
+      "horizontal_overflow": false,
+      "generation_buttons_in_bounds": true,
+      "viewport_override_reset": true
+    },
+    "page_errors_and_warnings": []
+  },
+  "screenshot": "workbench_preview_90.jpg",
+  "cad_started": false,
+  "outputs_modified": false
+}

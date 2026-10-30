@@ -1,0 +1,136 @@
+         2021785 function calls (1967067 primitive calls) in 4.937 seconds
+
+   Ordered by: cumulative time
+   List reduced from 525 to 80 due to restriction <80>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      208    1.654    0.008    1.654    0.008 {built-in method OCP.OCP.BRepGProp.VolumeProperties_s}
+     9864    0.281    0.000    0.410    0.000 stage04_core.py:94(z_range)
+        1    0.005    0.005    0.406    0.406 stage05_core.py:275(_build_flyer_masterboard)
+     1683    0.004    0.000    0.284    0.000 stage05_core.py:2082(fan_upper_surface_at_q)
+     1749    0.097    0.000    0.268    0.000 stage05_core.py:2029(fan_upper_z_at_q)
+     4517    0.005    0.000    0.196    0.000 stage05_core.py:110(board_top_at)
+      102    0.002    0.000    0.194    0.002 stage05_core.py:708(find_tail_endpoint)
+     4313    0.002    0.000    0.192    0.000 stage05_core.py:713(gap_at)
+       20    0.186    0.009    0.186    0.009 shapes.py:1577(mesh)
+        1    0.004    0.004    0.185    0.185 stage04_core.py:439(correct_fan_pose)
+      265    0.015    0.000    0.177    0.001 stage04_core.py:388(board_section)
+     1947    0.011    0.000    0.141    0.000 stage05_core.py:2094(_vertical_offset_from_tangents)
+      306    0.061    0.000    0.139    0.000 stage05_core.py:177(_line_polyline_intersections)
+     1981    0.038    0.000    0.117    0.000 numeric.py:1563(cross)
+     6996    0.040    0.000    0.103    0.000 stage05_core.py:1993(_width_linear_extrapolate)
+      824    0.002    0.000    0.085    0.000 stage05_core.py:2798(F)
+   153230    0.081    0.000    0.081    0.000 {built-in method numpy.asarray}
+     5947    0.019    0.000    0.071    0.000 numeric.py:1489(moveaxis)
+    19543    0.018    0.000    0.061    0.000 numeric.py:675(flatnonzero)
+       50    0.057    0.001    0.057    0.001 {built-in method OCP.OCP.BRepBndLib.AddOptimal_s}
+    38426    0.046    0.000    0.056    0.000 stage05_core.py:664(top_motherline)
+       48    0.055    0.001    0.055    0.001 {built-in method builtins.print}
+    10246    0.040    0.000    0.054    0.000 stage05_core.py:102(xy_at_q)
+   113526    0.052    0.000    0.052    0.000 stage05_core.py:173(_cross2)
+    11894    0.027    0.000    0.042    0.000 numeric.py:1427(normalize_axis_tuple)
+        7    0.041    0.006    0.041    0.006 {built-in method OCP.OCP.BRepLib.OrientClosedSolid_s}
+      321    0.027    0.000    0.041    0.000 stage04_core.py:232(find_path_station)
+    26308    0.011    0.000    0.039    0.000 fromnumeric.py:48(_wrapfunc)
+    10642    0.011    0.000    0.030    0.000 stage02_core.py:29(vector)
+       44    0.029    0.001    0.029    0.001 geom.py:887(__init__)
+    19358    0.014    0.000    0.028    0.000 fromnumeric.py:66(_wrapreduction)
+     6732    0.004    0.000    0.027    0.000 fromnumeric.py:1459(searchsorted)
+   186031    0.026    0.000    0.026    0.000 {method 'get' of 'dict' objects}
+     4528    0.009    0.000    0.024    0.000 _linalg.py:2615(norm)
+    19547    0.005    0.000    0.022    0.000 fromnumeric.py:2031(nonzero)
+        5    0.000    0.000    0.021    0.004 profile_probe.py:36(atomic_json)
+     9753    0.005    0.000    0.021    0.000 fromnumeric.py:2474(any)
+     9679    0.005    0.000    0.020    0.000 fromnumeric.py:3187(min)
+      669    0.011    0.000    0.020    0.000 stage02_core.py:479(fan_top_z)
+    19543    0.010    0.000    0.019    0.000 fromnumeric.py:1917(ravel)
+    29157    0.018    0.000    0.018    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+     9679    0.005    0.000    0.017    0.000 fromnumeric.py:3049(max)
+        1    0.000    0.000    0.017    0.017 stage02_core.py:110(cylinder_x)
+        1    0.000    0.000    0.017    0.017 shapes.py:4235(makeCylinder)
+     77/1    0.000    0.000    0.017    0.017 shapes.py:434(__init__)
+     6732    0.016    0.000    0.016    0.000 {method 'searchsorted' of 'numpy.ndarray' objects}
+   158029    0.016    0.000    0.016    0.000 {built-in method builtins.len}
+     9777    0.008    0.000    0.016    0.000 fromnumeric.py:86(_wrapreduction_any_all)
+    63703    0.012    0.000    0.015    0.000 {built-in method builtins.min}
+   102193    0.015    0.000    0.015    0.000 {method 'append' of 'list' objects}
+    487/1    0.063    0.000    0.013    0.013 shapes.py:404(downcast)
+    61612    0.011    0.000    0.012    0.000 {built-in method builtins.max}
+        5    0.000    0.000    0.012    0.002 __init__.py:183(dumps)
+        5    0.001    0.000    0.012    0.002 encoder.py:183(encode)
+     6667    0.001    0.000    0.010    0.000 encoder.py:414(_iterencode)
+       66    0.001    0.000    0.010    0.000 stage05_core.py:2581(boundary_sample)
+     1055    0.007    0.000    0.010    0.000 stage05_core.py:2731(local_xy)
+     4527    0.009    0.000    0.009    0.000 {method 'dot' of 'numpy.ndarray' objects}
+19474/6667    0.005    0.000    0.009    0.000 encoder.py:334(_iterencode_dict)
+   112969    0.008    0.000    0.008    0.000 {built-in method math.atan2}
+    23788    0.005    0.000    0.008    0.000 numeric.py:1476(<genexpr>)
+12181/6577    0.003    0.000    0.008    0.000 encoder.py:278(_iterencode_list)
+    64330    0.008    0.000    0.008    0.000 {built-in method builtins.isinstance}
+    55133    0.007    0.000    0.007    0.000 {built-in method builtins.abs}
+    19547    0.007    0.000    0.007    0.000 {method 'nonzero' of 'numpy.ndarray' objects}
+      112    0.007    0.000    0.007    0.000 {built-in method OCP.OCP.BRepFill.Face_s}
+     3968    0.001    0.000    0.007    0.000 _bsplines.py:681(c)
+    24070    0.006    0.000    0.006    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+      439    0.004    0.000    0.006    0.000 shapes.py:877(_entities)
+     1680    0.001    0.000    0.006    0.000 stage05_core.py:677(bottom_outer_line)
+     3988    0.002    0.000    0.006    0.000 _aliases.py:70(asarray)
+    15838    0.006    0.000    0.006    0.000 {built-in method builtins.sorted}
+    42568    0.006    0.000    0.006    0.000 stage02_core.py:30(<genexpr>)
+        5    0.000    0.000    0.006    0.001 pathlib.py:1039(write_text)
+      150    0.005    0.000    0.005    0.000 stage05_core.py:1234(append_motherboard_section)
+        4    0.003    0.001    0.005    0.001 _bsplines.py:1636(make_interp_spline)
+     5714    0.005    0.000    0.005    0.000 geom.py:105(x)
+    26432    0.004    0.000    0.004    0.000 {built-in method builtins.getattr}
+        3    0.003    0.001    0.004    0.001 stage04_core.py:73(__init__)
+     5947    0.004    0.000    0.004    0.000 {method 'transpose' of 'numpy.ndarray' objects}
+
+
+         2021785 function calls (1967067 primitive calls) in 4.937 seconds
+
+   Ordered by: internal time
+   List reduced from 525 to 40 due to restriction <40>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      208    1.654    0.008    1.654    0.008 {built-in method OCP.OCP.BRepGProp.VolumeProperties_s}
+     66/0    1.038    0.016    0.000          shapes.py:675(isValid)
+  23185/6    0.465    0.000    0.000    0.000 geom.py:78(__init__)
+     9864    0.281    0.000    0.410    0.000 stage04_core.py:94(z_range)
+       20    0.186    0.009    0.186    0.009 shapes.py:1577(mesh)
+     1749    0.097    0.000    0.268    0.000 stage05_core.py:2029(fan_upper_z_at_q)
+   153230    0.081    0.000    0.081    0.000 {built-in method numpy.asarray}
+    487/1    0.063    0.000    0.013    0.013 shapes.py:404(downcast)
+      306    0.061    0.000    0.139    0.000 stage05_core.py:177(_line_polyline_intersections)
+       50    0.057    0.001    0.057    0.001 {built-in method OCP.OCP.BRepBndLib.AddOptimal_s}
+       48    0.055    0.001    0.055    0.001 {built-in method builtins.print}
+   113526    0.052    0.000    0.052    0.000 stage05_core.py:173(_cross2)
+    38426    0.046    0.000    0.056    0.000 stage05_core.py:664(top_motherline)
+        7    0.041    0.006    0.041    0.006 {built-in method OCP.OCP.BRepLib.OrientClosedSolid_s}
+     6996    0.040    0.000    0.103    0.000 stage05_core.py:1993(_width_linear_extrapolate)
+    10246    0.040    0.000    0.054    0.000 stage05_core.py:102(xy_at_q)
+     1981    0.038    0.000    0.117    0.000 numeric.py:1563(cross)
+       44    0.029    0.001    0.029    0.001 geom.py:887(__init__)
+    11894    0.027    0.000    0.042    0.000 numeric.py:1427(normalize_axis_tuple)
+      321    0.027    0.000    0.041    0.000 stage04_core.py:232(find_path_station)
+   186031    0.026    0.000    0.026    0.000 {method 'get' of 'dict' objects}
+   2993/4    0.020    0.000    0.000    0.000 geom.py:246(toPnt)
+     5947    0.019    0.000    0.071    0.000 numeric.py:1489(moveaxis)
+    19543    0.018    0.000    0.061    0.000 numeric.py:675(flatnonzero)
+    29157    0.018    0.000    0.018    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+     6732    0.016    0.000    0.016    0.000 {method 'searchsorted' of 'numpy.ndarray' objects}
+   158029    0.016    0.000    0.016    0.000 {built-in method builtins.len}
+   5849/2    0.016    0.000    0.000    0.000 shapes.py:396(shapetype)
+      265    0.015    0.000    0.177    0.001 stage04_core.py:388(board_section)
+   102193    0.015    0.000    0.015    0.000 {method 'append' of 'list' objects}
+    19358    0.014    0.000    0.028    0.000 fromnumeric.py:66(_wrapreduction)
+    63703    0.012    0.000    0.015    0.000 {built-in method builtins.min}
+    61612    0.011    0.000    0.012    0.000 {built-in method builtins.max}
+      669    0.011    0.000    0.020    0.000 stage02_core.py:479(fan_top_z)
+    26308    0.011    0.000    0.039    0.000 fromnumeric.py:48(_wrapfunc)
+    10642    0.011    0.000    0.030    0.000 stage02_core.py:29(vector)
+     1947    0.011    0.000    0.141    0.000 stage05_core.py:2094(_vertical_offset_from_tangents)
+    19543    0.010    0.000    0.019    0.000 fromnumeric.py:1917(ravel)
+     4528    0.009    0.000    0.024    0.000 _linalg.py:2615(norm)
+     4527    0.009    0.000    0.009    0.000 {method 'dot' of 'numpy.ndarray' objects}
+
+

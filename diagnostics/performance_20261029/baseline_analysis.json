@@ -1,0 +1,479 @@
+{
+  "collected_at_utc": "2026-10-29T15:15:10.057081+00:00",
+  "scope": "Saved successful run statistics and runtime introspection only; no CAD generation or speedup experiment.",
+  "source_identity": {
+    "sha256": "ef5340fed7c096b557a9258a71b94c618365dc62a33b29de8c8fdef0a1daa33d",
+    "files": [
+      {
+        "path": "generate.py",
+        "sha256": "185c284590a3956b9ee71e37920c398e7c7cd109167354be97b8973e4decbc24"
+      },
+      {
+        "path": "parameter_schema.json",
+        "sha256": "1e2e69bd6f9615fb650fffbe56816283dbb7baf63d93919746067c1f47f918b6"
+      },
+      {
+        "path": "render_delivery.py",
+        "sha256": "e97074bcc6b9b326568a5cf052d0dfaf5275b4db4bb3b093d48972c37db2ad64"
+      },
+      {
+        "path": "viewer.js",
+        "sha256": "7ba1dceb4c1fcd1d12945f6c553a53dba2192847356266d339759bab9b96d4e4"
+      },
+      {
+        "path": "viewer.css",
+        "sha256": "0e4e48f92205e2502ebd1511dd867548164510c3c886954639178f31b6304285"
+      },
+      {
+        "path": "viewer.template.html",
+        "sha256": "bb632ccc5516e13fe5f8cc7315ee617a4e9f07c47f859fa04ea8e5186bcc0bec"
+      },
+      {
+        "path": "layout.js",
+        "sha256": "29a1586a77d440bbcf56a52c3cac9537445d205026a5a1211d555b7e993ff82c"
+      },
+      {
+        "path": "layout.template.html",
+        "sha256": "132bdbb204368e75fb8fa5bb38e1316eb9ac5fb92599749a781956cef6c3fdf6"
+      },
+      {
+        "path": "vendor/viewer-runtime.js",
+        "sha256": "f4e41f34bc829dcb4224cb56f1f28b347d78038e6bb00a8685ae8436d5783f38"
+      },
+      {
+        "path": "engine/config.py",
+        "sha256": "9f6e438706178a2f1326d9175ba5cb8878d8e56ab4d748fe7531d87f1cb80287"
+      },
+      {
+        "path": "engine/stage02_core.py",
+        "sha256": "28dba1c7b65c003e2eb1dd53b128b5ac9eef1855f0782cb3d61a6bdb1b7c9219"
+      },
+      {
+        "path": "engine/stage03_core.py",
+        "sha256": "771d7acd110d7d26ce7bc28ad30db93dba654ea598e60ee179013ef9cf1b8741"
+      },
+      {
+        "path": "engine/stage04_core.py",
+        "sha256": "550bb8e09f2b06b8400a8779454a00b6a89bd444508c6ad7fd8feaebafbae98f"
+      },
+      {
+        "path": "engine/stage05_core.py",
+        "sha256": "9aa5d2e8b2a3f7ef927205d910bf655c7da7b5f48d27be860947300f62bc3e09"
+      }
+    ]
+  },
+  "runtime": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "cadquery": "2.8.0",
+    "ocp": "7.9.3.1",
+    "occt_thread_pool_size": 32,
+    "occt_default_threads_to_launch": 32,
+    "occt_uses_builtin_threads": true,
+    "mesher_constructor_doc": "__init__(*args, **kwargs)\nOverloaded function.\n\n1. __init__(self: OCP.OCP.BRepMesh.BRepMesh_IncrementalMesh) -> None\n\n2. __init__(self: OCP.OCP.BRepMesh.BRepMesh_IncrementalMesh, theShape: OCP.OCP.TopoDS.TopoDS_Shape, theLinDeflection: float, isRelative: bool = False, theAngDeflection: float = 0.5, isInParallel: bool = False) -> None\n\n3. __init__(self: OCP.OCP.BRepMesh.BRepMesh_IncrementalMesh, theShape: OCP.OCP.TopoDS.TopoDS_Shape, theParameters: OCP.OCP.IMeshTools.IMeshTools_Parameters, theRange: OCP.OCP.Message.Message_ProgressRange = <OCP.OCP.Message.Message_ProgressRange object at 0x000001A09CC650F0>) -> None\n"
+  },
+  "hardware_observed_2026_10_29": {
+    "cpu": "13th Gen Intel(R) Core(TM) i9-13900HX",
+    "physical_cores": 24,
+    "logical_processors": 32,
+    "physical_memory_bytes": 34081574912,
+    "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "gpu_memory_mib": 8188,
+    "driver": "610.74",
+    "evidence": "Root Get-CimInstance Win32_Processor/Win32_ComputerSystem and nvidia-smi observations in this task; not re-queried by this collector."
+  },
+  "cases": [
+    {
+      "label": "60",
+      "output_path": "outputs/angle_60_B400_run06",
+      "total_wall_seconds": 812.1504878998967,
+      "total_wall_basis": "external CLI process including startup; no rendering",
+      "internal_runtime_including_render": 810.2589303998975,
+      "phase_timings_seconds_original": {
+        "config_validation_and_initial_write": 0.00017069990281015635,
+        "lightweight_geometry_identity_derivation": 1.182924900087528,
+        "stage04_base_and_preflight": 6.183267300017178,
+        "stage05_flyer_build": 506.0663108000299,
+        "stage05_likou_cut_and_mirror": 116.83468620001804,
+        "stage05_upper_board_rebuild": 0.9073301000753418,
+        "stage05_combination_rebuild": 108.42289379995782,
+        "geometry_total_after_stage04": 732.2312209000811,
+        "geometry_checkpoint_write": 6.307082299957983,
+        "mesh_remesh_and_export": 64.13366480008699,
+        "mesh_absolute_remesh_only": 62.632474300218746,
+        "profiles": 0.0021545999916270375,
+        "layout_and_json": 0.06240499997511506,
+        "generation_record": 8.950009942054749e-05
+      },
+      "exclusive_phase_sum_seconds": 810.1029800001998,
+      "wall_minus_exclusive_phase_sum_seconds": 2.0475078996969387,
+      "phase_percent_of_wall": {
+        "config_validation_and_initial_write": 2.1018260205883954e-05,
+        "lightweight_geometry_identity_derivation": 0.14565341247856664,
+        "stage04_base_and_preflight": 0.7613450206754427,
+        "stage05_flyer_build": 62.31188903286187,
+        "stage05_likou_cut_and_mirror": 14.385842025673787,
+        "stage05_upper_board_rebuild": 0.1117194551494472,
+        "stage05_combination_rebuild": 13.35009895522241,
+        "geometry_checkpoint_write": 0.7765903479621348,
+        "mesh_remesh_and_export": 7.896771073292998,
+        "profiles": 0.0002652956593301471,
+        "layout_and_json": 0.007683920764055111,
+        "generation_record": 1.1020137370351367e-05
+      },
+      "three_hot_phases_percent": 90.04783001375807,
+      "entity_count": 90,
+      "triangle_count": 212074,
+      "triangles_by_group": {
+        "eave_purlins": 408,
+        "step_purlins": 408,
+        "old_corner": 166,
+        "qiangshan": 552,
+        "fan_rafters": 2216,
+        "eave_rafters": 672,
+        "young_corner": 338,
+        "likou": 2940,
+        "lower_board": 18174,
+        "flying_rafters": 27136,
+        "straight_flying_rafters": 6832,
+        "upper_board": 151414,
+        "lingjiao": 224,
+        "biandan": 594
+      },
+      "mesh_attempt_histogram": {
+        "1": 76,
+        "2": 5,
+        "6": 2,
+        "5": 5,
+        "4": 1,
+        "3": 1
+      },
+      "mesh_total_attempts": 130,
+      "mesh_retry_part_count": 14,
+      "likou_performance": {
+        "cutter_build_seconds": 1.1483726999722421,
+        "x_boolean_seconds": 56.562221099971794,
+        "y_mirror_seconds": 0.05236599990166724,
+        "mirror_pair_check_seconds": 115.67586890002713,
+        "y_boolean_seconds": 57.59756450005807,
+        "y_cut_method": "separate y-side compound Boolean after mirror check fallback",
+        "y_fallback_reason": "mirrored cut candidate failed validity, solid-count, exact-BBox, or volume check: bbox_error=3857.4355652982144; volume_error=3.725290298461914e-09",
+        "source_symmetry": {
+          "rule": "stage03 creates likou_y by reflecting likou_x; stage04 extension is reflected from the same x extension",
+          "verification_basis": "BRepBndLib.AddOptimal_s(useTriangulation=False,useShapeTolerance=False) plus exact volume equality",
+          "verified": true,
+          "source_bbox_max_abs_error_mm": 0.0,
+          "ordinary_tessellation_bbox_diagnostic_max_abs_error_mm": 4.17737303946592,
+          "source_volume_abs_error_mm3": 1.1175870895385742e-08,
+          "source_volume_tolerance_mm3": 0.028738355410800293,
+          "bbox_tolerance_mm": 1e-05,
+          "fallback_reason": null
+        },
+        "cut_symmetry": {
+          "mirrored_bbox_max_abs_error_mm": 3857.4355652982144,
+          "cut_volume_abs_error_mm3": 0.0021267086267471313,
+          "cut_volume_tolerance_mm3": 0.024520213037256742,
+          "mirrored_candidate_bbox_error_mm": 3857.4355652982144,
+          "mirrored_candidate_volume_error_mm3": 3.725290298461914e-09,
+          "matches": false
+        }
+      },
+      "flyer_physical_member_band_count": 16,
+      "flyer_local_field_patch_count": 406,
+      "source_identity_matches_current": true,
+      "historical_source_files_match_current": {
+        "generate.py": true,
+        "parameter_schema.json": true,
+        "render_delivery.py": true,
+        "viewer.js": true,
+        "viewer.css": true,
+        "viewer.template.html": true,
+        "layout.js": true,
+        "layout.template.html": true,
+        "vendor/viewer-runtime.js": true,
+        "engine/config.py": true,
+        "engine/stage02_core.py": true,
+        "engine/stage03_core.py": true,
+        "engine/stage04_core.py": true,
+        "engine/stage05_core.py": true
+      },
+      "source_artifact_sha256": {
+        "validation.json": "b4ca5dfa96c4e31a0c51f3824f07ac3693f720a11f9793be65fbd7fdc2347eb1",
+        "model_mesh.json": "c56d8a3b3ab0cd7561d11581adfe965d75cf968a9b42b3ee0f29db025e1e4ea6",
+        "mesh_export_diagnostics.json": "eefc0de1cecd27537b18f2ae0ea642f53fe1e9ca56b252d98910a5ed7dfb56b5"
+      },
+      "conditional_estimates_not_measurements": {
+        "flyer_and_combination_halved_wall_seconds": 504.90588559990283,
+        "flyer_and_combination_halved_total_speedup": 1.6085185597211684,
+        "flyer_only_4x_ideal_wall_seconds": 432.60075479987427,
+        "flyer_only_4x_ideal_total_speedup": 1.877367246563419,
+        "mesh_export_2x_wall_saving_seconds": 32.066832400043495,
+        "mesh_export_2x_total_time_reduction_percent": 3.948385536646499,
+        "mesh_export_zero_cost_impossible_upper_bound_percent": 7.896771073292998,
+        "remove_second_side_boolean_gross_saving_seconds": 57.59756450005807,
+        "three_hot_phases_halved_wall_seconds": 446.4885424998938,
+        "three_hot_phases_halved_total_speedup": 1.8189727408292673,
+        "combination_only_parameter_change_ideal_wall_seconds": 182.15889349975623,
+        "combination_only_parameter_change_ideal_total_speedup": 4.458472887578138
+      }
+    },
+    {
+      "label": "120",
+      "output_path": "outputs/angle_120_B400_run01",
+      "total_wall_seconds": 257.9118247999577,
+      "total_wall_basis": "external CLI process including startup; no rendering",
+      "internal_runtime_including_render": 256.35175590007566,
+      "phase_timings_seconds_original": {
+        "config_validation_and_initial_write": 0.000202300027012825,
+        "lightweight_geometry_identity_derivation": 1.2493132000090554,
+        "stage04_base_and_preflight": 3.022684199968353,
+        "stage05_flyer_build": 100.15844779997133,
+        "stage05_likou_cut_and_mirror": 40.4815950000193,
+        "stage05_upper_board_rebuild": 0.2989813999738544,
+        "stage05_combination_rebuild": 82.97646889998578,
+        "geometry_total_after_stage04": 223.91549309995025,
+        "geometry_checkpoint_write": 2.7210310000227764,
+        "mesh_remesh_and_export": 24.525428500026464,
+        "mesh_absolute_remesh_only": 24.107003199285828,
+        "profiles": 0.0008975999662652612,
+        "layout_and_json": 0.8081439000088722,
+        "generation_record": 0.00022799998987466097
+      },
+      "exclusive_phase_sum_seconds": 256.2434217999689,
+      "wall_minus_exclusive_phase_sum_seconds": 1.668402999988757,
+      "phase_percent_of_wall": {
+        "config_validation_and_initial_write": 7.843767038201274e-05,
+        "lightweight_geometry_identity_derivation": 0.48439547158337987,
+        "stage04_base_and_preflight": 1.1719835654347432,
+        "stage05_flyer_build": 38.83437600337112,
+        "stage05_likou_cut_and_mirror": 15.695904998313958,
+        "stage05_upper_board_rebuild": 0.11592388220499436,
+        "stage05_combination_rebuild": 32.1724174393106,
+        "geometry_checkpoint_write": 1.0550237477995708,
+        "mesh_remesh_and_export": 9.509229954481128,
+        "profiles": 0.00034802590651338315,
+        "layout_and_json": 0.3133411586055378,
+        "generation_record": 8.840230185316357e-05
+      },
+      "three_hot_phases_percent": 86.70269844099568,
+      "entity_count": 54,
+      "triangle_count": 29122,
+      "triangles_by_group": {
+        "eave_purlins": 312,
+        "step_purlins": 312,
+        "old_corner": 166,
+        "qiangshan": 724,
+        "fan_rafters": 544,
+        "eave_rafters": 672,
+        "young_corner": 338,
+        "likou": 1892,
+        "lower_board": 2480,
+        "flying_rafters": 6784,
+        "straight_flying_rafters": 6832,
+        "upper_board": 6808,
+        "lingjiao": 352,
+        "biandan": 906
+      },
+      "mesh_attempt_histogram": {
+        "1": 44,
+        "2": 4,
+        "4": 2,
+        "3": 4
+      },
+      "mesh_total_attempts": 72,
+      "mesh_retry_part_count": 10,
+      "likou_performance": {
+        "cutter_build_seconds": 0.5053826000075787,
+        "x_boolean_seconds": 18.963296699919738,
+        "y_mirror_seconds": 0.03541009989567101,
+        "mirror_pair_check_seconds": 39.96922379999887,
+        "y_boolean_seconds": 20.27400169998873,
+        "y_cut_method": "separate y-side compound Boolean after mirror check fallback",
+        "y_fallback_reason": "mirrored cut candidate failed validity, solid-count, exact-BBox, or volume check: bbox_error=2556.4187693057306; volume_error=5.587935447692871e-09",
+        "source_symmetry": {
+          "rule": "stage03 creates likou_y by reflecting likou_x; stage04 extension is reflected from the same x extension",
+          "verification_basis": "BRepBndLib.AddOptimal_s(useTriangulation=False,useShapeTolerance=False) plus exact volume equality",
+          "verified": true,
+          "source_bbox_max_abs_error_mm": 0.0,
+          "ordinary_tessellation_bbox_diagnostic_max_abs_error_mm": 1.9473452526749497,
+          "source_volume_abs_error_mm3": 1.1175870895385742e-08,
+          "source_volume_tolerance_mm3": 0.013980543602928304,
+          "bbox_tolerance_mm": 1e-05,
+          "fallback_reason": null
+        },
+        "cut_symmetry": {
+          "mirrored_bbox_max_abs_error_mm": 2556.4187693057306,
+          "cut_volume_abs_error_mm3": 0.0002882741391658783,
+          "cut_volume_tolerance_mm3": 0.01257886618988259,
+          "mirrored_candidate_bbox_error_mm": 2556.4187693057306,
+          "mirrored_candidate_volume_error_mm3": 5.587935447692871e-09,
+          "matches": false
+        }
+      },
+      "flyer_physical_member_band_count": 16,
+      "flyer_local_field_patch_count": 202,
+      "source_identity_matches_current": true,
+      "historical_source_files_match_current": {
+        "generate.py": true,
+        "parameter_schema.json": true,
+        "render_delivery.py": true,
+        "viewer.js": true,
+        "viewer.css": true,
+        "viewer.template.html": true,
+        "layout.js": true,
+        "layout.template.html": true,
+        "vendor/viewer-runtime.js": true,
+        "engine/config.py": true,
+        "engine/stage02_core.py": true,
+        "engine/stage03_core.py": true,
+        "engine/stage04_core.py": true,
+        "engine/stage05_core.py": true
+      },
+      "source_artifact_sha256": {
+        "validation.json": "2b2f3681007061b465a930c6d3a6fc2765e72b66a721bc4a4ae659857ce602ce",
+        "model_mesh.json": "ee1935c9b39f703ddd9a42f69eeefc677e0f10671f5aac53c87ed22e7700ac35",
+        "mesh_export_diagnostics.json": "7ec50fd1432784e0cd1c18c1c0a67c3117720518eb42f8702094585b9ef048e1"
+      },
+      "conditional_estimates_not_measurements": {
+        "flyer_and_combination_halved_wall_seconds": 166.34436644997913,
+        "flyer_and_combination_halved_total_speedup": 1.550469248247812,
+        "flyer_only_4x_ideal_wall_seconds": 182.7929889499792,
+        "flyer_only_4x_ideal_total_speedup": 1.4109503120523652,
+        "mesh_export_2x_wall_saving_seconds": 12.262714250013232,
+        "mesh_export_2x_total_time_reduction_percent": 4.754614977240564,
+        "mesh_export_zero_cost_impossible_upper_bound_percent": 9.509229954481128,
+        "remove_second_side_boolean_gross_saving_seconds": 20.27400169998873,
+        "three_hot_phases_halved_wall_seconds": 146.10356894996949,
+        "three_hot_phases_halved_total_speedup": 1.765267109171542,
+        "combination_only_parameter_change_ideal_wall_seconds": 113.95011640002485,
+        "combination_only_parameter_change_ideal_total_speedup": 2.2633748253012
+      }
+    },
+    {
+      "label": "90_previous_version",
+      "output_path": "outputs/workbench/case-b0257e3b87884f2a88137a283f3a38da",
+      "total_wall_seconds": 410.497,
+      "total_wall_basis": "saved workbench job start-to-success including rendering",
+      "internal_runtime_including_render": 407.8783909000922,
+      "phase_timings_seconds_original": {
+        "config_validation_and_initial_write": 0.009949000086635351,
+        "lightweight_geometry_identity_derivation": 1.4408688999246806,
+        "stage04_base_and_preflight": 6.510214000009,
+        "stage05_flyer_build": 223.95315029995982,
+        "stage05_likou_cut_and_mirror": 32.75776609999593,
+        "stage05_upper_board_rebuild": 0.48900939989835024,
+        "stage05_combination_rebuild": 90.93922409997322,
+        "geometry_total_after_stage04": 348.1391498998273,
+        "geometry_checkpoint_write": 4.625067200046033,
+        "mesh_remesh_and_export": 44.694560699979775,
+        "mesh_absolute_remesh_only": 43.78575059992727,
+        "profiles": 0.0016191999893635511,
+        "layout_and_json": 0.04435009998269379,
+        "generation_record": 8.120003622025251e-05,
+        "rendering": 2.25473799998872
+      },
+      "exclusive_phase_sum_seconds": 407.72059819987044,
+      "wall_minus_exclusive_phase_sum_seconds": 2.7764018001295767,
+      "phase_percent_of_wall": {
+        "config_validation_and_initial_write": 0.0024236474533639346,
+        "lightweight_geometry_identity_derivation": 0.35100595130407297,
+        "stage04_base_and_preflight": 1.5859346109737709,
+        "stage05_flyer_build": 54.55658635750318,
+        "stage05_likou_cut_and_mirror": 7.9800257005522415,
+        "stage05_upper_board_rebuild": 0.11912618116535571,
+        "stage05_combination_rebuild": 22.153444263897963,
+        "geometry_checkpoint_write": 1.1266993912369718,
+        "mesh_remesh_and_export": 10.887914089501209,
+        "profiles": 0.00039444867791081325,
+        "layout_and_json": 0.010804000999445498,
+        "generation_record": 1.9780908562121653e-05,
+        "rendering": 0.5492702748104663
+      },
+      "three_hot_phases_percent": 84.69005632195338,
+      "entity_count": 66,
+      "triangle_count": 80374,
+      "triangles_by_group": {
+        "eave_purlins": 304,
+        "step_purlins": 304,
+        "old_corner": 166,
+        "qiangshan": 624,
+        "fan_rafters": 1104,
+        "eave_rafters": 736,
+        "young_corner": 338,
+        "likou": 1952,
+        "lower_board": 6956,
+        "flying_rafters": 13568,
+        "straight_flying_rafters": 6832,
+        "upper_board": 46178,
+        "lingjiao": 402,
+        "biandan": 910
+      },
+      "mesh_attempt_histogram": {
+        "1": 56,
+        "2": 2,
+        "5": 2,
+        "3": 4,
+        "4": 2
+      },
+      "mesh_total_attempts": 90,
+      "mesh_retry_part_count": 10,
+      "likou_performance": {
+        "cutter_build_seconds": 13.68077340000309,
+        "x_boolean_seconds": 18.067348400014453,
+        "y_mirror_seconds": 0.039276399998925626,
+        "mirror_pair_check_seconds": 19.063133999938145,
+        "y_boolean_seconds": 0.0,
+        "y_cut_method": "mirror validated x-side cut; one Boolean total",
+        "y_fallback_reason": null,
+        "source_symmetry": {
+          "rule": "stage03 creates likou_y by reflecting likou_x; stage04 extension is reflected from the same x extension",
+          "verification_basis": "BRepBndLib.AddOptimal_s(useTriangulation=False,useShapeTolerance=False) plus exact volume equality",
+          "verified": true,
+          "source_bbox_max_abs_error_mm": 4.547473508864641e-13,
+          "ordinary_tessellation_bbox_diagnostic_max_abs_error_mm": 2.8387035783705983,
+          "source_volume_abs_error_mm3": 1.862645149230957e-08,
+          "source_volume_tolerance_mm3": 0.019223975709917927,
+          "bbox_tolerance_mm": 1e-05,
+          "fallback_reason": null
+        },
+        "cut_symmetry": {
+          "mirrored_bbox_max_abs_error_mm": 5.684341886080801e-13,
+          "cut_volume_abs_error_mm3": 2.2351741790771484e-08,
+          "cut_volume_tolerance_mm3": 0.01681987812818089,
+          "mirrored_candidate_bbox_error_mm": 5.684341886080801e-13,
+          "mirrored_candidate_volume_error_mm3": 2.2351741790771484e-08,
+          "matches": true
+        }
+      },
+      "flyer_physical_member_band_count": 16,
+      "flyer_local_field_patch_count": 270,
+      "source_identity_matches_current": null,
+      "historical_source_files_match_current": null,
+      "source_artifact_sha256": {
+        "validation.json": "3a9356d7f789b9c1baf3597e362eccd520607e286cbf7dcf8772b14c62d5337a",
+        "model_mesh.json": "68e8f8f0e9fcfaec67729858f90683dbd216bce913b7c60e5ab5a6714579ac18",
+        "mesh_export_diagnostics.json": "1760c3718b59a9564c2f10e23c680c3443854a0745d76949a08293e671e7a3b8"
+      },
+      "conditional_estimates_not_measurements": {
+        "flyer_and_combination_halved_wall_seconds": 253.0508128000335,
+        "flyer_and_combination_halved_total_speedup": 1.622191983727727,
+        "flyer_only_4x_ideal_wall_seconds": 242.53213727503015,
+        "flyer_only_4x_ideal_total_speedup": 1.6925468295135608,
+        "mesh_export_2x_wall_saving_seconds": 22.347280349989887,
+        "mesh_export_2x_total_time_reduction_percent": 5.443957044750604,
+        "mesh_export_zero_cost_impossible_upper_bound_percent": 10.887914089501209,
+        "remove_second_side_boolean_gross_saving_seconds": 0.0,
+        "three_hot_phases_halved_wall_seconds": 236.67192975003553,
+        "three_hot_phases_halved_total_speedup": 1.7344557947093782,
+        "combination_only_parameter_change_ideal_wall_seconds": 146.7868602001369,
+        "combination_only_parameter_change_ideal_total_speedup": 2.7965514041264106
+      }
+    }
+  ],
+  "accounting_notes": [
+    "geometry_total_after_stage04 is the sum of four stage05 fields, not another stage.",
+    "mesh_absolute_remesh_only is nested within mesh_remesh_and_export; its timer also covers face extraction and guards, not only native mesher computation.",
+    "likou mirror_pair_check_seconds spans booleans and checks; do not sum it with x/y boolean fields.",
+    "Different angles change geometry and part counts; rows are not optimization A/B comparisons.",
+    "All speedup scenarios are conditional arithmetic, ignore added scheduling/validation/serialization costs, and are not measured optimized performance."
+  ]
+}
