@@ -1,9 +1,16 @@
 # 可再生成的 CAD 交付结果；文件保留在本地供预览和对照。
 /outputs/
 
+# 与工作台运行无关的文件
+/design
+/diagnostics
+
 # 工作台运行状态、锁、日志、任务配置和历史记录；文件保留在本地。
 /ui_state/
 /ui/review-preview/
+
+# 本机模型列表缓存。
+/models_cache.json
 
 # 局部排错保存的可再生 BRep 快照；保留探针源码与 JSON 结论。
 /diagnostics/**/*_geometry_snapshot/
@@ -24,11 +31,20 @@
 /diagnostics/**/*.progress.json
 /diagnostics/**/workbench_state.before_registration.*.json
 
+# 界面验证服务的本机地址、进程信息与临时状态。
+/diagnostics/**/qa-service.json
+/diagnostics/**/isolated-state*.json
+
+# 文档改写前的临时副本；正文与改写记录保留。
+/diagnostics/docs_expression_*/before/
+
 # Python 与 pytest 的缓存。
 __pycache__/
 *.py[cod]
 **/.pytest_cache/
 .coverage
+.coverage.*
+/htmlcov/
 
 # 独立使用生成器时的本地开发环境与依赖。
 .venv/
@@ -43,3 +59,5 @@ Desktop.ini
 /tests/test-results/
 *.tmp
 *.temp
+*.tmp.gz
+design-qa.md

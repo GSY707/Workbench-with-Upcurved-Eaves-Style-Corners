@@ -1,217 +1,49 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <title>戗角工作台 v0.4</title>
-  <link rel="stylesheet" href="/ui/styles.css">
-  <script src="/ui/app.js" defer></script>
-</head>
-<body>
-  <div class="app-shell">
-    <header class="app-header">
-      <div class="brand-lockup">
-        <div class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 42 42" role="presentation">
-            <path d="M7 29.5 21 8l14 21.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M11 29.5h20M15.4 22.8h11.2M21 9v20.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="21" cy="30" r="2.1" fill="currentColor"/>
-          </svg>
-        </div>
-        <div>
-          <div class="brand-kicker">木作参数 · 三维生成</div>
-          <h1>戗角工作台 <span class="version-tag">v0.4</span></h1>
-        </div>
-      </div>
-      <div class="header-badges" aria-label="工作台信息">
-        <span class="badge angle-badge"><span id="displayed-angle" class="angle-mark">—</span> 当前模型 · 左右对称</span>
-        <span class="badge runtime-badge"><span class="badge-dot"></span> 预览 / 精确生成</span>
-      </div>
-    </header>
-
-    <main class="workbench-grid">
-      <aside class="control-panel" aria-label="参数工作区">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">CONFIGURATION</p>
-            <h2>参数工作区</h2>
-          </div>
-          <span id="draft-indicator" class="state-pill state-neutral">连接中</span>
-        </div>
-        <div class="panel-scroll">
-          <section class="control-section case-section" aria-labelledby="case-section-title">
-            <div class="section-heading-row">
-              <h3 id="case-section-title">方案与历史</h3>
-              <span id="case-count" class="quiet-count">—</span>
-            </div>
-            <label class="field-label" for="case-picker">成功案例与历史结果</label>
-            <select id="case-picker" class="select-control" disabled>
-              <option>正在读取案例…</option>
-            </select>
-            <div class="case-actions case-actions-primary">
-              <button id="load-case-button" class="button button-secondary" type="button" disabled>载入参数到草稿</button>
-              <button id="view-case-button" class="button button-secondary" type="button" disabled>查看此结果</button>
-            </div>
-            <div class="case-actions">
-              <button id="import-button" class="button button-secondary" type="button" disabled>
-                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 13V3m0 0L6.7 6.3M10 3l3.3 3.3M4 12.5v3h12v-3"/></svg>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>戗角工作台</title><link rel="stylesheet" href="/ui/styles.css"><script src="/ui/app.js" defer></script></head><body>
+<header class="topbar"><div class="brand"><div aria-hidden="true" class="brand-mark">
+<svg role="presentation" viewbox="0 0 42 42">
+<path d="M7 29.5 21 8l14 21.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+<path d="M11 29.5h20M15.4 22.8h11.2M21 9v20.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path>
+<circle cx="21" cy="30" fill="currentColor" r="2.1"></circle>
+</svg>
+</div><strong>戗角工作台</strong></div><div class="scheme-name" id="result-title">角部方案</div><div class="top-actions"><button id="history-open" class="quiet-button">历史</button><button id="export-open" class="green-button">导出</button></div></header>
+<main class="canvas-area"><div class="canvas-frame"><div class="viewer-empty" id="viewer-empty">
+<div aria-hidden="true" class="empty-mark">木</div>
+<h3>正在连接本地生成器</h3>
+<p>初始通过结果会在载入后显示在这里。</p>
+</div><iframe class="result-iframe active" hidden="" id="model-view" loading="eager" title="戗角三维模型查看器"></iframe><iframe class="result-iframe" hidden="" id="layout-view" loading="lazy" title="立脚飞椽单列排料方案"></iframe></div><div class="view-switch" role="tablist" aria-label="结果视图"><button aria-controls="model-view" aria-selected="true" class="view-tab active" id="model-tab" role="tab" type="button">
+<svg aria-hidden="true" viewbox="0 0 20 20"><path d="m10 2.8 6.6 3.8v6.8L10 17.2l-6.6-3.8V6.6zM3.4 6.6 10 10.4l6.6-3.8M10 10.4v6.8"></path></svg>
+              模型
+            </button><button aria-controls="layout-view" aria-selected="false" class="view-tab" id="layout-tab" role="tab" type="button">
+<svg aria-hidden="true" viewbox="0 0 20 20"><path d="M3 16.5V4.2h14v12.3zM3 13.7l3-1.2 2.5-4.1 2.4 2 3.5-4 2.6 1.1"></path><circle cx="6" cy="12.5" fill="currentColor" r=".9"></circle><circle cx="11" cy="10.4" fill="currentColor" r=".9"></circle></svg>
+              排料
+            </button><span class="field-note" hidden="" id="layout-disabled-note">精确生成后可用</span></div>
+<aside class="control-panel" aria-label="调整形态"><div class="panel-head"><h2>调整形态</h2><button id="panel-toggle" aria-expanded="true" aria-label="收起调整形态">⌃</button></div><div id="panel-body"><div class="parameter-tabs" role="tablist"><button class="selected" data-param-tab="dimensions" role="tab" aria-selected="true">尺寸</button><button data-param-tab="parts" role="tab" aria-selected="false">构件参数</button></div><div class="panel-scroll"><div id="dimensions-page"><div id="quick-fields"></div><details class="more-details"><summary>更多参数</summary><label class="search-label" for="parameter-search">搜索参数</label><input autocomplete="off" disabled="" id="parameter-search" placeholder="搜索参数名称或说明" type="search"/><div id="identity-fields"></div><div id="primary-fields"></div><details id="advanced-details"><summary>其他参数 <span id="advanced-summary-count"></span></summary><div id="advanced-fields"></div></details></details></div><div id="parts-page" hidden><div id="part-fields"></div></div></div><div class="panel-actions"><div id="validation-result" class="validation-result" hidden></div><div id="generation-error" role="alert" hidden></div><button id="generate-button" class="green-button" disabled>更新预览</button><button id="exact-generate-button" class="outline-button" disabled>精确生成</button><section aria-live="polite" class="job-card" hidden="" id="job-card">
+<div aria-hidden="true" class="job-mark"><span></span></div>
+<div class="job-copy">
+<div class="job-title-row">
+<h3 id="job-title">正在生成</h3>
+<span class="job-elapsed" id="job-elapsed">00:00</span>
+</div>
+<p class="job-stage" id="job-stage">等待任务状态…</p>
+<p class="job-message" id="job-message"></p>
+<details class="job-log-details" hidden="" id="job-log-details">
+<summary>查看最近日志</summary>
+<pre id="job-log"></pre>
+</details>
+</div>
+</section><button id="cancel-button" class="cancel-button" hidden>取消生成</button></div></div></aside>
+<div class="view-controls" aria-label="模型视图"><button class="selected" data-camera="iso">轴测</button><button data-camera="top">俯视</button><button data-camera="side">侧视</button><button id="parts-open" aria-expanded="false">构件</button></div><aside id="parts-drawer" class="parts-drawer" hidden><div class="drawer-heading"><strong>构件显示</strong><button id="parts-close" aria-label="关闭">×</button></div><div id="viewer-settings"></div></aside>
+<div class="model-status" id="model-status">正在载入</div><div class="draft-status" id="draft-status">参数未修改</div></main>
+<dialog id="history-dialog"><div class="dialog-head"><h2>方案与历史</h2><button data-close-dialog aria-label="关闭">×</button></div><select class="select-control" disabled="" id="case-picker">
+<option>正在读取案例…</option>
+</select><div class="dialog-actions"><button class="button button-secondary" disabled="" id="load-case-button" type="button">载入参数到草稿</button><button class="button button-secondary" disabled="" id="view-case-button" type="button">查看此结果</button></div><div class="dialog-actions"><button class="button button-secondary" disabled="" id="import-button" type="button">
+<svg aria-hidden="true" viewbox="0 0 20 20"><path d="M10 13V3m0 0L6.7 6.3M10 3l3.3 3.3M4 12.5v3h12v-3"></path></svg>
                 导入 JSON
-              </button>
-              <button id="export-config-button" class="button button-secondary" type="button" disabled>
-                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v10m0 0 3.3-3.3M10 13 6.7 9.7M4 13.5v2h12v-2"/></svg>
+              </button><button class="button button-secondary" disabled="" id="export-config-button" type="button">
+<svg aria-hidden="true" viewbox="0 0 20 20"><path d="M10 3v10m0 0 3.3-3.3M10 13 6.7 9.7M4 13.5v2h12v-2"></path></svg>
                 下载配置
-              </button>
-              <input id="config-file" class="visually-hidden" type="file" accept=".json,application/json">
-            </div>
-            <p id="case-note" class="field-note">“查看此结果”会切换右侧并将该结果参数回填到草稿；“载入参数到草稿”只回填草稿。两种操作都不会启动计算。</p>
-          </section>
-
-          <section class="control-section identity-section" aria-labelledby="identity-title">
-            <div class="section-heading-row">
-              <h3 id="identity-title">本次配置</h3>
-              <span class="section-caption">改名不会改变几何</span>
-            </div>
-            <div id="identity-fields" class="field-grid"></div>
-          </section>
-
-          <section class="control-section primary-section" aria-labelledby="primary-title">
-            <div class="section-heading-row">
-              <div>
-                <p class="eyebrow">PRIMARY INPUTS</p>
-                <h3 id="primary-title">主要参数</h3>
-              </div>
-              <span id="primary-count" class="quiet-count">读取中</span>
-            </div>
-            <div id="primary-fields" class="field-group-list"></div>
-          </section>
-
-          <section class="control-section advanced-section" aria-labelledby="advanced-title">
-            <div class="advanced-toolbar">
-              <div>
-                <p class="eyebrow">TUNING</p>
-                <h3 id="advanced-title">进阶参数</h3>
-              </div>
-              <span id="advanced-count" class="quiet-count">折叠</span>
-            </div>
-            <label class="search-wrap" for="parameter-search">
-              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.6"/><path d="m13 13 4 4"/></svg>
-              <input id="parameter-search" type="search" placeholder="搜索参数名称或说明" autocomplete="off" disabled>
-              <kbd>/</kbd>
-            </label>
-            <details id="advanced-details" class="details-block advanced-details">
-              <summary><span>显示进阶参数</span><span id="advanced-summary-count" class="summary-count"></span></summary>
-              <p class="advanced-intro">用于材料尺寸、求交与显示精度。完整建模耗时较长，建议一次调整后统一生成。</p>
-              <div id="advanced-fields" class="field-group-list"></div>
-            </details>
-          </section>
-
-        </div>
-        <section class="control-section validation-section" aria-labelledby="validation-title">
-          <div class="section-heading-row">
-            <div>
-              <p class="eyebrow">CHECK BEFORE BUILD</p>
-              <h3 id="validation-title">参数校验</h3>
-            </div>
-            <span id="validation-indicator" class="state-pill state-neutral">未校验</span>
-          </div>
-          <p id="validation-summary" class="validation-summary">检查输入值和已知参数范围；模型形态需在生成后查看。</p>
-          <div id="validation-result" class="validation-result" hidden></div>
-          <div class="action-row">
-            <button id="validate-button" class="button button-secondary button-grow" type="button" disabled>校验参数</button>
-            <button id="generate-button" class="button button-primary button-grow" type="button" disabled>
-              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4.5 8 5.5-8 5.5z" fill="currentColor" stroke="none"/></svg>
-              生成预览
-            </button>
-          </div>
-          <button id="exact-generate-button" class="button button-secondary exact-generate-button" type="button" disabled>精确生成</button>
-          <p class="runtime-note">预览用于快速查看整体形态；排料、放样 CSV 与 STEP 需要单独点击精确生成。</p>
-          <button id="cancel-button" class="button button-cancel" type="button" hidden>取消当前任务</button>
-          <p class="runtime-note">不会因每次按键启动计算。提交后可离开页面刷新，工作台会恢复任务状态。</p>
-        </section>
-      </aside>
-
-      <section class="result-panel" aria-label="当前结果">
-        <div class="result-heading">
-          <div class="result-title-group">
-            <p class="eyebrow">CURRENT RESULT</p>
-            <h2 id="result-title">正在载入默认模型…</h2>
-            <p id="result-subtitle" class="result-subtitle">编辑草稿与当前显示结果分别保存。</p>
-          </div>
-          <span id="result-state" class="result-state-pill"><span class="result-state-dot"></span> 读取结果</span>
-        </div>
-
-        <section id="job-card" class="job-card" aria-live="polite" hidden>
-          <div class="job-mark" aria-hidden="true"><span></span></div>
-          <div class="job-copy">
-            <div class="job-title-row">
-              <h3 id="job-title">正在生成</h3>
-              <span id="job-elapsed" class="job-elapsed">00:00</span>
-            </div>
-            <p id="job-stage" class="job-stage">等待任务状态…</p>
-            <p id="job-message" class="job-message"></p>
-            <details id="job-log-details" class="job-log-details" hidden>
-              <summary>查看最近日志</summary>
-              <pre id="job-log"></pre>
-            </details>
-          </div>
-        </section>
-
-        <div class="viewer-toolbar">
-          <div class="view-tabs" role="tablist" aria-label="结果视图">
-            <button id="model-tab" class="view-tab active" type="button" role="tab" aria-selected="true" aria-controls="model-view">
-              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 2.8 6.6 3.8v6.8L10 17.2l-6.6-3.8V6.6zM3.4 6.6 10 10.4l6.6-3.8M10 10.4v6.8"/></svg>
-              三维模型
-            </button>
-            <button id="layout-tab" class="view-tab" type="button" role="tab" aria-selected="false" aria-controls="layout-view">
-              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 16.5V4.2h14v12.3zM3 13.7l3-1.2 2.5-4.1 2.4 2 3.5-4 2.6 1.1"/><circle cx="6" cy="12.5" r=".9" fill="currentColor"/><circle cx="11" cy="10.4" r=".9" fill="currentColor"/></svg>
-              立脚飞椽排料
-            </button>
-            <span id="layout-disabled-note" class="field-note" hidden>精确生成后可用</span>
-          </div>
-          <span id="viewer-case-label" class="viewer-case-label">默认结果</span>
-        </div>
-
-        <div class="viewer-frame-wrap">
-          <div id="viewer-empty" class="viewer-empty">
-            <div class="empty-mark" aria-hidden="true">木</div>
-            <h3>正在连接本地生成器</h3>
-            <p>初始通过结果会在载入后显示在这里。</p>
-          </div>
-          <iframe id="model-view" class="result-iframe active" title="戗角三维模型查看器" loading="eager" hidden></iframe>
-          <iframe id="layout-view" class="result-iframe" title="立脚飞椽单列排料方案" loading="lazy" hidden></iframe>
-        </div>
-
-        <div class="result-footer">
-          <div class="result-metrics-block">
-            <div class="metrics-heading">
-              <div>
-                <p class="eyebrow">RESULT SUMMARY</p>
-                <h3>当前显示结果</h3>
-              </div>
-              <span id="result-validation" class="validated-tag" hidden><span></span> 精确生成完成</span>
-            </div>
-            <div id="result-metrics" class="metrics-grid">
-              <div class="metric-card metric-placeholder"><span>结果统计</span><strong>载入中</strong></div>
-            </div>
-            <div class="downloads-row">
-              <span class="downloads-label">导出</span>
-              <div id="result-downloads" class="download-links"></div>
-            </div>
-            <p id="result-footnote" class="result-footnote">排料图为单侧模板，按左右对称制作两套；正身飞椽不计入该排料。曲线平移误差只作诊断，模型保持原角点。</p>
-          </div>
-          <aside class="result-hint" aria-label="工作方式说明">
-            <div class="hint-icon" aria-hidden="true">↗</div>
-            <p class="eyebrow">WORKFLOW</p>
-            <h3>草稿与结果分开</h3>
-            <p>输入改动只保存在草稿里。预览或精确生成成功后才切换右侧模型；失败或取消会保留这份有效结果。</p>
-          </aside>
-        </div>
-      </section>
-    </main>
-
-    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-    <div id="app-error" class="app-error" role="alert" hidden></div>
-  </div>
-</body>
-</html>
+              </button><input accept=".json,application/json" class="visually-hidden" id="config-file" type="file"/></div></dialog>
+<dialog id="export-dialog"><div class="dialog-head"><h2>导出当前结果</h2><button data-close-dialog aria-label="关闭">×</button></div><div class="download-links" id="result-downloads"></div></dialog><div id="toast" class="toast" role="status" hidden></div><div id="app-error" class="app-error" role="alert" hidden></div>
+<div class="internal-state" hidden><span class="angle-mark" id="displayed-angle">—</span><span class="state-pill state-neutral" id="draft-indicator">连接中</span><span class="quiet-count" id="case-count">—</span><span class="quiet-count" id="primary-count">读取中</span><span class="quiet-count" id="advanced-count">折叠</span><span class="state-pill state-neutral" id="validation-indicator">未校验</span><p class="validation-summary" id="validation-summary">检查输入值和已知参数范围；模型形态需在生成后查看。</p><button class="button button-secondary button-grow" disabled="" id="validate-button" type="button">校验参数</button><p class="result-subtitle" id="result-subtitle">编辑草稿与当前显示结果分别保存。</p><span class="result-state-pill" id="result-state"><span class="result-state-dot"></span> 读取结果</span><span class="viewer-case-label" id="viewer-case-label">默认结果</span><span class="validated-tag" hidden="" id="result-validation"><span></span> 精确生成完成</span><div class="metrics-grid" id="result-metrics">
+<div class="metric-card metric-placeholder"><span>结果统计</span><strong>载入中</strong></div>
+</div><p class="result-footnote" id="result-footnote">排料图为单侧模板，按左右对称制作两套；正身飞椽不计入该排料。曲线平移误差只作诊断，模型保持原角点。</p></div></body></html>

@@ -19,10 +19,10 @@
     { title: '几何采样与输出网格', keys: ['mesh_tessellation_mm', 'mesh_angular_tolerance_rad'] }
   ];
   const LABELS = {
-    case_id: '案例标识',
-    corner_angle_deg: '建筑平面内角 α',
-    D: '界深 D', e: '正身檐出 e', p: '正身飞椽水平外挑 p', t: '正身提栈系数 t', B: '分椽中心档控制值 B',
-    L_n: '嫩戗控制弦长 Lₙ', U_n: '嫩戗端点高差 Uₙ', a: '老戗主体高度尺度 a', w_fly: '立脚飞椽宽度 w_fly',
+    case_id: '方案名称',
+    corner_angle_deg: '建筑内角',
+    D: '界深', e: '檐出', p: '飞椽外挑', t: '提栈系数', B: '椽档',
+    L_n: '嫩戗弦长', U_n: '嫩戗起翘', a: '老戗主体高度尺度 a', w_fly: '立脚飞椽宽度 w_fly',
     k_c: '放叉系数 k_c', old_tail_scale: '老戗梢部收分比例', old_ridge_h: '老戗车背加高', young_root_scale: '嫩戗根部主体比例',
     young_tip_scale: '嫩戗头部主体比例', setback: '嫩戗根部坐势退进', likou_width: '里口木平面宽度', likou_h_regular: '正身里口木高度',
     likou_h_corner_ratio: '角部里口高度倍率', likou_extension_pitches: '里口正身延长档数', board_lower_t: '下层木望板厚度',
@@ -78,7 +78,8 @@
     serverValidationCurrent: false,
     initialised: false,
     toastTimer: null,
-    searchTerm: ''
+    searchTerm: '',
+    panelCollapsedBeforeLayout: false
   };
 
   function asPlainObject(value) {
@@ -296,7 +297,7 @@
     const unit = document.createElement('span');
     unit.className = 'field-unit';
     unit.textContent = getUnitText(property['x-unit'], key);
-    head.append(label, unit);
+    head.append(label);
 
     const entry = document.createElement('div');
     entry.className = 'field-entry-row';
@@ -315,7 +316,7 @@
     const defaultValue = document.createElement('span');
     defaultValue.className = 'field-default';
     defaultValue.textContent = `默认 ${property.default}`;
-    entry.append(input, defaultValue);
+    entry.append(input, unit, defaultValue);
 
     const help = document.createElement('p');
     help.className = 'field-help';
@@ -414,13 +415,21 @@
     error.hidden = true;
     control.append(head, input, help, error);
     container.append(control);
-    container.append(renderField(null, 'corner_angle_deg', state.schema.properties.corner_angle_deg));
+
   }
 
   function renderParameterFields() {
     const parameterProperties = schemaProperties('parameters');
     const advancedProperties = schemaProperties('advanced');
-    renderFieldGroups(byId('primary-fields'), 'parameters', MAIN_GROUPS, parameterProperties);
+    const quickKeys = ['D', 'e', 'p', 'B', 'U_n'];
+    const partKeys = ['a', 'k_c', 'old_tail_scale', 'old_ridge_h', 'young_root_scale', 'young_tip_scale', 'setback', 'back_join_fraction', 'w_fly', 'likou_width', 'likou_h_regular', 'likou_h_corner_ratio', 'likou_extension_pitches', 'fly_tip_t', 'fly_corner_root_ratio', 'board_lower_t', 'board_upper_t'];
+    const pick = keys => Object.fromEntries(keys.filter(key => Object.hasOwn(parameterProperties, key)).map(key => [key, parameterProperties[key]]));
+    const remaining = Object.fromEntries(Object.entries(parameterProperties).filter(([key]) => !quickKeys.includes(key) && !partKeys.includes(key)));
+    const quick = byId('quick-fields');
+    quick.replaceChildren(renderField(null, 'corner_angle_deg', state.schema.properties.corner_angle_deg));
+    for (const [key, property] of Object.entries(pick(quickKeys))) quick.append(renderField('parameters', key, property));
+    renderFieldGroups(byId('primary-fields'), 'parameters', [{ title: '屋面形态', keys: ['t', 'L_n'], open: true }], remaining);
+    renderFieldGroups(byId('part-fields'), 'parameters', MAIN_GROUPS, pick(partKeys), { openAll: true });
     renderFieldGroups(byId('advanced-fields'), 'advanced', ADVANCED_GROUPS, advancedProperties);
     renderIdentityFields();
     setText(byId('primary-count'), `${Object.keys(parameterProperties).length} 项`);
@@ -592,6 +601,16 @@
     byId('cancel-button').disabled = state.job && state.job.status !== 'running' && state.job.status !== 'queued';
     byId('parameter-search').disabled = !state.initialised;
     renderResultState();
+    const current = state.currentCase;
+    const matches = current && result.config && sameCalculation(result.config, configForCase(current));
+    byId('draft-status').textContent = matches ? '参数未修改' : '参数已修改';
+    byId('draft-status').classList.toggle('modified', !matches);
+    if (current) {
+      const angle = current.config?.corner_angle_deg;
+      const angleLabel = Number.isFinite(angle) ? `${formatNumber(angle)}°` : '—';
+      byId('model-status').textContent = `${current.mode === 'preview' ? '预览' : '精确'} · ${angleLabel} · ${current.metrics?.parts_count ?? '—'} 件`;
+    }
+    updateJobCard();
   }
 
   function renderResultState() {
@@ -693,6 +712,7 @@
   function updateSearch() {
     const term = state.searchTerm.trim().toLocaleLowerCase('zh-CN');
     const advancedDetails = byId('advanced-details');
+    if (!byId('dimensions-page').hidden) byId('parts-page').hidden = !term;
     const allGroups = document.querySelectorAll('.parameter-group');
     let visibleAdvanced = 0;
     for (const control of document.querySelectorAll('.field-control[data-search-text]')) {
@@ -836,8 +856,8 @@
 
   function addEmbedStyle(frame, kind) {
     const styleText = kind === 'model'
-      ? 'html,body{width:100%;height:100%;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}body{padding:0!important}.masthead,footer{display:none!important}.workspace{grid-template-columns:minmax(154px,188px) minmax(0,1fr)!important;min-height:0!important;margin:0!important;border:0!important}.sidebar{max-height:100vh!important;min-height:0!important;overflow:auto!important;padding:13px 10px 13px 13px!important}.stage{height:100vh!important;min-height:520px!important}.stage-caption{bottom:10px!important}'
-      : 'html,body{min-height:100%;height:auto!important}body{padding:18px!important;overflow:auto!important}header{display:none!important}.cards{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)!important}.card{min-width:0;overflow:auto}.data{max-width:100%;overflow:auto}svg{max-width:100%;height:auto}@media(max-width:900px){.cards{grid-template-columns:minmax(0,1fr)!important}}';
+      ? `html,body{width:100%;height:100%;min-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;background:#faf9f5!important}.masthead,footer,#preview-banner,.view-tools,.orbit-tools,.stage-caption{display:none!important}.workspace{display:block!important;position:relative!important;width:100%!important;height:100%!important;min-height:0!important;margin:0!important;border:0!important}.stage{width:100%!important;height:100%!important;min-height:0!important;border:0!important}.sidebar{display:none!important;position:absolute!important;z-index:20!important;left:24px!important;bottom:85px!important;top:auto!important;width:270px!important;max-height:65vh!important;overflow:auto!important;background:#fff!important;border-radius:12px!important;box-shadow:0 8px 32px #0002!important;padding:16px!important}body.workbench-parts-open .sidebar{display:block!important;overflow-x:hidden!important}.sidebar .group-row{white-space:normal!important;min-width:0!important}.sidebar .group-name{min-width:0!important;overflow-wrap:anywhere!important}.sidebar select{max-width:100%!important}.sidebar .selected-section{margin-top:14px!important}.sidebar .selected-section p{overflow-wrap:anywhere!important}.sidebar .note,.sidebar .scope-note,.sidebar label:has(#show-skeleton),.sidebar label:has(#show-triangles){display:none!important}`
+      : 'html,body{min-height:100%;height:auto!important}body{padding:76px 24px 24px!important;overflow:auto!important}header{display:none!important}.tools{margin-top:0!important}.cards{grid-template-columns:minmax(0,1fr)!important}.card,.data{min-width:0;overflow:auto}svg{max-width:100%;height:auto}';
     try {
       const doc = frame.contentDocument;
       if (!doc || !doc.head || doc.getElementById('workbench-embed-style')) return;
@@ -845,10 +865,35 @@
       style.id = 'workbench-embed-style';
       style.textContent = styleText;
       doc.head.append(style);
-      if (kind === 'model' && frame.contentWindow) frame.contentWindow.dispatchEvent(new frame.contentWindow.Event('resize'));
+      if (kind === 'model' && frame.contentWindow) {
+        const frameWindow = frame.contentWindow;
+        const updateLabels = () => {
+          doc.querySelectorAll('.group-name').forEach(label => {
+            if (label.textContent.trim() === 'combination_preview_blank') label.textContent = '组合木料坯';
+          });
+          const pickerLabel = doc.querySelector('label[for="part-picker"]');
+          if (pickerLabel) pickerLabel.textContent = '选择构件';
+        };
+        updateLabels();
+        new MutationObserver(updateLabels).observe(doc.getElementById('group-list'), { childList: true, subtree: true });
+        frameWindow.dispatchEvent(new frameWindow.Event('resize'));
+        frameWindow.requestAnimationFrame(() => frameWindow.requestAnimationFrame(() => centerEmbeddedModel(frame)));
+      }
     } catch {
       // A broken or unavailable result page is handled by the iframe itself.
     }
+  }
+
+  function centerEmbeddedModel(frame) {
+    const viewer = frame.contentWindow?.cornerViewer;
+    if (!viewer?.camera || !viewer.controls) return;
+    const camera = viewer.camera;
+    const distance = (camera.top - camera.bottom) / camera.zoom * -0.11;
+    const elements = camera.matrixWorld.elements;
+    const offset = camera.up.clone().set(elements[4], elements[5], elements[6]).multiplyScalar(distance);
+    camera.position.add(offset);
+    viewer.controls.target.add(offset);
+    viewer.controls.update();
   }
 
   function setFrameSource(frame, url, kind) {
@@ -958,9 +1003,24 @@
     const canShowLayout = Boolean(state.currentCase && state.currentCase.mode !== 'preview' &&
       state.currentCase.urls && state.currentCase.urls.layout);
     byId('layout-tab').disabled = !canShowLayout;
+    byId('layout-tab').title = canShowLayout ? '' : '精确生成后可用';
     byId('layout-disabled-note').hidden = canShowLayout;
+    const wasLayout = state.activeTab === 'layout';
     state.activeTab = tab === 'layout' && !preview && canShowLayout ? 'layout' : 'model';
     const isModel = state.activeTab === 'model';
+    const area = document.querySelector('.canvas-area');
+    const panel = document.querySelector('.control-panel');
+    if (!isModel && !wasLayout) {
+      state.panelCollapsedBeforeLayout = panel.classList.contains('collapsed');
+      if (window.innerWidth <= 700 && !isActiveJob() && !state.generating) panel.classList.add('collapsed');
+      const doc = byId('model-view').contentDocument;
+      doc?.body?.classList.remove('workbench-parts-open');
+      byId('parts-open').setAttribute('aria-expanded', 'false');
+    } else if (isModel && wasLayout && !state.panelCollapsedBeforeLayout) {
+      panel.classList.remove('collapsed');
+    }
+    byId('panel-toggle').setAttribute('aria-expanded', String(!panel.classList.contains('collapsed')));
+    area.classList.toggle('layout-active', !isModel);
     byId('model-tab').classList.toggle('active', isModel);
     byId('model-tab').setAttribute('aria-selected', isModel ? 'true' : 'false');
     byId('layout-tab').classList.toggle('active', !isModel);
@@ -1002,18 +1062,19 @@
 
   function updateJobCard() {
     const card = byId('job-card');
-    if (!state.job) {
-      card.hidden = true;
-      card.classList.remove('is-running', 'job-failed', 'job-cancelled', 'job-interrupted');
+    if (!state.job || !ACTIVE_STATUSES.has(state.job.status)) {
+      card.hidden = !state.generating;
+      if (state.generating) {
+        setText(byId('job-title'), '正在提交');
+        setText(byId('job-stage'), '正在校验参数');
+        setText(byId('job-elapsed'), '');
+        setText(byId('job-message'), '');
+        byId('job-log-details').hidden = true;
+      }
       return;
     }
     const status = state.job.status;
-    const active = ACTIVE_STATUSES.has(status);
-    if (!active && !jobResultMatchesCurrentCase()) {
-      card.hidden = true;
-      card.classList.remove('is-running', 'job-failed', 'job-cancelled', 'job-interrupted');
-      return;
-    }
+    const active = true;
     card.hidden = false;
     card.classList.remove('is-running', 'job-failed', 'job-cancelled', 'job-interrupted');
     if (active) card.classList.add('is-running');
@@ -1087,6 +1148,8 @@
       container.hidden = false;
       return;
     }
+    container.hidden = true;
+    return;
     const summary = document.createElement('div');
     summary.textContent = validationDetailText(result) || '参数与快速派生检查通过。';
     container.append(summary);
@@ -1176,14 +1239,19 @@
     }
 
     state.generating = true;
+    document.querySelector('.control-panel').classList.remove('collapsed');
+    byId('panel-toggle').setAttribute('aria-expanded', 'true');
     state.jobMode = mode;
     updateAllState();
     const button = byId(mode === 'preview' ? 'generate-button' : 'exact-generate-button');
-    const idleLabel = mode === 'preview' ? '生成预览' : '精确生成';
+    const idleLabel = mode === 'preview' ? '更新预览' : '精确生成';
+    byId('generation-error').hidden = true;
     button.textContent = mode === 'preview' ? '校验并提交预览…' : '校验并提交精确生成…';
     try {
       const validation = await requestServerValidation(local.config, mode);
       if (validation.valid !== true) {
+        byId('generation-error').textContent = '参数校验未通过，请检查输入。';
+        byId('generation-error').hidden = false;
         state.serverValidation = null;
         renderServerValidation(validation);
         showToast('参数校验未通过，任务没有启动。', true, 6500);
@@ -1214,12 +1282,12 @@
         await handleTerminalJob(state.job);
       } else {
         schedulePoll(0);
-        const message = mode === 'preview'
-          ? (response.reused ? '已复用相同参数的预览，正在载入。' : '预览已提交；当前有效结果仍在右侧显示。')
-          : (response.reused ? '已复用相同参数的精确结果，正在载入。' : '精确生成已提交；当前有效结果仍在右侧显示。');
+        const message = mode === 'preview' ? '开始生成预览' : '开始精确生成';
         showToast(message, false, 6000);
       }
     } catch (error) {
+      byId('generation-error').textContent = error.message;
+      byId('generation-error').hidden = false;
       if (error.status === 409) showToast(`当前已有生成任务：${error.message}`, true, 6500);
       else showToast(error.message, true, 6500);
     } finally {
@@ -1270,9 +1338,23 @@
     if (job.status !== 'succeeded') {
       updateJobCard();
       updateAllState();
-      const text = job.status === 'failed' ? `生成失败：${job.error || '请查看任务日志。'}`
+      const text = job.status === 'failed' ? '生成失败，请检查参数后重试。'
         : job.status === 'cancelled' ? '任务已取消，原有有效结果保持显示。'
           : '服务重启后任务中断，原有有效结果保持显示。';
+      if (job.status === 'failed' || job.status === 'interrupted') {
+        const errorBox = byId('generation-error');
+        errorBox.textContent = text;
+        if (job.error) {
+          const details = document.createElement('details');
+          const summary = document.createElement('summary');
+          summary.textContent = '查看详情';
+          const pre = document.createElement('pre');
+          pre.textContent = String(job.error);
+          details.append(summary, pre);
+          errorBox.append(details);
+        }
+        errorBox.hidden = false;
+      }
       showToast(text, job.status === 'failed' || job.status === 'interrupted', 7000);
       state.jobFinalizingId = job.id;
       return;
@@ -1293,12 +1375,12 @@
       const resultName = String(result.title || result.id);
       if (result.mode === 'preview') {
         showToast(state.jobReused
-          ? `已载入预览“${resultName}”（非精确结果）。`
-          : `预览已生成并载入“${resultName}”；精确生成仍需单独点击。`, false, 7000);
+          ? `已复用预览「${resultName}」`
+          : '预览已更新', false, 7000);
       } else {
         showToast(state.jobReused
-          ? `已载入精确结果“${resultName}”。`
-          : `精确生成完成，已切换到“${resultName}”。`, false, 6500);
+          ? `已复用精确模型「${resultName}」`
+          : '精确模型已生成', false, 6500);
       }
       if (!sameDraft) setText(byId('result-subtitle'), '新结果已载入；生成期间修改的草稿仍保留，可继续调整。');
     } else {
@@ -1359,8 +1441,7 @@
     const source = selectedCaseSource();
     if (!source || !asPlainObject(source.value.config)) return;
     replaceDraftFromConfig(source.value.config);
-    const taskNote = isActiveJob() ? '后台任务仍按提交时的参数运行。' : '';
-    showToast(`“${String(source.value.title || source.value.id)}”的参数已载入草稿；当前显示结果保持不变。${taskNote}请校验后更新模型。`, false, 6500);
+    showToast('已载入参数');
   }
 
   function viewSelectedCaseResult() {
@@ -1371,8 +1452,7 @@
     displayCase(source.value);
     setActiveTab('model');
     updateAllState();
-    const taskNote = isActiveJob() ? '后台任务仍按已提交参数继续运行，尚未报告成功。' : '不会启动计算。';
-    showToast(`正在查看“${String(source.value.title || source.value.id)}”；该结果的主参数、高级参数和案例名已回填草稿。${taskNote}`, false, 6500);
+    showToast(isActiveJob() ? '已打开历史结果，生成仍在继续' : `已打开「${String(source.value.title || source.value.id)}」`);
   }
 
   function detectUnknownKeys(input) {
@@ -1460,6 +1540,30 @@
   }
 
   function initialiseEvents() {
+    const panel = byId('control-panel') || document.querySelector('.control-panel');
+    byId('panel-toggle').addEventListener('click', event => {
+      if (isActiveJob() || state.generating) return;
+      const collapsed = panel.classList.toggle('collapsed');
+      event.currentTarget.setAttribute('aria-expanded', String(!collapsed));
+      event.currentTarget.textContent = collapsed ? '⌄' : '⌃';
+    });
+    document.querySelectorAll('[data-param-tab]').forEach(button => button.addEventListener('click', () => {
+      document.querySelectorAll('[data-param-tab]').forEach(item => { const selected = item === button; item.classList.toggle('selected', selected); item.setAttribute('aria-selected', String(selected)); });
+      byId('dimensions-page').hidden = button.dataset.paramTab !== 'dimensions';
+      byId('parts-page').hidden = button.dataset.paramTab !== 'parts' && !state.searchTerm.trim();
+    }));
+    const setParts = open => { const doc = byId('model-view').contentDocument; if (doc?.body) doc.body.classList.toggle('workbench-parts-open', open); byId('parts-open').setAttribute('aria-expanded', String(open)); };
+    byId('parts-open').addEventListener('click', () => setParts(byId('parts-open').getAttribute('aria-expanded') !== 'true'));
+    document.querySelectorAll('[data-camera]').forEach(button => button.addEventListener('click', () => {
+      byId('model-view').contentDocument?.querySelector(`[data-view="${button.dataset.camera}"]`)?.click();
+      centerEmbeddedModel(byId('model-view'));
+      document.querySelectorAll('[data-camera]').forEach(item => item.classList.toggle('selected', item === button));
+    }));
+    for (const [button, dialog] of [['history-open', 'history-dialog'], ['export-open', 'export-dialog']]) byId(button).addEventListener('click', () => byId(dialog).showModal());
+    document.querySelectorAll('dialog').forEach(dialog => { dialog.querySelector('[data-close-dialog]').addEventListener('click', () => dialog.close()); dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); }); });
+    byId('load-case-button').addEventListener('click', () => byId('history-dialog').close());
+    byId('view-case-button').addEventListener('click', () => byId('history-dialog').close());
+
     byId('import-button').addEventListener('click', () => byId('config-file').click());
     byId('config-file').addEventListener('change', event => importConfigFile(event.currentTarget.files && event.currentTarget.files[0]));
     byId('export-config-button').addEventListener('click', exportDraft);
@@ -1483,6 +1587,10 @@
       const target = event.target;
       if (target instanceof HTMLElement && (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName))) return;
       event.preventDefault();
+      document.querySelector('.control-panel').classList.remove('collapsed');
+      byId('panel-toggle').setAttribute('aria-expanded', 'true');
+      document.querySelector('[data-param-tab="dimensions"]').click();
+      document.querySelector('.more-details').open = true;
       byId('parameter-search').focus();
     });
     window.addEventListener('beforeunload', persistState);
