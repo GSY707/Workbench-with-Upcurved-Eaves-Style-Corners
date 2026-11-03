@@ -30,6 +30,10 @@ from scipy.optimize import minimize_scalar
 from config import load_config, write_resolved
 
 
+def output_root():
+    return (Path(os.environ.get("MUGOUZAO_DATA_DIR") or HERE) / "outputs").resolve()
+
+
 def sha256(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -754,7 +758,7 @@ def restore_geometry_checkpoint(checkpoint_path, config, *, mode="exact"):
 def find_geometry_checkpoint(config, output_dir, *, mode="exact"):
     """Find a completed mesh-failure checkpoint with identical geometry inputs/sources."""
     output_dir = Path(output_dir).resolve()
-    workbench_dir = HERE / "outputs" / "workbench"
+    workbench_dir = output_root() / "workbench"
     candidates = []
     local = output_dir / "geometry_checkpoint" / "checkpoint.json"
     if local.is_file():
@@ -1153,7 +1157,7 @@ def export_mesh(parts, control, config, output_dir, *, mode="exact", mesh_cache_
     tolerance = float(config["advanced"]["mesh_tessellation_mm"])
     angular = float(config["advanced"]["mesh_angular_tolerance_rad"])
     remesh_seconds = 0.0
-    cache_dir = (Path(mesh_cache_dir) if mesh_cache_dir is not None else HERE / "outputs" / ".mesh_cache")
+    cache_dir = (Path(mesh_cache_dir) if mesh_cache_dir is not None else output_root() / ".mesh_cache")
     try:
         cache_dir.mkdir(parents=True, exist_ok=True)
         cache_available = True
@@ -1504,12 +1508,12 @@ def finalize_existing_case(config_path: Path, output_path: Path, make_viewer=Tru
     config = load_config(config_path)
     output_dir = Path(output_path)
     if not output_dir.is_absolute():
-        output_dir = HERE / output_dir
+        output_dir = output_root().parent / output_dir
     output_dir = output_dir.resolve()
     try:
-        output_dir.relative_to((HERE / "outputs").resolve())
+        output_dir.relative_to(output_root())
     except ValueError as exc:
-        raise ValueError(f"恢复输出路径必须位于生成器outputs目录内：{output_dir}") from exc
+        raise ValueError(f"恢复输出路径必须位于工作台outputs目录内：{output_dir}") from exc
     expected = ("model_mesh.json", "model.obj", "profiles.json", "layout.json", "parameters_resolved.json")
     missing = [name for name in expected if not (output_dir / name).is_file()]
     if missing:
@@ -1711,15 +1715,15 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
         config, identity_arc, identity_young_sagitta,
         int(identity_case["fan_surface"]["n"]))
     phase_timings["lightweight_geometry_identity_derivation"] = time.perf_counter() - phase_started
-    generator_output_root = (HERE / "outputs").resolve()
+    generator_output_root = output_root()
     output_dir = Path(output_path)
     if not output_dir.is_absolute():
-        output_dir = HERE / output_dir
+        output_dir = generator_output_root.parent / output_dir
     output_dir = output_dir.resolve()
     try:
         output_dir.relative_to(generator_output_root)
     except ValueError as exc:
-        raise ValueError(f"输出路径必须位于生成器outputs目录内，避免覆盖旧模型或研究探针：{output_dir}") from exc
+        raise ValueError(f"输出路径必须位于工作台outputs目录内，避免覆盖旧模型或研究探针：{output_dir}") from exc
     output_dir.mkdir(parents=True, exist_ok=True)
     if mode == "preview":
         exact_only_artifacts = ("layout.html", "layout.json", "layout.png", "layout.svg",
@@ -2120,7 +2124,7 @@ def main(argv=None):
     parser.add_argument("--config", type=Path, default=Path("configs/default.json"),
                         help="配置JSON；相对路径以本生成器目录为基准")
     parser.add_argument("--output", type=Path, default=Path("outputs/default"),
-                        help="独立输出目录；相对路径以本生成器目录为基准，且必须在outputs/内")
+                        help="独立输出目录；相对路径以工作台数据目录为基准，且必须在outputs/内")
     parser.add_argument("--mode", choices=("preview", "exact"), default="exact",
                         help="几何生成模式；preview为快速预览，exact为精确生成（默认）")
     parser.add_argument("--mesh-cache-dir", type=Path,

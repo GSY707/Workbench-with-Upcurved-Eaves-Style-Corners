@@ -61,3 +61,8 @@ Desktop.ini
 *.temp
 *.tmp.gz
 design-qa.md
+
+# 离线安装包、构建缓存与安装验证数据。
+/release/
+/packaging/.cache/
+/packaging/__pycache__/

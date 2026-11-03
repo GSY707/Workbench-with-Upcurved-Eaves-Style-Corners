@@ -34,7 +34,7 @@ def main():
 
     boot = request("/api/bootstrap")
     assert boot["app_id"] == "mu-gouzao-corner-workbench", "Unexpected local service"
-    assert boot["version"] == "0.4.0", "Preview checks require workbench 0.4.0"
+    assert boot["version"] == "0.4.1", "Preview checks require workbench 0.4.1"
     assert not boot["active_job"], "A real generation is active; leave it undisturbed"
     root = request("/")
     assert b"<!doctype html" in root.lower(), "Workbench HTML missing"

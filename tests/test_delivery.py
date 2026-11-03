@@ -46,6 +46,11 @@ def stamp_synthetic_current_source(output):
     mesh.setdefault("metadata", {})["mode"] = "exact"
     mesh["metadata"]["source_identity"] = identity
     write_json(mesh_path, mesh)
+    profiles_path = output / "profiles.json"
+    if profiles_path.is_file():
+        profiles = json.loads(profiles_path.read_text(encoding="utf-8"))
+        profiles["source_mesh_sha256"] = hashlib.sha256(mesh_path.read_bytes()).hexdigest()
+        write_json(profiles_path, profiles)
 
     validation_path = output / "validation.json"
     validation = json.loads(validation_path.read_text(encoding="utf-8"))
@@ -217,6 +222,7 @@ class GeneratedDeliveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="finalize-current-exact-", dir=ROOT / "outputs") as temp:
             output = Path(temp) / "exact_120_cachefix"
             shutil.copytree(source, output)
+            stamp_synthetic_current_source(output)
             (output / "model.step").write_text("stale unrequested STEP", encoding="utf-8")
 
             result = finalize_existing_case(ROOT / "configs" / "angle_120.json",

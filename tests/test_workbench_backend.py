@@ -272,7 +272,7 @@ class WorkbenchHTTPTests(unittest.TestCase):
                             source_fingerprint_provider=seed_source_fingerprint)
         status, bootstrap, _ = self.request("/api/bootstrap")
         self.assertEqual(status, 200)
-        self.assertEqual(API_VERSION, "0.4.0")
+        self.assertEqual(API_VERSION, "0.4.1")
         self.assertEqual(bootstrap["version"], API_VERSION)
         self.assertEqual(bootstrap["app_id"], APP_ID)
         self.assertEqual(Path(bootstrap["workspace"]).resolve(), ROOT.parents[1].resolve())

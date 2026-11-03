@@ -32,7 +32,7 @@ OUTPUTS_DIR = GENERATOR_DIR / "outputs"
 UI_DIR = GENERATOR_DIR / "ui"
 STATE_DIR = GENERATOR_DIR / "ui_state"
 APP_ID = "mu-gouzao-corner-workbench"
-API_VERSION = "0.4.0"
+API_VERSION = "0.4.1"
 MAX_BODY_BYTES = 1024 * 1024
 MAX_LOG_CHARS = 16000
 MAX_JOBS = 100
@@ -311,9 +311,10 @@ class WorkbenchBackend:
                  seed_existing: bool = True):
         self.generator_dir = Path(generator_dir).resolve()
         self.workspace_root = Path(workspace_root or self.generator_dir.parents[1]).resolve()
-        self.outputs_dir = Path(outputs_dir or self.generator_dir / "outputs").resolve()
+        data_root = Path(os.environ.get("MUGOUZAO_DATA_DIR") or self.generator_dir).resolve()
+        self.outputs_dir = Path(outputs_dir or data_root / "outputs").resolve()
         self.ui_dir = Path(ui_dir or self.generator_dir / "ui").resolve()
-        self.state_dir = Path(state_dir or self.generator_dir / "ui_state").resolve()
+        self.state_dir = Path(state_dir or data_root / "ui_state").resolve()
         self.state_path = self.state_dir / "workbench_state.json"
         self.job_config_dir = self.state_dir / "job_configs"
         self.source_fingerprint_provider = source_fingerprint_provider or (
@@ -428,6 +429,7 @@ class WorkbenchBackend:
             active_public = self._public_job(active) if active is not None else None
         cases = self.list_cases()
         return {"version": API_VERSION, "app_id": APP_ID,
+                "data_directory": str(self.state_dir.parent),
                 "workspace": str(self.workspace_root), "schema": schema,
                 "defaults": defaults["normalized_config"], "examples": examples,
                 "cases": cases, "active_job": active_public,

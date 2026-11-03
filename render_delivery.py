@@ -7,6 +7,7 @@ import hashlib
 import html
 import json
 import math
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -24,7 +25,13 @@ from matplotlib.font_manager import FontProperties
 from matplotlib.patches import Polygon, Rectangle
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-FONT = FontProperties(fname="C:/Windows/Fonts/msyh.ttc")
+_font_candidates = [
+    HERE / "resources/fonts/NotoSansCJKsc-Regular.otf",
+    Path(os.environ.get("WINDIR", "C:/Windows")) / "Fonts/msyh.ttc",
+    Path(os.environ.get("WINDIR", "C:/Windows")) / "Fonts/simsun.ttc",
+]
+FONT = next((FontProperties(fname=str(path)) for path in _font_candidates if path.is_file()),
+            FontProperties(family="DejaVu Sans"))
 plt.rcParams["axes.unicode_minus"] = False
 plt.rcParams["svg.fonttype"] = "none"
 

@@ -1,6 +1,16 @@
-# 戗角工作台 v0.4
+# 戗角工作台 v0.4.1
 
 输入一份参数配置，先快速预览左右对称的角部木构造，再按需精确生成模型和立脚飞椽的单列排料方案。`corner_angle_deg` 默认 90°，可设为大于 0°、小于 180° 的有限数值。角度含义和非直角构造见 [非直角升级](NON_RIGHT_ANGLE.md)。目录名沿用“直角戗角”，启动入口保持原路径。
+
+## 安装使用
+
+从 [GitHub Release](https://github.com/GSY707/Workbench-with-Upcurved-Eaves-Style-Corners/releases/latest) 下载 **MuGouzao-Setup-0.4.1-win64.exe**，双击安装，再打开桌面或开始菜单中的“戗角生成器”。适用于 Windows 10/11 64 位，无需管理员权限。
+
+安装包已包含 Python、CadQuery/OCP、NumPy、SciPy、Matplotlib 和页面资源。安装和生成均可离线完成，不需要另装 Python 或 CAD 软件。
+
+生成结果和历史保存在 `%LOCALAPPDATA%\MuGouzao`，升级和卸载保留该目录。旧项目中的历史不自动迁入安装版；可以在旧工作台导出参数，再在安装版导入并生成。
+
+构建方式和依赖清单见 [安装包构建说明](packaging/README.md)。
 
 ## 技术文档
 
@@ -52,7 +62,7 @@ B=400 的 r6 已由用户认可并完成独立视觉收尾，原结果保留。2
 
 **更新速度：**预览与精确生成分别计时，实测与优化依据集中在 [生成速度说明](PERFORMANCE.md)。旧 v0.3 的 120°、60° B=400 完整无渲染 CLI 分别为 257.91 秒、812.15 秒；这些历史值不作为新预览的估计。输入检查和已有结果载入通常较快；工作台不在每次输入时自动启动整模。不同参数可能耗时更久，或因几何关系不能成立而失败；界面不提供虚假的完成百分比。
 
-关闭网页不会取消后台生成，可重新打开工作台查看。启动脚本重复运行会复用本工作台服务；默认端口被其他程序占用时，可用 `start_ui.ps1 -Port 8766`。同一工作台只允许一个后台服务实例，防止多个服务同时写任务记录。这是随当前项目运行的阶段性产品，尚不是可脱离项目依赖独立分发的安装包。服务仅监听本机；本版支持对称凸角，具体参数组合仍须完成实际生成。全宽椽面展开仍留待后续。
+关闭网页不会取消后台生成，可重新打开工作台查看。安装版启动器自动选择可用端口；源码版默认端口被其他程序占用时，可用 `start_ui.ps1 -Port 8766`。同一工作台只允许一个后台服务实例，防止多个服务同时写任务记录。服务仅监听本机；本版支持对称凸角，具体参数组合仍须完成实际生成。全宽椽面展开仍留待后续。
 
 ## 命令行使用
 
@@ -82,7 +92,7 @@ $py = "$env:USERPROFILE/.cache/codex-runtimes/codex-primary-runtime/dependencies
 & $py generate.py --mode preview --config configs/default.json --output outputs/my_preview
 ```
 
-程序使用本项目已经安装的 CadQuery/OCP、NumPy、SciPy 和 Matplotlib，依赖入口位于项目的 `资料整理/tmp/model_deps` 与 `资料整理/tmp/section_plot_deps`。这份生成器与项目一同使用；单独移动目录时还需带上或重新配置这些依赖。
+源码运行使用本项目已经安装的 CadQuery/OCP、NumPy、SciPy 和 Matplotlib，依赖入口位于项目的 `资料整理/tmp/model_deps` 与 `资料整理/tmp/section_plot_deps`。单独移动源码目录时需带上或重新配置这些依赖；安装版已内置全部依赖。
 
 ## 输入与输出
 

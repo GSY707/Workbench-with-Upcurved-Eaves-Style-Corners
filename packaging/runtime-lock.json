@@ -1,0 +1,22 @@
+{
+  "python_embed": {
+    "version": "3.12.10",
+    "url": "https://www.python.org/ftp/python/3.12.10/python-3.12.10-embeddable-amd64.zip",
+    "sha256": "156c7eea90d58cd7e91a23f28a0056616b13e9f4cf4901b7b99b837b7848c6da"
+  },
+  "vc_redist": {
+    "version": "14.51.36247.0",
+    "url": "https://aka.ms/vc14/vc_redist.x64.exe",
+    "sha256": "843068991daaa1f73ad9f6239bce4d0f6a07a51f18c37ea2a867e9beca71295c",
+    "license_sha256": "f1e3d56ceb2ad68aae0711b910375009e651ac5530fa0760f0dea6e81e54fae1"
+  },
+  "font": {
+    "name": "NotoSansCJKsc-Regular.otf",
+    "version": "Sans2.004",
+    "repository": "https://github.com/notofonts/noto-cjk",
+    "commit": "523d033",
+    "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+    "license": "SIL Open Font License 1.1",
+    "license_sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+  }
+}
