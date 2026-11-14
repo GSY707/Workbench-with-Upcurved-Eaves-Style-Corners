@@ -48,24 +48,38 @@ def build_stage03_parts(case):
     parts, control = s2.make_parts(case)
     print(f"stage04: stage02 framing rebuild complete ({len(parts)} parts); young corner start", flush=True)
     by_id = {p["id"]: p for p in parts}
-    young, young_info, young_axis = s3.young_corner(case, by_id["old_corner"]["shape"])
-    add(parts, "young_corner", "嫩戗（沿stage03原体）", "young_corner", young)
+    old_stock = by_id["old_corner"]["shape"]
+    mortised, young, young_info, young_axis = s3.young_corner(case, old_stock)
+    by_id["old_corner"]["shape"] = mortised
+    add(parts, "young_corner", "嫩戗（根部嵌入老戗）", "young_corner", young)
     control.append({"id": "young_corner_axis", "name": "嫩戗弧线中心", "group": "young_corner", "points": young_axis})
     path = s3.rail_path(case)
     likou_records = []
+    likou_stock = {}
+    stock_x, info_x, axis_x = s3.build_likou_half(case, path)
+    fitted_x = s3.fit_likou_end(stock_x, old_stock, young)
     for side in ("x", "y"):
-        shape, info, axis = s3.build_likou_half(case, path, mirror=(side == "y"))
         pid = f"likou_{side}"
-        add(parts, pid, f"弯里口木{side.upper()}向（沿stage03原体）", "likou", shape)
+        if side == "x":
+            stock, shape, info, axis = stock_x, fitted_x, info_x, axis_x
+        else:
+            stock = s2.mirror_shape(case, stock_x)
+            shape = s2.mirror_shape(case, fitted_x)
+            axis = [s2.reflect_xyz(case, point) for point in axis_x]
+            info = {**info_x, "path": [list(s2.reflect_xy(case, point)) for point in info_x["path"]]}
+        likou_stock[pid] = stock
+        add(parts, pid, f"弯里口木{side.upper()}向（高端与老嫩戗切配）", "likou", shape)
         info["id"] = pid
+        info["end_fit_removed_mm3"] = float(stock.Volume() - shape.Volume())
         likou_records.append(info)
         control.append({"id": pid + "_axis", "name": pid + "中心线", "group": "likou", "points": axis[::max(1, len(axis)//12)]})
     print("stage04: young corner and curved likou complete; board surfaces start", flush=True)
     case["eave"] = {"inner_edge_y": case["e"] - float(case["p"]["likou_width"])}
     straight_records = s3.straight_boards(case, parts, control)
     fan_entries, fan_info = s3.fan_boards(case, parts, control)
+    s3.fit_lower_boards_to_young(parts, young)
     print(f"stage04: board surfaces complete; total base parts={len(parts)}", flush=True)
-    return parts, control, young_info, likou_records, straight_records, fan_entries, fan_info
+    return parts, control, young_info, likou_records, straight_records, fan_entries, fan_info, likou_stock
 
 
 class MeshSurface:
@@ -646,14 +660,17 @@ def correct_fan_pose(records,gamma,end_curve,board_sampler,likou_sampler,case,de
 def build_base_and_preflight(config):
     print(f"stage04: case {config.get('case_id')} preflight start", flush=True)
     case=s2.load_case(config)
-    parts,control,young_info,likou_records,straight_records,fan_entries,fan_info=build_stage03_parts(case)
+    parts,control,young_info,likou_records,straight_records,fan_entries,fan_info,likou_stock=build_stage03_parts(case)
     mesh_parts=[]
     tess=float(case["p"]["mesh_tessellation_mm"])
     ang=float(case["p"]["mesh_angular_tolerance_rad"])
     for part in parts:
         if part["group"] not in {"lower_board","likou"}:
             continue
-        verts,tris=part["shape"].tessellate(tess,ang)
+        # Keep the nominal seating field through the corner-end join. The
+        # finished rail carries the end fit and is cut for the resolved seats.
+        shape = likou_stock[part["id"]] if part["group"] == "likou" else part["shape"]
+        verts,tris=shape.tessellate(tess,ang)
         mesh_parts.append({"id":part["id"],"name":part["name"],"group":part["group"],
                            "vertices":[float(c) for v in verts for c in v.toTuple()],
                            "triangles":[int(i) for tri in tris for i in tri]})

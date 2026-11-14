@@ -152,13 +152,14 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
                 time.sleep(0.5)
         if bootstrap is None:
             raise RuntimeError("staged service did not expose /api/bootstrap")
-        if (bootstrap.get("version") != "0.4.1" or
+        if (bootstrap.get("version") != "0.4.2" or
                 Path(bootstrap.get("data_directory", "")).resolve() != stage_data or
                 Path(bootstrap.get("workspace", "")).resolve() != BUNDLE_DIR.resolve()):
             raise RuntimeError(f"bootstrap identity or data-dir mismatch: {bootstrap}")
 
         static_assets = []
-        for route in ("/", "/ui/index.html", "/ui/app.js", "/ui/styles.css"):
+        for route in ("/", "/ui/index.html", "/ui/app.js", "/ui/styles.css",
+                      "/viewer/viewer.css", "/viewer/viewer-runtime.js"):
             status, raw, content_type = request(base + route)
             if status != 200 or not raw:
                 raise RuntimeError(f"static asset {route} failed: HTTP {status}")
@@ -175,7 +176,7 @@ def verify(args: argparse.Namespace) -> dict[str, Any]:
 
         preview = exercise_job(base, config, "preview", args.job_timeout)
         preview_assets = [fetch_artifact(base, preview["case_id"], name)
-                          for name in ("index.html", "model.html", "model.obj", "config.json",
+                          for name in ("index.html", "model.html", "view.html", "model.obj", "config.json",
                                        "validation.json", "vendor/viewer-runtime.js")]
         preview_validation = json.loads(request(
             base + f"/results/{preview['case_id']}/validation.json")[1].decode("utf-8"))

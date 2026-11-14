@@ -32,7 +32,7 @@ OUTPUTS_DIR = GENERATOR_DIR / "outputs"
 UI_DIR = GENERATOR_DIR / "ui"
 STATE_DIR = GENERATOR_DIR / "ui_state"
 APP_ID = "mu-gouzao-corner-workbench"
-API_VERSION = "0.4.1"
+API_VERSION = "0.4.2"
 MAX_BODY_BYTES = 1024 * 1024
 MAX_LOG_CHARS = 16000
 MAX_JOBS = 100
@@ -1093,6 +1093,9 @@ class WorkbenchBackend:
             raw_config = record.get("config")
         if relative_name == "config.json":
             return json_bytes(raw_config), "application/json; charset=utf-8", 'attachment; filename="config.json"'
+        live_view = relative_name == "view.html"
+        if live_view:
+            relative_name = "model_mesh.json"
         rel = PurePosixPath(relative_name)
         if rel.is_absolute() or any(part in ("", ".", "..") for part in rel.parts):
             raise WorkbenchError(404, "结果文件路径无效")
@@ -1108,6 +1111,12 @@ class WorkbenchBackend:
             data = target.read_bytes()
         except (OSError, ValueError) as exc:
             raise WorkbenchError(404, "结果文件不存在或路径无效") from exc
+        if live_view:
+            template = (self.generator_dir / "viewer.template.html").read_text(encoding="utf-8")
+            page = (template.replace('href="viewer.css"', 'href="/viewer/viewer.css"')
+                    .replace('src="vendor/viewer-runtime.js"', 'src="/viewer/viewer-runtime.js"')
+                    .replace("__MODEL_DATA__", data.decode("utf-8-sig").replace("<", "\\u003c")))
+            return page.encode("utf-8"), "text/html; charset=utf-8", ""
         mime, _ = mimetypes.guess_type(target.name)
         if target.suffix.lower() in (".json", ".html", ".js", ".css", ".csv", ".svg", ".obj"):
             mime = f"{mime or 'application/octet-stream'}; charset=utf-8"
@@ -1284,6 +1293,15 @@ def create_server(backend: WorkbenchBackend, host: str = "127.0.0.1", port: int 
                     relative = unquote("/".join(segments[3:]))
                     data, mime, disposition = backend.result_file(case_id, relative)
                     self._send_bytes(200, data, mime, disposition, head_only=head_only)
+                    return
+                if path == "/viewer/viewer.css" or path == "/viewer/viewer-runtime.js":
+                    if path.endswith(".css"):
+                        target, content_type = backend.generator_dir / "viewer.css", "text/css"
+                    else:
+                        target = backend.generator_dir / "vendor" / "viewer-runtime.js"
+                        content_type = "text/javascript"
+                    self._send_bytes(200, target.read_bytes(), f"{content_type}; charset=utf-8",
+                                     head_only=head_only)
                     return
                 if path == "/api/bootstrap":
                     self._json_response(200, backend.bootstrap(), head_only=head_only)

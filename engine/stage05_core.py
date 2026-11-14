@@ -1828,14 +1828,14 @@ def cut_contact_likou_notches(ctx):
     candidate_y_volume_error = None
     if source_mirror_confirmed:
         y_mirror_started = time.perf_counter()
-        candidate_y = s2.mirror_shape(ctx["case"], cut_x).clean()
+        candidate_y = s2.mirror_shape(ctx["case"], cut_x)
         y_mirror_seconds = float(time.perf_counter() - y_mirror_started)
         candidate_y_volume_error = abs(cut_volume_x - float(candidate_y.Volume()))
         candidate_valid = bool(candidate_y.isValid() and len(candidate_y.Solids()) == 1
                                and float(candidate_y.Volume()) < before_y)
         try:
             candidate_y_bbox_error = reflected_bbox_error_mm(
-                exact_brep_bbox_mm(cut_x), exact_brep_bbox_mm(candidate_y))
+                exact_brep_bbox_mm(cut_x), exact_brep_bbox_mm(s2.mirror_shape(ctx["case"], candidate_y)))
         except Exception as exc:
             candidate_valid = False
             y_fallback_reason = f"exact cut BRep bounds unavailable: {type(exc).__name__}: {exc}"
@@ -1875,7 +1875,8 @@ def cut_contact_likou_notches(ctx):
     cut_volume_limit = max(1e-5, abs(cut_volume_x) * 1e-9)
     cut_bbox_error = None
     try:
-        cut_bbox_error = reflected_bbox_error_mm(exact_brep_bbox_mm(cut_x), exact_brep_bbox_mm(cut_y))
+        cut_bbox_error = reflected_bbox_error_mm(
+            exact_brep_bbox_mm(cut_x), exact_brep_bbox_mm(s2.mirror_shape(ctx["case"], cut_y)))
     except Exception:
         pass
     by["likou_y"]["shape"] = cut_y
@@ -2890,19 +2891,65 @@ def _build_combination_stock(ctx):
             raise ValueError(f"combination member missed current corner top at u={u:.2f}, v={v:.2f}")
         return float(hit["max_z_mm"])
 
+    # Measure the lowest part of the combined back in the axial section.
+    # The datum is the valley in the supporting timbers, and the reference
+    # height is the vertical rise of the young-corner control chord.
+    centre_u = np.linspace(uB, uA, 257)
+    base_z = min(F(float(u), 0.0) for u in centre_u)
+    young_rise = float(ctx["young_info"]["control_rise_mm"])
+    target_z = base_z + (2.0 / 3.0) * young_rise
+    preferred_end_z = target_z + 0.05 * young_rise
+
+    def extend_endpoint(start, limit):
+        for u in np.linspace(start, limit, 129):
+            u = float(u)
+            if F(u, 0.0) >= preferred_end_z:
+                # The full-width transverse end has to land on timber.
+                if all(sampler.z_range(*local_xy(u, float(v), root_xy, ctx["case"]))
+                       is not None for v in (v_values[0], v_values[-1])):
+                    return u
+                break
+        return start
+
+    requested_endpoints = [uB, uA]
+    end_setback = float(ctx["young_info"]["setback_from_old_tip_mm"])
+    uB = extend_endpoint(uB, min(uB, end_setback - float(ctx["case"]["old_length_plan"]) + width))
+    uA = extend_endpoint(uA, max(uA, float(ctx["young_info"]["plan_run_mm"]) - width))
     fB0, fA0 = F(uB, 0.0), F(uA, 0.0)
-    chord = np.array([uA - uB, fA0 - fB0], dtype=float)
+    zB, zA = max(fB0, preferred_end_z), max(fA0, preferred_end_z)
+    chord = np.array([uA - uB, zA - zB], dtype=float)
     chord_length = float(np.linalg.norm(chord))
     if chord_length <= 1e-8:
         raise ValueError("组合木接背弦长为零")
     fraction = float(p["back_join_fraction"])
     down_normal = np.array([chord[1], -chord[0]], dtype=float) / chord_length
-    join = np.array([uB, fB0], dtype=float) + fraction * chord + \
-        down_normal * (float(p["combination_sagitta_ratio_chord"]) * chord_length)
-    circle = circumcircle_through((uB, fB0), (uA, fA0), join)
-    branch_sign = 1.0 if join[1] >= circle[1] else -1.0
-    if abs(circle_branch_z(float(join[0]), circle, branch_sign) - float(join[1])) > 1e-5:
-        raise ValueError("组合木接背圆弧无法通过所选弦向接背点")
+    requested_sagitta = float(p["combination_sagitta_ratio_chord"]) * chord_length
+
+    def back_arc(sagitta):
+        join = np.array([uB, zB], dtype=float) + fraction * chord + down_normal * sagitta
+        circle = circumcircle_through((uB, zB), (uA, zA), join)
+        sign = 1.0 if join[1] >= circle[1] else -1.0
+        # The desired profile must remain a single-valued concave-up arc.
+        if sign > 0 or abs(circle_branch_z(uB, circle, sign) - zB) > 1e-5 or \
+                abs(circle_branch_z(uA, circle, sign) - zA) > 1e-5:
+            return None
+        lowest_u = min(uA, max(uB, circle[0]))
+        return circle, sign, join, circle_branch_z(lowest_u, circle, sign)
+
+    sagitta = requested_sagitta
+    arc = back_arc(sagitta)
+    if arc is None or arc[3] < target_z:
+        lo, hi = 0.0, requested_sagitta
+        for _ in range(32):
+            mid = (lo + hi) / 2.0
+            candidate = back_arc(mid)
+            if candidate is not None and candidate[3] >= target_z:
+                lo = mid
+            else:
+                hi = mid
+        sagitta = lo
+        arc = back_arc(sagitta)
+    circle, branch_sign, join, minimum_back_z = arc
     sections = []
     min_depth = float("inf")
     max_depth = -float("inf")
@@ -2947,12 +2994,15 @@ def _build_combination_stock(ctx):
         "coordinate_frame": {"origin_xy_mm": root_xy, "u_axis": list(map(float, ctx["case"]["old_unit"])),
                              "v_axis": list(map(float, ctx["case"]["old_normal"])), "u_direction": "toward eave"},
         "width_mm": width, "width_ratio_to_young_tip": float(p["combination_width_ratio_young_tip"]),
-        "A_u_z_mm": [uA, fA0], "B_u_z_mm": [uB, fB0],
+        "A_u_z_mm": [uA, zA], "B_u_z_mm": [uB, zB],
+        "requested_endpoints_u_mm": requested_endpoints,
+        "end_lift_above_support_mm": [zB - fB0, zA - fA0],
         "back_join_fraction": fraction,
         "back_join_point_u_z_mm": join.tolist(),
         "circle_center_u_z_mm": [circle[0], circle[1]], "radius_mm": circle[2],
-        "derived_chord_sagitta_mm": float(p["combination_sagitta_ratio_chord"]) * chord_length,
-        "upper_profile": "circle through dynamically sampled old/young corner top at endpoints and the configured back_join_fraction station with chord-relative downward sagitta; cross-width top offsets interpolate from actual old/young top surfaces",
+        "derived_chord_sagitta_mm": sagitta,
+        "requested_chord_sagitta_mm": requested_sagitta,
+        "upper_profile": "circular back with its sagitta limited by the axial minimum-height target; endpoints extend along their supporting timbers when needed",
         "lower_profile": "F(u,v)=highest surface of only current old_corner/young_corner solids; mesh sampled at 1mm tessellation then new material cut against both BReps",
         "u_trim_end_mm": [u_start - uB, uA - u_end],
         "sampled_nominal_combination_depth_mm": [float(min_depth), float(max_depth)],
@@ -2964,7 +3014,14 @@ def _build_combination_stock(ctx):
         "pocket_fit_sample_grid": {"u_stations": int(p["combination_u_stations"]), "width_stations": len(v_values)},
         "probe_reference_grid": {"u_stations": 129, "width_stations": 9},
         "back_join_parameter_interpretation": "弦向分位；从B点沿接背弦量到老/嫩戗接背控制站位，不是面积比",
-        "historical_height_rule_status": "book p128 states combined height >= 2/3 of the flying-corner horizontal level, but the datum is unresolved; current t=0.7 does not prove that criterion",
+        "combined_back_height": {
+            "basis": "axial-section supporting valley to lowest point on the back; young-corner reference is vertical rise of its control chord",
+            "support_datum_z_mm": base_z,
+            "young_reference_rise_mm": young_rise,
+            "minimum_required_height_mm": (2.0 / 3.0) * young_rise,
+            "lowest_back_z_mm": minimum_back_z,
+            "height_mm": minimum_back_z - base_z,
+        },
         "assumptions": ["接背上轮廓由动态端点与back_join_fraction处弦偏共同确定为圆弧", "组合木宽度按嫩戗梢部宽度比例", "水平拆分为两件", "组合侧轮廓与BRep切配为几何拟合，不等同传统榫接验证"]
     }
     return blank, info
@@ -3022,6 +3079,17 @@ def make_combination_blank(ctx):
 
 def add_combination(ctx):
     lingjiao, biandan, info = make_combination_blank(ctx)
+    by = {part["id"]: part for part in ctx["parts"]}
+    x, y = by["likou_x"], by["likou_y"]
+    stock = x["shape"]
+    cutters = [shape for shape in (lingjiao, biandan) if s2.bbox_overlap(stock, shape)]
+    fitted = stock.cut(*cutters).clean() if cutters else stock
+    if not fitted.isValid() or len(fitted.Solids()) != 1 or fitted.Volume() <= 1e-5:
+        raise ValueError("弯里口木高端避让菱角木后无效")
+    info["likou_end_relief_mm3_per_wing"] = float(stock.Volume() - fitted.Volume())
+    if info["likou_end_relief_mm3_per_wing"] > 1e-5:
+        x["shape"] = fitted
+        y["shape"] = s2.mirror_shape(ctx["case"], fitted)
     add(ctx["parts"], "lingjiao_main", "菱角木（下部楔形拟合）", "lingjiao", lingjiao)
     add(ctx["parts"], "biandan_main", "扁担木（上部后延弧背拟合）", "biandan", biandan)
     ctx["combination_info"] = info

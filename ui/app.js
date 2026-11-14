@@ -903,10 +903,13 @@
       return false;
     }
     frame.hidden = false;
-    if (frame.dataset.source !== safeUrl) {
+    // The live view uses the current controls even when the saved result
+    // includes an older copy of the offline viewer.
+    const frameUrl = kind === 'model' ? safeUrl.replace(/\/model\.html$/, '/view.html') : safeUrl;
+    if (frame.dataset.source !== frameUrl) {
       frame.addEventListener('load', () => addEmbedStyle(frame, kind), { once: true });
-      frame.dataset.source = safeUrl;
-      frame.src = safeUrl;
+      frame.dataset.source = frameUrl;
+      frame.src = frameUrl;
     } else {
       addEmbedStyle(frame, kind);
     }

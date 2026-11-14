@@ -4,7 +4,7 @@
 
 ## 生成模式
 
-- `preview`：保留基础梁戗与下层望板；飞椽由中心纵剖沿真实宽向刚性挤出，A/B 同形；里口不开槽；组合木保留未扣削、未上下分割的原坯；不生成上层卷戗板。老戗、嫩戗与组合木的重叠在预览中保留。
+- `preview`：包含下层圆椽、戗山木承口、老嫩戗坐势、弯里口端接和下层望板；飞椽由中心纵剖沿真实宽向刚性挤出，A/B 同形；弯里口木不开飞椽承口；组合木保留未扣削、未上下分割的原坯；不生成上层卷戗板。
 - `exact`：沿用完整几何、里口承口、卷戗板和组合木扣削/分割流程，生成原有截面及排料交付。
 - 模式是任务选项，不是尺寸配置字段。CLI `--mode preview|exact`，缺省 `exact`。预览和精确结果、检查点及整模缓存分别识别；历史缺少模式的记录按 `exact` 解释，保留原始源码身份。
 - 预览只供看构件位置和总体形态。预览通过表示简化实体和显示网格满足其检查，不代表精确构造通过；不生成加工排料、放样 CSV 或 STEP。预览模型、离线查看器、历史卡片及下载入口均保留预览标识。
@@ -18,7 +18,7 @@
 
 ## API
 
-`GET /api/bootstrap` 返回 `{app_id:"mu-gouzao-corner-workbench", workspace, data_directory, version:"0.4.1", schema, defaults, examples:[{id,title,config}], cases:[Case], active_job:Job|null, reference_runtime_seconds:{preview:number|null,exact:number|null}}`。workspace 为当前项目绝对路径；data_directory 为工作台数据根目录。安装版通过 `MUGOUZAO_DATA_DIR` 把输出和状态存入用户目录，源码版默认仍在生成器目录；显式传入的 outputs_dir/state_dir 优先。启动器匹配服务身份、工作区、数据目录和版本后才复用端口。参考耗时为各模式已完成、交付通过案例的耗时中位数，无案例时为null；不能将精确生成的历史耗时当作预览估计，也不能将跨参数中位数当作本次预测。
+`GET /api/bootstrap` 返回 `{app_id:"mu-gouzao-corner-workbench", workspace, data_directory, version:"0.4.2", schema, defaults, examples:[{id,title,config}], cases:[Case], active_job:Job|null, reference_runtime_seconds:{preview:number|null,exact:number|null}}`。workspace 为当前项目绝对路径；data_directory 为工作台数据根目录。安装版通过 `MUGOUZAO_DATA_DIR` 把输出和状态存入用户目录，源码版默认仍在生成器目录；显式传入的 outputs_dir/state_dir 优先。启动器匹配服务身份、工作区、数据目录和版本后才复用端口。参考耗时为各模式已完成、交付通过案例的耗时中位数，无案例时为null；不能将精确生成的历史耗时当作预览估计，也不能将跨参数中位数当作本次预测。
 
 `POST /api/validate` 输入 `{config,mode?}`，返回 `{valid:true, normalized_config, calculation_key, derived, warnings:[]}`。模式缺省 `exact`，计算 key 对应所选模式。仅配置与可快速推导的数据检查，不进行完整 CAD 或宣称实体已通过。未知字段、模式和非有限数拒绝。错误返回 400。
 

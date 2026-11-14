@@ -36,7 +36,11 @@ def polygon_wire(points):
 
 
 def loft_sections(sections):
-    shape = cq.Solid.makeLoft([polygon_wire(section) for section in sections], ruled=True)
+    return loft_wires([polygon_wire(section) for section in sections])
+
+
+def loft_wires(wires):
+    shape = cq.Solid.makeLoft(wires, ruled=True)
     if not shape.isValid() or len(shape.Solids()) != 1 or shape.Volume() <= 1e-5:
         raise ValueError(f"loft无效: valid={shape.isValid()} solids={len(shape.Solids())} volume={shape.Volume()}")
     return shape
@@ -266,6 +270,7 @@ def qiangshan_wedge(case, along_x):
     width = case["qiangshan_width"]
     start, end = case["qiangshan_start"], case["qiangshan_end"]
     sections = []
+    stock_allowance = case["fan_height"] / 4.0
     offsets = np.linspace(-width / 2.0, width / 2.0, 5)
     q_values = np.linspace(start, end, 25)
     across_values = [float(value) for value in offsets]
@@ -279,6 +284,7 @@ def qiangshan_wedge(case, along_x):
     case.setdefault("qiangshan_profile_adjustment", {})[direction] = {
         "A_to_B_axis_mm": [float(start), float(end)],
         "across_stations_mm": across_values,
+        "stock_allowance_mm": stock_allowance,
         "rule": "only the A-to-first-local-minimum interval is replaced by a monotone smoothstep connector; controls after that point and B retain the original shared-rafter underside field",
         "records": correction_records,
         "status": "construction_control_field_adjustment; not a model geometry check",
@@ -286,7 +292,7 @@ def qiangshan_wedge(case, along_x):
     for station_index, q in enumerate(q_values):
         top_edge = []
         for across, profile in zip(across_values, profiles):
-            z = float(profile[station_index])
+            z = float(profile[station_index]) + stock_allowance
             if along_x:
                 top_edge.append((float(q), across, z))
             else:
@@ -598,6 +604,24 @@ def rafter_underface_z(case, x, y):
     return case["purlin_radius"] - float(case["p"]["t"]) * y - case["rafter_seat_relief"]
 
 
+def shaved_rafter_section(x, y, top, across, cross_slope, width, depth):
+    """Round underside and a flat chord in the transverse plane."""
+    tangent = vector((across[0], across[1], cross_slope)).normalized()
+    normal = vector((across[1], -across[0], 0.0))
+    up = normal.cross(tangent)
+    half = width / 2.0
+    radius = max(half, (half * half + depth * depth) / (2.0 * depth)) if depth < half else half
+    # The legacy inputs independently size the width and depth. Tall sections
+    # use an elliptical arc to preserve both dimensions and a usable face.
+    height_radius = max(radius, depth / 1.9)
+    cut_angle = math.degrees(math.asin(depth / height_radius - 1.0))
+    center = vector((x, y, top)) + up * (height_radius - depth)
+    arc = cq.Edge.makeEllipse(radius, height_radius, center, normal, tangent,
+                              180.0 - cut_angle, 360.0 + cut_angle)
+    chord = cq.Edge.makeLine(arc.endPoint(), arc.startPoint())
+    return cq.Wire.assembleEdges([arc, chord])
+
+
 def fan_rafter_bar(case, start, target, suffix):
     dx, dy = target[0] - start[0], target[1] - start[1]
     length = math.hypot(dx, dy)
@@ -622,15 +646,13 @@ def fan_rafter_bar(case, start, target, suffix):
         y = start[1] + dy * t
         left = (x + nx * half_w, y + ny * half_w)
         right = (x - nx * half_w, y - ny * half_w)
-        # Both faces follow the ruled common top surface in world Z, with a
-        # uniform 60 mm vertical depth.
-        zl = fan_top_z(case, left[0], left[1]) - depth
-        zr = fan_top_z(case, right[0], right[1]) - depth
-        section = [[left[0], left[1], zl], [right[0], right[1], zr],
-                   [right[0], right[1], zr + depth], [left[0], left[1], zl + depth]]
-        sections.append(section)
-        centerline.append([x, y, (zl + zr) / 2.0 + depth / 2.0])
-    return loft_sections(sections), centerline
+        zl = fan_top_z(case, *left)
+        zr = fan_top_z(case, *right)
+        top = (zl + zr) / 2.0
+        sections.append(shaved_rafter_section(
+            x, y, top, (nx, ny), (zl - zr) / (2.0 * half_w), 2.0 * half_w, depth))
+        centerline.append([x, y, top - depth / 2.0])
+    return loft_wires(sections), centerline
 
 
 def fan_rafter_parts(case, parts, control, old_member):
@@ -661,7 +683,7 @@ def fan_rafter_parts(case, parts, control, old_member):
         if not shape.isValid() or len(shape.Solids()) != 1 or shape.Volume() <= 1e-5:
             raise ValueError(f"扇椽几何无效 fan_{i+1:02d}: valid={shape.isValid()} solids={len(shape.Solids())} volume={shape.Volume()}")
         pid = f"fan_rafter_{fan_index:02d}"
-        add_part(parts, pid, f"摔网椽基准翼{fan_index:02d}（70宽，扇区割角）", "fan_rafters", shape)
+        add_part(parts, pid, f"摔网椽基准翼{fan_index:02d}（削顶圆椽）", "fan_rafters", shape)
         fan_records.append({"id": pid, "index": fan_index, "role": "fan", "is_boundary": False,
                             "centerline_plan_start": list(O),
                             "centerline_plan_end": list(target), "centerline": centerline,
@@ -717,12 +739,11 @@ def eave_rafter_bar(case, xcenter, y0, y1):
     ys = set(float(v) for v in np.linspace(y0, y1, 9))
     ys.update(y for y in (-45.0, 0.0, 45.0) if y0 < y < y1)
     for y in sorted(ys):
-        xl, xr = xcenter - half_w, xcenter + half_w
-        zl, zr = rafter_underface_z(case, xl, y), rafter_underface_z(case, xr, y)
-        section = [[xl, y, zl], [xr, y, zr], [xr, y, zr + depth], [xl, y, zl + depth]]
-        sections.append(section)
-        centerline.append([xcenter, y, (zl + zr) / 2.0 + depth / 2.0])
-    return loft_sections(sections), centerline
+        bottom = rafter_underface_z(case, xcenter, y)
+        sections.append(shaved_rafter_section(
+            xcenter, y, bottom + depth, (1.0, 0.0), 0.0, 2.0 * half_w, depth))
+        centerline.append([xcenter, y, bottom + depth / 2.0])
+    return loft_wires(sections), centerline
 
 
 def eave_rafter_parts(case, parts, control):
@@ -791,18 +812,29 @@ def make_parts(case):
     control.append({"id": "old_corner_axis", "name": "老戗中心线", "group": "old_corner",
                     "points": [case["old_corner_centerline"][0], case["old_corner_centerline"][-1]]})
     setup_fan_surface(case)
-    qiangshan_x = qiangshan_wedge(case, True)
-    add_part(parts, "qiangshan_x", "戗山木第一翼（上承面由共同椽底导出）", "qiangshan", qiangshan_x)
-    add_part(parts, "qiangshan_y", "戗山木第二翼镜像（上承面由共同椽底导出）", "qiangshan",
+    print("stage02: old corner complete; lower rafters start", flush=True)
+    fan_rafter_parts(case, parts, control, old_member)
+    eave_rafter_parts(case, parts, control)
+    stock = qiangshan_wedge(case, True)
+    cutters = [part for part in parts if part["group"] in ("fan_rafters", "eave_rafters")
+               and bbox_overlap(part["shape"], stock)]
+    qiangshan_x = stock.cut(*(part["shape"] for part in cutters)).clean() if cutters else stock
+    if not qiangshan_x.isValid() or len(qiangshan_x.Solids()) != 1 or qiangshan_x.Volume() <= 1e-5:
+        raise ValueError("戗山木逐椽开承口后无效")
+    removed = float(stock.Volume() - qiangshan_x.Volume())
+    if cutters and removed <= 1e-5:
+        raise ValueError("戗山木毛坯与摔网椽未形成承口")
+    case["qiangshan_profile_adjustment"]["x"].update({
+        "candidate_rafter_ids": [part["id"] for part in cutters],
+        "notch_removed_volume_mm3": removed,
+    })
+    add_part(parts, "qiangshan_x", "戗山木第一翼（逐椽开承口）", "qiangshan", qiangshan_x)
+    add_part(parts, "qiangshan_y", "戗山木第二翼（逐椽开承口）", "qiangshan",
              mirror_shape(case, qiangshan_x))
     case["purlin_shapes"].update({p["id"]: p["shape"] for p in parts if p["id"].startswith("qiangshan_")})
-    print("stage02: old corner and support wedges complete; fan rafters start", flush=True)
-    fan_rafter_parts(case, parts, control, old_member)
     mirror_group_across_diagonal(parts, control, case, "fan_rafters", "fan_rafter_", "摔网椽")
     case["fan_geometry"]["mirrored_count"] = case["fan_geometry"]["fan_rafter_count"]
     case["fan_geometry"]["total_count"] = 2 * case["fan_geometry"]["fan_rafter_count"]
-    print(f"stage02: fan rafters complete; one-side count={case['fan_geometry']['fan_rafter_count']}; straight rafters start", flush=True)
-    eave_rafter_parts(case, parts, control)
     mirror_group_across_diagonal(parts, control, case, "eave_rafters", "eave_rafter_", "正身出檐椽")
     case["eave_rafters_geometry"]["total_count_after_mirror"] = 2 * case["eave_rafters_geometry"]["count"]
     print("stage02: base framing complete", flush=True)
@@ -846,7 +878,6 @@ def validate(parts, case):
     time_limit = 100.0
     volume_tol = 1e-3
     distance_tol = 1e-4
-    qshan_overlap_limit = 1100.0
     part_by_id = {p["id"]: p for p in parts}
     entities = []
     for part in parts:
@@ -871,7 +902,7 @@ def validate(parts, case):
         pid = part["id"]
         if part["group"] == "fan_rafters":
             mirror = "_mirror_" in pid
-            require(pid, "qiangshan_y" if mirror else "qiangshan_x", "摔网椽—戗山木共同承面")
+            require(pid, "qiangshan_y" if mirror else "qiangshan_x", "摔网椽—戗山木承口")
         elif part["group"] == "eave_rafters":
             mirror = "_mirror_" in pid
             require(pid, "step_purlin_y" if mirror else "step_purlin_x", "出檐椽—步桁座口")
@@ -880,18 +911,9 @@ def validate(parts, case):
     pair_results = {}
     intersection_errors = []
     unexpected_intersections = []
-    qshan_surface_approximations = []
     required_contacts = []
     failed_required_contacts = []
     untested_required_contacts = []
-
-    def is_qshan_fan_pair(key):
-        fan_id = next((v for v in key if v.startswith("fan_rafter_")), None)
-        q_id = next((v for v in key if v.startswith("qiangshan_")), None)
-        if not fan_id or q_id not in ("qiangshan_x", "qiangshan_y"):
-            return False
-        mirrored = "_mirror_" in fan_id
-        return q_id == ("qiangshan_y" if mirrored else "qiangshan_x")
 
     def measure_pair(key, force_distance=False):
         if key in pair_results:
@@ -919,11 +941,10 @@ def validate(parts, case):
             continue
         try:
             result = measure_pair(key, force_distance=True)
-            qshan_pair = is_qshan_fan_pair(key)
             volume = result["intersection_volume_mm3"]
             distance = result["minimum_distance_mm"]
             if volume > volume_tol:
-                state = "approximate_common_surface_interference" if qshan_pair and volume <= qshan_overlap_limit else "positive_volume_intersection"
+                state = "positive_volume_intersection"
             elif distance <= distance_tol:
                 state = "distance_contact_face_area_not_tested"
             else:
@@ -931,9 +952,7 @@ def validate(parts, case):
             entry = {**result, "kind": kind, "state": state,
                      "required": True, "face_contact_verified": None}
             required_contacts.append(entry)
-            if qshan_pair and volume <= qshan_overlap_limit and volume > 0:
-                qshan_surface_approximations.append(entry)
-            if distance > distance_tol or (volume > volume_tol and not (qshan_pair and volume <= qshan_overlap_limit)):
+            if distance > distance_tol or volume > volume_tol:
                 failed_required_contacts.append(entry)
         except Exception as exc:
             error = {"a": key[0], "b": key[1], "kind": kind, "error": str(exc)[:240]}
@@ -966,13 +985,7 @@ def validate(parts, case):
             result = measure_pair(key, force_distance=(key in required))
             volume = result["intersection_volume_mm3"]
             if volume > volume_tol:
-                if is_qshan_fan_pair(key) and volume <= qshan_overlap_limit:
-                    if not any((v["a"], v["b"]) == key for v in qshan_surface_approximations):
-                        qshan_surface_approximations.append({**result, "kind": "摔网椽—戗山木共同承面",
-                                                              "state": "approximate_common_surface_interference",
-                                                              "required": True, "face_contact_verified": None})
-                else:
-                    unexpected_intersections.append({**result, "classification": "unexpected_positive_volume"})
+                unexpected_intersections.append({**result, "classification": "unexpected_positive_volume"})
         except Exception as exc:
             intersection_errors.append({"a": key[0], "b": key[1], "error": str(exc)[:240]})
 
@@ -982,15 +995,12 @@ def validate(parts, case):
                                                "reason": "not reached before bounded audit stopped"})
 
     invalid = [e for e in entities if not e["valid"] or not e["finite"]]
-    qshan_volumes = [v["intersection_volume_mm3"] for v in qshan_surface_approximations]
     targeted_complete = not failed_required_contacts and not untested_required_contacts
     full_scan_complete = skipped_pairs == 0 and not intersection_errors
     if invalid or failed_required_contacts or untested_required_contacts or unexpected_intersections or intersection_errors:
         status = "fail"
     elif not full_scan_complete:
         status = "targeted_checks_complete_full_candidate_scan_incomplete"
-    elif qshan_surface_approximations:
-        status = "complete_with_documented_surface_approximation"
     else:
         status = "complete"
     return {
@@ -1008,18 +1018,6 @@ def validate(parts, case):
         "bbox_candidate_pairs_skipped": skipped_pairs,
         "audit_time_limit_seconds": time_limit,
         "positive_intersection_pairs": unexpected_intersections,
-        "qianshan_rafter_surface_approximation": {
-            "pair_count": len(qshan_surface_approximations),
-            "boolean_volume_tolerance_mm3": volume_tol,
-            "documented_per_pair_volume_limit_mm3": qshan_overlap_limit,
-            "min_common_volume_mm3": min(qshan_volumes) if qshan_volumes else 0.0,
-            "max_common_volume_mm3": max(qshan_volumes) if qshan_volumes else 0.0,
-            "sum_common_volume_mm3": sum(qshan_volumes),
-            "min_distance_mm": min((v["minimum_distance_mm"] for v in qshan_surface_approximations), default=None),
-            "max_distance_mm": max((v["minimum_distance_mm"] for v in qshan_surface_approximations), default=None),
-            "pairs": qshan_surface_approximations,
-            "interpretation": "同一扇区共同底面用离散放样近似；记录实体布尔公共体积与最短距，面面积未测，不宣称数学共面。",
-        },
         "expected_contacts": required_contacts,
         "failed_expected_contacts": failed_required_contacts,
         "untested_expected_contacts": untested_required_contacts,
@@ -1044,8 +1042,8 @@ def validate(parts, case):
             "阶段2含老戗、摔网椽、正身出檐椽，不含嫩戗、飞椽、板及细部榫卯。",
             "老戗宽165mm由1.5a直接计算；主体110mm，中央车背41.25mm作简化，老戗保持近直。",
             "老戗与摔网椽平面端弧、椽断面厚度与尾伸为明确假设；几何接触不代表结构承载验证。",
-            "扇椽顶面沿O到外弧线性插值，并沿直身边与实际老戗侧上缘插值；世界Z厚度60mm。",
-            "戗山木上承面按共同椽底离散放样并切配廊桁；与摔网椽存在已量化的放样残差，未开逐椽槽。",
+            "摔网椽和正身出檐椽采用平顶圆底截面，按独立宽高参数构造。",
+            "戗山木下承面切配廊桁，上承面按相交的下层椽实体开口。",
             "全候选扫描排除了扇区构造可证明不相交的远隔扇椽对；其余候选按实体布尔检查，面接触面积未测。",
         ],
     }
@@ -1068,7 +1066,7 @@ def snapshot(case):
             "eave_axis_height_mm": case["eave_axis_z"], "step_axis_height_mm": case["step_axis_z"],
             "qiangshan_width_mm": case["qiangshan_width"],
             "qiangshan_extent_mm": [case["qiangshan_start"], case["qiangshan_end"]],
-            "qiangshan_surface_rule": "下缘按廊桁实体切配；上承面沿宽度取共同扇椽底场，A至首个局部低点使用单调smoothstep连接消除端部倒坡，其余纵向控制和B端保留原场。",
+            "qiangshan_surface_rule": "下缘按廊桁实体切配；上缘在原共同椽底场上留四分之一椽高，扣去本翼与料坯相交的下层椽。",
             "qiangshan_profile_adjustment": case.get("qiangshan_profile_adjustment"),
         },
         "old_corner": {
@@ -1112,7 +1110,7 @@ def snapshot(case):
             f"边界出檐椽中心位于基准翼边界x={case['old_start'][0]:.3f}mm；其余正身中心档从此边界按B={case['eave_pitch']:g}mm向外排列，最外中心仍落在原有效尾端范围内。",
             f"基准翼出檐椽越过步桁向里尾伸{case['eave_tail_extension']:g}mm；外端到y=e={case['e']:g}mm；镜像翼由基准翼反射。",
             "老戗车背以截面中央三角凸脊近似，不对车背曲面作史料断定。",
-            "扇椽与戗山木共底面按离散截面放样，允许报告记录的局部相交残差；不以逐点抬椽换取零交叠。",
+            "戗山木按深浅变化的毛坯上缘与圆椽开承口。",
         ],
     }
 

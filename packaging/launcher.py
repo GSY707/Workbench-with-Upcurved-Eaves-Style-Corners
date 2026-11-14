@@ -21,7 +21,7 @@ from typing import Any
 
 
 APP_ID = "mu-gouzao-corner-workbench"
-APP_VERSION = "0.4.1"
+APP_VERSION = "0.4.2"
 DEFAULT_PORT = 8765
 READY_TIMEOUT_SECONDS = 120
 APP_ROOT = Path(__file__).resolve().parents[1]

@@ -1,5 +1,5 @@
 ﻿#ifndef AppVersion
-  #define AppVersion "0.4.1"
+  #define AppVersion "0.4.2"
 #endif
 #ifndef BundleDir
   #define BundleDir "..\release\bundle"
@@ -32,7 +32,7 @@ RestartApplications=no
 DisableWelcomePage=no
 DisableDirPage=no
 DisableFinishedPage=no
-VersionInfoVersion=0.4.1.0
+VersionInfoVersion={#AppVersion}.0
 VersionInfoProductVersion={#AppVersion}
 VersionInfoCompany=MuGouzao
 VersionInfoProductName=木构造戗角生成器

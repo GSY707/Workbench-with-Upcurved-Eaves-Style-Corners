@@ -1,6 +1,6 @@
 # Windows 离线安装包
 
-当前版本：**0.4.1，Windows x64**。安装包包含 CPython 3.12、锁定的 CadQuery/OCP 与绘图依赖、Microsoft app-local C++ 运行库和离线查看器资源；构建不调用 pip。
+当前版本：**0.4.2，Windows x64**。安装包包含 CPython 3.12、锁定的 CadQuery/OCP 与绘图依赖、Microsoft app-local C++ 运行库和离线查看器资源；构建不调用 pip。
 
 ## 启动与停止
 
@@ -36,7 +36,7 @@ python packaging\build.py --deps-source "C:\Users\24408\Documents\ChatGPT\木构
 省略 `--deps-source` 时使用默认的 `木构造\资料整理\tmp\model_deps`。可用 `--iscc "C:\Path\ISCC.exe"` 指定 Inno Setup 编译器，或传 `--skip-installer` 只生成 bundle 并检查嵌入式 Python。脚本会比对 `requirements.lock`，校验下载哈希、签名、运行时 DLL 版本和依赖导入，并输出：
 
 - `release\bundle\`：完整离线应用目录。
-- `release\dist\MuGouzao-Setup-0.4.1-win64.exe`：可安装包。
+- `release\dist\MuGouzao-Setup-0.4.2-win64.exe`：可安装包。
 - `release\dist\SHA256SUMS.txt`：安装包 SHA-256。
 - `release\build-report.json`：构建输入、源码清单、依赖/许可证清单、校验结果和安装包哈希。
 - `release\inno-build.log`：Inno Setup 编译日志。

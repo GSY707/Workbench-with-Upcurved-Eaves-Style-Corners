@@ -33,7 +33,7 @@ PYTHON_GUI = RUNTIME_DIR / "pythonw.exe"
 NOTICES_DIR = BUNDLE_DIR / "THIRD_PARTY_NOTICES"
 LOCK_PATH = PACKAGING_DIR / "runtime-lock.json"
 PACKAGE_LOCK_PATH = PACKAGING_DIR / "requirements.lock"
-APP_VERSION = "0.4.1"
+APP_VERSION = "0.4.2"
 INSTALLER_NAME = f"MuGouzao-Setup-{APP_VERSION}-win64.exe"
 EXCLUDED_SOURCE_DIRS = {
     ".git", ".pytest_cache", "__pycache__", "design", "diagnostics", "node_modules",
@@ -116,7 +116,7 @@ def download_locked(url: str, target: Path, expected_sha256: str) -> dict[str, A
         return {"path": str(target), "bytes": target.stat().st_size, "sha256": actual,
                 "source": url, "cache_hit": True}
 
-    request = urllib.request.Request(url, headers={"User-Agent": "MuGouzao-Packager/0.4.1"})
+    request = urllib.request.Request(url, headers={"User-Agent": f"MuGouzao-Packager/{APP_VERSION}"})
     digest = hashlib.sha256()
     count = 0
     temporary = target.with_suffix(target.suffix + ".download")

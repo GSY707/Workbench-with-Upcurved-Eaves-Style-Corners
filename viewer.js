@@ -77,7 +77,14 @@ function init(){
   Object.assign(sun.shadow.camera,{left:-radius*1.15,right:radius*1.15,top:radius*1.15,bottom:-radius*1.15,near:radius*.1,far:radius*8});
   sun.shadow.camera.updateProjectionMatrix();sun.shadow.bias=-.00003;sun.shadow.normalBias=.3;
   const camera=new THREE.OrthographicCamera(-radius,radius,radius,-radius,.1,100*radius);camera.up.set(0,0,1);
-  const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.12;controls.screenSpacePanning=true;controls.target.copy(center);
+  const canvas=renderer.domElement;
+  canvas.title='滚轮随鼠标缩放，双击细部设旋转中心';
+  const controls=new OrbitControls(camera,canvas);
+  controls.enableDamping=true;
+  controls.dampingFactor=.12;
+  controls.screenSpacePanning=true;
+  controls.zoomToCursor=true;
+  controls.target.copy(center);
   const gridSize=Math.ceil(Math.max(size.x,size.y)/500)*500+1000;
   const grid=new THREE.GridHelper(gridSize,Math.max(4,Math.round(gridSize/200)),0xaeb9aa,0xd3dbce);
   grid.rotation.x=Math.PI/2;grid.position.set(center.x,center.y,bounds.min.z-65);grid.material.transparent=true;grid.material.opacity=.4;scene.add(grid);
@@ -123,8 +130,12 @@ function init(){
   }
   function resize(){
     const width=stage.clientWidth,height=stage.clientHeight;
+    if(!width||!height)return;
     renderer.setSize(width,height,false);
-    fit();
+    const halfWidth=camera.top*width/height;
+    camera.left=-halfWidth;
+    camera.right=halfWidth;
+    camera.updateProjectionMatrix();
   }
   new ResizeObserver(resize).observe(stage);
   for(const button of document.querySelectorAll('[data-view]'))button.addEventListener('click',()=>changeView(button.dataset.view));
@@ -169,8 +180,30 @@ function init(){
       applyVisibility();fit();
     });
   }
-  const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null;
-  function hit(event){const rect=renderer.domElement.getBoundingClientRect();pointer.set((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);return raycaster.intersectObjects(meshes.filter(m=>m.visible&&(!m.userData.board||m.material.opacity>.8)),false)[0]?.object||null;}
+  const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
+  let down=null;
+  function hit(event){
+    const rect=canvas.getBoundingClientRect();
+    pointer.set((event.clientX-rect.left)/rect.width*2-1,1-(event.clientY-rect.top)/rect.height*2);
+    camera.updateMatrixWorld();
+    group.updateMatrixWorld();
+    raycaster.setFromCamera(pointer,camera);
+    const selectable=meshes.filter(mesh=>mesh.visible&&(!mesh.userData.board||mesh.material.opacity>.8));
+    const solidHit=raycaster.intersectObjects(selectable,false)[0];
+    if(solidHit)return solidHit;
+    const translucent=meshes.filter(mesh=>mesh.visible&&mesh.userData.board&&
+      mesh.material.opacity>0&&mesh.material.opacity<=.8);
+    return raycaster.intersectObjects(translucent,false)[0];
+  }
+  function focusPoint(point){
+    // Move the camera and its target together to preserve orientation and zoom.
+    controls.enableDamping=false;
+    controls.update();
+    camera.position.add(point.clone().sub(controls.target));
+    controls.target.copy(point);
+    controls.update();
+    controls.enableDamping=true;
+  }
   function highlight(){for(const mesh of meshes)mesh.material.emissive.setHex(mesh===selected?0x2c2512:mesh===hovered?0x17180c:0x000000);}
   function selectMesh(mesh){
     selected=mesh;highlight();selector.visible=!!selected;el('isolate').disabled=!selected;
@@ -183,11 +216,20 @@ function init(){
     if(selected)for(const input of el('group-list').querySelectorAll('input'))if(input.dataset.group===selected.userData.group)input.checked=true;
     applyVisibility();fit();
   });
-  renderer.domElement.addEventListener('pointermove',event=>{hovered=hit(event);renderer.domElement.style.cursor=hovered?'pointer':'grab';highlight();});
-  renderer.domElement.addEventListener('pointerdown',event=>{down=[event.clientX,event.clientY];});
-  renderer.domElement.addEventListener('pointerup',event=>{
-    if(!down||Math.hypot(event.clientX-down[0],event.clientY-down[1])>5)return;
-    selectMesh(hit(event));
+  canvas.addEventListener('pointermove',event=>{hovered=hit(event)?.object||null;canvas.style.cursor=hovered?'pointer':'grab';highlight();});
+  canvas.addEventListener('pointerdown',event=>{
+    if(event.isPrimary&&event.button===0)down=event;
+  });
+  canvas.addEventListener('pointercancel',()=>{down=null;});
+  canvas.addEventListener('pointerup',event=>{
+    if(down?.pointerId!==event.pointerId)return;
+    const clicked=Math.hypot(event.clientX-down.clientX,event.clientY-down.clientY)<=5;
+    down=null;
+    if(clicked)selectMesh(hit(event)?.object||null);
+  });
+  canvas.addEventListener('dblclick',event=>{
+    const detail=hit(event);
+    if(detail)focusPoint(detail.point);
   });
   resize();changeView('iso');applyVisibility();
   function draw(){requestAnimationFrame(draw);controls.update();renderer.render(scene,camera);}draw();

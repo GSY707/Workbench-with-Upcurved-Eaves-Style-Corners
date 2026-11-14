@@ -119,11 +119,26 @@ def young_corner(case, old_member):
         sections.append(vertices)
         centerline.append([float(v) for v in c])
         carback_crestline.append(vertices[3])
-    raw = s2.loft_sections(sections)
-    raw_overlap = float(raw.intersect(old_member).Volume()) if s2.bbox_overlap(raw, old_member) else 0.0
-    seated = raw.cut(old_member) if s2.bbox_overlap(raw, old_member) else raw
-    if not seated.isValid() or len(seated.Solids()) != 1 or seated.Volume() <= 1e-5:
-        raise ValueError(f"嫩戗坐势切配后无效: valid={seated.isValid()} solids={len(seated.Solids())} volume={seated.Volume()}")
+    across = np.array((*wvec, 0.0))
+    old_slope = -float(src["t"]) * uvec[1]
+    along = np.array((*uvec, old_slope))
+    along /= np.linalg.norm(along)
+    up = np.cross(along, across)
+    young_direction = np.array((run * uvec[0], run * uvec[1], rise))
+    # Continue the entire root section toward the interior. Its underside
+    # meets the old timber on the same straight line as the visible young
+    # timber, so the joint cannot leave a projecting auxiliary tongue.
+    inner_depth = min(41.25, old_h / 2.0)
+    root_shift = -young_direction * (inner_depth / float(np.dot(young_direction, up)))
+    rear_section = [np.asarray(vertex) + root_shift for vertex in sections[0]]
+    seated = s2.loft_sections([rear_section, *sections])
+    mortised = old_member.cut(seated).clean()
+    for label, shape in (("嫩戗根部", seated), ("老戗檐瓦槽", mortised)):
+        if not shape.isValid() or len(shape.Solids()) != 1 or shape.Volume() <= 1e-5:
+            raise ValueError(f"{label}切配后无效")
+    removed = float(old_member.Volume() - mortised.Volume())
+    if removed <= 1e-5:
+        raise ValueError("老戗檐瓦槽未切入老戗")
     young_info = {
         "root_center_plan_mm": list(root_xy), "root_bottom_datum_z_mm": start_bottom_z,
         "root_old_corner_station_fraction": root_t, "setback_from_old_tip_mm": setback,
@@ -134,15 +149,43 @@ def young_corner(case, old_member):
         "root_width_mm": root_width, "tip_width_mm": tip_width,
         "root_body_height_mm": root_height, "tip_body_height_mm": tip_height,
         "root_carback_mm": root_ridge, "tip_carback_mm": tip_ridge,
-        "raw_overlap_with_old_corner_mm3": raw_overlap,
+        "seat": {
+            "rule": "extend the complete young root section along its baseline; notch the old corner to match",
+            "depth_datum": "normal to the tangent datum of the old corner body at the young root, below the carback",
+            "inner_depth_mm": inner_depth,
+            "root_extension_along_young_axis_mm": float(np.linalg.norm(root_shift)),
+            "extended_root_bottom_mm": (np.asarray(centerline[0]) + root_shift).tolist(),
+            "old_corner_removed_mm3": removed,
+        },
         "centerline": centerline,
         "carback_crestline": carback_crestline,
         "carback_drop_samples_mm": [float(row[1]) for row in carback_profile],
         "body_baseline_rule": "嫩戗主体底线与900/480控制弦一致，保持直线；组合轮廓矢高不施加到主体底面或中心线。",
         "carback_rule": "仅收分车背脊线作浅内凹，矢高取根梢较小车背高度的0.75；112.5mm保留为嫩戗与菱角木/扁担木组合上轮廓的参考值，本层不把它压入嫩戗主体。",
-        "construction": "33截面放样；控制弦长900按空间直线长度解释，竖向升高480；根部从老戗侧身上缘起，布尔切老戗形成简化坐势。没有增加老戗头后的后延大楔块，菱角木/扁担木留待后层。",
+        "construction": "原33截面与檐端保持，整截面顺原斜势向内延长；老戗按嫩戗成品开槽。",
     }
-    return seated, young_info, centerline
+    return mortised, seated, young_info, centerline
+
+
+def fit_likou_end(shape, old_stock, young):
+    """Fit the peony-head end to the adjoining old and young corner timbers."""
+    fitted = shape.cut(old_stock).cut(young).clean()
+    if not fitted.isValid() or len(fitted.Solids()) != 1 or fitted.Volume() <= 1e-5:
+        raise ValueError("弯里口木牡丹头切配后无效")
+    return fitted
+
+
+def fit_lower_boards_to_young(parts, young):
+    for part in parts:
+        if part["group"] != "lower_board" or not s2.bbox_overlap(part["shape"], young):
+            continue
+        stock = part["shape"]
+        fitted = stock.cut(young).clean()
+        if stock.Volume() - fitted.Volume() <= 1e-5:
+            continue
+        if not fitted.isValid() or len(fitted.Solids()) != 1 or fitted.Volume() <= 1e-5:
+            raise ValueError(f"下层木望板与嫩戗切配后无效：{part['id']}")
+        part["shape"] = fitted
 
 
 def rail_path(case):
@@ -407,15 +450,22 @@ def build():
     parts,control=s2.make_parts(case)
     by_id={p["id"]:p for p in parts}
     old=by_id["old_corner"]["shape"]
-    young,young_info,young_axis=young_corner(case,old)
-    add(parts,"young_corner","嫩戗（圆弧背、根部简化坐势）","young_corner",young)
+    mortised,young,young_info,young_axis=young_corner(case,old)
+    by_id["old_corner"]["shape"]=mortised
+    add(parts,"young_corner","嫩戗（圆弧背、根部嵌入老戗）","young_corner",young)
     control.append({"id":"young_corner_axis","name":"嫩戗弧线中心","group":"young_corner","points":young_axis})
     path=rail_path(case)
     likou_records=[]
+    fitted_x = None
     for side in ("x","y"):
         shape,info,axis=build_likou_half(case,path,mirror=(side=="y"))
         pid=f"likou_{side}"
         wing_label="基准翼" if side=="x" else "镜像翼"
+        if side == "x":
+            fitted_x = fit_likou_end(shape, old, young)
+            shape = fitted_x
+        else:
+            shape = s2.mirror_shape(case, fitted_x)
         add(parts,pid,f"弯里口木{wing_label}（弧形过渡）","likou",shape)
         info["id"]=pid
         likou_records.append(info)
@@ -423,6 +473,7 @@ def build():
     case["eave"]={"inner_edge_y":case["e"]-float(case["p"]["likou_width"])}
     straight_records=straight_boards(case,parts,control)
     fan_entries,fan_info=fan_boards(case,parts,control)
+    fit_lower_boards_to_young(parts,young)
     params={"metadata":{"case_id":case["source"].get("case_id","CASE_ASSUMED_001"),
                          "corner_angle_deg":float(case.get("corner_angle_deg",90.0)),
                          "stage":3,"stage_name":STAGE_NAME,"units":"mm","up_axis":"Z"},

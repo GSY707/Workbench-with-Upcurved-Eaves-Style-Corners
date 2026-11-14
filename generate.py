@@ -635,7 +635,10 @@ def save_geometry_checkpoint(parts, control, config, fly_records, notch_records,
                                  "volume_mm3": volume, "brep": filename, "sha256": sha256(path)})
         context = {
             "case": {"fan_geometry": ctx["case"]["fan_geometry"],
-                     "eave_rafters_geometry": ctx["case"]["eave_rafters_geometry"]},
+                     "eave_rafters_geometry": ctx["case"]["eave_rafters_geometry"],
+                     "qiangshan_profile_adjustment": ctx["case"].get("qiangshan_profile_adjustment")},
+            "young_info": ctx.get("young_info"),
+            "likou_records": ctx.get("likou_records"),
             "upper_board_domain": ctx.get("upper_board_domain"),
             "selection_rule": ctx["selection_rule"],
             "likou_notch_performance": ctx.get("likou_notch_performance"),
@@ -1750,7 +1753,9 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
                "case": recovered_context["case"],
                "upper_board_domain": recovered_context.get("upper_board_domain"),
                "selection_rule": recovered_context["selection_rule"],
-               "likou_notch_performance": recovered_context.get("likou_notch_performance")}
+               "likou_notch_performance": recovered_context.get("likou_notch_performance"),
+               "young_info": recovered_context.get("young_info"),
+               "likou_records": recovered_context.get("likou_records")}
         fly_records = geometry_recovery["fly_records"]
         notch_records = geometry_recovery["notch_records"]
         board_records = geometry_recovery["board_records"]
@@ -1934,6 +1939,8 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
             "preview": {
                 "status": "preview_ready", "exact_generation_available": False,
                 "likou_notches_cut": False, "upper_rollboard_generated": False,
+                "young_corner_seat": (ctx.get("young_info") or {}).get("seat"),
+                "likou_end_fit": ctx.get("likou_records"),
                 "flyers": flyer_records,
                 "flyer_geometry_rule": "Each flyer uses the v=0 center R/I/E profile rigidly extruded along its true 3D width vector; A/B match by construction.",
                 "combination": combination_info,
@@ -1942,7 +1949,7 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
                 "layout_generated": False, "step_generated": False,
                 "warnings": [
                     "预览飞椽未保留全宽扭曲与两侧独立轮廓。",
-                    "里口保留原坯，未切槽；未生成上层卷戗板。",
+                    "里口高端已与老嫩戗切配，未开飞椽承口；未生成上层卷戗板。",
                     "组合木为未与老戗/嫩戗布尔切配、未上下拆分的原坯。",
                     "排料、放样 CSV 与 STEP 未生成；精确实体验收未运行。"],
             },
@@ -2032,6 +2039,8 @@ def generate(config_path: Path, output_path: Path, make_viewer=True, export_step
     if geometry_recovery is not None:
         validation["geometry_checkpoint_recovery"] = geometry_recovery
     validation["stage05"] = {"likou_notch_records": notch_records,
+                             "young_corner_seat": (ctx.get("young_info") or {}).get("seat"),
+                             "likou_end_fit": ctx.get("likou_records"),
                              "flyer_masterboard": ctx.get("flyer_masterboard"),
                              "qiangshan_profile_adjustment": ctx.get("case", {}).get(
                                  "qiangshan_profile_adjustment"),
